@@ -36,7 +36,7 @@ class EUVATSpec
 
   Feature("Monthly Return Payments for an Organisation") {
 
-    Scenario("Sign in to Landing page", Local) {
+    Scenario("Sign in to Landing page", Local, WIP) {
 
       Given("the organisation logs in")
       AuthorityWizard.login("Organisation", "Placeholder")

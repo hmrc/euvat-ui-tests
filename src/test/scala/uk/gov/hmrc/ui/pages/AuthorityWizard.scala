@@ -45,7 +45,7 @@ object AuthorityWizard extends BasePage {
 
   def buildRedirectUrl(): String =
     Env.baseUrl match {
-      case Urls.LOCAL => "http://localhost:9000/euvat-mgmt-frontend"
+      case Urls.LOCAL => "http://localhost:18500/euvat-mgmt-frontend"
       case _          => "/euvat-mgmt-frontend"
     }
 
