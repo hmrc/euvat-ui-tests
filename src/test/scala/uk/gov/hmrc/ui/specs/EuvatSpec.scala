@@ -24,7 +24,7 @@ import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.util.*
 
-class EUVATSpec
+class EuvatSpec
     extends AnyFeatureSpec
     with BaseSpec
     with GivenWhenThen
@@ -41,6 +41,9 @@ class EUVATSpec
       Given("the organisation logs in")
       AuthorityWizard.login("Organisation", "Placeholder")
       LandingPage.verifyPageTitle(LandingPage.pageTitle)
+      ManageYourEuvatClaim.clickLink("Make a new EU VAT claim")
+      MakeEuvatClaim.clickLink("Add claim details")
+      SelectEUMemberState.selectCountry("France")
     }
 
   }
