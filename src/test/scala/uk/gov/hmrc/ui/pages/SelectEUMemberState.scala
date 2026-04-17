@@ -24,9 +24,9 @@ object SelectEUMemberState extends BasePage {
 
   override def pageTitle: String = "Which EU member state are you claiming back VAT from? - EU VAT - GOV.UK"
 
-  val countryDropdown       = "#country__listbox"
-  val txtCountry: By        = By.cssSelector("#country") 
-  
+  val countryDropdown = "#country__listbox"
+  val txtCountry: By  = By.cssSelector("#country")
+
   def selectCountry(country: String): Unit = {
     clearCountry(txtCountry)
     input(txtCountry, country)
@@ -44,7 +44,7 @@ object SelectEUMemberState extends BasePage {
   }
 
   def clearCountry(selector: By): Unit = {
-    val el = waitForVisibilityOfElement(selector)
+    val el      = waitForVisibilityOfElement(selector)
     el.click()
     val current = Option(el.getAttribute("value")).getOrElse("")
     if (current.nonEmpty) {

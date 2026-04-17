@@ -16,8 +16,6 @@
 
 package uk.gov.hmrc.ui.pages
 
-import uk.gov.hmrc.ui.pages.BasePage
-
 object LandingPage extends BasePage {
 
   override def pageUrl: String = "manage-eu-vat"

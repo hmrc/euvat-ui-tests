@@ -23,27 +23,26 @@ object MakeEuvatClaim extends BasePage {
   override def pageTitle: String = "Make an EU VAT claim - EU VAT - GOV.UK"
 
   val lnkAddClaimDetails = "Add claim details"
-  val lnkAddPurchase = "Add a purchase"
-  val lnkAddImport = "Add an import"
-  val lnkAddSupportDocs = "Add or view supporting documents"
-  val lnkAddBankDetails = "Add bank details"
-  val lnkDeleteClaim = "Delete claim"
+  val lnkAddPurchase     = "Add a purchase"
+  val lnkAddImport       = "Add an import"
+  val lnkAddSupportDocs  = "Add or view supporting documents"
+  val lnkAddBankDetails  = "Add bank details"
+  val lnkDeleteClaim     = "Delete claim"
   val lnkClaimsDashboard = "Go to the claims dashboard"
 
   def clickLink(link: String): this.type = {
     val linkText = link match {
-      case "Add claim details" => lnkAddClaimDetails
-      case "Add a purchase" => lnkAddPurchase
-      case "Add an import" => lnkAddImport
+      case "Add claim details"                => lnkAddClaimDetails
+      case "Add a purchase"                   => lnkAddPurchase
+      case "Add an import"                    => lnkAddImport
       case "Add or view supporting documents" => lnkAddSupportDocs
-      case "Add bank details" => lnkAddBankDetails
-      case "Delete claim" => lnkDeleteClaim
-      case "Go to the claims dashboard" => lnkClaimsDashboard
-      case _ => throw new IllegalArgumentException(s"Invalid link: $link")
+      case "Add bank details"                 => lnkAddBankDetails
+      case "Delete claim"                     => lnkDeleteClaim
+      case "Go to the claims dashboard"       => lnkClaimsDashboard
+      case _                                  => throw new IllegalArgumentException(s"Invalid link: $link")
     }
     clickLinkByText(linkText)
     this
   }
-
 
 }

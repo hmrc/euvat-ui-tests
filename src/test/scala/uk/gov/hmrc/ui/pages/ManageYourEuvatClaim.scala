@@ -22,18 +22,17 @@ object ManageYourEuvatClaim extends BasePage {
 
   override def pageTitle: String = "Manage your EU VAT claim - EU VAT - GOV.UK"
 
-    val lnkNewClaim = "Make a new EU VAT claim"
-    val lnkViewClaim = "View or manage claims"
+  val lnkNewClaim  = "Make a new EU VAT claim"
+  val lnkViewClaim = "View or manage claims"
 
-    def clickLink(link: String): this.type = {
-      val linkText = link match {
-        case "Make a new EU VAT claim" => lnkNewClaim
-        case "View or manage claims" => lnkViewClaim
-        case _ => throw new IllegalArgumentException(s"Invalid link: $link")
-      }
-      clickLinkByText(linkText)
-      this
+  def clickLink(link: String): this.type = {
+    val linkText = link match {
+      case "Make a new EU VAT claim" => lnkNewClaim
+      case "View or manage claims"   => lnkViewClaim
+      case _                         => throw new IllegalArgumentException(s"Invalid link: $link")
     }
-
+    clickLinkByText(linkText)
+    this
+  }
 
 }

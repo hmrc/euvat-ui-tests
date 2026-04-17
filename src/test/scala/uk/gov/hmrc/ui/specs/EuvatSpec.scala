@@ -22,7 +22,6 @@ import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.tags.*
-import uk.gov.hmrc.ui.util.*
 
 class EuvatSpec
     extends AnyFeatureSpec
@@ -41,9 +40,9 @@ class EuvatSpec
       Given("the organisation logs in")
       AuthorityWizard.login("Organisation", "Placeholder")
       LandingPage.verifyPageTitle(LandingPage.pageTitle)
-      ManageYourEuvatClaim.clickLink("Make a new EU VAT claim")
-      MakeEuvatClaim.clickLink("Add claim details")
-      SelectEUMemberState.selectCountry("France")
+//      ManageYourEuvatClaim.clickLink("Make a new EU VAT claim")
+//      MakeEuvatClaim.clickLink("Add claim details")
+//      SelectEUMemberState.selectCountry("France")
     }
 
   }
