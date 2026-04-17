@@ -18,7 +18,7 @@ package uk.gov.hmrc.ui.util
 
 object Urls extends Enumeration {
   val LOCAL   =
-    "http://localhost:9949/auth-login-stub/gg-sign-in?continue=http://localhost:18500/euvat-mgmt-frontend"
+    "http://localhost:9949/auth-login-stub/gg-sign-in?continue=http://localhost:18500/manage-eu-vat"
   val QA      = "https://www.qa.tax.service.gov.uk"
   val DEV     = "https://www.development.tax.service.gov.uk"
   val STAGING = "https://www.staging.tax.service.gov.uk"

@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object LandingPage extends BasePage {
 
-  override def pageUrl: String = "euvat-mgmt-frontend"
+  override def pageUrl: String = "manage-eu-vat"
 
   override def pageTitle: String =
     "euvat-mgmt-frontend - euvat-mgmt-frontend - GOV.UK"
