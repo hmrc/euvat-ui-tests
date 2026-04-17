@@ -16,11 +16,23 @@
 
 package uk.gov.hmrc.ui.pages
 
-object LandingPage extends BasePage {
+object ManageYourEuvatClaim extends BasePage {
 
-  override def pageUrl: String = "manage-eu-vat"
+  override def pageUrl: String = "manage-your-eu-vat-claim"
 
-  override def pageTitle: String =
-    "euvat-mgmt-frontend - euvat-mgmt-frontend - GOV.UK"
+  override def pageTitle: String = "Manage your EU VAT claim - EU VAT - GOV.UK"
+
+  val lnkNewClaim  = "Make a new EU VAT claim"
+  val lnkViewClaim = "View or manage claims"
+
+  def clickLink(link: String): this.type = {
+    val linkText = link match {
+      case "Make a new EU VAT claim" => lnkNewClaim
+      case "View or manage claims"   => lnkViewClaim
+      case _                         => throw new IllegalArgumentException(s"Invalid link: $link")
+    }
+    clickLinkByText(linkText)
+    this
+  }
 
 }
