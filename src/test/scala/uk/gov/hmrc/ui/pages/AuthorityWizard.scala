@@ -45,8 +45,8 @@ object AuthorityWizard extends BasePage {
 
   def buildRedirectUrl(): String =
     Env.baseUrl match {
-      case Urls.LOCAL => "http://localhost:18500/euvat-mgmt-frontend"
-      case _          => "/euvat-mgmt-frontend"
+      case Urls.LOCAL => "http://localhost:18500/manage-eu-vat"
+      case _          => "/manage-eu-vat"
     }
 
   def fillInputs(userType: String, taxOfficeReference: String): this.type = userType match {
