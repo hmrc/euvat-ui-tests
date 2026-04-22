@@ -15,6 +15,9 @@
  */
 
 package uk.gov.hmrc.ui.pages
+import uk.gov.hmrc.ui.pages.BasePage
+
+import org.openqa.selenium.By
 
 object AddingRefundPeriod extends BasePage {
 
@@ -23,20 +26,15 @@ object AddingRefundPeriod extends BasePage {
   override def pageTitle: String = "What is the refund period? EU-VAT - GOV.UK"
 
   val txtStartMonth: By = By.ById("value.startMonth")
-  val txtStartYear: By = By.ById("value.startYear")
-  val txtEndMonth: By = By.ById("value.endMonth")
-  val txtEndYear: By = By.ById("value.endYear")
+  val txtStartYear: By  = By.ById("value.startYear")
+  val txtEndMonth: By   = By.ById("value.endMonth")
+  val txtEndYear: By    = By.ById("value.endYear")
 
-  def submitRefundPeriod(
-   startMonth: String,
-   startYear: String,
-   endMonth: String,
-   endYear: String
-  ): Unit = {
-    input(Locators.txtStartMonth, startMonth)
-    input(Locators.txtStartYear, startYear)
-    input(Locators.txtEndMonth, endMonth)
-    input(Locators.txtEndYear, endYear)
+  def submitRefundPeriod(startMonth: String, startYear: String, endMonth: String, endYear: String): Unit = {
+    input(txtStartMonth, startMonth)
+    input(txtStartYear, startYear)
+    input(txtEndMonth, endMonth)
+    input(txtEndYear, endYear)
     saveAndContinue()
   }
 

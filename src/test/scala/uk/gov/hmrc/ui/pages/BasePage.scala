@@ -39,16 +39,11 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
 
   /** Locator values */
   object Locators {
-    val btnSubmit           = ".govuk-button"
-    val lnkBack             = "Back"
-    val btnContinue         = ".govuk-button"
-    val rdoYes              = "#value_0"
-    val rdoNo               = "#value_1"
-    val txtEmailAddress: By = By.cssSelector("#value")
-    val txtTelephone: By    = By.cssSelector("#telephone")
-    val txtFirstName: By    = By.cssSelector("#firstName")
-    val txtLastName: By     = By.cssSelector("#lastName")
-
+    val btnSubmit   = ".govuk-button"
+    val lnkBack     = "Back"
+    val btnContinue = ".govuk-button"
+    val rdoYes      = "#value_0"
+    val rdoNo       = "#value_1"
 
   }
 

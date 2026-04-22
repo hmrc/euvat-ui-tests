@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.ui.pages
 
-import uk.gov.hmrc.ui.pages.BasePage
+import org.openqa.selenium.By
 
 object ContactDetailPage extends BasePage {
 
@@ -24,24 +24,16 @@ object ContactDetailPage extends BasePage {
 
   override def pageTitle: String = "Who should we contact about this claim? - EU VAT - GOV.UK"
 
-  def submitContactAddress(
-    emailAddress: String,
-    firstName: String,
-    lastName: String,
-    telephoneNumber: String
-    ): Unit = {
-    input(Locators.txtEmailAddress, emailAddress)
-    input(Locators.txtFirstName, firstName)
-    input(Locators.txtLastName, lastName)
-    input(Locators.txtTelephone, telephoneNumber)
+  val txtEmailAddress: By = By.cssSelector("#value")
+  val txtFirstName: By    = By.cssSelector("#firstName")
+  val txtLastName: By     = By.cssSelector("#lastName")
+  val txtTelephone: By    = By.cssSelector("#telephone")
+
+  def submitContactAddress(emailAddress: String, firstName: String, lastName: String, telephoneNumber: String): Unit = {
+    input(txtEmailAddress, emailAddress)
+    input(txtFirstName, firstName)
+    input(txtLastName, lastName)
+    input(txtTelephone, telephoneNumber)
     saveAndContinue()
   }
-
-
-
-
-
-
-
-
 }

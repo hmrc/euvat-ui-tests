@@ -23,7 +23,7 @@ import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.tags.*
 
-class EuvatSpec
+class NewEuvatClaimSpec
     extends AnyFeatureSpec
     with BaseSpec
     with GivenWhenThen
@@ -34,10 +34,9 @@ class EuvatSpec
     with ScreenshotOnFailure {
 
   Feature("Make an EUVAT Claim - Adding New Claim") {
-    Scenario("Adding new claim details", Local) {
-      Given("The user logs in to EUVAT application")
-      AuthorityWizard.login("", "")
-      LandingPage.verifyPageTitle(LandingPage.pageTitle)
+    Scenario("Sign in to Landing page", Local, WIP) {
+      Given("I login as an organisation")
+      AuthorityWizard.login("Organisation", "123456")
       When("User confirm from the landing page and moving further to create new claim")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
       And("User select to create new EUVAT claim")
@@ -49,20 +48,11 @@ class EuvatSpec
       And("User select EU country and add refund period details")
       SelectEUMemberState.selectCountry("France")
       AddingRefundPeriod.verifyPageTitle(AddingRefundPeriod.pageTitle)
-      AddingRefundPeriod.submitRefundPeriod(
-        "03",
-        "2025",
-        "03",
-        "2026"
-      )
+      AddingRefundPeriod.submitRefundPeriod("03", "2025", "03", "2026")
       ContactDetailPage.verifyPageTitle(ContactDetailPage.pageTitle)
       And("User add contact address details")
-      ContactDetailPage.saveAndContinue(
-        "Test@gmail.com",
-        "First Test Name",
-        "Last Test Name",
-        "9876543210"
-      )
+      ContactDetailPage.saveAndContinue("Test@gmail.com", "First Test Name", "Last Test Name", "9876543210")
+
     }
 
   }
