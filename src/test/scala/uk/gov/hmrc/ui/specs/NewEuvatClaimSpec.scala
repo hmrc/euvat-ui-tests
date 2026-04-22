@@ -35,7 +35,7 @@ class NewEuvatClaimSpec
 
   Feature("Monthly Return Payments for an Organisation") {
 
-    Scenario("Sign in to Landing page", Local, WIP) {
+    Scenario("Sign in to Landing page", Local) {
 
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "123456")
