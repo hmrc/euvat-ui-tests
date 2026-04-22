@@ -40,7 +40,7 @@ class NewEuvatClaimSpec
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "123456")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
-//      ManageYourEuvatClaim.clickLink("Make a new EU VAT claim")
+      ManageYourEuvatClaim.clickLink("Make a new EU VAT claim")
 //      MakeEuvatClaim.clickLink("Add claim details")
 //      SelectEUMemberState.selectCountry("France")
     }
