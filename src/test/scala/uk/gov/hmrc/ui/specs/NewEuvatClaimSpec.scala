@@ -35,12 +35,12 @@ class NewEuvatClaimSpec
 
   Feature("Monthly Return Payments for an Organisation") {
 
-    Scenario("Sign in to Landing page", Local) {
+    Scenario("Sign in to Landing page", Local, WIP) {
 
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "123456")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
-//      ManageYourEuvatClaim.clickLink("Make a new EU VAT claim")
+      ManageYourEuvatClaim.clickLink("Make a new EU VAT claim")
 //      MakeEuvatClaim.clickLink("Add claim details")
 //      SelectEUMemberState.selectCountry("France")
     }

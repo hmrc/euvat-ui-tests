@@ -53,7 +53,7 @@ object AuthorityWizard extends BasePage {
     case "Organisation" =>
       driver.findElement(authorityId).sendKeys("0000000264427063")
       driver.findElement(affinityGroup).sendKeys(userType)
-      driver.findElement(enrolmentKey).sendKeys("HMCE-VATDEC-ORG")
+      driver.findElement(enrolmentKey).sendKeys("HMRC-EU-REF-ORG")
       driver.findElement(enrolmentId).sendKeys("VATRegNo")
       val taxOfficeNumber = if (Env.env == "qa") "123456" else "123456"
       driver.findElement(enrolmentValue).sendKeys(taxOfficeNumber)
@@ -62,7 +62,7 @@ object AuthorityWizard extends BasePage {
       driver.findElement(authorityId).sendKeys("0000000264427063")
       driver.findElement(affinityGroup).sendKeys(userType)
       driver.findElement(enrolmentKey).sendKeys("HMCE-VAT-AGNT")
-      driver.findElement(enrolmentId).sendKeys("AgentReference")
+      driver.findElement(enrolmentId).sendKeys("AgentRefNo")
       driver.findElement(enrolmentValue).sendKeys(taxOfficeReference)
       this
   }
