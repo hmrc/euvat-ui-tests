@@ -2,7 +2,7 @@
 
 # euvat-ui-tests
 
-<SERVICE_NAME> UI journey tests.
+<EU VAT> UI journey tests.
 
 ## Pre-requisites
 
@@ -14,10 +14,10 @@ Start Mongo Docker container as follows:
 docker run --rm -d -p 27017:27017 --name mongo percona/percona-server-mongodb:6.0
 ```
 
-Start `<SERVICE_MANAGER_PROFILE>` services as follows:
+Start `EUVAT_ALL` services as follows:
 
 ```bash
-sm2 --start <SERVICE_MANAGER_PROFILE>
+sm2 --start EUVAT_ALL
 ```
 
 ## Tests
