@@ -18,13 +18,13 @@ package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.By
 
-object ContactDetailPage extends BasePage {
+object ContactDetails extends BasePage {
 
   override def pageUrl: String = "who-contact-about-this-claim"
 
   override def pageTitle: String = "Who should we contact about this claim? - EU VAT - GOV.UK"
 
-  val txtEmailAddress: By = By.cssSelector("#value")
+  val txtEmailAddress: By = By.cssSelector("#email")
   val txtFirstName: By    = By.cssSelector("#firstName")
   val txtLastName: By     = By.cssSelector("#lastName")
   val txtTelephone: By    = By.cssSelector("#telephone")

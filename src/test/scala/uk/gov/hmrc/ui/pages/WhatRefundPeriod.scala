@@ -15,11 +15,10 @@
  */
 
 package uk.gov.hmrc.ui.pages
-import uk.gov.hmrc.ui.pages.BasePage
 
 import org.openqa.selenium.By
 
-object AddingRefundPeriod extends BasePage {
+object WhatRefundPeriod extends BasePage {
 
   override def pageUrl: String = "what-refund-period"
 

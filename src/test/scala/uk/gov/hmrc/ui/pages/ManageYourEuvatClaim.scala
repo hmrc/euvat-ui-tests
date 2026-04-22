@@ -16,8 +16,6 @@
 
 package uk.gov.hmrc.ui.pages
 
-import uk.gov.hmrc.ui.pages.MakeEuvatClaim.linkBack
-
 object ManageYourEuvatClaim extends BasePage {
 
   override def pageUrl: String = "manage-eu-vat-claim"

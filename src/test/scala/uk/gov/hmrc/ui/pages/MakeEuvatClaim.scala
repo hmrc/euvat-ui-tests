@@ -29,7 +29,6 @@ object MakeEuvatClaim extends BasePage {
   val lnkAddBankDetails  = "Add bank details"
   val lnkDeleteClaim     = "Delete claim"
   val lnkClaimsDashboard = "Go to the claims dashboard"
-  val linkBack           = "Back"
 
   def clickLink(link: String): this.type = {
     val linkText = link match {
@@ -40,7 +39,6 @@ object MakeEuvatClaim extends BasePage {
       case "Add bank details"                 => lnkAddBankDetails
       case "Delete claim"                     => lnkDeleteClaim
       case "Go to the claims dashboard"       => lnkClaimsDashboard
-      case "Back"                             => linkBack
       case _                                  => throw new IllegalArgumentException(s"Invalid link: $link")
     }
     clickLinkByText(linkText)
