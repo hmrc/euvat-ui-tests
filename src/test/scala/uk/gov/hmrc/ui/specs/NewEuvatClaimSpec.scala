@@ -23,7 +23,7 @@ import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.tags.*
 
-class EuvatSpec
+class NewEuvatClaimSpec
     extends AnyFeatureSpec
     with BaseSpec
     with GivenWhenThen
@@ -35,11 +35,11 @@ class EuvatSpec
 
   Feature("Monthly Return Payments for an Organisation") {
 
-    Scenario("Sign in to Landing page", Local) {
+    Scenario("Sign in to Landing page", Local, WIP) {
 
-      Given("the organisation logs in")
-      AuthorityWizard.login("Organisation", "Placeholder")
-      LandingPage.verifyPageTitle(LandingPage.pageTitle)
+      Given("I login as an organisation")
+      AuthorityWizard.login("Organisation", "123456")
+      ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
 //      ManageYourEuvatClaim.clickLink("Make a new EU VAT claim")
 //      MakeEuvatClaim.clickLink("Add claim details")
 //      SelectEUMemberState.selectCountry("France")

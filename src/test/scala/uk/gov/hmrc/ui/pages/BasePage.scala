@@ -19,7 +19,7 @@ package uk.gov.hmrc.ui.pages
 import com.typesafe.scalalogging.LazyLogging
 import driver.BrowserDriver
 import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait, Wait, WebDriverWait}
-import org.openqa.selenium.{By, JavascriptExecutor, Keys, WebDriver, WebElement}
+import org.openqa.selenium.{By, JavascriptExecutor, WebDriver, WebElement}
 import org.scalatest.concurrent.Eventually
 import org.scalatest.matchers.must.Matchers
 import uk.gov.hmrc.selenium.component.PageObject

@@ -51,17 +51,18 @@ object AuthorityWizard extends BasePage {
 
   def fillInputs(userType: String, taxOfficeReference: String): this.type = userType match {
     case "Organisation" =>
+      driver.findElement(authorityId).sendKeys("0000000264427063")
       driver.findElement(affinityGroup).sendKeys(userType)
-      driver.findElement(enrolmentKey).sendKeys("")
-      driver.findElement(enrolmentId).sendKeys("")
-      val taxOfficeNumber = if (Env.env == "qa") "" else ""
+      driver.findElement(enrolmentKey).sendKeys("HMCE-VATDEC-ORG")
+      driver.findElement(enrolmentId).sendKeys("VATRegNo")
+      val taxOfficeNumber = if (Env.env == "qa") "123456" else "123456"
       driver.findElement(enrolmentValue).sendKeys(taxOfficeNumber)
       this
     case "Agent"        =>
       driver.findElement(authorityId).sendKeys("0000000264427063")
       driver.findElement(affinityGroup).sendKeys(userType)
       driver.findElement(enrolmentKey).sendKeys("HMCE-VAT-AGNT")
-      driver.findElement(enrolmentId).sendKeys("AgentRefNo")
+      driver.findElement(enrolmentId).sendKeys("AgentReference")
       driver.findElement(enrolmentValue).sendKeys(taxOfficeReference)
       this
   }
