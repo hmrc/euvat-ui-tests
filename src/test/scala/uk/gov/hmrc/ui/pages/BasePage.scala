@@ -19,7 +19,7 @@ package uk.gov.hmrc.ui.pages
 import com.typesafe.scalalogging.LazyLogging
 import driver.BrowserDriver
 import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait, Wait, WebDriverWait}
-import org.openqa.selenium.{By, JavascriptExecutor, Keys, WebDriver, WebElement}
+import org.openqa.selenium.{By, JavascriptExecutor, WebDriver, WebElement}
 import org.scalatest.concurrent.Eventually
 import org.scalatest.matchers.must.Matchers
 import uk.gov.hmrc.selenium.component.PageObject
@@ -39,9 +39,17 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
 
   /** Locator values */
   object Locators {
-    val btnSubmit = ".govuk-button"
-    val rdoYes    = "#value_0"
-    val rdoNo     = "#value_1"
+    val btnSubmit           = ".govuk-button"
+    val lnkBack             = "Back"
+    val btnContinue         = ".govuk-button"
+    val rdoYes              = "#value_0"
+    val rdoNo               = "#value_1"
+    val txtEmailAddress: By = By.cssSelector("#value")
+    val txtTelephone: By    = By.cssSelector("#telephone")
+    val txtFirstName: By    = By.cssSelector("#firstName")
+    val txtLastName: By     = By.cssSelector("#lastName")
+
+
   }
 
   def pageUrl: String
@@ -89,7 +97,11 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
   }
 
   /** Specific actions */
-  def saveAndContinue(): Unit = click(By.cssSelector(Locators.btnSubmit))
+  def saveAndContinue(): Unit = click(By.cssSelector(Locators.btnContinue))
+
+  def clickSubmitButton(): Unit = click(By.cssSelector(Locators.btnSubmit))
+
+  def clickBackLink(): Unit = click(By.linkText(Locators.lnkBack))
 
   /** Navigation methods */
   def navigateToPage(url: String): Unit = driver.navigate().to(url)

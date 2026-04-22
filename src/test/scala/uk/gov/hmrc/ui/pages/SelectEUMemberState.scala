@@ -20,7 +20,7 @@ import org.openqa.selenium.{By, Keys}
 
 object SelectEUMemberState extends BasePage {
 
-  override def pageUrl: String = "which-eu-member-state-are-you-claiming-back-vat-from"
+  override def pageUrl: String = "which-eu-member-state-claiming-back-vat"
 
   override def pageTitle: String = "Which EU member state are you claiming back VAT from? - EU VAT - GOV.UK"
 
