@@ -42,6 +42,7 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
     val btnSubmit = ".govuk-button"
     val rdoYes    = "#value_0"
     val rdoNo     = "#value_1"
+
   }
 
   def pageUrl: String
