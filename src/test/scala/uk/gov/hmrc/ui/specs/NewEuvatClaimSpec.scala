@@ -33,20 +33,20 @@ class NewEuvatClaimSpec
     with Browser
     with ScreenshotOnFailure {
 
-  Feature("Make an EUVAT Claim - Adding New Claim") {
+  Feature("Make a new EUVAT claim - New claim") {
     Scenario("Sign in to Landing page", Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "123456")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
-      
+
       When("I start new EUVAT claim")
       ManageYourEuvatClaim.clickLink("Make a new EU VAT claim")
-//      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      
-//      And("I add claim details")
-//      MakeEuvatClaim.clickLink("Add claim details")
-//      SelectEUMemberState.verifyPageTitle(SelectEUMemberState.pageTitle)
-//      SelectEUMemberState.selectCountry("France")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
+      And("I add claim details")
+      MakeEuvatClaim.clickLink("Add claim details")
+      SelectEUMemberState.verifyPageTitle(SelectEUMemberState.pageTitle)
+      SelectEUMemberState.selectCountry("France")
 //      WhatRefundPeriod.verifyPageTitle(WhatRefundPeriod.pageTitle)
 //      WhatRefundPeriod.submitRefundPeriod("03", "2025", "03", "2026")
 //      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
