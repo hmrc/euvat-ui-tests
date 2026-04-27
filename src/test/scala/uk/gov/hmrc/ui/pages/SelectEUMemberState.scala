@@ -22,10 +22,11 @@ object SelectEUMemberState extends BasePage {
 
   override def pageUrl: String = "which-eu-member-state-claiming-back-vat"
 
-  override def pageTitle: String = "Which EU member state are you claiming back VAT from? - EU VAT - GOV.UK"
+  override def pageTitle: String =
+    "Which EU member state are you claiming back VAT from? - EU VAT - GOV.UK"
 
-  val countryDropdown = "#country__listbox"
-  val txtCountry: By  = By.cssSelector("#country")
+  val countryDropdown = "#value__listbox"
+  val txtCountry: By  = By.cssSelector("#value")
 
   def selectCountry(country: String): Unit = {
     clearCountry(txtCountry)
