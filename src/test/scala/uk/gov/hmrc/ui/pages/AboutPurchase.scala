@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.ui.pages
 
-
 object AboutPurchase extends BasePage {
 
   override def pageUrl: String = "about-the-purchase"

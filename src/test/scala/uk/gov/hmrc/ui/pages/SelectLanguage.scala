@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.ui.pages
 
-
 object SelectLanguage extends BasePage {
 
   override def pageUrl: String = "what-language"
