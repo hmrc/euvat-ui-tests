@@ -25,8 +25,8 @@ object SelectEUMemberState extends BasePage {
   override def pageTitle: String =
     "Which EU member state are you claiming back VAT from? - EU VAT - GOV.UK"
 
-  val countryDropdown = "#value__listbox"
-  val txtCountry: By  = By.cssSelector("#value")
+  val countryDropdown = "#value-input__listbox"
+  val txtCountry: By  = By.cssSelector("#value-input")
 
   def selectCountry(country: String): Unit = {
     clearCountry(txtCountry)
