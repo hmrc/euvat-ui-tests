@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.ui.pages
 
-import org.openqa.selenium.By
 
 object SelectLanguage extends BasePage {
 
@@ -25,7 +24,7 @@ object SelectLanguage extends BasePage {
   override def pageTitle: String = "What language do you want to use for this claim? EU VAT- GOV.UK"
 
   val rdoEnglish = "#value_0"
-  val rdoFrench = "#value_1"
+  val rdoFrench  = "#value_1"
 
   def continueAsEnglish(): Unit = {
     radioButton(rdoEnglish)

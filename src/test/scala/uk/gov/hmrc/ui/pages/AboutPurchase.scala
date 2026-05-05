@@ -16,12 +16,11 @@
 
 package uk.gov.hmrc.ui.pages
 
-import org.openqa.selenium.By
 
 object AboutPurchase extends BasePage {
 
   override def pageUrl: String = "about-the-purchase"
 
-  override def pageTitle: String = "About the purchase - EU GOV.UK"
+  override def pageTitle: String = "About the purchase - EU VAT - GOV.UK"
 
 }

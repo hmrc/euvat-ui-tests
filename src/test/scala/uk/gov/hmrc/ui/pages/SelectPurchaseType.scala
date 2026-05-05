@@ -16,43 +16,29 @@
 
 package uk.gov.hmrc.ui.pages
 
-import org.openqa.selenium.By
-
 object SelectPurchaseType extends BasePage {
 
   override def pageUrl: String = "purchase-type"
 
   override def pageTitle: String = "Purchase type - EU VAT - GOV.UK"
 
-  val rdoFuel = "Fuel"
+  val rdoFuel      = "Fuel"
   val rdoTransport = "Expenditure relating to means of transport"
-  val rdoFood = "Food, drink and restaurant services"
-  val rdoLuxuries = "Expenditure on luxuries, amusements and entertainment"
-  val rdoOther = "Other"
+  val rdoFood      = "Food, drink and restaurant services"
+  val rdoLuxuries  = "Expenditure on luxuries, amusements and entertainment"
+  val rdoOther     = "Other"
 
-  def continueAsFuel(): Unit = {
-    radioButton(rdoFuel)
-    saveAndContinue()
-  }
-
-  def continueAsTransport(): Unit = {
-    radioButton(rdoTransport)
-    saveAndContinue()
-  }
-
-  def continueAsFood(): Unit = {
-    radioButton(rdoFood)
-    saveAndContinue()
-  }
-
-  def continueAsLuxuries(): Unit = {
-    radioButton(rdoLuxuries)
-    saveAndContinue()
-  }
-
-  def continueAsOther(): Unit = {
-    radioButton(rdoOther)
-    saveAndContinue()
+  def clickRadio(radio: String): this.type = {
+    val selector = radio match {
+      case "Fuel"                                                  => rdoFuel
+      case "Expenditure relating to means of transport"            => rdoTransport
+      case "Food, drink and restaurant services"                   => rdoFood
+      case "Expenditure on luxuries, amusements and entertainment" => rdoLuxuries
+      case "Other"                                                 => rdoOther
+      case _                                                       => throw new IllegalArgumentException(s"Invalid option: $radio")
+    }
+    radioButton(selector)
+    this
   }
 
 }

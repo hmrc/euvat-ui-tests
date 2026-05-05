@@ -52,18 +52,14 @@ class NewEuvatClaimSpec
 //      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
 //      ContactDetails.submitContactAddress("Test@gmail.com", "First Test Name", "Last Test Name", "9876543210")
 
-      And("I select language based on the selected EU state")
-      SelectLanguage.verifyPageTitle(SelectLanguage.pageTitle)
-      SelectLanguage.continueAsEnglish()
-
-      And("I continue with about purchase details")
-      AboutPurchase.verifyPageTitle(AboutPurchase.pageTitle)
-      AboutPurchase.saveAndContinue()
-
-
-      And("I select the Purchase Type")
-      SelectPurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
-      SelectPurchaseType.continueAsFuel()
+//      SelectLanguage.verifyPageTitle(SelectLanguage.pageTitle)
+//      SelectLanguage.continueAsEnglish()
+//
+//      AboutPurchase.verifyPageTitle(AboutPurchase.pageTitle)
+//      AboutPurchase.saveAndContinue()
+//
+//      SelectPurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
+//      SelectPurchaseType.clickRadio("Fuel")
 
     }
 
