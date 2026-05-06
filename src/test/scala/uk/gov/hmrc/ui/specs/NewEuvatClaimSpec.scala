@@ -60,7 +60,6 @@ class NewEuvatClaimSpec
 //
 //      SelectPurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
 //      SelectPurchaseType.clickRadio("Fuel")
-//        SelectPurchaseType.saveAndContinue()
 
     }
 

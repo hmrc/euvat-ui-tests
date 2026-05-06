@@ -38,6 +38,7 @@ object SelectPurchaseType extends BasePage {
       case _                                                       => throw new IllegalArgumentException(s"Invalid option: $radio")
     }
     radioButton(selector)
+    saveAndContinue()
     this
   }
 
