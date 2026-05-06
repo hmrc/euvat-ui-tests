@@ -51,6 +51,16 @@ class NewEuvatClaimSpec
 //      WhatRefundPeriod.submitRefundPeriod("03", "2025", "03", "2026")
 //      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
 //      ContactDetails.submitContactAddress("Test@gmail.com", "First Test Name", "Last Test Name", "9876543210")
+
+//      SelectLanguage.verifyPageTitle(SelectLanguage.pageTitle)
+//      SelectLanguage.continueAsEnglish()
+//
+//      AboutPurchase.verifyPageTitle(AboutPurchase.pageTitle)
+//      AboutPurchase.saveAndContinue()
+//
+//      SelectPurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
+//      SelectPurchaseType.clickRadio("Fuel")
+
     }
 
   }
