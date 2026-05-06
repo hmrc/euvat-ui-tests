@@ -45,8 +45,8 @@ class NewEuvatClaimSpec
 
       And("I add claim details")
       MakeEuvatClaim.clickLink("Add claim details")
-//      SelectEUMemberState.verifyPageTitle(SelectEUMemberState.pageTitle)
-//      SelectEUMemberState.selectCountry("France")
+      SelectEUMemberState.verifyPageTitle(SelectEUMemberState.pageTitle)
+      SelectEUMemberState.selectCountry("France")
 //      WhatRefundPeriod.verifyPageTitle(WhatRefundPeriod.pageTitle)
 //      WhatRefundPeriod.submitRefundPeriod("03", "2025", "03", "2026")
 //      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
