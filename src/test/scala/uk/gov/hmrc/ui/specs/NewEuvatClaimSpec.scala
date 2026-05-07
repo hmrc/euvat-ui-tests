@@ -34,7 +34,7 @@ class NewEuvatClaimSpec
     with ScreenshotOnFailure {
 
   Feature("Make a new EUVAT claim - New claim") {
-    Scenario("Sign in to Landing page", Local, WIP) {
+    Scenario("Sign in to Landing page", Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "123456")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
