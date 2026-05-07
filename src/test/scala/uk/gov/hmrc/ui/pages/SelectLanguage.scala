@@ -20,7 +20,7 @@ object SelectLanguage extends BasePage {
 
   override def pageUrl: String = "what-language"
 
-  override def pageTitle: String = "What language do you want to use for this claim? EU VAT- GOV.UK"
+  override def pageTitle: String = "What language do you want to use for this claim? - EU VAT - GOV.UK"
 
   val rdoEnglish = "#value_0"
   val rdoFrench  = "#value_1"

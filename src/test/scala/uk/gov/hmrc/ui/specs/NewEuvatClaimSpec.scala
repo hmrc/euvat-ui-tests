@@ -34,7 +34,7 @@ class NewEuvatClaimSpec
     with ScreenshotOnFailure {
 
   Feature("Make a new EUVAT claim - New claim") {
-    Scenario("Sign in to Landing page", Local) {
+    Scenario("Sign in to Landing page", Local, WIP) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "123456")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
@@ -47,13 +47,12 @@ class NewEuvatClaimSpec
       MakeEuvatClaim.clickLink("Add claim details")
       SelectEUMemberState.verifyPageTitle(SelectEUMemberState.pageTitle)
       SelectEUMemberState.selectCountry("France")
+      SelectLanguage.verifyPageTitle(SelectLanguage.pageTitle)
+      SelectLanguage.continueAsEnglish()
 //      WhatRefundPeriod.verifyPageTitle(WhatRefundPeriod.pageTitle)
 //      WhatRefundPeriod.submitRefundPeriod("03", "2025", "03", "2026")
 //      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
 //      ContactDetails.submitContactAddress("Test@gmail.com", "First Test Name", "Last Test Name", "9876543210")
-
-//      SelectLanguage.verifyPageTitle(SelectLanguage.pageTitle)
-//      SelectLanguage.continueAsEnglish()
 //
 //      AboutPurchase.verifyPageTitle(AboutPurchase.pageTitle)
 //      AboutPurchase.saveAndContinue()
