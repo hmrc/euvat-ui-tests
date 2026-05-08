@@ -47,13 +47,12 @@ class NewEuvatClaimSpec
       MakeEuvatClaim.clickLink("Add claim details")
       SelectEUMemberState.verifyPageTitle(SelectEUMemberState.pageTitle)
       SelectEUMemberState.selectCountry("France")
+      SelectLanguage.verifyPageTitle(SelectLanguage.pageTitle)
+      SelectLanguage.continueAsEnglish()
 //      WhatRefundPeriod.verifyPageTitle(WhatRefundPeriod.pageTitle)
 //      WhatRefundPeriod.submitRefundPeriod("03", "2025", "03", "2026")
 //      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
 //      ContactDetails.submitContactAddress("Test@gmail.com", "First Test Name", "Last Test Name", "9876543210")
-
-//      SelectLanguage.verifyPageTitle(SelectLanguage.pageTitle)
-//      SelectLanguage.continueAsEnglish()
 //
 //      AboutPurchase.verifyPageTitle(AboutPurchase.pageTitle)
 //      AboutPurchase.saveAndContinue()
