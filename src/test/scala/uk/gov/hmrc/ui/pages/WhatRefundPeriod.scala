@@ -22,12 +22,12 @@ object WhatRefundPeriod extends BasePage {
 
   override def pageUrl: String = "what-refund-period"
 
-  override def pageTitle: String = "What is the refund period? EU-VAT - GOV.UK"
+  override def pageTitle: String = "What is the refund period? - EU VAT - GOV.UK"
 
-  val txtStartMonth: By = By.ById("value.startMonth")
-  val txtStartYear: By  = By.ById("value.startYear")
-  val txtEndMonth: By   = By.ById("value.endMonth")
-  val txtEndYear: By    = By.ById("value.endYear")
+  val txtStartMonth: By = By.ById("start.month")
+  val txtStartYear: By  = By.ById("start.year")
+  val txtEndMonth: By   = By.ById("end.month")
+  val txtEndYear: By    = By.ById("end.year")
 
   def submitRefundPeriod(startMonth: String, startYear: String, endMonth: String, endYear: String): Unit = {
     input(txtStartMonth, startMonth)
