@@ -54,7 +54,8 @@ class NewEuvatClaimSpec
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("Test@gmail.com", "First Test Name", "Last Test Name", "9876543210")
 //      AddBusinessActivityCode.continueAsYes()
-//
+//      BusinessActivityCodeThree.clickLink("Change business activity code two")
+
 //      AboutPurchase.verifyPageTitle(AboutPurchase.pageTitle)
 //      AboutPurchase.saveAndContinue()
 //
