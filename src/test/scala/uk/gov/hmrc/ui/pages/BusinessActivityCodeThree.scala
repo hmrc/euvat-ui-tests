@@ -22,22 +22,21 @@ object BusinessActivityCodeThree extends BasePage {
 
   override def pageTitle: String = "Business activity for this claim - EU VAT - GOV.UK"
 
-  val lnkChangeBusinessActivityTwo = "Change business activity code two"
-  val lnkDeleteBusinessActivityTwo = "Delete business activity code two"
+  val lnkChangeBusinessActivityTwo   = "Change business activity code two"
+  val lnkDeleteBusinessActivityTwo   = "Delete business activity code two"
   val lnkChangeBusinessActivityThree = "Change business activity code three"
   val lnkDeleteBusinessActivityThree = "Delete business activity code three"
 
   def clickLink(link: String): this.type = {
     val linkText = link match {
-      case "Change business activity code two" => lnkChangeBusinessActivityTwo
-      case "Delete business activity code two" => lnkDeleteBusinessActivityTwo
+      case "Change business activity code two"   => lnkChangeBusinessActivityTwo
+      case "Delete business activity code two"   => lnkDeleteBusinessActivityTwo
       case "Change business activity code three" => lnkChangeBusinessActivityThree
       case "Delete business activity code three" => lnkDeleteBusinessActivityThree
-      case _ => throw new IllegalArgumentException(s"Invalid link: $link")
+      case _                                     => throw new IllegalArgumentException(s"Invalid link: $link")
     }
     clickLinkByText(linkText)
     this
   }
-
 
 }
