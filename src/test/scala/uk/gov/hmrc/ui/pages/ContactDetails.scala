@@ -25,14 +25,10 @@ object ContactDetails extends BasePage {
   override def pageTitle: String = "Who should we contact about this claim? - EU VAT - GOV.UK"
 
   val txtEmailAddress: By = By.cssSelector("#contactEmail")
-  val txtFirstName: By    = By.cssSelector("#contactFirstName")
-  val txtLastName: By     = By.cssSelector("#contactLastName")
   val txtTelephone: By    = By.cssSelector("#contactTelephone")
 
-  def submitContactAddress(emailAddress: String, firstName: String, lastName: String, telephoneNumber: String): Unit = {
+  def submitContactAddress(emailAddress: String, telephoneNumber: String): Unit = {
     input(txtEmailAddress, emailAddress)
-    input(txtFirstName, firstName)
-    input(txtLastName, lastName)
     input(txtTelephone, telephoneNumber)
     saveAndContinue()
   }
