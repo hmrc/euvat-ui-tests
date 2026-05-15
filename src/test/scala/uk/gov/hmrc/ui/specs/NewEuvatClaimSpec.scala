@@ -53,7 +53,9 @@ class NewEuvatClaimSpec
       WhatRefundPeriod.submitRefundPeriod("08", "2025", "12", "2025")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("Test@gmail.com", "First Test Name", "Last Test Name", "9876543210")
+//      AddBusinessActivityCode.verifyPageTitle(AddBusinessActivityCode.pageTitle)
 //      AddBusinessActivityCode.continueAsYes()
+//      BusinessActivityCodeThree.verifyPageTitle(BusinessActivityCodeThree.pageTitle)
 //      BusinessActivityCodeThree.clickLink("Change business activity code two")
 
 //      AboutPurchase.verifyPageTitle(AboutPurchase.pageTitle)
