@@ -64,9 +64,12 @@ class NewEuvatClaimSpec
 
 //      AboutPurchase.verifyPageTitle(AboutPurchase.pageTitle)
 //      AboutPurchase.saveAndContinue()
-//
+
 //      SelectPurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
 //      SelectPurchaseType.clickRadio("Fuel")
+//
+//      SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
+//      SupplierAddress.submitSupplierAddress("Test address one","Test address two","Test address three")
 
     }
 
