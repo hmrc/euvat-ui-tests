@@ -57,8 +57,10 @@ class NewEuvatClaimSpec
       AddBusinessActivityCode.continueAsYes()
       Add2ndBusinessActivityCode.verifyPageTitle(Add2ndBusinessActivityCode.pageTitle)
       Add2ndBusinessActivityCode.selectSecondBusinessActivityCode("47110 (Retail sale in non-specialised stores)")
-//      BusinessActivityCodeThree.verifyPageTitle(BusinessActivityCodeThree.pageTitle)
-//      BusinessActivityCodeThree.clickLink("Change business activity code two")
+      Add3rdBusinessActivityCode.verifyPageTitle(Add3rdBusinessActivityCode.pageTitle)
+      Add3rdBusinessActivityCode.selectThirdBusinessActivityCode("11010 (Manufacture of beverages)")
+      BusinessActivityCodeThree.verifyPageTitle(BusinessActivityCodeThree.pageTitle)
+      BusinessActivityCodeThree.clickLink("Change business activity code two")
 
 //      AboutPurchase.verifyPageTitle(AboutPurchase.pageTitle)
 //      AboutPurchase.saveAndContinue()
