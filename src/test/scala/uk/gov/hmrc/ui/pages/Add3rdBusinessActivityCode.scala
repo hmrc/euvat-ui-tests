@@ -18,33 +18,33 @@ package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.{By, Keys}
 
-object Add2ndBusinessActivityCode extends BasePage {
+object Add3rdBusinessActivityCode extends BasePage {
 
-  override def pageUrl: String = "business-activity-code-2"
+  override def pageUrl: String = "business-activity-code-3"
 
   override def pageTitle: String =
-    "2nd business activity for this claim - EU VAT - GOV.UK"
+    "3rd business activity for this claim - EU VAT - GOV.UK"
 
-  val secondBusinessActivityCodeDropdown = "#value-input__listbox"
-  val txtSecondBusinessActivityCode: By  = By.cssSelector("#value-input")
+  val thirdBusinessActivityCodeDropdown = "#value-input__listbox"
+  val txtThirdBusinessActivityCode: By  = By.cssSelector("#value-input")
 
-  def selectSecondBusinessActivityCode(businessActivityCode: String): Unit = {
-    clearSecondBusinessActivityCode(txtSecondBusinessActivityCode)
-    input(txtSecondBusinessActivityCode, businessActivityCode)
-    clickSecondBusinessActivityCodeDropdown()
+  def selectThirdBusinessActivityCode(businessActivityCode: String): Unit = {
+    clearThirdBusinessActivityCode(txtThirdBusinessActivityCode)
+    input(txtThirdBusinessActivityCode, businessActivityCode)
+    clickThirdBusinessActivityCodeDropdown()
     saveAndContinue()
   }
 
-  def clickSecondBusinessActivityCodeDropdown(): Unit = click(By.cssSelector(secondBusinessActivityCodeDropdown))
+  def clickThirdBusinessActivityCodeDropdown(): Unit = click(By.cssSelector(thirdBusinessActivityCodeDropdown))
 
   /** Clear already selected country value */
-  def clearSecondBusinessActivityCodeDropdown(selector: By): Unit = {
+  def clearThirdBusinessActivityCodeDropdown(selector: By): Unit = {
     val element = waitForVisibilityOfElement(selector)
     element.sendKeys(Keys.CONTROL, "a")
     element.sendKeys(Keys.DELETE)
   }
 
-  def clearSecondBusinessActivityCode(selector: By): Unit = {
+  def clearThirdBusinessActivityCode(selector: By): Unit = {
     val el      = waitForVisibilityOfElement(selector)
     el.click()
     val current = Option(el.getAttribute("value")).getOrElse("")
