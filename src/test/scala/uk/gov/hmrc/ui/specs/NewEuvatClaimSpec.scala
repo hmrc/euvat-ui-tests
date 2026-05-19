@@ -53,8 +53,10 @@ class NewEuvatClaimSpec
       WhatRefundPeriod.submitRefundPeriod("08", "2025", "12", "2025")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
-//      AddBusinessActivityCode.verifyPageTitle(AddBusinessActivityCode.pageTitle)
-//      AddBusinessActivityCode.continueAsYes()
+      AddBusinessActivityCode.verifyPageTitle(AddBusinessActivityCode.pageTitle)
+      AddBusinessActivityCode.continueAsYes()
+      Add2ndBusinessActivityCode.verifyPageTitle(Add2ndBusinessActivityCode.pageTitle)
+      Add2ndBusinessActivityCode.selectSecondBusinessActivityCode("47110 (Retail sale in non-specialised stores)")
 //      BusinessActivityCodeThree.verifyPageTitle(BusinessActivityCodeThree.pageTitle)
 //      BusinessActivityCodeThree.clickLink("Change business activity code two")
 
