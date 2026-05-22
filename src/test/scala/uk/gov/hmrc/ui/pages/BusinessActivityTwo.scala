@@ -16,11 +16,24 @@
 
 package uk.gov.hmrc.ui.pages
 
-object AddBusinessActivityCode extends BasePage {
+object BusinessActivityTwo extends BasePage {
 
-  override def pageUrl: String = "what-business-activity"
+  override def pageUrl: String = "business-activity-2"
 
   override def pageTitle: String = "Business activity for this claim - EU VAT - GOV.UK"
+
+  val lnkChangeBusinessActivityTwo = "Change business activity code two"
+  val lnkDeleteBusinessActivityTwo = "Delete business activity code two"
+
+  def clickLink(link: String): this.type = {
+    val linkText = link match {
+      case "Change business activity code two" => lnkChangeBusinessActivityTwo
+      case "Delete business activity code two" => lnkDeleteBusinessActivityTwo
+      case _                                   => throw new IllegalArgumentException(s"Invalid link: $link")
+    }
+    clickLinkByText(linkText)
+    this
+  }
 
   def continueAsYes(): Unit = {
     radioButton(Locators.rdoYes)

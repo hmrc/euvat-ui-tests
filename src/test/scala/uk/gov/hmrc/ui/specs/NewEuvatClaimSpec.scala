@@ -34,7 +34,7 @@ class NewEuvatClaimSpec
     with ScreenshotOnFailure {
 
   Feature("Make a new EUVAT claim - New claim") {
-    Scenario("Sign in to Landing page", Local) {
+    Scenario("Submit a refund request", Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "123456")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
@@ -53,15 +53,18 @@ class NewEuvatClaimSpec
       WhatRefundPeriod.submitRefundPeriod("08", "2025", "12", "2025")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
-      AddBusinessActivityCode.verifyPageTitle(AddBusinessActivityCode.pageTitle)
-      AddBusinessActivityCode.continueAsYes()
+      BusinessActivity.verifyPageTitle(BusinessActivity.pageTitle)
+      BusinessActivity.continueAsYes()
       Add2ndBusinessActivityCode.verifyPageTitle(Add2ndBusinessActivityCode.pageTitle)
       Add2ndBusinessActivityCode.selectSecondBusinessActivityCode("47110 (Retail sale in non-specialised stores)")
+      BusinessActivityTwo.verifyPageTitle(BusinessActivityTwo.pageTitle)
+      BusinessActivityTwo.continueAsYes()
       Add3rdBusinessActivityCode.verifyPageTitle(Add3rdBusinessActivityCode.pageTitle)
       Add3rdBusinessActivityCode.selectThirdBusinessActivityCode("11010 (Manufacture of beverages)")
-      BusinessActivityCodeThree.verifyPageTitle(BusinessActivityCodeThree.pageTitle)
-      BusinessActivityCodeThree.clickLink("Change business activity code two")
+      BusinessActivityThree.verifyPageTitle(BusinessActivityThree.pageTitle)
+      BusinessActivityThree.clickLink("Change business activity code two")
 
+      And("I add purchase details")
 //      AboutPurchase.verifyPageTitle(AboutPurchase.pageTitle)
 //      AboutPurchase.saveAndContinue()
 
