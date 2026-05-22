@@ -26,7 +26,6 @@ object SupplierName extends BasePage {
 
   val txtSupplierName: By = By.cssSelector("#value")
 
-  
   def submitSupplierName(supplierName: String): Unit = {
     input(txtSupplierName, supplierName)
     saveAndContinue()
