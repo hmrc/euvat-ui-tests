@@ -24,7 +24,7 @@ object SupplierName extends BasePage {
 
   override def pageTitle: String = "What is the supplier’s name? - EU VAT - GOV.UK"
 
-  val txtSupplierName: By = By.cssSelector("#addressLine1")
+  val txtSupplierName: By = By.cssSelector("#value")
 
   def submitSupplierName(supplierName: String): Unit = {
     input(txtSupplierName, supplierName)
