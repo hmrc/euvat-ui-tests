@@ -65,11 +65,14 @@ class NewEuvatClaimSpec
       BusinessActivityThree.clickLink("Change business activity code two")
 
       And("I add purchase details")
-//      AboutPurchase.verifyPageTitle(AboutPurchase.pageTitle)
+      AboutPurchase.verifyPageTitle(AboutPurchase.pageTitle)
 //      AboutPurchase.saveAndContinue()
 
 //      SelectPurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
 //      SelectPurchaseType.clickRadio("Fuel")
+
+//      AddInvoiceNumber.verifyPageTitle(AddInvoiceNumber.pageTitle)
+//      AddInvoiceNumber.submitInvoiceNumber("Test_Invoice_123.5")
 //
 //      SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
 //      SupplierAddress.submitSupplierAddress("Test address one","Test address two","Test address three")
