@@ -70,7 +70,10 @@ class NewEuvatClaimSpec
 
 //      SelectPurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
 //      SelectPurchaseType.clickRadio("Fuel")
-//
+
+//      SupplierName.verifyPageTitle(SupplierName.pageTitle)
+//      SupplierName.submitSupplierName("Test Supplier Name")
+
 //      SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
 //      SupplierAddress.submitSupplierAddress("Test address one","Test address two","Test address three")
 
