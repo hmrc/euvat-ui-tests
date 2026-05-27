@@ -34,7 +34,7 @@ object WhatRefundPeriod extends BasePage {
     input(txtStartYear, startYear)
     input(txtEndMonth, endMonth)
     input(txtEndYear, endYear)
-    saveAndContinue()
+    continue()
   }
 
 }

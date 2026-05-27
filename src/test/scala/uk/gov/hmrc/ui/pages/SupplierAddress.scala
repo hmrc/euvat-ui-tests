@@ -32,6 +32,6 @@ object SupplierAddress extends BasePage {
     input(txtAddressLine1, addressLine1)
     input(txtAddressLine2, addressLine2)
     input(txtAddressLine3, addressLine3)
-    saveAndContinue()
+    continue()
   }
 }

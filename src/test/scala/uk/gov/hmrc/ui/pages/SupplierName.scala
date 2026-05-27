@@ -28,6 +28,6 @@ object SupplierName extends BasePage {
 
   def submitSupplierName(supplierName: String): Unit = {
     input(txtSupplierName, supplierName)
-    saveAndContinue()
+    continue()
   }
 }

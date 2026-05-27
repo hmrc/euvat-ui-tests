@@ -20,22 +20,26 @@ object BusinessActivityThree extends BasePage {
 
   override def pageUrl: String = "business-activity-3"
 
-  override def pageTitle: String = "Business activity for this claim - EU VAT - GOV.UK"
+  override def pageTitle: String = "Business activities for this claim - EU VAT - GOV.UK"
 
-  val lnkChangeBusinessActivityTwo   = "Change business activity code two"
-  val lnkDeleteBusinessActivityTwo   = "Delete business activity code two"
-  val lnkChangeBusinessActivityThree = "Change business activity code three"
-  val lnkDeleteBusinessActivityThree = "Delete business activity code three"
+  val lnkChangeBusinessActivityTwo   =
+    "#main-content > div > div > form > dl > div:nth-child(1) > dd.govuk-summary-list__actions > ul > li:nth-child(1) > a"
+  val lnkDeleteBusinessActivityTwo   =
+    "#main-content > div > div > form > dl > div:nth-child(1) > dd.govuk-summary-list__actions > ul > li:nth-child(2) > a"
+  val lnkChangeBusinessActivityThree =
+    "#main-content > div > div > form > dl > div:nth-child(2) > dd.govuk-summary-list__actions > ul > li:nth-child(1) > a"
+  val lnkDeleteBusinessActivityThree =
+    "#main-content > div > div > form > dl > div:nth-child(2) > dd.govuk-summary-list__actions > ul > li:nth-child(2) > a"
 
   def clickLink(link: String): this.type = {
-    val linkText = link match {
+    val linkCSS = link match {
       case "Change business activity code two"   => lnkChangeBusinessActivityTwo
       case "Delete business activity code two"   => lnkDeleteBusinessActivityTwo
       case "Change business activity code three" => lnkChangeBusinessActivityThree
       case "Delete business activity code three" => lnkDeleteBusinessActivityThree
       case _                                     => throw new IllegalArgumentException(s"Invalid link: $link")
     }
-    clickLinkByText(linkText)
+    clickLinkByCSS(linkCSS)
     this
   }
 

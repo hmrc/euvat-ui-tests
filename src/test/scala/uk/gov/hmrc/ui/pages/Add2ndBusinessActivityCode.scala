@@ -23,7 +23,7 @@ object Add2ndBusinessActivityCode extends BasePage {
   override def pageUrl: String = "business-activity-code-2"
 
   override def pageTitle: String =
-    "2nd business activity for this claim - EU VAT - GOV.UK"
+    "What is the 2nd business activity? - EU VAT - GOV.UK"
 
   val secondBusinessActivityCodeDropdown = "#value-input__listbox"
   val txtSecondBusinessActivityCode: By  = By.cssSelector("#value-input")
@@ -32,7 +32,7 @@ object Add2ndBusinessActivityCode extends BasePage {
     clearSecondBusinessActivityCode(txtSecondBusinessActivityCode)
     input(txtSecondBusinessActivityCode, businessActivityCode)
     clickSecondBusinessActivityCodeDropdown()
-    saveAndContinue()
+    continue()
   }
 
   def clickSecondBusinessActivityCodeDropdown(): Unit = click(By.cssSelector(secondBusinessActivityCodeDropdown))

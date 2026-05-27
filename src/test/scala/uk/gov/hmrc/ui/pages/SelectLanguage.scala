@@ -27,12 +27,12 @@ object SelectLanguage extends BasePage {
 
   def continueAsEnglish(): Unit = {
     radioButton(rdoEnglish)
-    saveAndContinue()
+    continue()
   }
 
   def continueAsFrench(): Unit = {
     radioButton(rdoFrench)
-    saveAndContinue()
+    continue()
   }
 
 }

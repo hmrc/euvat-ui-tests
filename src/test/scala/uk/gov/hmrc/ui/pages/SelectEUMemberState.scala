@@ -32,7 +32,7 @@ object SelectEUMemberState extends BasePage {
     clearCountry(txtCountry)
     input(txtCountry, country)
     clickCountryDropdown()
-    saveAndContinue()
+    continue()
   }
 
   def clickCountryDropdown(): Unit = click(By.cssSelector(countryDropdown))

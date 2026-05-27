@@ -30,6 +30,6 @@ object ContactDetails extends BasePage {
   def submitContactAddress(emailAddress: String, telephoneNumber: String): Unit = {
     input(txtEmailAddress, emailAddress)
     input(txtTelephone, telephoneNumber)
-    saveAndContinue()
+    continue()
   }
 }
