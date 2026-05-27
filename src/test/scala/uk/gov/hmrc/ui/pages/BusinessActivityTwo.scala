@@ -20,7 +20,7 @@ object BusinessActivityTwo extends BasePage {
 
   override def pageUrl: String = "business-activity-2"
 
-  override def pageTitle: String = "Business activity for this claim - EU VAT - GOV.UK"
+  override def pageTitle: String = "Business activities for this claim - EU VAT - GOV.UK"
 
   val lnkChangeBusinessActivityTwo = "Change business activity code two"
   val lnkDeleteBusinessActivityTwo = "Delete business activity code two"

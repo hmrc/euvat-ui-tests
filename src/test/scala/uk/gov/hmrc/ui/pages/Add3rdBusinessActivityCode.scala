@@ -20,10 +20,9 @@ import org.openqa.selenium.{By, Keys}
 
 object Add3rdBusinessActivityCode extends BasePage {
 
-  override def pageUrl: String = "business-activity-code-3"
+  override def pageUrl: String = "what-is-the-3rd-business-activity"
 
-  override def pageTitle: String =
-    "3rd business activity for this claim - EU VAT - GOV.UK"
+  override def pageTitle: String = "What is the 3rd business activity? - EU VAT - GOV.UK"
 
   val thirdBusinessActivityCodeDropdown = "#value-input__listbox"
   val txtThirdBusinessActivityCode: By  = By.cssSelector("#value-input")
