@@ -77,6 +77,9 @@ class NewEuvatClaimSpec
 //      SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
 //      SupplierAddress.submitSupplierAddress("Test address one","Test address two","Test address three")
 
+//      AddInvoiceNumber.verifyPageTitle(AddInvoiceNumber.pageTitle)
+//      AddInvoiceNumber.submitInvoiceNumber("Test_Invoice_123.5")
+
     }
 
   }
