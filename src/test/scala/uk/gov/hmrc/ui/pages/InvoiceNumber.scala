@@ -18,7 +18,7 @@ package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.By
 
-object AddInvoiceNumber extends BasePage {
+object InvoiceNumber extends BasePage {
 
   override def pageUrl: String = "invoice-number"
 
