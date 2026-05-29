@@ -24,7 +24,7 @@ object WhatInvoiceDate extends BasePage {
 
   override def pageTitle: String = "What is the invoice date? - EU VAT - GOV.UK"
 
-  val txtInvoiceDay: By = By.ById("value.day")
+  val txtInvoiceDay: By   = By.ById("value.day")
   val txtInvoiceMonth: By = By.ById("value.month")
   val txtInvoiceYear: By  = By.ById("value.year")
 
