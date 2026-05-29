@@ -72,11 +72,11 @@ class NewEuvatClaimSpec
       Add3rdBusinessActivityCode.verifyPageTitle(Add3rdBusinessActivityCode.pageTitle)
       Add3rdBusinessActivityCode.selectThirdBusinessActivityCode("25344 (Growing of fibre crops)")
 
-//      BusinessActivityThree.verifyPageTitle(BusinessActivityThree.pageTitle)
-//      BusinessActivityThree.clickLink("Change business activity code two")
+      BusinessActivityThree.verifyPageTitle(BusinessActivityThree.pageTitle)
+      BusinessActivityThree.clickLink("Change business activity code two")
 
-//      Add2ndBusinessActivityCode.verifyPageTitle(Add2ndBusinessActivityCode.pageTitle)
-//      Add2ndBusinessActivityCode.selectSecondBusinessActivityCode("45200 (Repair of motor vehicles)")
+      Add2ndBusinessActivityCode.verifyPageTitle(Add2ndBusinessActivityCode.pageTitle)
+      Add2ndBusinessActivityCode.selectSecondBusinessActivityCode("45200 (Repair of motor vehicles)")
 
       BusinessActivityThree.verifyPageTitle(BusinessActivityThree.pageTitle)
       BusinessActivityThree.clickLink("Change business activity code three")
