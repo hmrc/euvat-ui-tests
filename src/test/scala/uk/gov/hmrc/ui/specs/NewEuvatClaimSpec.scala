@@ -71,8 +71,8 @@ class NewEuvatClaimSpec
 //      SelectPurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
 //      SelectPurchaseType.clickRadio("Fuel")
 
-//      WhatInvoiceDate.verifyPageTitle(WhatInvoiceDate.pageTitle)
-//      WhatInvoiceDate.submitInvoiceDate("08", "12", "2025")
+//      InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
+//      InvoiceDate.submitInvoiceDate("08", "12", "2025")
 
 //      SupplierName.verifyPageTitle(SupplierName.pageTitle)
 //      SupplierName.submitSupplierName("Test Supplier Name")

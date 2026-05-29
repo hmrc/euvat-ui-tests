@@ -18,7 +18,7 @@ package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.By
 
-object WhatInvoiceDate extends BasePage {
+object InvoiceDate extends BasePage {
 
   override def pageUrl: String = "what-is-the-invoice-date"
 
