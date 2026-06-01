@@ -48,7 +48,7 @@ class NewEuvatClaimSpec
       SelectEUMemberState.verifyPageTitle(SelectEUMemberState.pageTitle)
       SelectEUMemberState.selectCountry("France")
       SelectLanguage.verifyPageTitle(SelectLanguage.pageTitle)
-      SelectLanguage.continueAsEnglish()
+      SelectLanguage.continueAsFrench()
       WhatRefundPeriod.verifyPageTitle(WhatRefundPeriod.pageTitle)
       WhatRefundPeriod.submitRefundPeriod("08", "2025", "12", "2025")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
@@ -89,6 +89,13 @@ class NewEuvatClaimSpec
 
       And("I change claim details")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+      CheckYourClaimDetails.clickChangeLink("Refunding EU member state")
+      SelectEUMemberState.verifyPageTitle(SelectEUMemberState.pageTitle)
+      SelectEUMemberState.selectCountry("Germany")
+      SelectLanguage.verifyPageTitle(SelectLanguage.pageTitle)
+      SelectLanguage.continueAsEnglish()
+
+      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.clickChangeLink("Claim language")
       SelectLanguage.verifyPageTitle(SelectLanguage.pageTitle)
       SelectLanguage.continueAsFrench()
@@ -107,11 +114,6 @@ class NewEuvatClaimSpec
       CheckYourClaimDetails.clickChangeLink("Business activity")
       BusinessActivityThree.verifyPageTitle(BusinessActivityThree.pageTitle)
       BusinessActivityThree.continue()
-
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-      CheckYourClaimDetails.clickChangeLink("Refunding EU member state")
-      SelectEUMemberState.verifyPageTitle(SelectEUMemberState.pageTitle)
-      SelectEUMemberState.selectCountry("France")
 
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
