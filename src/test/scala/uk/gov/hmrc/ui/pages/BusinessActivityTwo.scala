@@ -22,27 +22,29 @@ object BusinessActivityTwo extends BasePage {
 
   override def pageTitle: String = "Business activities for this claim - EU VAT - GOV.UK"
 
-  val lnkChangeBusinessActivityTwo = "Change business activity code two"
-  val lnkDeleteBusinessActivityTwo = "Delete business activity code two"
+  val lnkChangeBusinessActivityTwo =
+    "#main-content > div > div > form > dl > div > dd.govuk-summary-list__actions > ul > li:nth-child(1) > a"
+  val lnkDeleteBusinessActivityTwo =
+    "#main-content > div > div > form > dl > div > dd.govuk-summary-list__actions > ul > li:nth-child(2) > a"
 
   def clickLink(link: String): this.type = {
-    val linkText = link match {
+    val linkCSS = link match {
       case "Change business activity code two" => lnkChangeBusinessActivityTwo
       case "Delete business activity code two" => lnkDeleteBusinessActivityTwo
       case _                                   => throw new IllegalArgumentException(s"Invalid link: $link")
     }
-    clickLinkByText(linkText)
+    clickLinkByCSS(linkCSS)
     this
   }
 
   def continueAsYes(): Unit = {
     radioButton(Locators.rdoYes)
-    saveAndContinue()
+    continue()
   }
 
   def continueAsNo(): Unit = {
     radioButton(Locators.rdoNo)
-    saveAndContinue()
+    continue()
   }
 
 }

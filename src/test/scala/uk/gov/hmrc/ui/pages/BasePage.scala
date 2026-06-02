@@ -92,6 +92,8 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
   /** Specific actions */
   def saveAndContinue(): Unit = click(By.cssSelector(Locators.btnSubmit))
 
+  def continue(): Unit = click(By.cssSelector(Locators.btnSubmit))
+
   /** Navigation methods */
   def navigateToPage(url: String): Unit = driver.navigate().to(url)
 

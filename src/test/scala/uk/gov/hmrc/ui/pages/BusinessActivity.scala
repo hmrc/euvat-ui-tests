@@ -24,12 +24,12 @@ object BusinessActivity extends BasePage {
 
   def continueAsYes(): Unit = {
     radioButton(Locators.rdoYes)
-    saveAndContinue()
+    continue()
   }
 
   def continueAsNo(): Unit = {
     radioButton(Locators.rdoNo)
-    saveAndContinue()
+    continue()
   }
 
 }

@@ -31,7 +31,7 @@ object Add3rdBusinessActivityCode extends BasePage {
     clearThirdBusinessActivityCode(txtThirdBusinessActivityCode)
     input(txtThirdBusinessActivityCode, businessActivityCode)
     clickThirdBusinessActivityCodeDropdown()
-    saveAndContinue()
+    continue()
   }
 
   def clickThirdBusinessActivityCodeDropdown(): Unit = click(By.cssSelector(thirdBusinessActivityCodeDropdown))
