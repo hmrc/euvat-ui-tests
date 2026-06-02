@@ -22,17 +22,20 @@ object SelectLanguage extends BasePage {
 
   override def pageTitle: String = "What language do you want to use for this claim? - EU VAT - GOV.UK"
 
-  val rdoEnglish = "#value_0"
-  val rdoFrench  = "#value_1"
+  val rdoGerman  = "#value_0"
+  val rdoEnglish = "#value_1"
+  val rdoFrench  = "#value_2"
 
-  def continueAsEnglish(): Unit = {
-    radioButton(rdoEnglish)
+  def selectLanguage(language: String): this.type = {
+    val selector = language match {
+      case "German"  => rdoGerman
+      case "English" => rdoEnglish
+      case "French"  => rdoFrench
+      case _         => throw new IllegalArgumentException(s"Invalid language: $language")
+    }
+    radioButton(selector)
     continue()
-  }
-
-  def continueAsFrench(): Unit = {
-    radioButton(rdoFrench)
-    continue()
+    this
   }
 
 }
