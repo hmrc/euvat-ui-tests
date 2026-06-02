@@ -54,36 +54,27 @@ class NewEuvatClaimSpec
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
 
+      And("I add and change business activity details")
       BusinessActivity.verifyPageTitle(BusinessActivity.pageTitle)
       BusinessActivity.continueAsYes()
-
       Add2ndBusinessActivityCode.verifyPageTitle(Add2ndBusinessActivityCode.pageTitle)
       Add2ndBusinessActivityCode.selectSecondBusinessActivityCode("47110 (Retail sale in non-specialised stores)")
-
       BusinessActivityTwo.verifyPageTitle(BusinessActivityTwo.pageTitle)
       BusinessActivityTwo.clickLink("Change business activity code two")
-
       Add2ndBusinessActivityCode.verifyPageTitle(Add2ndBusinessActivityCode.pageTitle)
       Add2ndBusinessActivityCode.selectSecondBusinessActivityCode("11010 (Manufacture of beverages)")
-
       BusinessActivityTwo.verifyPageTitle(BusinessActivityTwo.pageTitle)
       BusinessActivityTwo.continueAsYes()
-
       Add3rdBusinessActivityCode.verifyPageTitle(Add3rdBusinessActivityCode.pageTitle)
       Add3rdBusinessActivityCode.selectThirdBusinessActivityCode("25344 (Growing of fibre crops)")
-
       BusinessActivityThree.verifyPageTitle(BusinessActivityThree.pageTitle)
       BusinessActivityThree.clickLink("Change business activity code two")
-
       Add2ndBusinessActivityCode.verifyPageTitle(Add2ndBusinessActivityCode.pageTitle)
       Add2ndBusinessActivityCode.selectSecondBusinessActivityCode("45200 (Repair of motor vehicles)")
-
       BusinessActivityThree.verifyPageTitle(BusinessActivityThree.pageTitle)
       BusinessActivityThree.clickLink("Change business activity code three")
-
       Add3rdBusinessActivityCode.verifyPageTitle(Add3rdBusinessActivityCode.pageTitle)
       Add3rdBusinessActivityCode.selectThirdBusinessActivityCode("45320 (Wholesale of motor vehicle parts)")
-
       BusinessActivityThree.verifyPageTitle(BusinessActivityThree.pageTitle)
       BusinessActivityThree.continue()
 
@@ -94,27 +85,27 @@ class NewEuvatClaimSpec
       SelectEUMemberState.selectCountry("Germany")
       SelectLanguage.verifyPageTitle(SelectLanguage.pageTitle)
       SelectLanguage.continueAsEnglish()
-
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.clickChangeLink("Claim language")
       SelectLanguage.verifyPageTitle(SelectLanguage.pageTitle)
       SelectLanguage.continueAsFrench()
-
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.clickChangeLink("Refund period")
       WhatRefundPeriod.verifyPageTitle(WhatRefundPeriod.pageTitle)
-      WhatRefundPeriod.submitRefundPeriod("08", "2025", "12", "2025")
-
+      WhatRefundPeriod.submitRefundPeriod("01", "2026", "04", "2026")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.clickChangeLink("Contact details")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("ChangeTest@gmail.com", "+449876543210")
-
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.clickChangeLink("Business activity")
       BusinessActivityThree.verifyPageTitle(BusinessActivityThree.pageTitle)
+      BusinessActivityThree.verifyPageTitle(BusinessActivityThree.pageTitle)
+      BusinessActivityThree.clickLink("Change business activity code three")
+      Add3rdBusinessActivityCode.verifyPageTitle(Add3rdBusinessActivityCode.pageTitle)
+      Add3rdBusinessActivityCode.selectThirdBusinessActivityCode("11010 (Manufacture of beverages)")
+      BusinessActivityThree.verifyPageTitle(BusinessActivityThree.pageTitle)
       BusinessActivityThree.continue()
-
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
