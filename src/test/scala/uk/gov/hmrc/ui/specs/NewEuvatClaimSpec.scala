@@ -113,17 +113,14 @@ class NewEuvatClaimSpec
 //      AboutPurchase.verifyPageTitle(AboutPurchase.pageTitle)
 //      AboutPurchase.continue()
 
-//      SelectInvoiceType.verifyPageTitle(SelectInvoiceType.pageTitle)
-//      SelectInvoiceType.selectInvoiceType("Standard invoice")
-
-//      InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
-//      InvoiceDate.submitInvoiceDate("08", "12", "2025")
+//      InvoiceType.verifyPageTitle(SelectInvoiceType.pageTitle)
+//      InvoiceType.selectInvoiceType("standard invoice")
 
 //      InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
 //      InvoiceNumber.submitInvoiceNumber("Test_Invoice_123.5")
 
-//      SelectPurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
-//      SelectPurchaseType.selectPurchaseType("Fuel")
+//      InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
+//      InvoiceDate.submitInvoiceDate("08", "12", "2025")
 
 //      SupplierName.verifyPageTitle(SupplierName.pageTitle)
 //      SupplierName.submitSupplierName("Test Supplier Name")
@@ -133,6 +130,9 @@ class NewEuvatClaimSpec
 
 //      AddVATRegistration.verifyPageTitle((AddVATRegistration.pageTitle))
 //      AddVATRegistration.continueAsYes()
+
+//      SelectPurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
+//      SelectPurchaseType.selectPurchaseType("Fuel")
 
     }
 
