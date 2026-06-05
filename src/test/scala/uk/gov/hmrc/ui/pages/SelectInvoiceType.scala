@@ -16,26 +16,21 @@
 
 package uk.gov.hmrc.ui.pages
 
-object SelectPurchaseType extends BasePage {
+object SelectInvoiceType extends BasePage {
 
   override def pageUrl: String = "purchase-type"
 
   override def pageTitle: String = "Purchase type - EU VAT - GOV.UK"
 
-  val rdoFuel      = "#value_0"
-  val rdoTransport = "#value_1"
-  val rdoFood      = "#value_2"
-  val rdoLuxuries  = "#value_3"
-  val rdoOther     = "#value_4"
+  val rdoStandardInvoice     = "#value"
+  val rdoSimplifiedInvoice   = "#value_1"
 
-  def selectPurchaseType(radio: String): this.type = {
+
+  def selectInvoiceType(radio: String): this.type = {
     val selector = radio match {
-      case "Fuel"                                                  => rdoFuel
-      case "Expenditure relating to means of transport"            => rdoTransport
-      case "Food, drink and restaurant services"                   => rdoFood
-      case "Expenditure on luxuries, amusements and entertainment" => rdoLuxuries
-      case "Other"                                                 => rdoOther
-      case _                                                       => throw new IllegalArgumentException(s"Invalid option: $radio")
+      case "Standard invoice"        => rdoStandardInvoice
+      case "Simplified invoice"      => rdoSimplifiedInvoice
+      case _                         => throw new IllegalArgumentException(s"Invalid option: $radio")
     }
     radioButton(selector)
     continue()

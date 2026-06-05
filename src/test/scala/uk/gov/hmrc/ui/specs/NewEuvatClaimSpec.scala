@@ -113,8 +113,11 @@ class NewEuvatClaimSpec
 //      AboutPurchase.verifyPageTitle(AboutPurchase.pageTitle)
 //      AboutPurchase.continue()
 
+      SelectInvoiceType.verifyPageTitle(SelectInvoiceType.pageTitle)
+      SelectInvoiceType.selectInvoiceType("Standard invoice")
+
 //      SelectPurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
-//      SelectPurchaseType.clickRadio("Fuel")
+//      SelectPurchaseType.selectPurchaseType("Fuel")
 
 //      InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
 //      InvoiceDate.submitInvoiceDate("08", "12", "2025")
