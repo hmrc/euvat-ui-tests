@@ -109,7 +109,7 @@ class NewEuvatClaimSpec
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-//      And("I add purchase details")
+      And("I add purchase details")
 //      AboutPurchase.verifyPageTitle(AboutPurchase.pageTitle)
 //      AboutPurchase.continue()
 
