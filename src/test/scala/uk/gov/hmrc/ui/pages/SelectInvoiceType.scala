@@ -22,15 +22,14 @@ object SelectInvoiceType extends BasePage {
 
   override def pageTitle: String = "Purchase type - EU VAT - GOV.UK"
 
-  val rdoStandardInvoice     = "#value"
-  val rdoSimplifiedInvoice   = "#value_1"
-
+  val rdoStandardInvoice   = "#value"
+  val rdoSimplifiedInvoice = "#value_1"
 
   def selectInvoiceType(radio: String): this.type = {
     val selector = radio match {
-      case "Standard invoice"        => rdoStandardInvoice
-      case "Simplified invoice"      => rdoSimplifiedInvoice
-      case _                         => throw new IllegalArgumentException(s"Invalid option: $radio")
+      case "Standard invoice"   => rdoStandardInvoice
+      case "Simplified invoice" => rdoSimplifiedInvoice
+      case _                    => throw new IllegalArgumentException(s"Invalid option: $radio")
     }
     radioButton(selector)
     continue()
