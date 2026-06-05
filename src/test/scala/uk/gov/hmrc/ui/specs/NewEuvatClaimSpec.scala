@@ -119,6 +119,9 @@ class NewEuvatClaimSpec
 //      InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
 //      InvoiceDate.submitInvoiceDate("08", "12", "2025")
 
+//      InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
+//      InvoiceNumber.submitInvoiceNumber("Test_Invoice_123.5")
+
 //      SupplierName.verifyPageTitle(SupplierName.pageTitle)
 //      SupplierName.submitSupplierName("Test Supplier Name")
 
