@@ -20,9 +20,9 @@ import org.openqa.selenium.By
 
 object ContactDetails extends BasePage {
 
-  override def pageUrl: String = "how-contact-you-about-claim"
+  override def pageUrl: String = "who-contact-about-this-claim"
 
-  override def pageTitle: String = "How should we contact you about this claim? - EU VAT - GOV.UK"
+  override def pageTitle: String = "Who should we contact about this claim? - EU VAT - GOV.UK"
 
   val txtEmailAddress: By = By.cssSelector("#contactEmail")
   val txtTelephone: By    = By.cssSelector("#contactTelephone")
