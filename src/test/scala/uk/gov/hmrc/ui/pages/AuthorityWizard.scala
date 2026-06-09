@@ -55,7 +55,7 @@ object AuthorityWizard extends BasePage {
       driver.findElement(affinityGroup).sendKeys(userType)
       driver.findElement(enrolmentKey).sendKeys("HMRC-EU-REF-ORG")
       driver.findElement(enrolmentId).sendKeys("VATRegNo")
-      val taxOfficeNumber = if (Env.env == "qa") "123456" else "123456"
+      val taxOfficeNumber = if (Env.env == "qa") "999900104" else "999900104"
       driver.findElement(enrolmentValue).sendKeys(taxOfficeNumber)
       this
     case "Agent"        =>
