@@ -34,7 +34,7 @@ class NewEuvatClaimSpec
     with ScreenshotOnFailure {
 
   Feature("Make a new EUVAT claim - New claim") {
-    Scenario("Submit a refund request", Local, WIP) {
+    Scenario("Submit a refund request", Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "123456")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
