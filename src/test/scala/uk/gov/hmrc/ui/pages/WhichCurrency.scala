@@ -27,9 +27,9 @@ object WhichCurrency extends BasePage {
 
   def selectCurrencyType(radio: String): this.type = {
     val selector = radio match {
-      case "Euro"   => rdoEuroCurrency
-      case "Bulgarian Lev (лв)" | "Estonian Kroon (kr)"  => rdoNonEuroCurrency
-      case _                    => throw new IllegalArgumentException(s"Invalid currency option: $radio")
+      case "Euro"                                       => rdoEuroCurrency
+      case "Bulgarian Lev (лв)" | "Estonian Kroon (kr)" => rdoNonEuroCurrency
+      case _                                            => throw new IllegalArgumentException(s"Invalid currency option: $radio")
     }
     radioButton(selector)
     continue()
