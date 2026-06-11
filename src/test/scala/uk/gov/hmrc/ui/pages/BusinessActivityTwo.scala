@@ -24,13 +24,13 @@ object BusinessActivityTwo extends BasePage {
 
   val lnkChangeBusinessActivityTwo =
     "#main-content > div > div > form > dl > div > dd.govuk-summary-list__actions > ul > li:nth-child(1) > a"
-  val lnkDeleteBusinessActivityTwo =
+  val lnkRemoveBusinessActivityTwo =
     "#main-content > div > div > form > dl > div > dd.govuk-summary-list__actions > ul > li:nth-child(2) > a"
 
   def clickLink(link: String): this.type = {
     val linkCSS = link match {
       case "Change business activity code two" => lnkChangeBusinessActivityTwo
-      case "Delete business activity code two" => lnkDeleteBusinessActivityTwo
+      case "Remove business activity code two" => lnkRemoveBusinessActivityTwo
       case _                                   => throw new IllegalArgumentException(s"Invalid link: $link")
     }
     clickLinkByCSS(linkCSS)
