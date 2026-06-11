@@ -136,5 +136,26 @@ class NewEuvatClaimSpec
 
     }
 
+    Scenario("Select Currency type", Local) {
+      Given("I login as an organisation")
+      AuthorityWizard.login("Organisation", "123456")
+      ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
+
+      When("I start new EUVAT claim")
+      ManageYourEuvatClaim.clickLink("Make a new EU VAT claim")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
+      And("I add claim details")
+      MakeEuvatClaim.clickLink("Add claim details")
+      SelectEUMemberState.verifyPageTitle(SelectEUMemberState.pageTitle)
+      SelectEUMemberState.selectCountry("Bulgaria")
+      SelectLanguage.verifyPageTitle(SelectLanguage.pageTitle)
+      SelectLanguage.selectLanguage("English")
+      And("I select currency type")
+      WhichCurrency.verifyPageTitle(WhichCurrency.pageTitle)
+      WhichCurrency.selectCurrencyType("Bulgarian Lev (лв)")
+      And("I navigate to refund period page")
+      WhatRefundPeriod.verifyPageTitle(WhatRefundPeriod.pageTitle)
+    }
   }
 }
