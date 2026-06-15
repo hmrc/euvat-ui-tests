@@ -97,6 +97,11 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
   /** Navigation methods */
   def navigateToPage(url: String): Unit = driver.navigate().to(url)
 
+  def navigateToJourneyPage(page: String): Unit = {
+    val targetUrl = driver.getCurrentUrl.replaceFirst("/[^/]+$", s"/$page")
+    navigateToPage(targetUrl)
+  }
+
   /** Page validation methods */
   def isCurrentPage: Boolean = pageTitle.startsWith(getPageTitle)
 

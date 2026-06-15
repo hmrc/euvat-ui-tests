@@ -46,9 +46,12 @@ class NewEuvatClaimSpec
       And("I add claim details")
       MakeEuvatClaim.clickLink("Add claim details")
       SelectEUMemberState.verifyPageTitle(SelectEUMemberState.pageTitle)
-      SelectEUMemberState.selectCountry("Luxembourg")
+      SelectEUMemberState.selectCountry("Bulgaria")
       SelectLanguage.verifyPageTitle(SelectLanguage.pageTitle)
-      SelectLanguage.selectLanguage("French")
+      SelectLanguage.selectLanguage("Bulgarian")
+      WhichCurrency.navigateToJourneyPage(WhichCurrency.pageUrl);
+      WhichCurrency.verifyPageTitle(WhichCurrency.pageTitle)
+      WhichCurrency.selectCurrencyType("Bulgarian Lev (лв)")
       WhatRefundPeriod.verifyPageTitle(WhatRefundPeriod.pageTitle)
       WhatRefundPeriod.submitRefundPeriod("08", "2025", "12", "2025")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
@@ -157,29 +160,6 @@ class NewEuvatClaimSpec
 
 //      SelectPurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
 //      SelectPurchaseType.selectPurchaseType("Fuel")
-
-    }
-
-    Scenario("Select Currency type", Local) {
-      Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "123456")
-      ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
-
-      When("I start new EUVAT claim")
-      ManageYourEuvatClaim.clickLink("Make a new EU VAT claim")
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-
-      And("I add claim details")
-      MakeEuvatClaim.clickLink("Add claim details")
-      SelectEUMemberState.verifyPageTitle(SelectEUMemberState.pageTitle)
-      SelectEUMemberState.selectCountry("Bulgaria")
-      SelectLanguage.verifyPageTitle(SelectLanguage.pageTitle)
-      SelectLanguage.selectLanguage("English")
-      And("I select currency type")
-      WhichCurrency.verifyPageTitle(WhichCurrency.pageTitle)
-      WhichCurrency.selectCurrencyType("Bulgarian Lev (лв)")
-      And("I navigate to refund period page")
-      WhatRefundPeriod.verifyPageTitle(WhatRefundPeriod.pageTitle)
     }
   }
 }
