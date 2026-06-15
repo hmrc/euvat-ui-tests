@@ -46,9 +46,12 @@ class NewEuvatClaimSpec
       And("I add claim details")
       MakeEuvatClaim.clickLink("Add claim details")
       SelectEUMemberState.verifyPageTitle(SelectEUMemberState.pageTitle)
-      SelectEUMemberState.selectCountry("Luxembourg")
+      SelectEUMemberState.selectCountry("Bulgaria")
       SelectLanguage.verifyPageTitle(SelectLanguage.pageTitle)
-      SelectLanguage.selectLanguage("French")
+      SelectLanguage.selectLanguage("Bulgarian")
+      WhichCurrency.navigateToJourneyPage(WhichCurrency.pageUrl);
+      WhichCurrency.verifyPageTitle(WhichCurrency.pageTitle)
+      WhichCurrency.selectCurrencyType("Bulgarian Lev (лв)")
       WhatRefundPeriod.verifyPageTitle(WhatRefundPeriod.pageTitle)
       WhatRefundPeriod.submitRefundPeriod("08", "2025", "12", "2025")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
@@ -157,8 +160,6 @@ class NewEuvatClaimSpec
 
 //      SelectPurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
 //      SelectPurchaseType.selectPurchaseType("Fuel")
-
     }
-
   }
 }

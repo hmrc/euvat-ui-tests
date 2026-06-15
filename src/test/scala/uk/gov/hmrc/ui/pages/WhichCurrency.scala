@@ -16,22 +16,20 @@
 
 package uk.gov.hmrc.ui.pages
 
-object SelectLanguage extends BasePage {
+object WhichCurrency extends BasePage {
 
-  override def pageUrl: String = "what-language"
+  override def pageUrl: String = "which-currency"
 
-  override def pageTitle: String = "What language do you want to use for this claim? - EU VAT - GOV.UK"
+  override def pageTitle: String = "Which currency do you want to use for this claim? - EU VAT - GOV.UK"
 
-  val rdoGerman  = "#value_0"
-  val rdoEnglish = "#value_1"
-  val rdoFrench  = "#value_2"
+  val rdoEuroCurrency    = "#value"
+  val rdoNonEuroCurrency = "#value_1"
 
-  def selectLanguage(language: String): this.type = {
-    val selector = language match {
-      case "German"                => rdoGerman
-      case "English" | "Bulgarian" => rdoEnglish
-      case "French"                => rdoFrench
-      case _                       => throw new IllegalArgumentException(s"Invalid language: $language")
+  def selectCurrencyType(radio: String): this.type = {
+    val selector = radio match {
+      case "Euro"                                       => rdoEuroCurrency
+      case "Bulgarian Lev (лв)" | "Estonian Kroon (kr)" => rdoNonEuroCurrency
+      case _                                            => throw new IllegalArgumentException(s"Invalid currency option: $radio")
     }
     radioButton(selector)
     continue()
