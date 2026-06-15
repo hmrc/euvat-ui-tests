@@ -54,7 +54,7 @@ class NewEuvatClaimSpec
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
 
-      And("I add and change & Removed business activity details")
+      And("I add, change and remove business activity details")
       BusinessActivity.verifyPageTitle(BusinessActivity.pageTitle)
       BusinessActivity.continueAsYes()
       Add2ndBusinessActivityCode.verifyPageTitle(Add2ndBusinessActivityCode.pageTitle)
