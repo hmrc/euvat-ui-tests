@@ -40,11 +40,11 @@ class NewEuvatClaimSpec
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
 
       When("I start new EUVAT claim")
-      ManageYourEuvatClaim.clickLink("Make a new EU VAT claim")
+      ManageYourEuvatClaim.clickLinkByText("Make a new EU VAT claim")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I add claim details")
-      MakeEuvatClaim.clickLink("Add claim details")
+      MakeEuvatClaim.clickLinkByText("Add claim details")
       SelectEUMemberState.verifyPageTitle(SelectEUMemberState.pageTitle)
       SelectEUMemberState.selectCountry("Luxembourg")
       SelectLanguage.verifyPageTitle(SelectLanguage.pageTitle)
@@ -154,6 +154,9 @@ class NewEuvatClaimSpec
 
 //      AddVATRegistration.verifyPageTitle((AddVATRegistration.pageTitle))
 //      AddVATRegistration.continueAsYes()
+
+//      VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
+//      VATRegistrationNumber.submitInvoiceNumber("AB1234567890")
 
 //      SelectPurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
 //      SelectPurchaseType.selectPurchaseType("Fuel")
