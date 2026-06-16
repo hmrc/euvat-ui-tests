@@ -28,10 +28,10 @@ object SelectLanguage extends BasePage {
 
   def selectLanguage(language: String): this.type = {
     val selector = language match {
-      case "German"                => rdoGerman
-      case "English" | "Bulgarian" => rdoEnglish
-      case "French"                => rdoFrench
-      case _                       => throw new IllegalArgumentException(s"Invalid language: $language")
+      case "German"  => rdoGerman
+      case "English" => rdoEnglish
+      case "French"  => rdoFrench
+      case _         => throw new IllegalArgumentException(s"Invalid language: $language")
     }
     radioButton(selector)
     continue()

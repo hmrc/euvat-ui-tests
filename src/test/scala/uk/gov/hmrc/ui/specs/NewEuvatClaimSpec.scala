@@ -48,8 +48,7 @@ class NewEuvatClaimSpec
       SelectEUMemberState.verifyPageTitle(SelectEUMemberState.pageTitle)
       SelectEUMemberState.selectCountry("Bulgaria")
       SelectLanguage.verifyPageTitle(SelectLanguage.pageTitle)
-      SelectLanguage.selectLanguage("Bulgarian")
-      WhichCurrency.navigateToJourneyPage(WhichCurrency.pageUrl);
+      SelectLanguage.selectLanguage("English")
       WhichCurrency.verifyPageTitle(WhichCurrency.pageTitle)
       WhichCurrency.selectCurrencyType("Bulgarian Lev (лв)")
       WhatRefundPeriod.verifyPageTitle(WhatRefundPeriod.pageTitle)
