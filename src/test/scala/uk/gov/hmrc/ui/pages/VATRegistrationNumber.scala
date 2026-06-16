@@ -18,16 +18,16 @@ package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.By
 
-object InvoiceNumber extends BasePage {
+object VATRegistrationNumber extends BasePage {
 
-  override def pageUrl: String = "invoice-number"
+  override def pageUrl: String = "what-supplier-vat-registration-number"
 
-  override def pageTitle: String = "Invoice number - EU VAT - GOV.UK"
+  override def pageTitle: String = "What is the supplier’s VAT registration number? - EU VAT - GOV.UK"
 
-  val txtInvoiceNumber: By = By.cssSelector("#value")
+  val txtVATRegistrationNumber: By = By.cssSelector("#value")
 
-  def submitInvoiceNumber(invoiceNumber: String): Unit = {
-    input(txtInvoiceNumber, invoiceNumber)
+  def submitInvoiceNumber(vatRegistrationNumber: String): Unit = {
+    input(txtVATRegistrationNumber, vatRegistrationNumber)
     continue()
   }
 }

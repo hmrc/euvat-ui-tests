@@ -32,7 +32,7 @@ object InvoiceDate extends BasePage {
     input(txtInvoiceDay, invoiceDay)
     input(txtInvoiceMonth, invoiceMonth)
     input(txtInvoiceYear, invoiceYear)
-    saveAndContinue()
+    continue()
   }
 
 }
