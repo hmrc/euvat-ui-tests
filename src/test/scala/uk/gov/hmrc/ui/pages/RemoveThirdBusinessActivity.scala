@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.ui.pages
 
-object RemovethirdBusinessActivity extends BasePage {
+object RemoveThirdBusinessActivity extends BasePage {
 
   override def pageUrl: String = "remove-third-SIC-code"
 
