@@ -18,11 +18,11 @@ package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.By
 
-object WhatRefundPeriod extends BasePage {
+object RefundPeriod extends BasePage {
 
-  override def pageUrl: String = "what-refund-period"
+  override def pageUrl: String = "refund-period"
 
-  override def pageTitle: String = "What is the refund period? - EU VAT - GOV.UK"
+  override def pageTitle: String = "Refund period - EU VAT - GOV.UK"
 
   val txtStartMonth: By = By.ById("start.month")
   val txtStartYear: By  = By.ById("start.year")
