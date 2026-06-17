@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.ui.pages
 
-object WhichCurrency extends BasePage {
+object Currency extends BasePage {
 
   override def pageUrl: String = "which-currency"
 

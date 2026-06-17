@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.ui.pages
 
-object BusinessActivityTwo extends BasePage {
+object AddSecondBusinessActivity extends BasePage {
 
   override def pageUrl: String = "business-activity-2"
 

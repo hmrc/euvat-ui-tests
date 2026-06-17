@@ -18,32 +18,32 @@ package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.{By, Keys}
 
-object Add3rdBusinessActivityCode extends BasePage {
+object SeoncdBusinessActivity extends BasePage {
 
-  override def pageUrl: String = "what-is-the-3rd-business-activity"
+  override def pageUrl: String = "what-is-the-2nd-business-activity"
 
-  override def pageTitle: String = "What is the 3rd business activity? - EU VAT - GOV.UK"
+  override def pageTitle: String = "What is the 2nd business activity? - EU VAT - GOV.UK"
 
-  val thirdBusinessActivityCodeDropdown = "#value-input__listbox"
-  val txtThirdBusinessActivityCode: By  = By.cssSelector("#value-input")
+  val secondBusinessActivityCodeDropdown = "#value-input__listbox"
+  val txtSecondBusinessActivityCode: By  = By.cssSelector("#value-input")
 
-  def selectThirdBusinessActivityCode(businessActivityCode: String): Unit = {
-    clearThirdBusinessActivityCode(txtThirdBusinessActivityCode)
-    input(txtThirdBusinessActivityCode, businessActivityCode)
-    clickThirdBusinessActivityCodeDropdown()
+  def selectSecondBusinessActivityCode(businessActivityCode: String): Unit = {
+    clearSecondBusinessActivityCode(txtSecondBusinessActivityCode)
+    input(txtSecondBusinessActivityCode, businessActivityCode)
+    clickSecondBusinessActivityCodeDropdown()
     continue()
   }
 
-  def clickThirdBusinessActivityCodeDropdown(): Unit = click(By.cssSelector(thirdBusinessActivityCodeDropdown))
+  def clickSecondBusinessActivityCodeDropdown(): Unit = click(By.cssSelector(secondBusinessActivityCodeDropdown))
 
   /** Clear already selected country value */
-  def clearThirdBusinessActivityCodeDropdown(selector: By): Unit = {
+  def clearSecondBusinessActivityCodeDropdown(selector: By): Unit = {
     val element = waitForVisibilityOfElement(selector)
     element.sendKeys(Keys.CONTROL, "a")
     element.sendKeys(Keys.DELETE)
   }
 
-  def clearThirdBusinessActivityCode(selector: By): Unit = {
+  def clearSecondBusinessActivityCode(selector: By): Unit = {
     val el      = waitForVisibilityOfElement(selector)
     el.click()
     val current = Option(el.getAttribute("value")).getOrElse("")
