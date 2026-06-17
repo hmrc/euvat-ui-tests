@@ -142,13 +142,24 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
         println(s"Failed to click the link with ID: $linkId. Error: ${e.getMessage}")
     }
 
+//  def clickLinkByCSS(linkCSS: String): Unit =
+//    try {
+//      click(By.cssSelector(linkCSS))
+//      println(s"Successfully clicked the link with selector: $linkCSS")
+//    } catch {
+//      case e: Exception =>
+//        println(s"Failed to click the link with CSS Selector: $linkCSS. Error: ${e.getMessage}")
+//    }
+
   def clickLinkByCSS(linkCSS: String): Unit =
     try {
-      click(By.cssSelector(linkCSS))
-      println(s"Successfully clicked the link with selector: $linkCSS")
+      val element = waitForVisibilityOfElement(By.cssSelector(linkCSS))
+      element.click()
+      logger.info(s"Successfully clicked the link with CSS Selector: $linkCSS")
     } catch {
       case e: Exception =>
-        println(s"Failed to click the link with CSS Selector: $linkCSS. Error: ${e.getMessage}")
+        logger.error(s"Failed to click the link with CSS Selector: $linkCSS. Error: ${e.getMessage}")
+        throw e
     }
 
   def clickLinkByText(linkText: String): Unit =

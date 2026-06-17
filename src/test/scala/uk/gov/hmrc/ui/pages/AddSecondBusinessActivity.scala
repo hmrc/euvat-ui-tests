@@ -22,18 +22,29 @@ object AddSecondBusinessActivity extends BasePage {
 
   override def pageTitle: String = "Business activities for this claim - EU VAT - GOV.UK"
 
-  val lnkChangeBusinessActivityTwo =
-    "#main-content > div > div > form > dl > div > dd.govuk-summary-list__actions > ul > li:nth-child(1) > a"
-  val lnkRemoveBusinessActivityTwo =
-    "#main-content > div > div > form > dl > div > dd.govuk-summary-list__actions > ul > li:nth-child(2) > a"
+//  val lnkChangeBusinessActivityTwo =
+//    "#main-content > div > div > form > dl > div > dd.govuk-summary-list__actions > ul > li:nth-child(1) > a"
+//  val lnkRemoveBusinessActivityTwo =
+//    "#main-content > div > div > form > dl > div > dd.govuk-summary-list__actions > ul > li:nth-child(2) > a"
+//
+//  def clickLink(link: String): this.type = {
+//    val linkCSS = link match {
+//      case "Change business activity code two" => lnkChangeBusinessActivityTwo
+//      case "Remove business activity code two" => lnkRemoveBusinessActivityTwo
+//      case _                                   => throw new IllegalArgumentException(s"Invalid link: $link")
+//    }
+//    clickLinkByCSS(linkCSS)
+//    this
+//  }
+
+  private val linkSelectors = Map(
+    "Change business activity code two" -> "#main-content > div > div > form > dl > div > dd.govuk-summary-list__actions > ul > li:nth-child(1) > a",
+    "Remove business activity code two" -> "#main-content > div > div > form > dl > div > dd.govuk-summary-list__actions > ul > li:nth-child(2) > a"
+  )
 
   def clickLink(link: String): this.type = {
-    val linkCSS = link match {
-      case "Change business activity code two" => lnkChangeBusinessActivityTwo
-      case "Remove business activity code two" => lnkRemoveBusinessActivityTwo
-      case _                                   => throw new IllegalArgumentException(s"Invalid link: $link")
-    }
-    clickLinkByCSS(linkCSS)
+    val linkCSS = linkSelectors.getOrElse(link, throw new IllegalArgumentException(s"Invalid link: $link"))
+    super.clickLinkByCSS(linkCSS)
     this
   }
 
