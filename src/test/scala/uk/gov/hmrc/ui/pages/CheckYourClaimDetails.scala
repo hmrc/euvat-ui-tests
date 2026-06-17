@@ -23,25 +23,6 @@ object CheckYourClaimDetails extends BasePage {
   override def pageTitle: String =
     "Check your claim details - EU VAT - GOV.UK"
 
-//  val lnkChangeRefundingEUMemberState = "#main-content > div > div > form > div:nth-child(2) > h2 > a"
-//  val lnkChangeClaimLanguage          = "#main-content > div > div > form > div:nth-child(3) > h2 > a"
-//  val lnkChangeRefundPeriod           = "#main-content > div > div > form > div:nth-child(4) > h2 > a"
-//  val lnkChangeContactDetails         = "#main-content > div > div > form > div:nth-child(5) > h2 > a"
-//  val lnkChangeBusinessActivity       = "#main-content > div > div > form > div:nth-child(6) > h2 > a"
-//
-//  def clickChangeLink(changeLink: String): this.type = {
-//    val linkCSS = changeLink match {
-//      case "Refunding EU member state" => lnkChangeRefundingEUMemberState
-//      case "Claim language"            => lnkChangeClaimLanguage
-//      case "Refund period"             => lnkChangeRefundPeriod
-//      case "Contact details"           => lnkChangeContactDetails
-//      case "Business activity"         => lnkChangeBusinessActivity
-//      case _                           => throw new IllegalArgumentException(s"Invalid link: $changeLink")
-//    }
-//    clickLinkByCSS(linkCSS)
-//    this
-//  }
-
   private val linkSelectors = Map(
     "Refunding EU member state" -> "#main-content > div > div > form > div:nth-child(2) > h2 > a",
     "Claim language"            -> "#main-content > div > div > form > div:nth-child(3) > h2 > a",
