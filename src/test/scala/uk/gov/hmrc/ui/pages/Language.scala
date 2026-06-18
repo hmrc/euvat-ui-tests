@@ -16,20 +16,26 @@
 
 package uk.gov.hmrc.ui.pages
 
-object Remove3rdBusinessActivityCode extends BasePage {
+object Language extends BasePage {
 
-  override def pageUrl: String = "remove-third-SIC-code"
+  override def pageUrl: String = "what-language"
 
-  override def pageTitle: String = "Are you sure you want to remove the third SIC code? - EU VAT - GOV.UK"
+  override def pageTitle: String = "What language do you want to use for this claim? - EU VAT - GOV.UK"
 
-  def continueAsYes(): Unit = {
-    radioButton(Locators.rdoYes)
+  val rdoGerman  = "#value_0"
+  val rdoEnglish = "#value_1"
+  val rdoFrench  = "#value_2"
+
+  def selectLanguage(language: String): this.type = {
+    val selector = language match {
+      case "German"  => rdoGerman
+      case "English" => rdoEnglish
+      case "French"  => rdoFrench
+      case _         => throw new IllegalArgumentException(s"Invalid language: $language")
+    }
+    radioButton(selector)
     continue()
-  }
-
-  def continueAsNo(): Unit = {
-    radioButton(Locators.rdoNo)
-    continue()
+    this
   }
 
 }

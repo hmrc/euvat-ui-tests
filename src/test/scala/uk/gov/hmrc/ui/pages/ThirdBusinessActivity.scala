@@ -18,33 +18,32 @@ package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.{By, Keys}
 
-object SelectEUMemberState extends BasePage {
+object ThirdBusinessActivity extends BasePage {
 
-  override def pageUrl: String = "which-eu-member-state-claiming-back-vat"
+  override def pageUrl: String = "what-is-the-3rd-business-activity"
 
-  override def pageTitle: String =
-    "Which EU member state are you claiming back VAT from? - EU VAT - GOV.UK"
+  override def pageTitle: String = "What is the 3rd business activity? - EU VAT - GOV.UK"
 
-  val countryDropdown = "#value-input__listbox"
-  val txtCountry: By  = By.cssSelector("#value-input")
+  val thirdBusinessActivityCodeDropdown = "#value-input__listbox"
+  val txtThirdBusinessActivityCode: By  = By.cssSelector("#value-input")
 
-  def selectCountry(country: String): Unit = {
-    clearCountry(txtCountry)
-    input(txtCountry, country)
-    clickCountryDropdown()
+  def selectThirdBusinessActivityCode(businessActivityCode: String): Unit = {
+    clearThirdBusinessActivityCode(txtThirdBusinessActivityCode)
+    input(txtThirdBusinessActivityCode, businessActivityCode)
+    clickThirdBusinessActivityCodeDropdown()
     continue()
   }
 
-  def clickCountryDropdown(): Unit = click(By.cssSelector(countryDropdown))
+  def clickThirdBusinessActivityCodeDropdown(): Unit = click(By.cssSelector(thirdBusinessActivityCodeDropdown))
 
   /** Clear already selected country value */
-  def clearCountryDropdown(selector: By): Unit = {
+  def clearThirdBusinessActivityCodeDropdown(selector: By): Unit = {
     val element = waitForVisibilityOfElement(selector)
     element.sendKeys(Keys.CONTROL, "a")
     element.sendKeys(Keys.DELETE)
   }
 
-  def clearCountry(selector: By): Unit = {
+  def clearThirdBusinessActivityCode(selector: By): Unit = {
     val el      = waitForVisibilityOfElement(selector)
     el.click()
     val current = Option(el.getAttribute("value")).getOrElse("")
