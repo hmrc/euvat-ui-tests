@@ -18,23 +18,18 @@ package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.{By, Keys}
 
-object SeoncdBusinessActivity extends BasePage {
+object SecondBusinessActivity extends BasePage {
 
-  override def pageUrl: String = "what-is-the-2nd-business-activity"
+  override def pageUrl: String = "what-is-the-second-SIC-code"
 
-  override def pageTitle: String = "What is the 2nd business activity? - EU VAT - GOV.UK"
+  override def pageTitle: String = "What is the second SIC code? - EU VAT - GOV.UK"
 
-  val secondBusinessActivityCodeDropdown = "#value-input__listbox"
-  val txtSecondBusinessActivityCode: By  = By.cssSelector("#value-input")
+  val txtSecondBusinessActivityCode: By = By.cssSelector("#value")
 
-  def selectSecondBusinessActivityCode(businessActivityCode: String): Unit = {
-    clearSecondBusinessActivityCode(txtSecondBusinessActivityCode)
+  def enterSecondBusinessActivityCode(businessActivityCode: String): Unit = {
     input(txtSecondBusinessActivityCode, businessActivityCode)
-    clickSecondBusinessActivityCodeDropdown()
     continue()
   }
-
-  def clickSecondBusinessActivityCodeDropdown(): Unit = click(By.cssSelector(secondBusinessActivityCodeDropdown))
 
   /** Clear already selected country value */
   def clearSecondBusinessActivityCodeDropdown(selector: By): Unit = {
