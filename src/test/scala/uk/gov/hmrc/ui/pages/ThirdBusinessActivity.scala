@@ -20,21 +20,16 @@ import org.openqa.selenium.{By, Keys}
 
 object ThirdBusinessActivity extends BasePage {
 
-  override def pageUrl: String = "what-is-the-3rd-business-activity"
+  override def pageUrl: String = "what-is-the-third-SIC-code"
 
-  override def pageTitle: String = "What is the 3rd business activity? - EU VAT - GOV.UK"
+  override def pageTitle: String = "What is the third SIC code? - EU VAT - GOV.UK"
 
-  val thirdBusinessActivityCodeDropdown = "#value-input__listbox"
-  val txtThirdBusinessActivityCode: By  = By.cssSelector("#value-input")
+  val txtThirdBusinessActivityCode: By = By.cssSelector("#value")
 
-  def selectThirdBusinessActivityCode(businessActivityCode: String): Unit = {
-    clearThirdBusinessActivityCode(txtThirdBusinessActivityCode)
+  def enterThirdBusinessActivityCode(businessActivityCode: String): Unit = {
     input(txtThirdBusinessActivityCode, businessActivityCode)
-    clickThirdBusinessActivityCodeDropdown()
     continue()
   }
-
-  def clickThirdBusinessActivityCodeDropdown(): Unit = click(By.cssSelector(thirdBusinessActivityCodeDropdown))
 
   /** Clear already selected country value */
   def clearThirdBusinessActivityCodeDropdown(selector: By): Unit = {
