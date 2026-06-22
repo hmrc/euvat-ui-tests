@@ -18,19 +18,17 @@ package uk.gov.hmrc.ui.pages
 
 object Language extends BasePage {
 
-  override def pageUrl: String = "what-language"
+  override def pageUrl: String = "which-language"
 
-  override def pageTitle: String = "What language do you want to use for this claim? - EU VAT - GOV.UK"
+  override def pageTitle: String = "Which language do you want to use for this claim? - EU VAT - GOV.UK"
 
-  val rdoGerman  = "#value_0"
-  val rdoEnglish = "#value_1"
-  val rdoFrench  = "#value_2"
+  val rdoEnglish = "#value_0"
+  val rdoGerman  = "#value_1"
 
   def selectLanguage(language: String): this.type = {
     val selector = language match {
-      case "German"  => rdoGerman
       case "English" => rdoEnglish
-      case "French"  => rdoFrench
+      case "German"  => rdoGerman
       case _         => throw new IllegalArgumentException(s"Invalid language: $language")
     }
     radioButton(selector)
