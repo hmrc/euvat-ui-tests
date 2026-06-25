@@ -162,6 +162,8 @@ class NewEuvatClaimSpec
 
 //      PurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
 //      PurchaseType.selectPurchaseType("Fuel")
+
+      MakeEuvatClaim.signOut()
     }
   }
 }
