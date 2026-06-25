@@ -52,7 +52,7 @@ class NewEuvatClaimSpec
       Currency.verifyPageTitle(Currency.pageTitle)
       Currency.selectCurrencyType("Bulgarian Lev (лв)")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("08", "2025", "12", "2025")
+      RefundPeriod.submitRefundPeriod("02", "2025", "04", "2025")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
 
@@ -118,7 +118,7 @@ class NewEuvatClaimSpec
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.clickChangeLink("Refund period")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("01", "2026", "04", "2026")
+      RefundPeriod.submitRefundPeriod("05", "2025", "07", "2025")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.clickChangeLink("Contact details")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
