@@ -39,10 +39,11 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
 
   /** Locator values */
   object Locators {
-    val btnSubmit = ".govuk-button"
-    val rdoYes    = "#value"
-    val rdoNo     = "#value-2"
-
+    val btnSubmit  = ".govuk-button"
+    val rdoYes     = "#value"
+    val rdoNo      = "#value-2"
+    val lnkSignOut =
+      "body > header > div.govuk-header.hmrc-header.hmrc-header--with-additional-navigation > div > nav > a"
   }
 
   def pageUrl: String
@@ -93,6 +94,8 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
   def saveAndContinue(): Unit = click(By.cssSelector(Locators.btnSubmit))
 
   def continue(): Unit = click(By.cssSelector(Locators.btnSubmit))
+
+  def signOut(): Unit = click(By.cssSelector(Locators.lnkSignOut))
 
   /** Navigation methods */
   def navigateToPage(url: String): Unit = driver.navigate().to(url)
