@@ -23,10 +23,10 @@ object AddThirdBusinessActivity extends BasePage {
   override def pageTitle: String = "Business activity for this claim - EU VAT - GOV.UK"
 
   private val linkSelectors = Map(
-    "Change business activity code two"   -> "#main-content > div > div > form > dl > div:nth-child(1) > dd.govuk-summary-list__actions > ul > li:nth-child(1) > a",
-    "Remove business activity code two"   -> "#main-content > div > div > form > dl > div:nth-child(1) > dd.govuk-summary-list__actions > ul > li:nth-child(2) > a",
-    "Change business activity code three" -> "#main-content > div > div > form > dl > div:nth-child(2) > dd.govuk-summary-list__actions > ul > li:nth-child(1) > a",
-    "Remove business activity code three" -> "#main-content > div > div > form > dl > div:nth-child(2) > dd.govuk-summary-list__actions > ul > li:nth-child(2) > a"
+    "Change Second SIC code" -> "#main-content > div > div > form > dl > div:nth-child(1) > dd.govuk-summary-list__actions > ul > li:nth-child(1) > a",
+    "Remove Second SIC code" -> "#main-content > div > div > form > dl > div:nth-child(1) > dd.govuk-summary-list__actions > ul > li:nth-child(2) > a",
+    "Change Third SIC code"  -> "#main-content > div > div > form > dl > div:nth-child(2) > dd.govuk-summary-list__actions > ul > li:nth-child(1) > a",
+    "Remove Third SIC code"  -> "#main-content > div > div > form > dl > div:nth-child(2) > dd.govuk-summary-list__actions > ul > li:nth-child(2) > a"
   )
 
   def clickLink(link: String): this.type = {
