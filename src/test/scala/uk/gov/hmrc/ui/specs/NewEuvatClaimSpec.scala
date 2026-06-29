@@ -147,7 +147,7 @@ class NewEuvatClaimSpec
 //      InvoiceType.verifyPageTitle(SelectInvoiceType.pageTitle)
 //      InvoiceType.selectInvoiceType("standard invoice")
 
-//      InvoiceNumber.verifyPageTitle(In8oiceNumber.pageTitle)
+//      InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
 //      InvoiceNumber.submitInvoiceNumber("Test_Invoice_123.5")
 
 //      InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
