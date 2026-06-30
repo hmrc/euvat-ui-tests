@@ -168,6 +168,12 @@ class NewEuvatClaimSpec
 //      PurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
 //      PurchaseType.selectPurchaseType("Fuel")
 
+//      TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
+//      TotalPurchaseAmount.submitTotalPurchaseAmount("100")
+//
+//      TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
+//      TotalVatPaid.submitTotalVatPaid("100")
+
       MakeEuvatClaim.signOut()
     }
   }
