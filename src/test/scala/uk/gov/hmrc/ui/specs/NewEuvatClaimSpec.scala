@@ -40,7 +40,7 @@ class NewEuvatClaimSpec
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
 
       When("I start new EUVAT claim")
-      ManageYourEuvatClaim.clickLinkByText("Make a new EU VAT claim")
+      ManageYourEuvatClaim.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I add claim details")
