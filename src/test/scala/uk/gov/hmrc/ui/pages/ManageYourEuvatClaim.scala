@@ -18,8 +18,8 @@ package uk.gov.hmrc.ui.pages
 
 object ManageYourEuvatClaim extends BasePage {
 
-  override def pageUrl: String = "manage-eu-vat-claim"
+  override def pageUrl: String = "claim-eu-vat-refund"
 
-  override def pageTitle: String = "Manage your EU VAT claim - EU VAT - GOV.UK"
+  override def pageTitle: String = "Claim an EU VAT refund - EU VAT - GOV.UK"
 
 }
