@@ -169,6 +169,9 @@ class NewEuvatClaimSpec
 //      TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
 //      TotalVatPaid.submitTotalVatPaid("100")
 
+//      TotalVatClaim.verifyPageTitle(TotalVatPaid.pageTitle)
+//      TotalVatClaim.submitTotalVatClaim("100")
+
       MakeEuvatClaim.signOut()
     }
   }
