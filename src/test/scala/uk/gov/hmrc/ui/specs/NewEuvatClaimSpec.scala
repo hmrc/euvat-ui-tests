@@ -71,13 +71,11 @@ class NewEuvatClaimSpec
       CheckYourClaimDetails.clickChangeLink("Claim language")
       Language.verifyPageTitle(Language.pageTitle)
       Language.selectLanguage("Bulgarian")
-      Currency.verifyPageTitle(Currency.pageTitle)
-      Currency.selectCurrencyType("Bulgarian Lev (лв)")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 //      Change currency
       CheckYourClaimDetails.clickChangeLink("Currency")
       Currency.verifyPageTitle(Currency.pageTitle)
-      Currency.selectCurrencyType("Euro")
+      Currency.selectCurrencyType("Bulgarian Lev (лв)")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 //      Change refund period
       CheckYourClaimDetails.clickChangeLink("End date")
