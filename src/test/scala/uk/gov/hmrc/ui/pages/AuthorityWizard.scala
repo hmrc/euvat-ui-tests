@@ -51,7 +51,7 @@ object AuthorityWizard extends BasePage {
 
   def fillInputs(userType: String, taxOfficeReference: String): this.type = userType match {
     case "Organisation" =>
-      driver.findElement(authorityId).sendKeys("0000000264427063")
+      driver.findElement(authorityId).sendKeys(generateCredId())
       driver.findElement(affinityGroup).sendKeys(userType)
       driver.findElement(enrolmentKey).sendKeys("HMRC-EU-REF-ORG")
       driver.findElement(enrolmentId).sendKeys("VATRegNo")
@@ -59,7 +59,7 @@ object AuthorityWizard extends BasePage {
       driver.findElement(enrolmentValue).sendKeys(taxOfficeNumber)
       this
     case "Agent"        =>
-      driver.findElement(authorityId).sendKeys("0000000264427063")
+      driver.findElement(authorityId).sendKeys(generateCredId())
       driver.findElement(affinityGroup).sendKeys(userType)
       driver.findElement(enrolmentKey).sendKeys("HMCE-VAT-AGNT")
       driver.findElement(enrolmentId).sendKeys("AgentRefNo")
@@ -72,6 +72,15 @@ object AuthorityWizard extends BasePage {
     sendKeys(redirectUrl, buildRedirectUrl())
     fillInputs(userType, taxOfficeReference)
     click(btnSubmit)
+  }
+
+  def generateCredId(): String = {
+    val hexChars = "0123456789abcdef"
+    val credId   = List.fill(16)(hexChars(scala.util.Random.nextInt(hexChars.length))).mkString
+    println(
+      s"**************************************************** CredID: $credId ****************************************************"
+    )
+    credId
   }
 
 }
