@@ -1,0 +1,36 @@
+{
+  "_id": "cd09251f1f41adc1",
+  "data": {
+    "refundingCountryCode": "BG",
+    "refundingCountryName": "Bulgaria",
+    "refundingLanguage": "english",
+    "refundingCurrency": "BGN",
+    "traderKnownFacts": {
+      "vatRegNumber": 999900104,
+      "traderName": "TestData",
+      "addressLine1": "Line 1",
+      "addressLine2": "Line 2",
+      "addressLine3": "Line 3",
+      "addressLine4": "Line 4",
+      "addressLine5": "Line 5",
+      "tradeClass": "7020",
+      "dateOfRegistration": "2025-01-31T00:00:00",
+      "dateOfDeregistration": "2025-12-31T23:59:59.999999999",
+      "missingTraderIndicator": "N"
+    },
+    "refundPeriod": {
+      "startDate": "2025-02-01T00:00:00",
+      "endDate": "2025-04-30T23:59:59.999"
+    },
+    "contactDetails": {
+      "email": "Test@gmail.com",
+      "telephone": "9876543210"
+    },
+    "businessActivityCode": "7020",
+    "businessActivity": true,
+    "businessActivityCodeTwo": "2534",
+    "businessActivityTwo": true,
+    "businessActivityCodeThree": "4712"
+  },
+  "lastUpdated": "2026-07-04T07:35:10.624Z"
+}

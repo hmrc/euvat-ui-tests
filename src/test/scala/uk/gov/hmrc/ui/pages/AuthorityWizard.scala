@@ -18,7 +18,7 @@ package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.AuthorityWizard.{click, sendKeys}
-import uk.gov.hmrc.ui.util.{Env, Urls}
+import uk.gov.hmrc.ui.utils.{Env, Urls}
 
 object AuthorityWizard extends BasePage {
 

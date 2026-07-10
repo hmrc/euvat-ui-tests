@@ -22,7 +22,7 @@ import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.tags.*
-import uk.gov.hmrc.ui.util.MongoHelper
+import uk.gov.hmrc.ui.utils.MongoHelper
 
 class NewEuvatClaimSpec
     extends AnyFeatureSpec
@@ -37,7 +37,7 @@ class NewEuvatClaimSpec
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    dropMongoCollections()
+    dropCollections()
   }
 
   Feature("Make a new EUVAT claim - New claim") {
@@ -179,7 +179,7 @@ class NewEuvatClaimSpec
 //      TotalVatClaim.verifyPageTitle(TotalVatPaid.pageTitle)
 //      TotalVatClaim.submitTotalVatClaim("100")
 
-      MakeEuvatClaim.signOut()
+//      MakeEuvatClaim.signOut()
     }
   }
 }
