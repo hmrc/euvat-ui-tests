@@ -19,23 +19,44 @@ package uk.gov.hmrc.ui.utils
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.{SingleObservableFuture, bsonDocumentToDocument}
 import play.api.libs.json.Json
-import uk.gov.hmrc.test.ui.utils.JsonHelper
+
+import java.util.UUID
+import scala.concurrent.ExecutionContext.Implicits.global
 
 object CacheHelper extends HttpClient with FileHelper with JsonHelper with MongoHelper {
 
-  def submitClaimDetailsAnswers(fileName: String, lrn: String, eoriNumber: String): Unit = {
-    val json = getJson(fileName).withLrn(lrn).withEoriNumber(eoriNumber).withCreatedAt().withLastUpdated().withId()
+  def submitClaimDetailsAnswers(manageFileName: String, filingFileName: String): Unit = {
+    val sharedId = UUID.randomUUID().toString
+
+    val manageJson = getJson(manageFileName)
+      .withCreatedAt()
+      .withLastUpdated()
+      .withId(sharedId)
+
+    val filingJson = getJson(filingFileName)
+      .withCreatedAt()
+      .withLastUpdated()
+      .withId(sharedId)
+
     awaitResult {
-      mongoClient
-        .getDatabase("euvat-filing-frontend")
-        .getCollection("user-answers")
-        .insertOne(bsonDocumentToDocument(BsonDocument(Json.stringify(json))))
-        .toFuture()
+      for {
+        _ <- mongoClient
+               .getDatabase("euvat-management-frontend")
+               .getCollection("user-answers")
+               .insertOne(bsonDocumentToDocument(BsonDocument(Json.stringify(manageJson))))
+               .toFuture()
+
+        _ <- mongoClient
+               .getDatabase("euvat-filing-frontend")
+               .getCollection("user-answers")
+               .insertOne(bsonDocumentToDocument(BsonDocument(Json.stringify(filingJson))))
+               .toFuture()
+      } yield ()
     }
   }
 
-  def submitPurchaseDetailsAnswers(fileName: String, mrn: String, eoriNumber: String): Unit = {
-    val json = getJson(fileName).withMrn(mrn).withEoriNumber(eoriNumber)
+  def submitPurchaseDetailsAnswers(fileName: String): Unit = {
+    val json = getJson(fileName).withCreatedAt().withLastUpdated().withId()
     awaitResult {
       mongoClient
         .getDatabase("euvat-filing-frontend")

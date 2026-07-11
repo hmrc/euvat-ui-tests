@@ -16,10 +16,15 @@
 
 package uk.gov.hmrc.ui.pages
 
+import uk.gov.hmrc.ui.utils.CacheHelper
+
 object ManageYourEuvatClaim extends BasePage {
 
   override def pageUrl: String = "claim-eu-vat-refund"
 
   override def pageTitle: String = "Claim an EU VAT refund - EU VAT - GOV.UK"
+
+  def populateClaimDetails(manageFileName: String, filingFileName: String): Unit =
+    CacheHelper.submitClaimDetailsAnswers(manageFileName, filingFileName)
 
 }

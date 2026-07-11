@@ -33,7 +33,11 @@ trait MongoHelper extends AsyncHelper {
       awaitResult(mongoClient.getDatabase(dbName).getCollection(collectionName).drop().toFuture())
 
     dropCollection("euvat-management-frontend", "user-answers")
+    println("Drop management")
     dropCollection("euvat-filing-frontend", "user-answers")
+    println("Drop filing")
     dropCollection("auth", "session")
+    println("Drop session")
+
   }
 }
