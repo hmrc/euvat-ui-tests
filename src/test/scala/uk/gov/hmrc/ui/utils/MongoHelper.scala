@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.util
+package uk.gov.hmrc.ui.utils
 
 import org.mongodb.scala.{Document, MongoClient, MongoCollection, MongoDatabase, SingleObservableFuture}
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, Suite}
