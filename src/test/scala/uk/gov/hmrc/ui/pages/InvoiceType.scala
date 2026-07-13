@@ -18,9 +18,9 @@ package uk.gov.hmrc.ui.pages
 
 object InvoiceType extends BasePage {
 
-  override def pageUrl: String = "purchase-type"
+  override def pageUrl: String = "invoice-type"
 
-  override def pageTitle: String = "Purchase type - EU VAT - GOV.UK"
+  override def pageTitle: String = "Invoice type - EU VAT - GOV.UK"
 
   val rdoStandardInvoice   = "#value"
   val rdoSimplifiedInvoice = "#value_1"

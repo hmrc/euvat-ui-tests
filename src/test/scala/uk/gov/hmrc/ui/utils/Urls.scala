@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.util
+package uk.gov.hmrc.ui.utils
 
 object Urls extends Enumeration {
   val LOCAL   =

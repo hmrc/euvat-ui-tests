@@ -22,7 +22,7 @@ object TotalVatPaid extends BasePage {
 
   override def pageUrl: String = "total-vat-paid"
 
-  override def pageTitle: String = " Total VAT paid - EU VAT - GOV.UK"
+  override def pageTitle: String = "Total VAT paid - EU VAT - GOV.UK"
 
   val txtTotalVatPaid: By = By.cssSelector("#value")
 

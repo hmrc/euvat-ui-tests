@@ -22,7 +22,7 @@ import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.tags.*
-import uk.gov.hmrc.ui.util.MongoHelper
+import uk.gov.hmrc.ui.utils.MongoHelper
 
 class NewEuvatClaimSpec
     extends AnyFeatureSpec
@@ -43,7 +43,7 @@ class NewEuvatClaimSpec
   Feature("Make a new EUVAT claim - New claim") {
     Scenario("Submit a refund request", Local) {
       Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "123456")
+      AuthorityWizard.login("Organisation", "999900100")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
 
       When("I start new EUVAT claim")
@@ -146,41 +146,33 @@ class NewEuvatClaimSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I add purchase details")
-//      AboutPurchase.verifyPageTitle(AboutPurchase.pageTitle)
-//      AboutPurchase.continue()
-
-//      InvoiceType.verifyPageTitle(SelectInvoiceType.pageTitle)
-//      InvoiceType.selectInvoiceType("standard invoice")
-
-//      InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
-//      InvoiceNumber.submitInvoiceNumber("Test_Invoice_123.5")
-
-//      InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
-//      InvoiceDate.submitInvoiceDate("08", "12", "2025")
-
-//      SupplierName.verifyPageTitle(SupplierName.pageTitle)
-//      SupplierName.submitSupplierName("Test Supplier Name")
-
-//      SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
-//      SupplierAddress.submitSupplierAddress("Test address one","Test address two","Test address three")
-
-//      AddVATRegistration.verifyPageTitle((AddVATRegistration.pageTitle))
-//      AddVATRegistration.continueAsYes()
-
-//      VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
-//      VATRegistrationNumber.submitInvoiceNumber("AB1234567890")
+      MakeEuvatClaim.clickLinkByText("Add a purchase")
+      AboutPurchase.verifyPageTitle(AboutPurchase.pageTitle)
+      AboutPurchase.continue()
+      InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
+      InvoiceType.selectInvoiceType("Standard invoice")
+      InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
+      InvoiceNumber.submitInvoiceNumber("Test_Invoice_123.5")
+      InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
+      InvoiceDate.submitInvoiceDate("08", "12", "2025")
+      SupplierName.verifyPageTitle(SupplierName.pageTitle)
+      SupplierName.submitSupplierName("Test Supplier Name")
+      SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
+      SupplierAddress.submitSupplierAddress("Test address one", "Test address two", "Test address three")
+      AddVATRegistration.verifyPageTitle(AddVATRegistration.pageTitle)
+      AddVATRegistration.continueAsYes()
+      VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
+      VATRegistrationNumber.submitInvoiceNumber("AB1234567890")
 
 //      PurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
 //      PurchaseType.selectPurchaseType("Fuel")
 
-//      TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
-//      TotalPurchaseAmount.submitTotalPurchaseAmount("100")
-//
-//      TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
-//      TotalVatPaid.submitTotalVatPaid("100")
-
-//      TotalVatClaim.verifyPageTitle(TotalVatPaid.pageTitle)
-//      TotalVatClaim.submitTotalVatClaim("100")
+      TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
+      TotalPurchaseAmount.submitTotalPurchaseAmount("100")
+      TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
+      TotalVatPaid.submitTotalVatPaid("100")
+      TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
+      TotalVatClaim.submitTotalVatClaim("100")
 
       MakeEuvatClaim.signOut()
     }

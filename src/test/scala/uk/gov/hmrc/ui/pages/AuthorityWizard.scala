@@ -18,12 +18,11 @@ package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.AuthorityWizard.{click, sendKeys}
-import uk.gov.hmrc.ui.util.{Env, Urls}
+import uk.gov.hmrc.ui.utils.{Env, RandomUtils, Urls}
 
 object AuthorityWizard extends BasePage {
 
-  override def pageUrl: String = s"${Env.baseUrl}/auth-login-stub/gg-sign-in"
-
+  override def pageUrl: String   = s"${Env.baseUrl}/auth-login-stub/gg-sign-in"
   override def pageTitle: String = "auth login stub"
 
   val url: String = s"${Env.baseUrl}/auth-login-stub/gg-sign-in"
@@ -33,12 +32,11 @@ object AuthorityWizard extends BasePage {
   val affinityGroup: By   = By.id("affinityGroupSelect")
   val confidenceLevel: By = By.id("confidenceLevel")
   val nino: By            = By.id("nino")
-  val enrolmentKey: By    = By.id(s"enrolment[0].name") // Enrolment Key
-  val enrolmentId: By     = By.name(s"enrolment[0].taxIdentifier[0].name") // Identifier Name
-  val enrolmentValue: By  = By.name(s"enrolment[0].taxIdentifier[0].value") // Identifier Value
+  val enrolmentKey: By    = By.id("enrolment[0].name")
+  val enrolmentId: By     = By.name("enrolment[0].taxIdentifier[0].name")
+  val enrolmentValue: By  = By.name("enrolment[0].taxIdentifier[0].value")
   val oAuthIdToken: By    = By.id("idToken")
   val addPreset: By       = By.id("add-ident-btn-0")
-  val credId: By          = By.id("authorityId")
   val saPreset: By        = By.id("presets-dropdown")
   val btnSubmit: By       = By.id("submit")
   val btnAddEnrolment: By = By.id("add-ident-btn-0")
@@ -49,38 +47,32 @@ object AuthorityWizard extends BasePage {
       case _          => "/manage-eu-vat"
     }
 
-  def fillInputs(userType: String, taxOfficeReference: String): this.type = userType match {
-    case "Organisation" =>
-      driver.findElement(authorityId).sendKeys(generateCredId())
-      driver.findElement(affinityGroup).sendKeys(userType)
-      driver.findElement(enrolmentKey).sendKeys("HMRC-EU-REF-ORG")
-      driver.findElement(enrolmentId).sendKeys("VATRegNo")
-      val taxOfficeNumber = if (Env.env == "qa") "999900104" else "999900104"
-      driver.findElement(enrolmentValue).sendKeys(taxOfficeNumber)
-      this
-    case "Agent"        =>
-      driver.findElement(authorityId).sendKeys(generateCredId())
-      driver.findElement(affinityGroup).sendKeys(userType)
-      driver.findElement(enrolmentKey).sendKeys("HMCE-VAT-AGNT")
-      driver.findElement(enrolmentId).sendKeys("AgentRefNo")
-      driver.findElement(enrolmentValue).sendKeys(taxOfficeReference)
-      this
+  def fillInputs(userType: String, vatRegNo: String): String = {
+    val generatedCredId = RandomUtils.generateCredId()
+
+    userType match {
+      case "Organisation" =>
+        driver.findElement(authorityId).sendKeys(generatedCredId)
+        driver.findElement(affinityGroup).sendKeys(userType)
+        driver.findElement(enrolmentKey).sendKeys("HMRC-EU-REF-ORG")
+        driver.findElement(enrolmentId).sendKeys("VATRegNo")
+        driver.findElement(enrolmentValue).sendKeys(vatRegNo)
+
+      case "Agent" =>
+        driver.findElement(authorityId).sendKeys(generatedCredId)
+        driver.findElement(affinityGroup).sendKeys(userType)
+        driver.findElement(enrolmentKey).sendKeys("HMCE-VAT-AGNT")
+        driver.findElement(enrolmentId).sendKeys("AgentRefNo")
+        driver.findElement(enrolmentValue).sendKeys(vatRegNo)
+    }
+    generatedCredId
   }
 
-  def login(userType: String, taxOfficeReference: String): Unit = {
+  def login(userType: String, vatRegNo: String): String = {
     AuthorityWizard.navigateToPage(url)
     sendKeys(redirectUrl, buildRedirectUrl())
-    fillInputs(userType, taxOfficeReference)
+    val generatedCredId = fillInputs(userType, vatRegNo)
     click(btnSubmit)
+    generatedCredId
   }
-
-  def generateCredId(): String = {
-    val hexChars = "0123456789abcdef"
-    val credId   = List.fill(16)(hexChars(scala.util.Random.nextInt(hexChars.length))).mkString
-    println(
-      s"**************************************************** CredID: $credId ****************************************************"
-    )
-    credId
-  }
-
 }
