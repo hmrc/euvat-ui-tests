@@ -164,6 +164,9 @@ class NewEuvatClaimSpec
 //      SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
 //      SupplierAddress.submitSupplierAddress("Test address one","Test address two","Test address three")
 
+//        SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
+//        SupplierTaxIDNumber.submitSupplierTaxID("12/345/67890")
+
 //      AddVATRegistration.verifyPageTitle((AddVATRegistration.pageTitle))
 //      AddVATRegistration.continueAsYes()
 
