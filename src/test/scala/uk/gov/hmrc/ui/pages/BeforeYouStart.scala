@@ -16,10 +16,10 @@
 
 package uk.gov.hmrc.ui.pages
 
-object AboutPurchase extends BasePage {
+object BeforeYouStart extends BasePage {
 
-  override def pageUrl: String = "about-the-purchase"
+  override def pageUrl: String = "before-you-start"
 
-  override def pageTitle: String = "About the purchase - EU VAT - GOV.UK"
+  override def pageTitle: String = "Before you start - EU VAT - GOV.UK"
 
 }

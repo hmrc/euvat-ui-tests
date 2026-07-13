@@ -147,8 +147,12 @@ class NewEuvatClaimSpec
 
       And("I add purchase details")
       MakeEuvatClaim.clickLinkByText("Add a purchase")
-      AboutPurchase.verifyPageTitle(AboutPurchase.pageTitle)
-      AboutPurchase.continue()
+      BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
+      BeforeYouStart.continue()
+
+      //      PurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
+      //      PurchaseType.selectPurchaseType("Fuel")
+
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
       InvoiceType.selectInvoiceType("Standard invoice")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
@@ -163,10 +167,6 @@ class NewEuvatClaimSpec
       AddVATRegistration.continueAsYes()
       VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
       VATRegistrationNumber.submitInvoiceNumber("AB1234567890")
-
-//      PurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
-//      PurchaseType.selectPurchaseType("Fuel")
-
       TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
       TotalPurchaseAmount.submitTotalPurchaseAmount("100")
       TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
