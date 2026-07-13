@@ -22,7 +22,7 @@ object TotalPurchaseAmount extends BasePage {
 
   override def pageUrl: String = "total-purchase-amount-before-vat"
 
-  override def pageTitle: String = " Total purchase amount before VAT - EU VAT - GOV.UK"
+  override def pageTitle: String = "Total purchase amount before VAT - EU VAT - GOV.UK"
 
   val txtTotalPurchaseAmount: By = By.cssSelector("#value")
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,17 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages
+package uk.gov.hmrc.ui.utils
 
-import org.openqa.selenium.By
+import java.util.UUID
 
-object TotalVatClaim extends BasePage {
+object RandomUtils {
 
-  override def pageUrl: String = "total-vat-claim"
-
-  override def pageTitle: String = "Total VAT claim - EU VAT - GOV.UK"
-
-  val txtTotalVatClaim: By = By.cssSelector("#value")
-
-  def submitTotalVatClaim(totalVatClaimAmount: String): Unit = {
-    input(txtTotalVatClaim, totalVatClaimAmount)
-    continue()
+  def generateCredId(): String = {
+    val credId = UUID.randomUUID().toString
+    println(
+      s"**************************************************** CredID: $credId ****************************************************"
+    )
+    credId
   }
 }

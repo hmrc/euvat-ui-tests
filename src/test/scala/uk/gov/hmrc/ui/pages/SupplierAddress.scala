@@ -22,7 +22,7 @@ object SupplierAddress extends BasePage {
 
   override def pageUrl: String = "what-supplier-address"
 
-  override def pageTitle: String = "What is the supplier's address? - EU VAT - GOV.UK"
+  override def pageTitle: String = "What is the supplier’s address? - EU VAT - GOV.UK"
 
   val txtAddressLine1: By = By.cssSelector("#addressLine1")
   val txtAddressLine2: By = By.cssSelector("#addressLine2")
