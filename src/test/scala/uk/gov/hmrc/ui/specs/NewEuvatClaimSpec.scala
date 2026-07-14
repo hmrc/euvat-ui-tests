@@ -174,5 +174,53 @@ class NewEuvatClaimSpec
 
       MakeEuvatClaim.signOut()
     }
+    Scenario("Submit a refund request for Germany", Local) {
+      Given("I login as an organisation")
+      AuthorityWizard.login("Organisation", "999900100")
+      ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
+
+      When("I start new EUVAT claim")
+      ManageYourEuvatClaim.clickLinkByText("Make a claim for an EU VAT refund")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
+      And("I add claim details")
+      MakeEuvatClaim.clickLinkByText("Add claim details")
+      EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
+      EUMemberState.selectCountry("Germany")
+      Language.verifyPageTitle(Language.pageTitle)
+      Language.selectLanguage("English")
+      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
+      RefundPeriod.submitRefundPeriod("02", "2025", "04", "2025")
+      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
+      ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
+      AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
+      AddBusinessActivity.continueAsNo()
+      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+      CheckYourClaimDetails.saveAndContinue()
+
+      And("I add purchase details")
+      MakeEuvatClaim.clickLinkByText("Add a purchase")
+      BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
+      BeforeYouStart.continue()
+
+      //      PurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
+      //      PurchaseType.selectPurchaseType("Fuel")
+
+      InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
+      InvoiceType.selectInvoiceType("Standard invoice")
+      InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
+      InvoiceNumber.submitInvoiceNumber("Test_Invoice_123.5")
+      InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
+      InvoiceDate.submitInvoiceDate("08", "12", "2025")
+      SupplierName.verifyPageTitle(SupplierName.pageTitle)
+      SupplierName.submitSupplierName("Test Supplier Name")
+      SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
+      SupplierAddress.submitSupplierAddress("Test address one", "Test address two", "Test address three")
+
+      SupplierTaxNumbers.verifyPageTitle(SupplierTaxNumbers.pageTitle)
+      SupplierTaxNumbers.selectTaxNumber("Vat Registration Number")
+
+      MakeEuvatClaim.signOut()
+    }
   }
 }
