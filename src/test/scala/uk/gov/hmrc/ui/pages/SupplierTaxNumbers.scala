@@ -16,8 +16,6 @@
 
 package uk.gov.hmrc.ui.pages
 
-import org.openqa.selenium.By
-
 object SupplierTaxNumbers extends BasePage {
 
   override def pageUrl: String = "supplier-tax-numbers"
