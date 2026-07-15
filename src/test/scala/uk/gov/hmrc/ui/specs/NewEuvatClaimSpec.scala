@@ -172,7 +172,7 @@ class NewEuvatClaimSpec
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
       TotalVatClaim.submitTotalVatClaim("100")
 
-      MakeEuvatClaim.signOut()
+//      MakeEuvatClaim.signOut()
     }
     Scenario("Submit a refund request for Germany", Local) {
       Given("I login as an organisation")
@@ -218,9 +218,9 @@ class NewEuvatClaimSpec
       SupplierAddress.submitSupplierAddress("Test address one", "Test address two", "Test address three")
 
       SupplierTaxNumbers.verifyPageTitle(SupplierTaxNumbers.pageTitle)
-      SupplierTaxNumbers.selectTaxNumber("Vat Registration Number")
+      SupplierTaxNumbers.selectVatRegNumber()
 
-      MakeEuvatClaim.signOut()
+//      MakeEuvatClaim.signOut()
     }
   }
 }
