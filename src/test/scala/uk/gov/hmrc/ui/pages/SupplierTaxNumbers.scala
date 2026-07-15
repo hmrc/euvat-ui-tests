@@ -24,20 +24,17 @@ object SupplierTaxNumbers extends BasePage {
     "Select the supplier tax numbers shown on the invoice - EU VAT - GOV.UK"
 
   val rdoVatRegNumber = "#value"
-  val rdoTaxIDNumber = "#value_1"
+  val rdoTaxIDNumber  = "#value_1"
 
   def selectTaxNumber(taxNumber: String): this.type = {
     val selector = taxNumber match {
       case "Vat Registration Number" => rdoVatRegNumber
-      case "Tax ID Number" => rdoTaxIDNumber
-      case _ => throw new IllegalArgumentException(s"Invalid Tax Number: $taxNumber")
+      case "Tax ID Number"           => rdoTaxIDNumber
+      case _                         => throw new IllegalArgumentException(s"Invalid Tax Number: $taxNumber")
     }
     radioButton(selector)
     continue()
     this
   }
-
-
-
 
 }
