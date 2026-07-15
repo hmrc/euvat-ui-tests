@@ -22,8 +22,8 @@ object SupplierTaxNumbers extends BasePage {
 
   override def pageTitle: String =
     "Select the supplier tax numbers shown on the invoice - EU VAT - GOV.UK"
-  
-  val rdoVatRegNumber = "#value_0"
+
+  val rdoVatRegNumber = "#value"
   val rdoTaxIDNumber = "#value_1"
 
   def selectTaxNumber(taxNumber: String): this.type = {
@@ -36,8 +36,8 @@ object SupplierTaxNumbers extends BasePage {
     continue()
     this
   }
-  
-  
-  
+
+
+
 
 }
