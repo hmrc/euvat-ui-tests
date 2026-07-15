@@ -30,7 +30,7 @@ object SupplierTaxNumbers extends BasePage {
     val selector = taxNumber match {
       case "Vat Registration Number" => rdoVatRegNumber
       case "Tax ID Number" => rdoTaxIDNumber
-      case _ => throw new IllegalArgumentException(s"Invalid Tax Number: $language")
+      case _ => throw new IllegalArgumentException(s"Invalid Tax Number: $taxNumber")
     }
     radioButton(selector)
     continue()
