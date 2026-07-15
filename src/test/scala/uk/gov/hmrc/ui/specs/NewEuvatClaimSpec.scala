@@ -172,7 +172,7 @@ class NewEuvatClaimSpec
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
       TotalVatClaim.submitTotalVatClaim("100")
 
-//      MakeEuvatClaim.signOut()
+      MakeEuvatClaim.signOut()
     }
     Scenario("Submit a refund request for Germany", Local) {
       Given("I login as an organisation")
@@ -220,7 +220,7 @@ class NewEuvatClaimSpec
       SupplierTaxNumbers.verifyPageTitle(SupplierTaxNumbers.pageTitle)
       SupplierTaxNumbers.selectVatRegNumber()
 
-//      MakeEuvatClaim.signOut()
+      MakeEuvatClaim.signOut()
     }
   }
 }
