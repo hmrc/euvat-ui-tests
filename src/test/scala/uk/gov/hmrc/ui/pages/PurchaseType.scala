@@ -30,12 +30,12 @@ object PurchaseType extends BasePage {
 
   def selectPurchaseType(radio: String): this.type = {
     val selector = radio match {
-      case "Fuel"                                                  => rdoFuel
-      case "Expenditure relating to means of transport"            => rdoTransport
-      case "Food, drink and restaurant services"                   => rdoFood
-      case "Expenditure on luxuries, amusements and entertainment" => rdoLuxuries
-      case "Other"                                                 => rdoOther
-      case _                                                       => throw new IllegalArgumentException(s"Invalid option: $radio")
+      case "Fuel"                                    => rdoFuel
+      case "Transport costs"                         => rdoTransport
+      case "Food, drink and restaurant services"     => rdoFood
+      case "Luxuries, entertainment and hospitality" => rdoLuxuries
+      case "Other"                                   => rdoOther
+      case _                                         => throw new IllegalArgumentException(s"Invalid option: $radio")
     }
     radioButton(selector)
     continue()

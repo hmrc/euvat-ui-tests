@@ -149,10 +149,8 @@ class NewEuvatClaimSpec
       MakeEuvatClaim.clickLinkByText("Add a purchase")
       BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
       BeforeYouStart.continue()
-
-      //      PurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
-      //      PurchaseType.selectPurchaseType("Fuel")
-
+      PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
+      PurchaseType.selectPurchaseType("Fuel")
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
       InvoiceType.selectInvoiceType("Standard invoice")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
