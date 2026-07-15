@@ -202,10 +202,8 @@ class NewEuvatClaimSpec
       MakeEuvatClaim.clickLinkByText("Add a purchase")
       BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
       BeforeYouStart.continue()
-
-      //      PurchaseType.verifyPageTitle(SelectPurchaseType.pageTitle)
-      //      PurchaseType.selectPurchaseType("Fuel")
-
+      PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
+      PurchaseType.selectPurchaseType("Fuel")
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
       InvoiceType.selectInvoiceType("Standard invoice")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
@@ -218,7 +216,7 @@ class NewEuvatClaimSpec
       SupplierAddress.submitSupplierAddress("Test address one", "Test address two", "Test address three")
 
       SupplierTaxNumbers.verifyPageTitle(SupplierTaxNumbers.pageTitle)
-      SupplierTaxNumbers.selectVatRegNumber()
+      SupplierTaxNumbers.selectTaxNumber("Vat Registration Number")
 
       MakeEuvatClaim.signOut()
     }
