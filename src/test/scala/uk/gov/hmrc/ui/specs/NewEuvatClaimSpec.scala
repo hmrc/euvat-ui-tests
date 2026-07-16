@@ -161,8 +161,6 @@ class NewEuvatClaimSpec
       SupplierName.submitSupplierName("Test Supplier Name")
       SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
       SupplierAddress.submitSupplierAddress("Test address one", "Test address two", "Test address three")
-//      SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
-//      SupplierTaxIDNumber.submitSupplierTaxID("12/345/67890")
       AddVATRegistration.verifyPageTitle(AddVATRegistration.pageTitle)
       AddVATRegistration.continueAsYes()
       VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
@@ -219,7 +217,8 @@ class NewEuvatClaimSpec
 
       SupplierTaxNumbers.verifyPageTitle(SupplierTaxNumbers.pageTitle)
       SupplierTaxNumbers.selectTaxNumber("Vat Registration Number")
-
+      SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
+      SupplierTaxIDNumber.submitSupplierTaxID("12/345/67890")
       MakeEuvatClaim.signOut()
     }
   }

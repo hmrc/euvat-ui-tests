@@ -22,7 +22,7 @@ object SupplierTaxIDNumber extends BasePage {
 
   override def pageUrl: String = "supplier-tax-identifier-number"
 
-  override def pageTitle: String = " What is the supplier’s tax identifier number? - EU VAT - GOV.UK"
+  override def pageTitle: String = "What is the supplier’s tax identifier number? - EU VAT - GOV.UK"
 
   val txtSupplierTaxID: By = By.cssSelector("#event-name")
 
