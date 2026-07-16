@@ -174,9 +174,10 @@ class NewEuvatClaimSpec
 
       MakeEuvatClaim.signOut()
     }
+
     Scenario("Submit a refund request for Germany", Local) {
       Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "999900100")
+      AuthorityWizard.login("Organisation", "999900001")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
 
       When("I start new EUVAT claim")
@@ -216,8 +217,9 @@ class NewEuvatClaimSpec
       SupplierAddress.submitSupplierAddress("Test address one", "Test address two", "Test address three")
 
       SupplierTaxNumbers.verifyPageTitle(SupplierTaxNumbers.pageTitle)
-      SupplierTaxNumbers.selectTaxNumber("Vat Registration Number")
-
+      SupplierTaxNumbers.selectTaxNumber("Tax ID Number")
+      SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
+      SupplierTaxIDNumber.submitSupplierTaxID("12/345/67890")
       MakeEuvatClaim.signOut()
     }
   }
