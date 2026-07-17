@@ -176,7 +176,7 @@ class NewEuvatClaimSpec
     }
     Scenario("Submit a refund request for Germany", Local) {
       Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "999900100")
+      AuthorityWizard.login("Organisation", "999900001")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
 
       When("I start new EUVAT claim")
