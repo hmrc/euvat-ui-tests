@@ -25,15 +25,7 @@ object ClaimDetails extends BasePage {
 
   private val linkSelectors = Map(
     "Refunding EU member state" -> "#main-content > div > div > form > div:nth-child(2) > dl > div > dd.govuk-summary-list__actions > a",
-    "Claim language"            -> "#main-content > div > div > form > div:nth-child(3) > dl > div > dd.govuk-summary-list__actions > a",
-    "Currency"                  -> "#main-content > div > div > form > div:nth-child(4) > dl > div > dd.govuk-summary-list__actions > a",
-    "Start date"                -> "#main-content > div > div > form > div:nth-child(5) > dl > div:nth-child(1) > dd.govuk-summary-list__actions > a",
-    "End date"                  -> "#main-content > div > div > form > div:nth-child(5) > dl > div:nth-child(2) > dd.govuk-summary-list__actions > a",
-    "Email"                     -> "#main-content > div > div > form > div:nth-child(6) > dl > div:nth-child(1) > dd.govuk-summary-list__actions > a",
-    "Phone number"              -> "#main-content > div > div > form > div:nth-child(6) > dl > div:nth-child(2) > dd.govuk-summary-list__actions > a",
-    "First SIC code"            -> "#main-content > div > div > form > div:nth-child(7) > dl > div > dd.govuk-summary-list__actions > a",
-    "Second SIC code"           -> "#main-content > div > div > form > div:nth-child(8) > dl > div > dd.govuk-summary-list__actions > a",
-    "Third SIC code"            -> "#main-content > div > div > form > div:nth-child(9) > dl > div > dd.govuk-summary-list__actions > a"
+    "Claim language"            -> "#main-content > div > div > form > div:nth-child(3) > dl > div > dd.govuk-summary-list__actions > a"
   )
 
   def clickChangeLink(changeLink: String): this.type = {

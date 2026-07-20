@@ -22,9 +22,9 @@ import uk.gov.hmrc.ui.pages.RemoveSecondBusinessActivity.{continue, radioButton}
 
 object ChangeEUMemberState extends BasePage {
 
-  override def pageUrl: String   = "change-eu-member-state-details"
+  override def pageUrl: String = "change-eu-member-state-details"
 
-  override def pageTitle: String = "EU member state details   - EU VAT - GOV.UK"
+  override def pageTitle: String = "EU member state details - EU VAT - GOV.UK"
 
   val rdoDeleteClaim   = "#value"
   val rdoReturnToClaim = "#value_1"
