@@ -22,7 +22,7 @@ import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.tags.*
-import uk.gov.hmrc.ui.utils.MongoHelper
+import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
 
 class NewEuvatClaimSpec
     extends AnyFeatureSpec
@@ -33,11 +33,13 @@ class NewEuvatClaimSpec
     with BeforeAndAfterEach
     with Browser
     with ScreenshotOnFailure
-    with MongoHelper {
+    with MongoHelper
+    with DatabaseHelper {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
     dropMongoCollections()
+    cleanupDatabaseIfNotStub()
   }
 
   Feature("Make a new EUVAT claim - New claim") {
