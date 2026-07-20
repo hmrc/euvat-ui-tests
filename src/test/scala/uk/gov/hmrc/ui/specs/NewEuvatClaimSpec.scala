@@ -199,6 +199,10 @@ class NewEuvatClaimSpec
       AddBusinessActivity.continueAsNo()
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      MakeEuvatClaim.clickLinkByText("View claim details")
+      ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
+      ClaimDetails.continue()
 
       And("I add purchase details")
       MakeEuvatClaim.clickLinkByText("Add a purchase")
