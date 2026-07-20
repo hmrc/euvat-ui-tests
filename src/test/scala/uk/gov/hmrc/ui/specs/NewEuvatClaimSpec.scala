@@ -202,6 +202,12 @@ class NewEuvatClaimSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       MakeEuvatClaim.clickLinkByText("View claim details")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
+
+      And("Return to claim details page")
+      ClaimDetails.clickChangeLink("Refunding EU member state")
+      ChangeEUMemberState.verifyPageTitle(ChangeEUMemberState.pageTitle)
+      ChangeEUMemberState.returnToClaim()
+      ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
       ClaimDetails.continue()
 
       And("I add purchase details")
@@ -220,7 +226,6 @@ class NewEuvatClaimSpec
       SupplierName.submitSupplierName("Test Supplier Name")
       SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
       SupplierAddress.submitSupplierAddress("Test address one", "Test address two", "Test address three")
-
       SupplierTaxNumbers.verifyPageTitle(SupplierTaxNumbers.pageTitle)
       SupplierTaxNumbers.selectTaxNumber("Vat Registration Number")
 
