@@ -203,11 +203,6 @@ class NewEuvatClaimSpec
       MakeEuvatClaim.clickLinkByText("View claim details")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
-//      And("Return to claim details page")
-//      ClaimDetails.clickChangeLink("Refunding EU member state")
-//      ChangeEUMemberState.verifyPageTitle(ChangeEUMemberState.pageTitle)
-//      ChangeEUMemberState.returnToClaim()
-//      ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
       ClaimDetails.continue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
