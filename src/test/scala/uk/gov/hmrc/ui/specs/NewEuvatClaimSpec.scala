@@ -200,6 +200,11 @@ class NewEuvatClaimSpec
       AddBusinessActivity.continueAsNo()
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      MakeEuvatClaim.clickLinkByText("View claim details")
+      ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
+      ClaimDetails.continue()
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I add purchase details")
       MakeEuvatClaim.clickLinkByText("Add a purchase")
@@ -217,7 +222,6 @@ class NewEuvatClaimSpec
       SupplierName.submitSupplierName("Test Supplier Name")
       SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
       SupplierAddress.submitSupplierAddress("Test address one", "Test address two", "Test address three")
-
       SupplierTaxNumbers.verifyPageTitle(SupplierTaxNumbers.pageTitle)
       SupplierTaxNumbers.selectTaxNumber("Tax ID Number")
       SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
