@@ -202,7 +202,6 @@ class NewEuvatClaimSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       MakeEuvatClaim.clickLinkByText("View claim details")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
-
       ClaimDetails.continue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
