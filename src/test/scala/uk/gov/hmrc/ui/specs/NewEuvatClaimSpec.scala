@@ -262,8 +262,8 @@ class NewEuvatClaimSpec
       MakeEuvatClaim.clickLinkByText("View claim details")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
       ClaimDetails.clickChangeLink("Refunding EU member state")
-      // DeleteClaim.verifyPageTitle(DeleteClaim.pageTitle)
-      // DeleteClaim.continueAsYes()
+      DeleteClaim.verifyPageTitle(DeleteClaim.pageTitle)
+      DeleteClaim.continueAsYes()
 
       MakeEuvatClaim.signOut()
     }
