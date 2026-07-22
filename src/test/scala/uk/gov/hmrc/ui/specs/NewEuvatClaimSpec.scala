@@ -68,7 +68,7 @@ class NewEuvatClaimSpec
 //      Change member state
       CheckYourClaimDetails.clickChangeLink("Refunding EU member state")
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
-      EUMemberState.selectCountry("Bulgaria")
+      EUMemberState.selectCountry("Estonia")
       Language.verifyPageTitle(Language.pageTitle)
       Language.selectLanguage("English")
       Currency.verifyPageTitle(Currency.pageTitle)
@@ -79,12 +79,12 @@ class NewEuvatClaimSpec
 //      Change language
       CheckYourClaimDetails.clickChangeLink("Claim language")
       Language.verifyPageTitle(Language.pageTitle)
-      Language.selectLanguage("Bulgarian")
+      Language.selectLanguage("Estonian")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 //      Change currency
       CheckYourClaimDetails.clickChangeLink("Currency")
       Currency.verifyPageTitle(Currency.pageTitle)
-      Currency.selectCurrencyType("Bulgarian Lev (лв)")
+      Currency.selectCurrencyType("Estonian Kroon (kr)")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 //      Change refund period
       CheckYourClaimDetails.clickChangeLink("End date")
@@ -153,6 +153,8 @@ class NewEuvatClaimSpec
       BeforeYouStart.continue()
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
       PurchaseType.selectPurchaseType("Fuel")
+      InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
+      InvoiceItemDescription.submitItemDescription("Test item description")
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
       InvoiceType.selectInvoiceType("Standard invoice")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
@@ -212,6 +214,8 @@ class NewEuvatClaimSpec
       BeforeYouStart.continue()
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
       PurchaseType.selectPurchaseType("Fuel")
+      InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
+      InvoiceItemDescription.submitItemDescription("Test item description")
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
       InvoiceType.selectInvoiceType("Standard invoice")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
