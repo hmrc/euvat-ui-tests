@@ -39,7 +39,7 @@ class NewEuvatClaimSpec
   override def beforeEach(): Unit = {
     super.beforeEach()
     dropMongoCollections()
-//    cleanupDatabaseIfNotStub()
+    cleanupDatabaseIfNotStub()
   }
 
   Feature("Make a new EUVAT claim - New claim") {
