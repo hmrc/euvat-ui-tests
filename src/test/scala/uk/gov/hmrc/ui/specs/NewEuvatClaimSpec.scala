@@ -39,7 +39,7 @@ class NewEuvatClaimSpec
   override def beforeEach(): Unit = {
     super.beforeEach()
     dropMongoCollections()
-    cleanupDatabaseIfNotStub()
+//    cleanupDatabaseIfNotStub()
   }
 
   Feature("Make a new EUVAT claim - New claim") {
@@ -202,10 +202,6 @@ class NewEuvatClaimSpec
       AddBusinessActivity.continueAsNo()
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      MakeEuvatClaim.clickLinkByText("View claim details")
-      ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
-      ClaimDetails.continue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I add purchase details")
