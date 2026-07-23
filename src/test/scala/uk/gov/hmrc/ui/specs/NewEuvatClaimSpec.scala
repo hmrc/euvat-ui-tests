@@ -232,5 +232,40 @@ class NewEuvatClaimSpec
       SupplierTaxIDNumber.submitSupplierTaxID("12/345/67890")
       MakeEuvatClaim.signOut()
     }
+
+    Scenario("Delete a refund request", Local) {
+      Given("I login as an organisation")
+      AuthorityWizard.login("Organisation", "999900001")
+      ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
+
+      When("I start new EUVAT claim")
+      ManageYourEuvatClaim.clickLinkByText("Make a claim for an EU VAT refund")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
+      And("I add claim details")
+      MakeEuvatClaim.clickLinkByText("Add claim details")
+      EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
+      EUMemberState.selectCountry("France")
+      Language.verifyPageTitle(Language.pageTitle)
+      Language.selectLanguage("English")
+      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
+      RefundPeriod.submitRefundPeriod("02", "2025", "04", "2025")
+      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
+      ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
+      AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
+      AddBusinessActivity.continueAsNo()
+      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+      CheckYourClaimDetails.saveAndContinue()
+
+      And("I delete the claim")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      MakeEuvatClaim.clickLinkByText("View claim details")
+      ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
+      ClaimDetails.clickChangeLink("Refunding EU member state")
+      DeleteClaim.verifyPageTitle(DeleteClaim.pageTitle)
+      DeleteClaim.continueAsYes()
+
+      MakeEuvatClaim.signOut()
+    }
   }
 }
