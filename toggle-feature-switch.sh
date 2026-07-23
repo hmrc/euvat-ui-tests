@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-FILE="/home/johnwhitfield/workspace/euvat-refunds/conf/application.conf"
+FILE="$HOME/workspace/euvat-refunds/conf/application.conf"
+[ -f "$FILE" ] || { echo "Config file not found: $FILE"; exit 1; }
 
 usage() {
   echo "Usage: $0 stub|db"
