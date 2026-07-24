@@ -3,7 +3,7 @@ set -euo pipefail
 
 BROWSER="${1:-chrome}"
 ENVIRONMENT="${2:-local}"
-TOGGLE_SCRIPT="./toggle-feature-switch.sh"
+TOGGLE_SCRIPT="./toggle-feature-switch-sm2.sh"
 
 cleanup() {
   echo "Resetting backend to stub..."
