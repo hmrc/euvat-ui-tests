@@ -175,8 +175,7 @@ class NewEuvatClaimSpec
       TotalVatPaid.submitTotalVatPaid("100")
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
       TotalVatClaim.submitTotalVatClaim("100")
-
-      MakeEuvatClaim.signOut()
+      MakeEuvatClaim.clickSignOut
     }
 
     Scenario("Submit a refund request for Germany", Local) {
@@ -226,7 +225,7 @@ class NewEuvatClaimSpec
       SupplierTaxNumbers.selectTaxNumber("Tax ID Number")
       SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
       SupplierTaxIDNumber.submitSupplierTaxID("12/345/67890")
-      MakeEuvatClaim.signOut()
+      MakeEuvatClaim.clickSignOut
     }
 
     Scenario("Delete a refund request", Local) {
@@ -260,8 +259,7 @@ class NewEuvatClaimSpec
       ClaimDetails.clickChangeLink("Refunding EU member state")
       DeleteClaim.verifyPageTitle(DeleteClaim.pageTitle)
       DeleteClaim.continueAsYes()
-
-      MakeEuvatClaim.signOut()
+      MakeEuvatClaim.clickSignOut
     }
   }
 }
