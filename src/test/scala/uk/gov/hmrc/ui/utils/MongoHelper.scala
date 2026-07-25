@@ -16,28 +16,34 @@
 
 package uk.gov.hmrc.ui.utils
 
-import org.mongodb.scala.{MongoClient, SingleObservableFuture}
+import org.mongodb.scala.{Document, MongoClient, MongoCollection, MongoDatabase, SingleObservableFuture}
+import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, Suite}
+import org.scalatest.time.SpanSugar.convertIntToGrainOfTime
+import scala.concurrent.Await
 
-import scala.language.postfixOps
+trait MongoHelper extends AsyncHelper with BeforeAndAfterEach with BeforeAndAfterAll { self: Suite =>
 
-trait MongoHelper extends AsyncHelper {
+  import scala.language.postfixOps
 
-  lazy val mongoClient: MongoClient = MongoClient()
+  private val mongoUri           = "mongodb://localhost:27017"
+  private val mongoDatabaseName1 = "euvat-management-frontend"
+  private val mongoDatabaseName2 = "euvat-filing-frontend"
 
-  def dropCollections(): Unit = {
-    println(
-      "======================================================== DROPPING MONGO COLLECTIONS ========================================================"
-    )
+  protected lazy val mongoClient: MongoClient = MongoClient(mongoUri)
 
-    def dropCollection(dbName: String, collectionName: String): Unit =
-      awaitResult(mongoClient.getDatabase(dbName).getCollection(collectionName).drop().toFuture())
+  def dropMongoCollections(): Unit = {
+    val database1: MongoDatabase = mongoClient.getDatabase(mongoDatabaseName1)
+    val database2: MongoDatabase = mongoClient.getDatabase(mongoDatabaseName2)
 
-    dropCollection("euvat-management-frontend", "user-answers")
-    println("Drop management")
-    dropCollection("euvat-filing-frontend", "user-answers")
-    println("Drop filing")
-    dropCollection("auth", "session")
-    println("Drop session")
+    val collection1: MongoCollection[Document] = database1.getCollection("user-answers")
+    val collection2: MongoCollection[Document] = database2.getCollection("user-answers")
 
+    try {
+      Await.result(collection1.drop().toFuture(), 10.seconds)
+      Await.result(collection2.drop().toFuture(), 10.seconds)
+    } catch {
+      case e: Exception =>
+        println(s"FAILED TO DROP MONGODB COLLECTION 'user-answers': ${e.getMessage}")
+    }
   }
 }

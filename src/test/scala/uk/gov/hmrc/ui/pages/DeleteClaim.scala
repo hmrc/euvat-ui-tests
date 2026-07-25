@@ -16,24 +16,20 @@
 
 package uk.gov.hmrc.ui.pages
 
-object Language extends BasePage {
+object DeleteClaim extends BasePage {
 
-  override def pageUrl: String = "which-language"
+  override def pageUrl: String = "eu-member-state-details"
 
-  override def pageTitle: String = "Which language do you want to use for this claim? - EU VAT - GOV.UK"
+  override def pageTitle: String = "EU member state details - EU VAT - GOV.UK"
 
-  val rdoEnglish  = "#value_0"
-  val rdoEstonian = "#value_1"
-
-  def selectLanguage(language: String): this.type = {
-    val selector = language match {
-      case "English"  => rdoEnglish
-      case "Estonian" => rdoEstonian
-      case _          => throw new IllegalArgumentException(s"Invalid language: $language")
-    }
-    radioButton(selector)
+  def continueAsYes(): Unit = {
+    radioButton(Locators.rdoYes)
     continue()
-    this
+  }
+
+  def continueAsNo(): Unit = {
+    radioButton(Locators.rdoNo)
+    continue()
   }
 
 }

@@ -17,16 +17,20 @@
 package uk.gov.hmrc.ui.utils
 
 import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.{SingleObservableFuture, bsonDocumentToDocument}
+import org.mongodb.scala.{MongoClient, SingleObservableFuture, bsonDocumentToDocument}
 import play.api.libs.json.Json
 
-object CacheHelper extends HttpClient with FileHelper with JsonHelper with MongoHelper {
+object CacheHelper extends HttpClient with FileHelper with JsonHelper {
+
+  private lazy val mongoClient: MongoClient =
+    MongoClient("mongodb://localhost:27017")
 
   def submitUserAnswers(filingFileName: String, sharedId: String): Unit = {
     val filingJson = getJson(filingFileName)
       .withCreatedAt()
       .withLastUpdated()
       .withId(sharedId)
+
     awaitResult {
       mongoClient
         .getDatabase("euvat-filing-frontend")

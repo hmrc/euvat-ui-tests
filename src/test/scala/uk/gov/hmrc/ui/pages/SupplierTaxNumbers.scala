@@ -16,20 +16,21 @@
 
 package uk.gov.hmrc.ui.pages
 
-object Language extends BasePage {
+object SupplierTaxNumbers extends BasePage {
 
-  override def pageUrl: String = "which-language"
+  override def pageUrl: String = "supplier-tax-numbers"
 
-  override def pageTitle: String = "Which language do you want to use for this claim? - EU VAT - GOV.UK"
+  override def pageTitle: String =
+    "Select the supplier tax numbers shown on the invoice - EU VAT - GOV.UK"
 
-  val rdoEnglish  = "#value_0"
-  val rdoEstonian = "#value_1"
+  val rdoVatRegNumber = "#value"
+  val rdoTaxIDNumber  = "#value_1"
 
-  def selectLanguage(language: String): this.type = {
-    val selector = language match {
-      case "English"  => rdoEnglish
-      case "Estonian" => rdoEstonian
-      case _          => throw new IllegalArgumentException(s"Invalid language: $language")
+  def selectTaxNumber(taxNumber: String): this.type = {
+    val selector = taxNumber match {
+      case "Vat Registration Number" => rdoVatRegNumber
+      case "Tax ID Number"           => rdoTaxIDNumber
+      case _                         => throw new IllegalArgumentException(s"Invalid Tax Number: $taxNumber")
     }
     radioButton(selector)
     continue()

@@ -19,13 +19,14 @@ package uk.gov.hmrc.ui.pages
 import com.typesafe.scalalogging.LazyLogging
 import driver.BrowserDriver
 import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait, Wait, WebDriverWait}
-import org.openqa.selenium.{By, JavascriptExecutor, WebDriver, WebElement}
+import org.openqa.selenium.{By, JavascriptExecutor, StaleElementReferenceException, WebDriver, WebElement}
 import org.scalatest.concurrent.Eventually
 import org.scalatest.matchers.must.Matchers
 import uk.gov.hmrc.selenium.component.PageObject
 import uk.gov.hmrc.selenium.webdriver.Driver
 
 import java.time.Duration
+import java.util.function.Function
 import scala.jdk.CollectionConverters.*
 
 trait BasePage extends PageObject with Eventually with Matchers with LazyLogging with BrowserDriver {
@@ -39,11 +40,9 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
 
   /** Locator values */
   object Locators {
-    val btnSubmit  = ".govuk-button"
-    val rdoYes     = "#value"
-    val rdoNo      = "#value-2"
-    val lnkSignOut =
-      "body > header > div.govuk-header.hmrc-header.hmrc-header--with-additional-navigation > div > nav > a"
+    val btnSubmit = ".govuk-button"
+    val rdoYes    = "#value"
+    val rdoNo     = "#value-2"
   }
 
   def pageUrl: String
@@ -95,8 +94,6 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
 
   def continue(): Unit = click(By.cssSelector(Locators.btnSubmit))
 
-  def signOut(): Unit = click(By.cssSelector(Locators.lnkSignOut))
-
   /** Navigation methods */
   def navigateToPage(url: String): Unit = driver.navigate().to(url)
 
@@ -115,7 +112,7 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
   def fluentWait: Wait[WebDriver] = new FluentWait[WebDriver](Driver.instance)
     .withTimeout(Duration.ofSeconds(120))
     .pollingEvery(Duration.ofMillis(500))
-    .ignoring(classOf[NoSuchElementException])
+    .ignoring(classOf[NoSuchElementException], classOf[StaleElementReferenceException])
 
   /** Radio button interaction */
   def radioButton(optionalValue: String): Unit = {
@@ -180,5 +177,27 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
 
   def waitForPageTitle(expectedTitle: String): Unit =
     fluentWait.until(ExpectedConditions.titleIs(expectedTitle))
+
+  def clickSignOut(driver: WebDriver): Unit = {
+    val signOut = By.linkText("Sign out")
+
+    val wait = new FluentWait[WebDriver](driver)
+      .withTimeout(Duration.ofSeconds(10))
+      .pollingEvery(Duration.ofMillis(200))
+      .ignoring(classOf[StaleElementReferenceException])
+
+    val condition = new Function[WebDriver, Boolean] {
+      override def apply(driver: WebDriver): Boolean = {
+        val el = driver.findElement(signOut)
+        if (el.isDisplayed && el.isEnabled) {
+          el.click()
+          true
+        } else {
+          false
+        }
+      }
+    }
+    wait.until(condition)
+  }
 
 }

@@ -16,24 +16,18 @@
 
 package uk.gov.hmrc.ui.pages
 
-object Language extends BasePage {
+import org.openqa.selenium.By
 
-  override def pageUrl: String = "which-language"
+object SupplierTaxIDNumber extends BasePage {
 
-  override def pageTitle: String = "Which language do you want to use for this claim? - EU VAT - GOV.UK"
+  override def pageUrl: String = "supplier-tax-identifier-number"
 
-  val rdoEnglish  = "#value_0"
-  val rdoEstonian = "#value_1"
+  override def pageTitle: String = "What is the supplier’s tax identifier number? - EU VAT - GOV.UK"
 
-  def selectLanguage(language: String): this.type = {
-    val selector = language match {
-      case "English"  => rdoEnglish
-      case "Estonian" => rdoEstonian
-      case _          => throw new IllegalArgumentException(s"Invalid language: $language")
-    }
-    radioButton(selector)
+  val txtSupplierTaxID: By = By.cssSelector("#event-name")
+
+  def submitSupplierTaxID(supplierTaxID: String): Unit = {
+    input(txtSupplierTaxID, supplierTaxID)
     continue()
-    this
   }
-
 }

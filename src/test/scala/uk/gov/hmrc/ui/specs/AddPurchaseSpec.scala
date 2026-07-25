@@ -37,7 +37,7 @@ class AddPurchaseSpec
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    dropCollections()
+    dropMongoCollections()
   }
 
   Feature("Make a new EUVAT claim - Add a purchase") {
@@ -55,8 +55,8 @@ class AddPurchaseSpec
       MakeEuvatClaim.clickLinkByText("Add a purchase")
 
       And("I add purchase details")
-      AboutPurchase.verifyPageTitle(AboutPurchase.pageTitle)
-      AboutPurchase.continue()
+      BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
+      BeforeYouStart.continue()
 
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
       InvoiceType.selectInvoiceType("Standard invoice")
@@ -91,7 +91,7 @@ class AddPurchaseSpec
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
       TotalVatClaim.submitTotalVatClaim("100")
 
-      MakeEuvatClaim.signOut()
+      MakeEuvatClaim.clickSignOut
     }
   }
 }

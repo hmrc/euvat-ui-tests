@@ -16,10 +16,18 @@
 
 package uk.gov.hmrc.ui.pages
 
-object AboutPurchase extends BasePage {
+import org.openqa.selenium.By
 
-  override def pageUrl: String = "about-the-purchase"
+object InvoiceItemDescription extends BasePage {
 
-  override def pageTitle: String = "About the purchase - EU VAT - GOV.UK"
+  override def pageUrl: String = "describe-items-on-invoice"
 
+  override def pageTitle: String = "Describe the items on your invoice - EU VAT - GOV.UK"
+
+  val txtItemDescription: By = By.cssSelector("#value")
+
+  def submitItemDescription(itemDescription: String): Unit = {
+    input(txtItemDescription, itemDescription)
+    continue()
+  }
 }
