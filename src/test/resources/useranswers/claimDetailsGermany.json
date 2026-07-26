@@ -1,19 +1,20 @@
 {
   "data": {
-    "refundingCountryCode": "EE",
-    "refundingCountryName": "Estonia",
-    "refundingLanguage": "estonian",
-    "refundingCurrency": "EEK",
+    "refundingCountryCode": "DE",
+    "refundingCountryName": "Germany",
+    "refundingLanguage": "english",
+    "refundingCurrency": "EUR",
     "traderKnownFacts": {
-      "vatRegNumber": 999900104,
+      "vatRegNumber": 999900001,
       "traderName": "TestData",
       "addressLine1": "Line 1",
       "addressLine2": "Line 2",
       "addressLine3": "Line 3",
       "addressLine4": "Line 4",
       "addressLine5": "Line 5",
+      "postCode": "NE3 9TG",
       "tradeClass": "7020",
-      "dateOfRegistration": "2025-01-31T00:00:00",
+      "dateOfRegistration": "2025-01-01T00:00:00",
       "dateOfDeregistration": "2025-12-31T23:59:59.999999999",
       "missingTraderIndicator": "N"
     },
@@ -22,20 +23,17 @@
       "endDate": "2025-04-30T23:59:59.999"
     },
     "contactDetails": {
-      "email": "test@test.com",
+      "email": "Test@gmail.com",
       "telephone": "9876543210"
     },
     "businessActivityCode": "7020",
-    "businessActivity": true,
-    "businessActivityCodeTwo": "2534",
-    "businessActivityTwo": true,
-    "businessActivityCodeThree": "4712",
+    "businessActivity": false,
     "claimDetailsCompleted": true,
     "claimApplicationResponsePage": {
-      "applicationId": 100,
-      "applicationNumber": "GB123100",
+      "applicationId": 101,
+      "applicationNumber": "GB123101",
       "updateSeqNumber": 3
     },
-    "lastUpdated": "2026-07-04T07:35:10.624Z"
+    "lastUpdated": "2026-07-26T18:44:37.899Z"
   }
 }

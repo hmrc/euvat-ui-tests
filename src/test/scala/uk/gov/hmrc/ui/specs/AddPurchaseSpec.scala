@@ -41,16 +41,17 @@ class AddPurchaseSpec
   }
 
   Feature("Make a new EUVAT claim - Add a purchase") {
-    Scenario("Submit a refund request", Local, WIP) {
+    Scenario("01 - Submit a refund request", Local, WIP) {
       Given("I login as an organisation")
-      val sharedId = AuthorityWizard.login("Organisation", "999900100")
+      val sharedId = AuthorityWizard.login("Organisation", "999900101")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
 
       When("I start new EUVAT claim")
+//      Inject Claim details
       CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
       ManageYourEuvatClaim.clickLinkByText("Make a claim for an EU VAT refund")
 
-      And("I see Claim details completed and Add a purchase")
+      And("I see Claim details completed")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       MakeEuvatClaim.clickLinkByText("Add a purchase")
 
@@ -85,4 +86,43 @@ class AddPurchaseSpec
       MakeEuvatClaim.clickSignOut
     }
   }
+
+  Scenario("02 - Submit a refund request for Germany", Local, WIP) {
+    Given("I login as an organisation")
+    val sharedId = AuthorityWizard.login("Organisation", "999900101")
+    ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
+
+    When("I start new EUVAT claim")
+    //      Inject Claim details
+    CacheHelper.submitUserAnswers("claimDetailsGermany.json", sharedId)
+    ManageYourEuvatClaim.clickLinkByText("Make a claim for an EU VAT refund")
+
+    And("I see Claim details completed")
+    MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+    MakeEuvatClaim.clickLinkByText("Add a purchase")
+    And("I add purchase details")
+    MakeEuvatClaim.clickLinkByText("Add a purchase")
+    BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
+    BeforeYouStart.continue()
+    PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
+    PurchaseType.selectPurchaseType("Fuel")
+    InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
+    InvoiceItemDescription.submitItemDescription("Test item description")
+    InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
+    InvoiceType.selectInvoiceType("Standard invoice")
+    InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
+    InvoiceNumber.submitInvoiceNumber("Test_Invoice_123.5")
+    InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
+    InvoiceDate.submitInvoiceDate("08", "12", "2025")
+    SupplierName.verifyPageTitle(SupplierName.pageTitle)
+    SupplierName.submitSupplierName("Test Supplier Name")
+    SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
+    SupplierAddress.submitSupplierAddress("Test address one", "Test address two", "Test address three")
+    SupplierTaxNumbers.verifyPageTitle(SupplierTaxNumbers.pageTitle)
+    SupplierTaxNumbers.selectTaxNumber("Tax ID Number")
+    SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
+    SupplierTaxIDNumber.submitSupplierTaxID("12/345/67890")
+    MakeEuvatClaim.clickSignOut
+  }
+
 }

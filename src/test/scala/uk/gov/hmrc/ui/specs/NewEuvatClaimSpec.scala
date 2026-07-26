@@ -43,7 +43,7 @@ class NewEuvatClaimSpec
   }
 
   Feature("Make a new EUVAT claim - New claim") {
-    Scenario("Submit a refund request", Local) {
+    Scenario("01 - Submit a refund request", Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
@@ -178,7 +178,7 @@ class NewEuvatClaimSpec
       MakeEuvatClaim.clickSignOut
     }
 
-    Scenario("Submit a refund request for Germany", Local) {
+    Scenario("02 - Submit a refund request for Germany", Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
@@ -228,7 +228,7 @@ class NewEuvatClaimSpec
       MakeEuvatClaim.clickSignOut
     }
 
-    Scenario("Delete a refund request", Local) {
+    Scenario("03 - Delete a refund request", Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
