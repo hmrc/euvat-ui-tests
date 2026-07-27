@@ -41,9 +41,9 @@ class AddPurchaseSpec
   }
 
   Feature("Make a new EUVAT claim - Add a purchase") {
-    Scenario("01 - Submit a refund request", Local, WIP) {
+    Scenario("01 - Submit a refund request", Local) {
       Given("I login as an organisation")
-      val sharedId = AuthorityWizard.login("Organisation", "999900101")
+      val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
 
       When("I start new EUVAT claim")
@@ -87,9 +87,9 @@ class AddPurchaseSpec
     }
   }
 
-  Scenario("02 - Submit a refund request for Germany", Local, WIP) {
+  Scenario("02 - Submit a refund request for Germany", Local) {
     Given("I login as an organisation")
-    val sharedId = AuthorityWizard.login("Organisation", "999900101")
+    val sharedId = AuthorityWizard.login("Organisation", "999900001")
     ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
 
     When("I start new EUVAT claim")
