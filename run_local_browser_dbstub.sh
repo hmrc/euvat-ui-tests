@@ -23,6 +23,7 @@ sbt \
   -Dbrowser="$BROWSER" \
   -Denvironment="$ENVIRONMENT" \
   -Dbrowser.option.headless=false \
+  -Dreport.dir="target/test-reports-stub" \
   "testOnly uk.gov.hmrc.ui.specs* -- -n uk.gov.hmrc.ui.tags.Local" \
   testReport
 
@@ -35,6 +36,7 @@ sbt \
   -Denvironment="$ENVIRONMENT" \
   -Dbrowser.option.headless=false \
   -DuseStub=false \
+  -Dreport.dir="target/test-reports-db" \
   "testOnly uk.gov.hmrc.ui.specs* -- -n uk.gov.hmrc.ui.tags.Local" \
   testReport
 

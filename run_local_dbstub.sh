@@ -22,6 +22,7 @@ echo "Running tests against stub..."
 sbt \
   -Dbrowser="$BROWSER" \
   -Denvironment="$ENVIRONMENT" \
+  -Dreport.dir="target/test-reports-stub" \
   "testOnly uk.gov.hmrc.ui.specs* -- -n uk.gov.hmrc.ui.tags.Local" \
   testReport
 
@@ -33,6 +34,7 @@ sbt \
   -Dbrowser="$BROWSER" \
   -Denvironment="$ENVIRONMENT" \
   -DuseStub=false \
+  -Dreport.dir="target/test-reports-db" \
   "testOnly uk.gov.hmrc.ui.specs* -- -n uk.gov.hmrc.ui.tags.Local" \
   testReport
 
