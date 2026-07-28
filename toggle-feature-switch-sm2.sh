@@ -2,23 +2,8 @@
 set -euo pipefail
 shopt -s nullglob
 
-matches=( "$HOME"/.sm2/install/euvat-refunds/euvat-refunds-*/conf/application.conf )
-
-if (( ${#matches[@]} == 0 )); then
-  echo "No sm2 application.conf found"
-  exit 1
-fi
-
-if (( ${#matches[@]} > 1 )); then
-  echo "Multiple sm2 application.conf files found:"
-  printf '%s\n' "${matches[@]}"
-  echo "Please remove old versions or update the script to choose one."
-  exit 1
-fi
-
-FILE="${matches[0]}"
-
-[ -f "$FILE" ] || { echo "Config file not found: $FILE"; exit 1; }
+LOCAL_FILE="$HOME/workspace/euvat-refunds/conf/application.conf"
+SM2_MATCHES=( "$HOME"/.sm2/install/euvat-refunds/euvat-refunds-*/conf/application.conf )
 
 usage() {
   echo "Usage: $0 stub|db"
@@ -41,15 +26,43 @@ case "$1" in
     ;;
 esac
 
-echo "Stopping EUVAT_REFUNDS..."
-sm2 --stop EUVAT_REFUNDS
+set_switches() {
+  local file="$1"
+  [ -f "$file" ] || { echo "Config file not found: $file"; exit 1; }
 
-echo "Updating $FILE..."
-sed -i -E "s/^([[:space:]]*rds-cande-stubbed[[:space:]]*=[[:space:]]*).*/\1$new/" "$FILE"
-sed -i -E "s/^([[:space:]]*rds-datacache-stubbed[[:space:]]*=[[:space:]]*).*/\1$new/" "$FILE"
+  sed -i -E "s/^([[:space:]]*rds-cande-stubbed[[:space:]]*=[[:space:]]*).*/\1$new/" "$file"
+  sed -i -E "s/^([[:space:]]*rds-datacache-stubbed[[:space:]]*=[[:space:]]*).*/\1$new/" "$file"
+}
 
-echo "Starting EUVAT_REFUNDS..."
-sm2 --start EUVAT_REFUNDS
+if sm2 | grep -q "EUVAT_REFUNDS"; then
+  if (( ${#SM2_MATCHES[@]} == 0 )); then
+    echo "EUVAT_REFUNDS appears to be running in sm2, but no sm2 config was found"
+    exit 1
+  fi
+
+  if (( ${#SM2_MATCHES[@]} > 1 )); then
+    echo "Multiple sm2 application.conf files found:"
+    printf '%s\n' "${SM2_MATCHES[@]}"
+    exit 1
+  fi
+
+  FILE="${SM2_MATCHES[0]}"
+
+  echo "Detected EUVAT_REFUNDS in sm2"
+  echo "Stopping EUVAT_REFUNDS..."
+  sm2 --stop EUVAT_REFUNDS
+
+  echo "Updating $FILE..."
+  set_switches "$FILE"
+
+  echo "Starting EUVAT_REFUNDS..."
+  sm2 --start EUVAT_REFUNDS
+else
+  FILE="$LOCAL_FILE"
+  echo "Detected local workspace run"
+  echo "Updating $FILE..."
+  set_switches "$FILE"
+fi
 
 echo "Updated: $FILE"
 echo "Set feature switches to $new - $message"
