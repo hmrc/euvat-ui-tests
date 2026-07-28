@@ -65,10 +65,14 @@ trait DatabaseHelper extends BeforeAndAfterEach with BeforeAndAfterAll { self: S
   def cleanupDatabaseIfNotStub(): Unit = {
     val isStubEnvironment = Env.USE_STUB
     if (!isStubEnvironment) {
-      println("******************** RUNNING ORACLE DATABASE CLEANUP AS THIS IS NOT A STUB ENVIRONMENT. ********************")
+      println(
+        "******************** RUNNING ORACLE DATABASE CLEANUP AS THIS IS NOT A STUB ENVIRONMENT. ********************"
+      )
       deleteOracleTableData()
     } else {
-      println("******************** SKIPPING ORACLE DATABASE CLEANUP AS THIS IS A STUB ENVIRONMENT. ********************")
+      println(
+        "******************** SKIPPING ORACLE DATABASE CLEANUP AS THIS IS A STUB ENVIRONMENT. ********************"
+      )
     }
   }
 
