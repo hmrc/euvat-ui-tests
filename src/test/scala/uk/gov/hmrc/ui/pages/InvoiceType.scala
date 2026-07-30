@@ -22,7 +22,7 @@ object InvoiceType extends BasePage {
 
   override def pageTitle: String = "Invoice type - EU VAT - GOV.UK"
 
-  val rdoStandardInvoice   = "#value"
+  val rdoStandardInvoice   = "#value_0"
   val rdoSimplifiedInvoice = "#value_1"
 
   def selectInvoiceType(radio: String): this.type = {
