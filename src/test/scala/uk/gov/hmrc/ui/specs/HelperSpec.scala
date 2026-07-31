@@ -56,7 +56,7 @@ class HelperSpec
       MakeEuvatClaim.clickLinkByText("Add claim details")
 
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
-      EUMemberState.selectCountry("Austria")
+      EUMemberState.selectCountry("Canary Islands")
       Language.verifyPageTitle(Language.pageTitle)
       Language.selectLanguage("English")
 //      Currency.verifyPageTitle(Currency.pageTitle)
@@ -96,7 +96,7 @@ class HelperSpec
       BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
       BeforeYouStart.continue()
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
-      PurchaseType.pause(1000)
+      PurchaseType.pause(10000)
 //      PurchaseType.selectPurchaseType("Luxuries, entertainment and hospitality")
 //      LuxuryEntertainment.verifyPageTitle(LuxuryEntertainment.pageTitle)
 //      LuxuryEntertainment.selectLuxuryType()
