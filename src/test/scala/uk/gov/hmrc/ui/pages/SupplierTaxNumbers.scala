@@ -23,13 +23,15 @@ object SupplierTaxNumbers extends BasePage {
   override def pageTitle: String =
     "Select the supplier tax numbers shown on the invoice - EU VAT - GOV.UK"
 
-  val rdoVatRegNumber = "#value"
-  val rdoTaxIDNumber  = "#value_1"
+  val rdoVatRegNumber  = "#value_0"
+  val rdoTaxIDNumber   = "#value_1"
+  val rdoNeitherNumber = "#value_2"
 
   def selectTaxNumber(taxNumber: String): this.type = {
     val selector = taxNumber match {
       case "Vat Registration Number" => rdoVatRegNumber
       case "Tax ID Number"           => rdoTaxIDNumber
+      case "Neither Number"          => rdoNeitherNumber
       case _                         => throw new IllegalArgumentException(s"Invalid Tax Number: $taxNumber")
     }
     radioButton(selector)

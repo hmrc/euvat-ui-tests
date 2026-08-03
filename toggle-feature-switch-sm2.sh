@@ -34,7 +34,15 @@ set_switches() {
   sed -i -E "s/^([[:space:]]*rds-datacache-stubbed[[:space:]]*=[[:space:]]*).*/\1$new/" "$file"
 }
 
-if sm2 | grep -q "EUVAT_REFUNDS"; then
+is_sm2_euvat_running() {
+  pgrep -af "euvat-refunds" | grep -q "/.sm2/install/euvat-refunds/"
+}
+
+is_local_euvat_running() {
+  pgrep -af "euvat-refunds" | grep -q "$HOME/workspace/euvat-refunds"
+}
+
+if is_sm2_euvat_running; then
   if (( ${#SM2_MATCHES[@]} == 0 )); then
     echo "EUVAT_REFUNDS appears to be running in sm2, but no sm2 config was found"
     exit 1
@@ -48,20 +56,25 @@ if sm2 | grep -q "EUVAT_REFUNDS"; then
 
   FILE="${SM2_MATCHES[0]}"
 
-  echo "Detected EUVAT_REFUNDS in sm2"
+  echo "Detected EUVAT_REFUNDS running from sm2"
   echo "Stopping EUVAT_REFUNDS..."
-  sm2 --stop EUVAT_REFUNDS
+  sm2 --stop EUVAT_REFUNDS || true
 
   echo "Updating $FILE..."
   set_switches "$FILE"
 
   echo "Starting EUVAT_REFUNDS..."
   sm2 --start EUVAT_REFUNDS
-else
+
+elif is_local_euvat_running || [ -f "$LOCAL_FILE" ]; then
   FILE="$LOCAL_FILE"
   echo "Detected local workspace run"
   echo "Updating $FILE..."
   set_switches "$FILE"
+
+else
+  echo "Could not determine whether euvat-refunds is running from sm2 or workspace"
+  exit 1
 fi
 
 echo "Updated: $FILE"

@@ -216,7 +216,7 @@ class NewEuvatClaimSpec
       InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
       InvoiceItemDescription.submitItemDescription("Test item description")
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
-      InvoiceType.selectInvoiceType("Standard invoice")
+      InvoiceType.selectInvoiceType("Simplified invoice")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
       InvoiceNumber.submitInvoiceNumber("Test_Invoice_123.5")
       InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
