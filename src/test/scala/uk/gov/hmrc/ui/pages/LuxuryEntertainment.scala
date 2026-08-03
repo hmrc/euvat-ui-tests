@@ -22,8 +22,15 @@ object LuxuryEntertainment extends BasePage {
 
   override def pageTitle: String = "What is the type of luxury, entertainment or hospitality cost? - EU VAT - GOV.UK"
 
-  def selectLuxuryType(): this.type = {
-    val selector = "#value_0"
+  val rdoReceptions = "#value_0"
+  val rdoNone       = "#value_1"
+
+  def selectLuxuryType(radio: String): this.type = {
+    val selector = radio match {
+      case "Receptions, entertainment and hospitality" => rdoReceptions
+      case "None"                                      => rdoNone
+      case _                                           => throw new IllegalArgumentException(s"Invalid option: $radio")
+    }
     radioButton(selector)
     continue()
     this

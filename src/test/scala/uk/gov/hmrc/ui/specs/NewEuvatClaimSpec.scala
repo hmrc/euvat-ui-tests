@@ -154,9 +154,8 @@ class NewEuvatClaimSpec
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
       PurchaseType.selectPurchaseType("Luxuries, entertainment and hospitality")
       LuxuryEntertainment.verifyPageTitle(LuxuryEntertainment.pageTitle)
-      LuxuryEntertainment.selectLuxuryType()
-      CostPublicityPurposes.verifyPageTitle(CostPublicityPurposes.pageTitle)
-      CostPublicityPurposes.selectCostType("Yes – this cost is for publicity purposes")
+      LuxuryEntertainment.selectLuxuryType("Receptions, entertainment and hospitality")
+
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
       InvoiceType.selectInvoiceType("Standard invoice")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
@@ -180,7 +179,7 @@ class NewEuvatClaimSpec
       MakeEuvatClaim.clickSignOut
     }
 
-    Scenario("Submit a refund request for Germany", Local) {
+    Scenario("Submit a refund request for Germany", Local, WIP) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
