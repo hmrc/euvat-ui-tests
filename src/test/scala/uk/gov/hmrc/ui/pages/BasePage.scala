@@ -200,4 +200,9 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
     wait.until(condition)
   }
 
+  def pause(seconds: Int): Unit = {
+    require(seconds >= 0, "seconds must be >= 0")
+    Thread.sleep(seconds * 1000L)
+  }
+
 }
