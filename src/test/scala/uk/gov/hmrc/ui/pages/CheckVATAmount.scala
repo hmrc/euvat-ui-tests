@@ -23,12 +23,10 @@ object CheckVATAmount extends BasePage {
   override def pageTitle: String =
     "Are you sure the amount of VAT you paid is correct? - EU VAT - GOV.UK"
 
-  def continueAsYes(): Unit = {
+  def continueAsYes(): Unit =
     continue()
-  }
 
-  def continueAsNo(): Unit = {
+  def continueAsNo(): Unit =
     clickLinkByText("No, change the VAT amount")
-  }
 
 }
