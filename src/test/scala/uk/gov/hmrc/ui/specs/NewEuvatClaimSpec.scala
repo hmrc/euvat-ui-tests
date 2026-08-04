@@ -179,7 +179,7 @@ class NewEuvatClaimSpec
       MakeEuvatClaim.clickSignOut
     }
 
-    Scenario("Submit a refund request for Germany", Local, WIP) {
+    Scenario("Submit a refund request for Germany", Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
