@@ -176,7 +176,9 @@ class NewEuvatClaimSpec
       CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
       CheckVATAmount.continueAsYes()
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
-      TotalVatClaim.submitTotalVatClaim("100")
+      TotalVatClaim.submitTotalVatClaim("210")
+      CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
+      CheckVATClaim.continueAsYes()
       MakeEuvatClaim.clickSignOut
     }
 
