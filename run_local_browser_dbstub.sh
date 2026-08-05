@@ -5,6 +5,11 @@ BROWSER="${1:-chrome}"
 ENVIRONMENT="${2:-local}"
 TOGGLE_SCRIPT="./toggle-feature-switch-sm2.sh"
 
+INFO_COLOR=$'\033[1;34m'
+WARN_COLOR=$'\033[1;33m'
+SUCCESS_COLOR=$'\033[1;32m'
+RESET_COLOR=$'\033[0m'
+
 STUB_TEST_LOG="$(mktemp)"
 DB_TEST_LOG="$(mktemp)"
 STUB_REPORT_LOG="$(mktemp)"
@@ -89,17 +94,39 @@ echo "Switching backend to database..."
 run_tests "database" false "target/test-reports-db" "$DB_TEST_LOG"
 run_report "database" "target/test-reports-db" "$DB_REPORT_LOG"
 
+print_colored_summary() {
+  while IFS= read -r line; do
+    case "$line" in
+      "[info]"*)
+        printf '%s%s%s\n' "$INFO_COLOR" "$line" "$RESET_COLOR"
+        ;;
+      "[warn]"*)
+        printf '%s%s%s\n' "$WARN_COLOR" "$line" "$RESET_COLOR"
+        ;;
+      "[success]"*)
+        printf '%s%s%s\n' "$SUCCESS_COLOR" "$line" "$RESET_COLOR"
+        ;;
+      *)
+        printf '%s\n' "$line"
+        ;;
+    esac
+  done
+}
+
+
 echo
-echo "Stub test summary:"
-extract_summary "$STUB_TEST_LOG"
+echo "================ Stub test summary: ================"
 echo
-echo "Database test summary:"
-extract_summary "$DB_TEST_LOG"
+extract_summary "$STUB_TEST_LOG" | print_colored_summary
 echo
-echo "================ FINAL SUMMARY ================"
+echo "================ Database test summary: ================"
 echo
-extract_report_summary "$STUB_REPORT_LOG"
+extract_summary "$DB_TEST_LOG" | print_colored_summary
 echo
-extract_report_summary "$DB_REPORT_LOG"
+echo "================ Accessibility summary ================"
+echo
+extract_report_summary "$STUB_REPORT_LOG" | print_colored_summary
+echo
+extract_report_summary "$DB_REPORT_LOG" | print_colored_summary
 echo
 echo "Done."
