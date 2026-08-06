@@ -205,4 +205,14 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
     Thread.sleep(seconds * 1000L)
   }
 
+  def errorMessageDisplayed(expectedMessage: String): Boolean =
+    driver.findElements(By.cssSelector(".govuk-error-message")).asScala.exists { element =>
+      element.getText.trim == expectedMessage
+    }
+
+  def errorSummaryDisplayed(expectedMessage: String): Boolean =
+    driver.findElements(By.cssSelector(".govuk-error-summary__list a")).asScala.exists { element =>
+      element.getText.trim == expectedMessage
+    }
+
 }
