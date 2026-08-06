@@ -16,20 +16,20 @@
 
 package uk.gov.hmrc.ui.pages
 
-object InvoiceType extends BasePage {
+object PurchaseTypeOther extends BasePage {
 
-  override def pageUrl: String = "invoice-type"
+  override def pageUrl: String = "purchase-type-other"
 
-  override def pageTitle: String = "Invoice type - EU VAT - GOV.UK"
+  override def pageTitle: String = "What other category best describes the item on your invoice? - EU VAT - GOV.UK"
 
-  val rdoStandardInvoice   = "#value_0"
-  val rdoSimplifiedInvoice = "#value_1"
+  val rdoPropertyRelated = "#value_0"
+  val rdoNone            = "#value_1"
 
-  def selectInvoiceType(radio: String): this.type = {
+  def selectPurchaseTypeOther(radio: String): this.type = {
     val selector = radio match {
-      case "Standard invoice"   => rdoStandardInvoice
-      case "Simplified invoice" => rdoSimplifiedInvoice
-      case _                    => throw new IllegalArgumentException(s"Invalid option: $radio")
+      case "Property-related costs"            => rdoPropertyRelated
+      case "None of these - give more details" => rdoNone
+      case _                                   => throw new IllegalArgumentException(s"Invalid option: $radio")
     }
     radioButton(selector)
     continue()

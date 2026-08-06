@@ -23,10 +23,11 @@ object Env {
 
   // Determine the base URL based on the environment
   val baseUrl: String = Option(System.getProperty("environment")) match {
-    case Some("dev")   => Urls.DEV
-    case Some("local") => Urls.LOCAL
-    case Some("qa")    => Urls.QA
-    case _             => Urls.LOCAL
+    case Some("dev")     => Urls.DEV
+    case Some("local")   => Urls.LOCAL
+    case Some("qa")      => Urls.QA
+    case Some("staging") => Urls.STAGING
+    case _               => Urls.LOCAL
   }
 
   // Determine whether to use a stub based on the environment

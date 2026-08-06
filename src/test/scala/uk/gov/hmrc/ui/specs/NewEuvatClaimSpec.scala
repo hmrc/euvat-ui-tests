@@ -65,7 +65,7 @@ class NewEuvatClaimSpec
 
       And("I change claim details")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-//      Change member state
+      //      Change member state
       CheckYourClaimDetails.clickChangeLink("Refunding EU member state")
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Estonia")
@@ -76,17 +76,17 @@ class NewEuvatClaimSpec
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
       RefundPeriod.submitRefundPeriod("05", "2025", "07", "2025")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-//      Change language
+      //      Change language
       CheckYourClaimDetails.clickChangeLink("Claim language")
       Language.verifyPageTitle(Language.pageTitle)
       Language.selectLanguage("Estonian")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-//      Change currency
+      //      Change currency
       CheckYourClaimDetails.clickChangeLink("Currency")
       Currency.verifyPageTitle(Currency.pageTitle)
       Currency.selectCurrencyType("Estonian Kroon (kr)")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-//      Change refund period
+      //      Change refund period
       CheckYourClaimDetails.clickChangeLink("End date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
       RefundPeriod.submitRefundPeriod("05", "2025", "10", "2025")
@@ -95,7 +95,7 @@ class NewEuvatClaimSpec
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
       RefundPeriod.submitRefundPeriod("08", "2025", "10", "2025")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-//      Change contact details
+      //      Change contact details
       CheckYourClaimDetails.clickChangeLink("Email")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("ChangeTest@gmail.com", "9876543210")
@@ -104,7 +104,7 @@ class NewEuvatClaimSpec
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("ChangeTest@gmail.com", "+449876543210")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-//      Change SIC code
+      //      Change SIC code
       And("I add, change and remove Second SIC code")
       CheckYourClaimDetails.clickChangeLink("First SIC code")
       AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
@@ -152,9 +152,9 @@ class NewEuvatClaimSpec
       BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
       BeforeYouStart.continue()
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
-      PurchaseType.selectPurchaseType("Fuel")
-      InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
-      InvoiceItemDescription.submitItemDescription("Test item description")
+      PurchaseType.selectPurchaseType("Luxuries, entertainment and hospitality")
+      LuxuryEntertainment.verifyPageTitle(LuxuryEntertainment.pageTitle)
+      LuxuryEntertainment.selectLuxuryType("Receptions, entertainment and hospitality")
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
       InvoiceType.selectInvoiceType("Standard invoice")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
@@ -172,9 +172,13 @@ class NewEuvatClaimSpec
       TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
       TotalPurchaseAmount.submitTotalPurchaseAmount("100")
       TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
-      TotalVatPaid.submitTotalVatPaid("100")
+      TotalVatPaid.submitTotalVatPaid("200")
+      CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
+      CheckVATAmount.continueAsYes()
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
-      TotalVatClaim.submitTotalVatClaim("100")
+      TotalVatClaim.submitTotalVatClaim("210")
+      CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
+      CheckVATClaim.continueAsYes()
       MakeEuvatClaim.clickSignOut
     }
 
@@ -208,11 +212,13 @@ class NewEuvatClaimSpec
       BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
       BeforeYouStart.continue()
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
-      PurchaseType.selectPurchaseType("Fuel")
+      PurchaseType.selectPurchaseType("Other")
+      PurchaseTypeOther.verifyPageTitle(PurchaseTypeOther.pageTitle)
+      PurchaseTypeOther.selectPurchaseTypeOther("None of these - give more details")
       InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
       InvoiceItemDescription.submitItemDescription("Test item description")
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
-      InvoiceType.selectInvoiceType("Standard invoice")
+      InvoiceType.selectInvoiceType("Simplified invoice")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
       InvoiceNumber.submitInvoiceNumber("Test_Invoice_123.5")
       InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)

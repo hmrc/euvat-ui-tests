@@ -44,16 +44,16 @@ trait DatabaseHelper extends BeforeAndAfterEach with BeforeAndAfterAll { self: S
         WHERE APPLICANT_VAT_REG_NUMBER = 999900001
       """
       val rowsDeleted = statement.executeUpdate(deleteQuery)
-      println(s"********** DELETED $rowsDeleted ROWS FROM MONTHLY_RETURN. **********")
+      println(s"******************** DELETED $rowsDeleted ROWS FROM MONTHLY_RETURN. ********************")
 
       // Commit the transaction
       connection.commit()
-      println("********** DATA DELETION IN RDS CANDE COMPLETED SUCCESSFULLY. **********")
+      println("******************** DATA DELETION IN RDS CANDE COMPLETED SUCCESSFULLY. ********************")
     } catch {
       case e: Exception =>
         e.printStackTrace()
         if (connection != null) {
-          println("********** ROLLING BACK TRANSACTION DUE TO AN ERROR. **********")
+          println("******************** ROLLING BACK TRANSACTION DUE TO AN ERROR. ********************")
           connection.rollback()
         }
     } finally {
@@ -65,10 +65,14 @@ trait DatabaseHelper extends BeforeAndAfterEach with BeforeAndAfterAll { self: S
   def cleanupDatabaseIfNotStub(): Unit = {
     val isStubEnvironment = Env.USE_STUB
     if (!isStubEnvironment) {
-      println("********** RUNNING ORACLE DATABASE CLEANUP AS THIS IS NOT A STUB ENVIRONMENT. **********")
+      println(
+        "******************** RUNNING ORACLE DATABASE CLEANUP AS THIS IS NOT A STUB ENVIRONMENT. ********************"
+      )
       deleteOracleTableData()
     } else {
-      println("********** SKIPPING ORACLE DATABASE CLEANUP AS THIS IS A STUB ENVIRONMENT. **********")
+      println(
+        "******************** SKIPPING ORACLE DATABASE CLEANUP AS THIS IS A STUB ENVIRONMENT. ********************"
+      )
     }
   }
 

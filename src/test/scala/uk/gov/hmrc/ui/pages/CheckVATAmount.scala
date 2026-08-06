@@ -14,13 +14,19 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.tags
+package uk.gov.hmrc.ui.pages
 
-import org.scalatest.Tag
+object CheckVATAmount extends BasePage {
 
-object Journey extends Tag("uk.gov.hmrc.ui.tags.Journey")
-object Smoke extends Tag("uk.gov.hmrc.ui.tags.Smoke")
-object QA extends Tag("uk.gov.hmrc.ui.tags.QA")
-object Local extends Tag("uk.gov.hmrc.ui.tags.Local")
-object WIP extends Tag("uk.gov.hmrc.ui.tags.wip")
-object Staging extends Tag("uk.gov.hmrc.ui.tags.Staging")
+  override def pageUrl: String = "check-vat-amount"
+
+  override def pageTitle: String =
+    "Are you sure the amount of VAT you paid is correct? - EU VAT - GOV.UK"
+
+  def continueAsYes(): Unit =
+    continue()
+
+  def continueAsNo(): Unit =
+    clickLinkByText("No, change the VAT amount")
+
+}
