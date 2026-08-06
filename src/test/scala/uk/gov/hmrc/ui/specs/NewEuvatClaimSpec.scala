@@ -21,6 +21,8 @@ import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
+import uk.gov.hmrc.ui.pages.claim.*
+import uk.gov.hmrc.ui.pages.purchase.*
 import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
 
