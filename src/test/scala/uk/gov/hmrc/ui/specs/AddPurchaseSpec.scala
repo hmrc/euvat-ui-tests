@@ -24,7 +24,7 @@ import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.purchase.*
 import uk.gov.hmrc.ui.tags.*
-import uk.gov.hmrc.ui.utils.{CacheHelper, MongoHelper}
+import uk.gov.hmrc.ui.utils.{CacheHelper, DatabaseHelper, MongoHelper}
 
 class AddPurchaseSpec
     extends AnyFeatureSpec
@@ -35,15 +35,17 @@ class AddPurchaseSpec
     with BeforeAndAfterEach
     with Browser
     with ScreenshotOnFailure
-    with MongoHelper {
+    with MongoHelper
+    with DatabaseHelper {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
     dropMongoCollections()
+    cleanupDatabaseIfNotStub()
   }
 
   Feature("Make a new EUVAT claim - Add a purchase") {
-    Scenario("01 - Submit a refund request", Local) {
+    Scenario("01 - Submit a refund request", Local, WIP) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
@@ -102,16 +104,20 @@ class AddPurchaseSpec
     And("I see Claim details completed")
     MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
     MakeEuvatClaim.clickLinkByText("Add a purchase")
+
     And("I add purchase details")
     MakeEuvatClaim.clickLinkByText("Add a purchase")
+
     BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
     BeforeYouStart.continue()
     PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
-    PurchaseType.selectPurchaseType("Fuel")
+    PurchaseType.selectPurchaseType("Other")
+    PurchaseTypeOther.verifyPageTitle(PurchaseTypeOther.pageTitle)
+    PurchaseTypeOther.selectPurchaseTypeOther("None of these - give more details")
     InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
     InvoiceItemDescription.submitItemDescription("Test item description")
     InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
-    InvoiceType.selectInvoiceType("Standard invoice")
+    InvoiceType.selectInvoiceType("Simplified invoice")
     InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
     InvoiceNumber.submitInvoiceNumber("Test_Invoice_123.5")
     InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)

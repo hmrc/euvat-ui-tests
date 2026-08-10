@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.tags
+package uk.gov.hmrc.ui.pages.claim
 
-import org.scalatest.Tag
+import uk.gov.hmrc.ui.pages.BasePage
 
-object Journey extends Tag("uk.gov.hmrc.ui.tags.Journey")
-object Smoke extends Tag("uk.gov.hmrc.ui.tags.Smoke")
-object QA extends Tag("uk.gov.hmrc.ui.tags.QA")
-object Local extends Tag("uk.gov.hmrc.ui.tags.Local")
-object WIP extends Tag("uk.gov.hmrc.ui.tags.wip")
-object Staging extends Tag("uk.gov.hmrc.ui.tags.Staging")
-object Error extends Tag("uk.gov.hmrc.ui.tags.error")
+object SystemError extends BasePage {
+
+  override def pageUrl: String = "there-is-a-problem"
+
+  override def pageTitle: String = "Sorry, there is a problem with the service - EU VAT - GOV.UK"
+
+}
