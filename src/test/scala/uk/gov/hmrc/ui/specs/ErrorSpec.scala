@@ -44,10 +44,10 @@ class ErrorSpec
 //Business rule to trigger validation if the application status is draft or the submission status is null.
 //The real rule will become application status is draft AND the submission status is null.
 //then is the application status is draft AND the submission status is Submitted,
-  // then the validation check is to see if the refund period overlaps
+// then the validation check is to see if the refund period overlaps
   Feature("01 - Validate a single draft claim for each EU member state - Error checking") {
 
-    Scenario("Validate a draft refund request with a submission status of Submitted", Local, Error) {
+    Scenario("Validate a draft refund request with a submission status of Submitted", Error) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900002")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
@@ -66,7 +66,7 @@ class ErrorSpec
       EUMemberState.clickSignOut
     }
 
-    Scenario("02 - Validate a draft refund request that has not been submitted", Local, Error) {
+    Scenario("02 - Validate a draft refund request that has not been submitted", Error) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900002")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
@@ -85,7 +85,7 @@ class ErrorSpec
       EUMemberState.clickSignOut
     }
 
-    Scenario("03 - Validate a draft refund from the Check your claim details page", Local, Error) {
+    Scenario("03 - Validate a draft refund from the Check your claim details page", Error) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
@@ -95,9 +95,10 @@ class ErrorSpec
       ManageYourEuvatClaim.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I see claim details completed")
+      And("I see claim details page completed")
       MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+
       CheckYourClaimDetails.saveAndContinue()
       SystemError.verifyPageTitle(SystemError.pageTitle)
       SystemError.clickSignOut

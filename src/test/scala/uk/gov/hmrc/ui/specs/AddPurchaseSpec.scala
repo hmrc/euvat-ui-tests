@@ -45,7 +45,7 @@ class AddPurchaseSpec
   }
 
   Feature("Make a new EUVAT claim - Add a purchase") {
-    Scenario("01 - Submit a refund request", Local, WIP) {
+    Scenario("01 - Submit a refund request", Local) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
@@ -91,7 +91,7 @@ class AddPurchaseSpec
     }
   }
 
-  Scenario("02 - Submit a refund request for Germany", Local) {
+  Scenario("02 - Submit a refund request for Germany", Local, WIP) {
     Given("I login as an organisation")
     val sharedId = AuthorityWizard.login("Organisation", "999900001")
     ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
@@ -100,10 +100,13 @@ class AddPurchaseSpec
     //      Inject Claim details
     CacheHelper.submitUserAnswers("claimDetailsGermany.json", sharedId)
     ManageYourEuvatClaim.clickLinkByText("Make a claim for an EU VAT refund")
-
-    And("I see Claim details completed")
     MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-    MakeEuvatClaim.clickLinkByText("Add a purchase")
+
+    And("I see claim details page completed")
+    MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
+    CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+
+    CheckYourClaimDetails.saveAndContinue()
 
     And("I add purchase details")
     MakeEuvatClaim.clickLinkByText("Add a purchase")
