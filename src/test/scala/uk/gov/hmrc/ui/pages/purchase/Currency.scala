@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.claim
+package uk.gov.hmrc.ui.pages.purchase
 
 import uk.gov.hmrc.ui.pages.BasePage
 
@@ -29,9 +29,9 @@ object Currency extends BasePage {
 
   def selectCurrencyType(radio: String): this.type = {
     val selector = radio match {
-      case "Euro"                                       => rdoEuroCurrency
-      case "Bulgarian Lev (лв)" | "Estonian Kroon (kr)" => rdoNonEuroCurrency
-      case _                                            => throw new IllegalArgumentException(s"Invalid currency option: $radio")
+      case "Euro"                => rdoEuroCurrency
+      case "Estonian Kroon (kr)" => rdoNonEuroCurrency
+      case _                     => throw new IllegalArgumentException(s"Invalid currency option: $radio")
     }
     radioButton(selector)
     continue()
