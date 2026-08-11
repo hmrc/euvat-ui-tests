@@ -73,8 +73,7 @@ class NewEuvatClaimSpec
       EUMemberState.selectCountry("Estonia")
       Language.verifyPageTitle(Language.pageTitle)
       Language.selectLanguage("English")
-      Currency.verifyPageTitle(Currency.pageTitle)
-      Currency.selectCurrencyType("Euro")
+
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
       RefundPeriod.submitRefundPeriod("05", "2025", "07", "2025")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
@@ -83,11 +82,7 @@ class NewEuvatClaimSpec
       Language.verifyPageTitle(Language.pageTitle)
       Language.selectLanguage("Estonian")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-      //      Change currency
-      CheckYourClaimDetails.clickChangeLink("Currency")
-      Currency.verifyPageTitle(Currency.pageTitle)
-      Currency.selectCurrencyType("Estonian Kroon (kr)")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+
       //      Change refund period
       CheckYourClaimDetails.clickChangeLink("End date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
@@ -171,6 +166,8 @@ class NewEuvatClaimSpec
       AddVATRegistration.continueAsYes()
       VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
       VATRegistrationNumber.submitInvoiceNumber("AB1234567890")
+      Currency.verifyPageTitle(Currency.pageTitle)
+      Currency.selectCurrencyType("Euro")
       TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
       TotalPurchaseAmount.submitTotalPurchaseAmount("100")
       TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
