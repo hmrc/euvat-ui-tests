@@ -25,7 +25,6 @@
     },
     "businessActivityCode" : "7020",
     "refundingLanguage" : "estonian",
-    "refundingCurrency" : "EEK",
     "businessActivity" : true,
     "businessActivityCodeTwo" : "4532",
     "businessActivityTwo" : true,

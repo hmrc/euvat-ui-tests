@@ -95,11 +95,13 @@ class ErrorSpec
       ManageYourEuvatClaim.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I see claim details page completed")
       MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
+
+      And("I see Check your claim details page completed")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
       CheckYourClaimDetails.saveAndContinue()
+
       SystemError.verifyPageTitle(SystemError.pageTitle)
       SystemError.clickSignOut
     }
