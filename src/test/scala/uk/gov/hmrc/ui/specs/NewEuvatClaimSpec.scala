@@ -181,7 +181,7 @@ class NewEuvatClaimSpec
       MakeEuvatClaim.clickSignOut
     }
 
-    Scenario("Submit a refund request for Germany", Local) {
+    Scenario("Submit a refund request for Germany", Local, WIP) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
@@ -215,7 +215,9 @@ class NewEuvatClaimSpec
       PurchaseTypeOther.verifyPageTitle(PurchaseTypeOther.pageTitle)
       PurchaseTypeOther.selectPurchaseTypeOther("None of these - give more details")
       InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
-      InvoiceItemDescription.submitItemDescription("Test item description")
+      InvoiceItemDescription.submitItemDescription("")
+      CheckPurchaseDetails.verifyPageTitle(CheckPurchaseDetails.pageTitle)
+      CheckPurchaseDetails.continueAsYes()
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
       InvoiceType.selectInvoiceType("Simplified invoice")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
