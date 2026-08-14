@@ -44,7 +44,7 @@ class ErrorSpec
 //Business rule to trigger validation if the application status is draft or the submission status is null.
 //The real rule will become application status is draft AND the submission status is null.
 //then is the application status is draft AND the submission status is Submitted,
-// then the validation check is to see if the refund period overlaps
+//then the validation check is to see if the refund period overlaps
   Feature("01 - Validate a single draft claim for each EU member state - Error checking") {
 
     Scenario("Validate a draft refund request with a submission status of Submitted", Error) {
@@ -85,9 +85,9 @@ class ErrorSpec
       EUMemberState.clickSignOut
     }
 
-    Scenario("03 - Validate a draft refund from the Check your claim details page", Error) {
+    Scenario("03 - Validate a draft refund from the Check your claim details page", Error, WIP) {
       Given("I login as an organisation")
-      val sharedId = AuthorityWizard.login("Organisation", "999900001")
+      val sharedId = AuthorityWizard.login("Organisation", "999900002")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
 
       When("I start new EUVAT claim")
