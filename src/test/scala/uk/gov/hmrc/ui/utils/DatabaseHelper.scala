@@ -27,7 +27,7 @@ trait DatabaseHelper extends BeforeAndAfterEach with BeforeAndAfterAll { self: S
   private val oracleUsername = "sys as sysdba"
   private val oraclePassword = "oracle"
 
-//  Deletes data created for VRN 999900001 in Oracle DB tables REFUND_APPLICATION
+  //  Deletes data created for VRN 999900001 in Oracle DB tables REFUND_APPLICATION
   def deleteOracleTableData(): Unit = {
     var connection: Connection = null
     var statement: Statement   = null
@@ -37,18 +37,32 @@ trait DatabaseHelper extends BeforeAndAfterEach with BeforeAndAfterAll { self: S
       connection.setAutoCommit(false)
       statement = connection.createStatement()
 
-      // Delete from the table REFUND_APPLICATION
-      val deleteQuery =
+      val deletePurchaseQuery =
         """
-        DELETE FROM EUVAT_FILE_DATA.REFUND_APPLICATION
-        WHERE APPLICANT_VAT_REG_NUMBER = 999900001
-      """
-      val rowsDeleted = statement.executeUpdate(deleteQuery)
-      println(s"******************** DELETED $rowsDeleted ROWS FROM MONTHLY_RETURN. ********************")
+          DELETE FROM EUVAT_FILE_DATA.PURCHASE
+          WHERE APPLICATION_ID IN (
+            SELECT APPLICATION_ID
+            FROM EUVAT_FILE_DATA.REFUND_APPLICATION
+            WHERE APPLICANT_VAT_REG_NUMBER = 999900001
+              AND REFUNDING_COUNTRY_CODE IN ('ES', 'DE', 'FR')
+          )
+        """
 
-      // Commit the transaction
+      val purchaseRowsDeleted = statement.executeUpdate(deletePurchaseQuery)
+      println(s"******************** DELETED $purchaseRowsDeleted ROWS FROM PURCHASE. ********************")
+
+      val deleteRefundApplicationQuery =
+        """
+          DELETE FROM EUVAT_FILE_DATA.REFUND_APPLICATION
+          WHERE APPLICANT_VAT_REG_NUMBER = 999900001
+            AND REFUNDING_COUNTRY_CODE IN ('ES', 'DE', 'FR')
+        """
+
+      val refundRowsDeleted = statement.executeUpdate(deleteRefundApplicationQuery)
+      println(s"******************** DELETED $refundRowsDeleted ROWS FROM REFUND_APPLICATION. ********************")
+
       connection.commit()
-      println("******************** DATA DELETION IN RDS CANDE COMPLETED SUCCESSFULLY. ********************")
+      println("******************** DATA DELETION COMPLETED SUCCESSFULLY. ********************")
     } catch {
       case e: Exception =>
         e.printStackTrace()
@@ -58,6 +72,73 @@ trait DatabaseHelper extends BeforeAndAfterEach with BeforeAndAfterAll { self: S
         }
     } finally {
       if (statement != null) statement.close()
+      if (connection != null) connection.close()
+    }
+  }
+
+  def insertDuplicatePurchaseRecord(): Unit = {
+    var connection: Connection = null
+    var selectStmt: Statement  = null
+    var insertStmt: Statement  = null
+    var rs: java.sql.ResultSet = null
+
+    try {
+      connection = DriverManager.getConnection(oracleUrl, oracleUsername, oraclePassword)
+      connection.setAutoCommit(false)
+
+      selectStmt = connection.createStatement()
+
+      val selectApplicationIdQuery =
+        """
+        SELECT APPLICATION_ID
+        FROM EUVAT_FILE_DATA.REFUND_APPLICATION
+        WHERE APPLICANT_VAT_REG_NUMBER = 999900001
+          AND REFUNDING_COUNTRY_CODE = 'DE'
+        ORDER BY APPLICATION_ID DESC
+      """
+
+      rs = selectStmt.executeQuery(selectApplicationIdQuery)
+
+      if (rs.next()) {
+        val applicationId = rs.getLong("APPLICATION_ID")
+
+        insertStmt = connection.createStatement()
+
+        val insertPurchaseQuery =
+          s"""
+           INSERT INTO EUVAT_FILE_DATA.PURCHASE (
+             APPLICATION_ID,
+             ITEM_NUMBER,
+             GOODS_DESCRIPTION_CATEGORY,
+             INVOICE_NUMBER,
+             SUPPLIER_TAX_IDENTIFIER
+           )
+           VALUES (
+             $applicationId,
+             2,
+             10,
+             'INV-1',
+             'TID-1'
+           )
+         """
+
+        val rowsInserted = insertStmt.executeUpdate(insertPurchaseQuery)
+        println(
+          s"******************** INSERTED $rowsInserted DUPLICATE PURCHASE ROW FOR APPLICATION_ID=$applicationId WITH ITEM_NUMBER=2 ********************"
+        )
+      } else {
+        throw new RuntimeException("No refund application found for VRN 999900001 and country DE")
+      }
+
+      connection.commit()
+    } catch {
+      case e: Exception =>
+        e.printStackTrace()
+        if (connection != null) connection.rollback()
+    } finally {
+      if (rs != null) rs.close()
+      if (selectStmt != null) selectStmt.close()
+      if (insertStmt != null) insertStmt.close()
       if (connection != null) connection.close()
     }
   }

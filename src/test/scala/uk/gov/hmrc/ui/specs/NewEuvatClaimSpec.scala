@@ -205,6 +205,7 @@ class NewEuvatClaimSpec
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      insertDuplicatePurchaseRecord()
 
       And("I add purchase details")
       MakeEuvatClaim.clickLinkByText("Add a purchase")
