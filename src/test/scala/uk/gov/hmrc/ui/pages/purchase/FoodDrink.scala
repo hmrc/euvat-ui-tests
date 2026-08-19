@@ -27,7 +27,7 @@ object FoodDrink extends BasePage {
   val rdoFood = "#value_0"
   val rdoNone = "#value_1"
 
-  def selectFoodDrinkType(radio: String): this.type = {
+  def selectFoodDrinkCostType(radio: String): this.type = {
     val selector = radio match {
       case "Food and drink from hotels" => rdoFood
       case "None"                       => rdoNone
