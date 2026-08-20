@@ -45,7 +45,7 @@ class NewEuvatClaimSpec
   }
 
   Feature("Make a new EUVAT claim - New claim") {
-    Scenario("Submit a refund request", Local, WIP) {
+    Scenario("Submit a refund request", Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
@@ -177,11 +177,11 @@ class NewEuvatClaimSpec
       CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
       CheckVATAmount.continueAsYes()
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
-      TotalVatClaim.submitTotalVatClaim("100")
-//      CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
-//      CheckVATClaim.continueAsYes()
+      TotalVatClaim.submitTotalVatClaim("210")
+      CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
+      CheckVATClaim.continueAsYes()
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
-      CheckYourPurchaseDetails.pause(1000000)
+//      CheckYourPurchaseDetails.pause(1000000)
 
       And("I change purchase details")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
@@ -290,7 +290,7 @@ class NewEuvatClaimSpec
 //      CheckYourPurchaseDetails.clickSignOut
     }
 
-    Scenario("Submit a refund request for Germany", Local) {
+    Scenario("Submit a refund request for Germany", Local, WIP) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
@@ -350,7 +350,7 @@ class NewEuvatClaimSpec
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
       TotalVatClaim.submitTotalVatClaim("200")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
-      CheckYourPurchaseDetails.pause(1000000)
+//      CheckYourPurchaseDetails.pause(1000000)
 
 //      // Change other purchase type
 //      CheckYourPurchaseDetails.clickChangeLink("Other purchase type")
