@@ -314,6 +314,7 @@ class NewEuvatClaimSpec
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      insertDuplicatePurchaseRecord()
 
       And("I add purchase details")
       MakeEuvatClaim.clickLinkByText("Add a purchase")
@@ -343,26 +344,40 @@ class NewEuvatClaimSpec
       SupplierTaxNumbers.selectTaxNumber("Tax ID Number")
       SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
       SupplierTaxIDNumber.submitSupplierTaxID("TID-1")
+      CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
+      CheckSupplierTaxIDNumber.clickLinkByText("Change invoice number")
+      InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
+      InvoiceNumber.submitInvoiceNumber("INV-1")
+      CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
+      CheckSupplierTaxIDNumber.clickLinkByText("Change supplier’s tax identifier number")
+      SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
+      SupplierTaxIDNumber.submitSupplierTaxID("TID-1")
+      CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
+      CheckSupplierTaxIDNumber.continueAsYes()
       TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
       TotalPurchaseAmount.submitTotalPurchaseAmount("1000")
       TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
       TotalVatPaid.submitTotalVatPaid("200")
+//      CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
+//      CheckVATAmount.continueAsYes()
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
-      TotalVatClaim.submitTotalVatClaim("200")
+      TotalVatClaim.submitTotalVatClaim("100")
+//      CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
+//      CheckVATClaim.continueAsYes()
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
-//      CheckYourPurchaseDetails.pause(1000000)
+      //      CheckYourPurchaseDetails.pause(1000000)
 
-//      // Change other purchase type
-//      CheckYourPurchaseDetails.clickChangeLink("Other purchase type")
-//      PurchaseTypeOther.verifyPageTitle(PurchaseTypeOther.pageTitle)
-//      PurchaseTypeOther.selectPurchaseTypeOther("Office supplies")
-//      CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
-//
-//      // Change purchase description
-//      CheckYourPurchaseDetails.clickChangeLink("Purchase description")
-//      InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
-//      InvoiceItemDescription.submitItemDescription("Updated purchase description")
-//      CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+      //      // Change other purchase type
+      //      CheckYourPurchaseDetails.clickChangeLink("Other purchase type")
+      //      PurchaseTypeOther.verifyPageTitle(PurchaseTypeOther.pageTitle)
+      //      PurchaseTypeOther.selectPurchaseTypeOther("Office supplies")
+      //      CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+      //
+      //      // Change purchase description
+      //      CheckYourPurchaseDetails.clickChangeLink("Purchase description")
+      //      InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
+      //      InvoiceItemDescription.submitItemDescription("Updated purchase description")
+      //      CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
       // Change Supplier tax identifier
       CheckYourPurchaseDetails.clickChangeLink("Supplier tax identifier")
@@ -377,9 +392,11 @@ class NewEuvatClaimSpec
       VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
       VATRegistrationNumber.submitVATRegistrationNumber("VAT-1")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
-
-//      CheckYourPurchaseDetails.clickSignOut
+      //      CheckYourPurchaseDetails.pause(1000000)
+      //      CheckYourPurchaseDetails.clickSignOut
     }
+
+
 
     Scenario("Delete a refund request", Local) {
       Given("I login as an organisation")
