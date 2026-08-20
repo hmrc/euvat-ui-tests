@@ -341,6 +341,7 @@ class NewEuvatClaimSpec
       TotalVatPaid.submitTotalVatPaid("200.00")
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
       TotalVatClaim.submitTotalVatClaim("100.00")
+//      RemovePurchase.verifyPageTitle(RemovePurchase.pageTitle)
 //        RemovePurchase.continueAsYes()
       MakeEuvatClaim.clickSignOut
     }
