@@ -45,7 +45,7 @@ class NewEuvatClaimSpec
   }
 
   Feature("Make a new EUVAT claim - New claim") {
-    Scenario("Submit a refund request", Local) {
+    Scenario("Submit a refund request", Local, WIP) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
@@ -290,7 +290,7 @@ class NewEuvatClaimSpec
 //      CheckYourPurchaseDetails.clickSignOut
     }
 
-    Scenario("Submit a refund request for Germany", Local, WIP) {
+    Scenario("Submit a refund request for Germany", Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
@@ -355,15 +355,11 @@ class NewEuvatClaimSpec
       CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
       CheckSupplierTaxIDNumber.continueAsYes()
       TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
-      TotalPurchaseAmount.submitTotalPurchaseAmount("1000")
+      TotalPurchaseAmount.submitTotalPurchaseAmount("1000.99")
       TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
-      TotalVatPaid.submitTotalVatPaid("200")
-//      CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
-//      CheckVATAmount.continueAsYes()
+      TotalVatPaid.submitTotalVatPaid("200.99")
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
-      TotalVatClaim.submitTotalVatClaim("100")
-//      CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
-//      CheckVATClaim.continueAsYes()
+      TotalVatClaim.submitTotalVatClaim("100.99")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       //      CheckYourPurchaseDetails.pause(1000000)
 
@@ -390,13 +386,11 @@ class NewEuvatClaimSpec
       SupplierTaxNumbers.verifyPageTitle(SupplierTaxNumbers.pageTitle)
       SupplierTaxNumbers.selectTaxNumber("Vat Registration Number")
       VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
-      VATRegistrationNumber.submitVATRegistrationNumber("VAT-1")
+      VATRegistrationNumber.submitVATRegistrationNumber("1234567890")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       //      CheckYourPurchaseDetails.pause(1000000)
       //      CheckYourPurchaseDetails.clickSignOut
     }
-
-
 
     Scenario("Delete a refund request", Local) {
       Given("I login as an organisation")
