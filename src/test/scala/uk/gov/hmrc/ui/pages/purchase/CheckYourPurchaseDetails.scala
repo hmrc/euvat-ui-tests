@@ -43,9 +43,9 @@ object CheckYourPurchaseDetails extends BasePage {
       "Supplier tax numbers"             -> (4, 3),
       "Supplier tax identifier"          -> (4, 4),
       "Currency"                         -> (5, 1),
-      "Amount before VAT"                -> (5, 1),
-      "VAT paid"                         -> (5, 2),
-      "VAT claim"                        -> (5, 3)
+      "Amount before VAT"                -> (5, 2),
+      "VAT paid"                         -> (5, 3),
+      "VAT claim"                        -> (5, 4)
     ).map { case (label, (section, row)) =>
       label -> s"#main-content > div > div > form > div:nth-child($section) > dl > div:nth-child($row) > dd.govuk-summary-list__actions > a"
     }.toMap
