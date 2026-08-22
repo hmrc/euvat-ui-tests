@@ -45,7 +45,7 @@ class AddPurchaseSpec
   }
 
   Feature("Make a new EUVAT claim - Add a purchase") {
-    Scenario("01 - Submit a refund request", Local, WIP) {
+    Scenario("01 - Submit a refund request", Local) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
@@ -61,6 +61,7 @@ class AddPurchaseSpec
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
       CheckYourClaimDetails.saveAndContinue()
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I add purchase details")
       MakeEuvatClaim.clickLinkByText("Add a purchase")
@@ -98,71 +99,73 @@ class AddPurchaseSpec
       CheckVATClaim.continueAsYes()
       MakeEuvatClaim.clickSignOut
     }
+
+    Scenario("02 - Submit a refund request for Germany", Local) {
+      Given("I login as an organisation")
+      val sharedId = AuthorityWizard.login("Organisation", "999900001")
+      ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
+
+      When("I start new EUVAT claim")
+      //      Inject Claim details
+      CacheHelper.submitUserAnswers("claimDetailsGermany.json", sharedId)
+      ManageYourEuvatClaim.clickLinkByText("Make a claim for an EU VAT refund")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
+      And("I see claim details page completed")
+      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
+      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+
+      CheckYourClaimDetails.saveAndContinue()
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      insertDuplicatePurchaseRecord()
+
+      And("I add purchase details")
+      MakeEuvatClaim.clickLinkByText("Add a purchase")
+      BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
+      BeforeYouStart.continue()
+      PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
+      PurchaseType.selectPurchaseType("Other")
+      PurchaseTypeOther.verifyPageTitle(PurchaseTypeOther.pageTitle)
+      PurchaseTypeOther.selectPurchaseTypeOther("None of these - give more details")
+      InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
+      InvoiceItemDescription.submitItemDescription("")
+      CheckPurchaseDetails.verifyPageTitle(CheckPurchaseDetails.pageTitle)
+      CheckPurchaseDetails.continueAsYes()
+      InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
+      InvoiceType.selectInvoiceType("Simplified invoice")
+      InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
+      InvoiceNumber.submitInvoiceNumber("INV-1")
+      InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
+      InvoiceDate.submitInvoiceDate("08", "12", "2025")
+      SupplierName.verifyPageTitle(SupplierName.pageTitle)
+      SupplierName.submitSupplierName("Test Supplier Name")
+      SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
+      SupplierAddress.submitSupplierAddress("Test address one", "Test address two", "Test address three")
+      SupplierTaxNumbers.verifyPageTitle(SupplierTaxNumbers.pageTitle)
+      SupplierTaxNumbers.selectTaxNumber("Tax ID Number")
+      SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
+      SupplierTaxIDNumber.submitSupplierTaxID("TID-1")
+      CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
+      CheckSupplierTaxIDNumber.clickLinkByText("Change invoice number")
+      InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
+      InvoiceNumber.submitInvoiceNumber("INV-1")
+      CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
+      CheckSupplierTaxIDNumber.clickLinkByText("Change supplier’s tax identifier number")
+      SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
+      SupplierTaxIDNumber.submitSupplierTaxID("TID-1")
+      CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
+      CheckSupplierTaxIDNumber.continueAsYes()
+      TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
+      TotalPurchaseAmount.submitTotalPurchaseAmount("100")
+      TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
+      TotalVatPaid.submitTotalVatPaid("200")
+      CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
+      CheckVATAmount.continueAsYes()
+      TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
+      TotalVatClaim.submitTotalVatClaim("210")
+      CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
+      CheckVATClaim.continueAsYes()
+      MakeEuvatClaim.clickSignOut
+    }
   }
-
-  Scenario("02 - Submit a refund request for Germany", Local) {
-    Given("I login as an organisation")
-    val sharedId = AuthorityWizard.login("Organisation", "999900001")
-    ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
-
-    When("I start new EUVAT claim")
-    //      Inject Claim details
-    CacheHelper.submitUserAnswers("claimDetailsGermany.json", sharedId)
-    ManageYourEuvatClaim.clickLinkByText("Make a claim for an EU VAT refund")
-    MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-
-    And("I see claim details page completed")
-    MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
-    CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-
-    CheckYourClaimDetails.saveAndContinue()
-
-    And("I add purchase details")
-    MakeEuvatClaim.clickLinkByText("Add a purchase")
-
-    BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
-    BeforeYouStart.continue()
-    PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
-    PurchaseType.selectPurchaseType("Other")
-    PurchaseTypeOther.verifyPageTitle(PurchaseTypeOther.pageTitle)
-    PurchaseTypeOther.selectPurchaseTypeOther("None of these - give more details")
-    InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
-    InvoiceItemDescription.submitItemDescription("Test item description")
-    InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
-    InvoiceType.selectInvoiceType("Simplified invoice")
-    InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
-    InvoiceNumber.submitInvoiceNumber("INV-1")
-    InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
-    InvoiceDate.submitInvoiceDate("08", "12", "2025")
-    SupplierName.verifyPageTitle(SupplierName.pageTitle)
-    SupplierName.submitSupplierName("Test Supplier Name")
-    SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
-    SupplierAddress.submitSupplierAddress("Test address one", "Test address two", "Test address three")
-    SupplierTaxNumbers.verifyPageTitle(SupplierTaxNumbers.pageTitle)
-    SupplierTaxNumbers.selectTaxNumber("Tax ID Number")
-    SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
-    SupplierTaxIDNumber.submitSupplierTaxID("TID-1")
-    CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
-    CheckSupplierTaxIDNumber.clickLinkByText("Change invoice number")
-    InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
-    InvoiceNumber.submitInvoiceNumber("INV-1")
-    CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
-    CheckSupplierTaxIDNumber.clickLinkByText("Change supplier’s tax identifier number")
-    SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
-    SupplierTaxIDNumber.submitSupplierTaxID("TID-1")
-    CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
-    CheckSupplierTaxIDNumber.continueAsYes()
-    TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
-    TotalPurchaseAmount.submitTotalPurchaseAmount("100")
-    TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
-    TotalVatPaid.submitTotalVatPaid("200")
-    CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
-    CheckVATAmount.continueAsYes()
-    TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
-    TotalVatClaim.submitTotalVatClaim("210")
-    CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
-    CheckVATClaim.continueAsYes()
-    MakeEuvatClaim.clickSignOut
-  }
-
 }

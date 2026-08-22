@@ -85,7 +85,7 @@ class ErrorSpec
       EUMemberState.clickSignOut
     }
 
-    Scenario("03 - Validate a draft refund from the Check your claim details page", Error, WIP) {
+    Scenario("03 - Validate a draft refund from the Check your claim details page", Error) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900002")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
