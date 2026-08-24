@@ -14,14 +14,21 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.tags
+package uk.gov.hmrc.ui.pages.claim
 
-import org.scalatest.Tag
+import uk.gov.hmrc.ui.pages.BasePage
 
-object Journey extends Tag("uk.gov.hmrc.ui.tags.Journey")
-object Smoke extends Tag("uk.gov.hmrc.ui.tags.Smoke")
-object QA extends Tag("uk.gov.hmrc.ui.tags.QA")
-object Local extends Tag("uk.gov.hmrc.ui.tags.Local")
-object WIP extends Tag("uk.gov.hmrc.ui.tags.wip")
-object Staging extends Tag("uk.gov.hmrc.ui.tags.Staging")
-object Error extends Tag("uk.gov.hmrc.ui.tags.error")
+object CheckRefundPeriod extends BasePage {
+
+  override def pageUrl: String = "check-refund-period-start-date"
+
+  override def pageTitle: String =
+    "Are you sure the refund period start date is correct? - EU VAT - GOV.UK"
+
+  def continueAsYes(): Unit =
+    continue()
+
+  def continueAsNo(): Unit =
+    clickLinkByText("No, change the start date")
+
+}
