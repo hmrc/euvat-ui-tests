@@ -43,8 +43,8 @@ class ErrorSpec
     cleanupDatabaseIfNotStub()
   }
 
-  Feature("Make a new EUVAT claim - New claim") {
-    Scenario("Submit a refund request", Error) {
+  Feature("Recreate refund warning message - New claim") {
+    Scenario("Submit refund period dates that go against the start date validation", Error) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999901222")
       ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
@@ -62,7 +62,6 @@ class ErrorSpec
       CheckRefundPeriod.verifyPageTitle(CheckRefundPeriod.pageTitle)
       CheckRefundPeriod.continueAsYes()
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-      ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
       MakeEuvatClaim.clickSignOut
     }
   }
