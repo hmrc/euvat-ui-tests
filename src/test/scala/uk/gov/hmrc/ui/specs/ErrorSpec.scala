@@ -99,7 +99,6 @@ class ErrorSpec
 
       And("I see Check your claim details page completed")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-
       CheckYourClaimDetails.saveAndContinue()
 
       SystemError.verifyPageTitle(SystemError.pageTitle)
