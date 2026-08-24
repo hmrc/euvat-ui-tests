@@ -67,6 +67,7 @@ class NewEuvatClaimSpec
 
       And("I change claim details")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+
       //      Change member state
       CheckYourClaimDetails.clickChangeLink("Refunding EU member state")
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
@@ -76,11 +77,13 @@ class NewEuvatClaimSpec
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
       RefundPeriod.submitRefundPeriod("05", "2025", "07", "2025")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+
       //      Change language
       CheckYourClaimDetails.clickChangeLink("Claim language")
       Language.verifyPageTitle(Language.pageTitle)
       Language.selectLanguage("Estonian")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+
       //      Change refund period
       CheckYourClaimDetails.clickChangeLink("End date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
@@ -90,6 +93,7 @@ class NewEuvatClaimSpec
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
       RefundPeriod.submitRefundPeriod("08", "2025", "10", "2025")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+
       //      Change contact details
       CheckYourClaimDetails.clickChangeLink("Email")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
@@ -99,6 +103,7 @@ class NewEuvatClaimSpec
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("ChangeTest@gmail.com", "+449876543210")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+
       //      Change SIC code
       And("I add, change and remove Second SIC code")
       CheckYourClaimDetails.clickChangeLink("First SIC code")
@@ -152,6 +157,7 @@ class NewEuvatClaimSpec
       FoodDrink.selectFoodDrinkCostType("Food and drink from hotels")
       WhoFoodDrink.verifyPageTitle(WhoFoodDrink.pageTitle)
       WhoFoodDrink.selectWhoFoodDrinkFor("The taxable person")
+
       //      Invoice details
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
       InvoiceType.selectInvoiceType("Standard invoice")
@@ -159,26 +165,24 @@ class NewEuvatClaimSpec
       InvoiceNumber.submitInvoiceNumber("HR123456789")
       InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
       InvoiceDate.submitInvoiceDate("08", "12", "2025")
+
       //      Supplier details
-      SupplierName .verifyPageTitle(SupplierName.pageTitle)
+      SupplierName.verifyPageTitle(SupplierName.pageTitle)
       SupplierName.submitSupplierName("Test Supplier Name")
       SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
       SupplierAddress.submitSupplierAddress("Test address one", "Test address two", "Test address three")
       VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
       VATRegistrationNumber.submitVATRegistrationNumber("AB1234567890")
+
       //      Purchase amounts
       Currency.verifyPageTitle(Currency.pageTitle)
       Currency.selectCurrencyType("Euro")
       TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
-      TotalPurchaseAmount.submitTotalPurchaseAmount("100")
+      TotalPurchaseAmount.submitTotalPurchaseAmount("1000.01")
       TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
-      TotalVatPaid.submitTotalVatPaid("200")
-      CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
-      CheckVATAmount.continueAsYes()
+      TotalVatPaid.submitTotalVatPaid("200.01")
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
-      TotalVatClaim.submitTotalVatClaim("210")
-      CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
-      CheckVATClaim.continueAsYes()
+      TotalVatClaim.submitTotalVatClaim("100.01")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
       And("I change purchase details")
