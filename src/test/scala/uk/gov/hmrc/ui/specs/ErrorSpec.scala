@@ -53,7 +53,7 @@ class ErrorSpec
       ManageYourEuvatClaim.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I add claim details")
+      And("I add duplicate draft claim details")
       MakeEuvatClaim.clickLinkByText("Add claim details")
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Croatia")
