@@ -47,10 +47,10 @@ class ErrorSpec
     Scenario("Submit refund period dates that go against the start date validation", Error) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999901222")
-      ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
+      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
-      ManageYourEuvatClaim.clickLinkByText("Make a claim for an EU VAT refund")
+      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I add claim details")

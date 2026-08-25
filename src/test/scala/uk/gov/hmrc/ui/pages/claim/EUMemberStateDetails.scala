@@ -18,22 +18,20 @@ package uk.gov.hmrc.ui.pages.claim
 
 import uk.gov.hmrc.ui.pages.BasePage
 
-object ClaimDetails extends BasePage {
+object EUMemberStateDetails extends BasePage {
 
-  override def pageUrl: String = "claim-details"
+  override def pageUrl: String = "eu-member-state-details"
 
-  override def pageTitle: String =
-    "Claim details - EU VAT - GOV.UK"
+  override def pageTitle: String = "EU member state details - EU VAT - GOV.UK"
 
-  private val linkSelectors = Map(
-    "EU member state" -> "#main-content > div > div > form > div:nth-child(2) > dl > div > dd.govuk-summary-list__actions > a",
-    "Claim language"  -> "#main-content > div > div > form > div:nth-child(3) > dl > div > dd.govuk-summary-list__actions > a"
-  )
+  def continueAsYes(): Unit = {
+    radioButton(Locators.rdoYes)
+    continue()
+  }
 
-  def clickChangeLink(changeLink: String): this.type = {
-    val linkCSS = linkSelectors.getOrElse(changeLink, throw new IllegalArgumentException(s"Invalid link: $changeLink"))
-    super.clickLinkByCSS(linkCSS)
-    this
+  def continueAsNo(): Unit = {
+    radioButton(Locators.rdoNo)
+    continue()
   }
 
 }
