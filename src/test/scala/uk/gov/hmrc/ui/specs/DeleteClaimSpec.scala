@@ -43,7 +43,7 @@ class DeleteClaimSpec
     cleanupDatabaseIfNotStub()
   }
 
-  Feature("Make a new EUVAT claim - New claim") {
+  Feature("Delete a draft EUVAT claim - Delete claim") {
 
     Scenario("01 - Delete a refund claim from Check your claim details page", Local) {
       Given("I login as an organisation")
