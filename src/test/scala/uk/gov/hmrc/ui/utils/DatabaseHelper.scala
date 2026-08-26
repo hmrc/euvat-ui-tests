@@ -76,7 +76,7 @@ trait DatabaseHelper extends BeforeAndAfterEach with BeforeAndAfterAll { self: S
     }
   }
 
-  def insertDuplicatePurchaseRecord(): Unit = {
+  def insertDuplicatePurchaseRecordTID(): Unit = {
     var connection: Connection = null
     var selectStmt: Statement  = null
     var insertStmt: Statement  = null
@@ -116,7 +116,7 @@ trait DatabaseHelper extends BeforeAndAfterEach with BeforeAndAfterAll { self: S
            VALUES (
              $applicationId,
              2,
-             10,
+             '10',
              'INV-1',
              'TID-1'
            )
@@ -128,6 +128,75 @@ trait DatabaseHelper extends BeforeAndAfterEach with BeforeAndAfterAll { self: S
         )
       } else {
         throw new RuntimeException("No refund application found for VRN 999900001 and country DE")
+      }
+
+      connection.commit()
+    } catch {
+      case e: Exception =>
+        e.printStackTrace()
+        if (connection != null) connection.rollback()
+    } finally {
+      if (rs != null) rs.close()
+      if (selectStmt != null) selectStmt.close()
+      if (insertStmt != null) insertStmt.close()
+      if (connection != null) connection.close()
+    }
+  }
+
+  def insertDuplicatePurchaseRecordVRN(): Unit = {
+    var connection: Connection = null
+    var selectStmt: Statement  = null
+    var insertStmt: Statement  = null
+    var rs: java.sql.ResultSet = null
+
+    try {
+      connection = DriverManager.getConnection(oracleUrl, oracleUsername, oraclePassword)
+      connection.setAutoCommit(false)
+
+      selectStmt = connection.createStatement()
+
+      val selectApplicationIdQuery =
+        """
+          SELECT APPLICATION_ID
+          FROM EUVAT_FILE_DATA.REFUND_APPLICATION
+          WHERE APPLICANT_VAT_REG_NUMBER = 999900001
+            AND REFUNDING_COUNTRY_CODE = 'EE'
+          ORDER BY APPLICATION_ID DESC
+        """
+
+      rs = selectStmt.executeQuery(selectApplicationIdQuery)
+
+      if (rs.next()) {
+        val applicationId = rs.getLong("APPLICATION_ID")
+
+        insertStmt = connection.createStatement()
+
+        val insertPurchaseQuery =
+          s"""
+             INSERT INTO EUVAT_FILE_DATA.PURCHASE (
+               APPLICATION_ID,
+               ITEM_NUMBER,
+               GOODS_DESCRIPTION_CATEGORY,
+               INVOICE_NUMBER,
+               GOODS_DESCRIPTION_SUBCATEGORY,
+               SUPPLIER_VAT_REG_NUMBER
+             )
+             VALUES (
+               $applicationId,
+               2,
+               '7',
+               'DUP',
+               '7.1.1',
+               'EE0000000111'
+             )
+           """
+
+        val rowsInserted = insertStmt.executeUpdate(insertPurchaseQuery)
+        println(
+          s"******************** INSERTED $rowsInserted DUPLICATE PURCHASE ROW FOR APPLICATION_ID=$applicationId WITH ITEM_NUMBER=2 ********************"
+        )
+      } else {
+        throw new RuntimeException("No refund application found for VRN 999900001 and country EE")
       }
 
       connection.commit()
