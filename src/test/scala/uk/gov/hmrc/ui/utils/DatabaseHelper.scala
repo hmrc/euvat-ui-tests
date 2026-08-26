@@ -179,8 +179,7 @@ trait DatabaseHelper extends BeforeAndAfterEach with BeforeAndAfterAll { self: S
                GOODS_DESCRIPTION_CATEGORY,
                INVOICE_NUMBER,
                GOODS_DESCRIPTION_SUBCATEGORY,
-               SUPPLIER_TAX_IDENTIFIER
-
+               SUPPLIER_VAT_REG_NUMBER
              )
              VALUES (
                $applicationId,
