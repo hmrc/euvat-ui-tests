@@ -14,21 +14,18 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.purchase
+package uk.gov.hmrc.ui.pages.claim
 
-import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.BasePage
 
-object VATRegistrationNumber extends BasePage {
+object CheckSupplierVRN extends BasePage {
 
-  override def pageUrl: String = "what-supplier-vat-registration-number"
+  override def pageUrl: String = "check-supplier-vat-registration-number"
 
-  override def pageTitle: String = "What is the supplier’s VAT registration number? - EU VAT - GOV.UK"
+  override def pageTitle: String =
+    "Are you sure the supplier’s VAT registration number is correct? - EU VAT - GOV.UK"
 
-  val txtVATRegistrationNumber: By = By.cssSelector("#value")
-
-  def submitVATRegistrationNumber(vatRegistrationNumber: String): Unit = {
-    input(txtVATRegistrationNumber, vatRegistrationNumber)
+  def continueAsYes(): Unit =
     continue()
-  }
+
 }

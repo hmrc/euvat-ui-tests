@@ -25,17 +25,26 @@ object CheckYourClaimDetails extends BasePage {
   override def pageTitle: String =
     "Check your claim details - EU VAT - GOV.UK"
 
-  private val linkSelectors = Map(
-    "Refunding EU member state" -> "#main-content > div > div > form > div:nth-child(2) > dl > div > dd.govuk-summary-list__actions > a",
-    "Claim language"            -> "#main-content > div > div > form > div:nth-child(3) > dl > div > dd.govuk-summary-list__actions > a",
-    "Start date"                -> "#main-content > div > div > form > div:nth-child(4) > dl > div:nth-child(1) > dd.govuk-summary-list__actions > a",
-    "End date"                  -> "#main-content > div > div > form > div:nth-child(4) > dl > div:nth-child(1) > dd.govuk-summary-list__actions > a",
-    "Email"                     -> "#main-content > div > div > form > div:nth-child(5) > dl > div:nth-child(1) > dd.govuk-summary-list__actions > a",
-    "Phone number"              -> "#main-content > div > div > form > div:nth-child(5) > dl > div:nth-child(2) > dd.govuk-summary-list__actions > a",
-    "First SIC code"            -> "#main-content > div > div > form > div:nth-child(6) > dl > div:nth-child(1) > dd.govuk-summary-list__actions > a",
-    "Second SIC code"           -> "#main-content > div > div > form > div:nth-child(6) > dl > div:nth-child(2) > dd.govuk-summary-list__actions > a",
-    "Third SIC code"            -> "#main-content > div > div > form > div:nth-child(6) > dl > div:nth-child(3) > dd.govuk-summary-list__actions > a"
-  )
+  private val base =
+    "#main-content > div > div > form > div:nth-child(%d) > dl > div:nth-child(%d) > dd.govuk-summary-list__actions > a"
+
+  private def selector(section: Int, row: Int): String =
+    base.format(section, row)
+
+  private val linkSelectors: Map[String, String] =
+    Seq(
+      "Refunding EU member state" -> (2, 1),
+      "Claim language"            -> (3, 1),
+      "Start date"                -> (4, 1),
+      "End date"                  -> (4, 1),
+      "Email"                     -> (5, 1),
+      "Phone number"              -> (5, 2),
+      "First SIC code"            -> (6, 1),
+      "Second SIC code"           -> (6, 2),
+      "Third SIC code"            -> (6, 3)
+    ).map { case (label, (section, row)) =>
+      label -> selector(section, row)
+    }.toMap
 
   def clickChangeLink(changeLink: String): this.type = {
     val linkCSS = linkSelectors.getOrElse(changeLink, throw new IllegalArgumentException(s"Invalid link: $changeLink"))
