@@ -146,6 +146,7 @@ class NewEuvatClaimSpec
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      insertDuplicatePurchaseRecordVRN()
 
       And("I add purchase details")
       MakeEuvatClaim.clickLinkByText("Add a purchase")
@@ -162,7 +163,7 @@ class NewEuvatClaimSpec
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
       InvoiceType.selectInvoiceType("Standard invoice")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
-      InvoiceNumber.submitInvoiceNumber("HR123456789")
+      InvoiceNumber.submitInvoiceNumber("DUP")
       InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
       InvoiceDate.submitInvoiceDate("08", "12", "2025")
 
@@ -172,7 +173,17 @@ class NewEuvatClaimSpec
       SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
       SupplierAddress.submitSupplierAddress("Test address one", "Test address two", "Test address three")
       VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
-      VATRegistrationNumber.submitVATRegistrationNumber("AB1234567890")
+      VATRegistrationNumber.submitVATRegistrationNumber("EE0000000111")
+      CheckSupplierVRN.verifyPageTitle(CheckSupplierVRN.pageTitle)
+      CheckSupplierVRN.clickLinkByText("Change invoice number")
+      InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
+      InvoiceNumber.submitInvoiceNumber("DUP")
+      CheckSupplierVRN.verifyPageTitle(CheckSupplierVRN.pageTitle)
+      CheckSupplierVRN.clickLinkByText("Change supplier’s VAT registration number")
+      VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
+      VATRegistrationNumber.submitVATRegistrationNumber("EE0000000111")
+      CheckSupplierVRN.verifyPageTitle(CheckSupplierVRN.pageTitle)
+      CheckSupplierVRN.continueAsYes()
 
       //      Purchase amounts
       Currency.verifyPageTitle(Currency.pageTitle)
@@ -317,7 +328,7 @@ class NewEuvatClaimSpec
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      insertDuplicatePurchaseRecord()
+      insertDuplicatePurchaseRecordTID()
 
       And("I add purchase details")
       MakeEuvatClaim.clickLinkByText("Add a purchase")
