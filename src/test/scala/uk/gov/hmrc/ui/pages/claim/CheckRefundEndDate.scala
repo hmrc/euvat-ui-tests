@@ -18,17 +18,11 @@ package uk.gov.hmrc.ui.pages.claim
 
 import uk.gov.hmrc.ui.pages.BasePage
 
-object CheckRefundPeriod extends BasePage {
+object CheckRefundEndDate extends BasePage {
 
-  override def pageUrl: String = "check-refund-period-start-date"
+  override def pageUrl: String = "check-refund-period-end-date"
 
   override def pageTitle: String =
-    "Are you sure the refund period start date is correct? - EU VAT - GOV.UK"
-
-  def continueAsYes(): Unit =
-    continue()
-
-  def continueAsNo(): Unit =
-    clickLinkByText("No, change the start date")
+    "Are you sure the refund period end date is correct? - EU VAT - GOV.UK"
 
 }
