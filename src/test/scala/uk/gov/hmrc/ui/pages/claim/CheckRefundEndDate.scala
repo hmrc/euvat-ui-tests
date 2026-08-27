@@ -25,10 +25,4 @@ object CheckRefundEndDate extends BasePage {
   override def pageTitle: String =
     "Are you sure the refund period end date is correct? - EU VAT - GOV.UK"
 
-  def continueAsYes(): Unit =
-    continue()
-
-  def continueAsNo(): Unit =
-    clickLinkByText("No, change the start date")
-
 }

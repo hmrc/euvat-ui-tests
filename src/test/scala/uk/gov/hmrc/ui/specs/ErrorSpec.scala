@@ -65,7 +65,7 @@ class ErrorSpec
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
       RefundPeriod.submitRefundPeriod("06", "2026", "11", "2026")
       CheckRefundEndDate.verifyPageTitle(CheckRefundEndDate.pageTitle)
-      CheckRefundEndDate.continueAsYes()
+      CheckRefundEndDate.continue()
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       MakeEuvatClaim.clickSignOut
     }
