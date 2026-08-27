@@ -26,7 +26,7 @@ import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
 
 class ErrorSpec
-    extends AnyFeatureSpec
+  extends AnyFeatureSpec
     with BaseSpec
     with GivenWhenThen
     with ShouldVerb
@@ -43,24 +43,29 @@ class ErrorSpec
     cleanupDatabaseIfNotStub()
   }
 
-  Feature("Recreate refund warning message - New claim") {
-    Scenario("Submit refund period dates that go against the start date validation", Error) {
+  Feature("Error and warning message validation check - New claim") {
+
+    Scenario("Refund period start and end date validation", Local, Error) {
       Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "999901222")
+      AuthorityWizard.login("Organisation", "999900002")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I add claim details")
+      And("I check refund period validation")
       MakeEuvatClaim.clickLinkByText("Add claim details")
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Croatia")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
       RefundPeriod.submitRefundPeriod("02", "2024", "04", "2024")
-      CheckRefundPeriod.verifyPageTitle(CheckRefundPeriod.pageTitle)
-      CheckRefundPeriod.continueAsYes()
+      CheckRefundStartDate.verifyPageTitle(CheckRefundStartDate.pageTitle)
+      CheckRefundStartDate.clickLinkByText("No, change the start date")
+      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
+      RefundPeriod.submitRefundPeriod("06", "2026", "11", "2026")
+      CheckRefundEndDate.verifyPageTitle(CheckRefundEndDate.pageTitle)
+      CheckRefundEndDate.continue()
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       MakeEuvatClaim.clickSignOut
     }
