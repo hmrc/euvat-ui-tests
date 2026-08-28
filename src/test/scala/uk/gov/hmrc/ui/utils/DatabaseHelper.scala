@@ -44,7 +44,7 @@ trait DatabaseHelper extends BeforeAndAfterEach with BeforeAndAfterAll { self: S
             SELECT APPLICATION_ID
             FROM EUVAT_FILE_DATA.REFUND_APPLICATION
             WHERE APPLICANT_VAT_REG_NUMBER = 999900001
-              AND REFUNDING_COUNTRY_CODE IN ('EE', 'DE', 'FR')
+              AND REFUNDING_COUNTRY_CODE IN ('EE', 'DE', 'HR')
           )
         """
 
@@ -55,7 +55,7 @@ trait DatabaseHelper extends BeforeAndAfterEach with BeforeAndAfterAll { self: S
         """
           DELETE FROM EUVAT_FILE_DATA.REFUND_APPLICATION
           WHERE APPLICANT_VAT_REG_NUMBER = 999900001
-            AND REFUNDING_COUNTRY_CODE IN ('EE', 'DE', 'FR')
+            AND REFUNDING_COUNTRY_CODE IN ('EE', 'DE', 'HR')
         """
 
       val refundRowsDeleted = statement.executeUpdate(deleteRefundApplicationQuery)

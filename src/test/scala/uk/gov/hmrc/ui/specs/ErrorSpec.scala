@@ -48,10 +48,10 @@ class ErrorSpec
     Scenario("Refund period start and end date validation", Local, Error) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900002")
-      ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
+      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
-      ManageYourEuvatClaim.clickLinkByText("Make a claim for an EU VAT refund")
+      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I check refund period validation")
