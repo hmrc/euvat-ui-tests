@@ -77,7 +77,7 @@ class DeleteClaimSpec
       ClaimAnEUVATRefund.clickSignOut
     }
 
-    Scenario("02 - Delete a refund claim from Make a claim for an EU VAT refund page", Local, WIP) {
+    Scenario("02 - Delete a refund claim from Make a claim for an EU VAT refund page", Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -104,8 +104,8 @@ class DeleteClaimSpec
       MakeEuvatClaim.clickLinkByText("Delete this claim")
       DeleteClaim.verifyPageTitle(DeleteClaim.pageTitle)
       DeleteClaim.continueAsYes()
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      MakeEuvatClaim.clickSignOut
+      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+      ClaimAnEUVATRefund.clickSignOut
     }
   }
 }
