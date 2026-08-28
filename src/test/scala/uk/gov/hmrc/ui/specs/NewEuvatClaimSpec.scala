@@ -184,7 +184,7 @@ class NewEuvatClaimSpec
       VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
       VATRegistrationNumber.submitVATRegistrationNumber("EE0000000111")
       CheckSupplierVRN.verifyPageTitle(CheckSupplierVRN.pageTitle)
-      CheckSupplierVRN.continueAsYes()
+      CheckSupplierVRN.continue()
 
       //      Purchase amounts
       Currency.verifyPageTitle(Currency.pageTitle)
@@ -274,7 +274,7 @@ class NewEuvatClaimSpec
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
       TotalVatClaim.submitTotalVatClaim("3000.99")
       CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
-      CheckVATClaim.continueAsYes()
+      CheckVATClaim.continue()
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
       //      Change VAT paid
@@ -282,11 +282,11 @@ class NewEuvatClaimSpec
       TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
       TotalVatPaid.submitTotalVatPaid("3000.99")
       CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
-      CheckVATAmount.continueAsYes()
+      CheckVATAmount.continue()
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
       TotalVatClaim.submitTotalVatClaim("4000.99")
       CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
-      CheckVATClaim.continueAsYes()
+      CheckVATClaim.continue()
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
       //      Change amount before VAT
@@ -296,11 +296,11 @@ class NewEuvatClaimSpec
       TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
       TotalVatPaid.submitTotalVatPaid("5000.99")
       CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
-      CheckVATAmount.continueAsYes()
+      CheckVATAmount.continue()
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
       TotalVatClaim.submitTotalVatClaim("6000.99")
       CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
-      CheckVATClaim.continueAsYes()
+      CheckVATClaim.continue()
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickSignOut
     }
@@ -342,7 +342,7 @@ class NewEuvatClaimSpec
       InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
       InvoiceItemDescription.submitItemDescription("")
       CheckPurchaseDetails.verifyPageTitle(CheckPurchaseDetails.pageTitle)
-      CheckPurchaseDetails.continueAsYes()
+      CheckPurchaseDetails.continue()
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
       InvoiceType.selectInvoiceType("Simplified invoice")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
@@ -366,7 +366,7 @@ class NewEuvatClaimSpec
       SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
       SupplierTaxIDNumber.submitSupplierTaxID("TID-1")
       CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
-      CheckSupplierTaxIDNumber.continueAsYes()
+      CheckSupplierTaxIDNumber.continue()
       TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
       TotalPurchaseAmount.submitTotalPurchaseAmount("1000.99")
       TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)

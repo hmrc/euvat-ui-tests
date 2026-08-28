@@ -25,7 +25,4 @@ object CheckSupplierTaxIDNumber extends BasePage {
   override def pageTitle: String =
     "Are you sure the supplier’s tax identifier number is correct? - EU VAT - GOV.UK"
 
-  def continueAsYes(): Unit =
-    continue()
-
 }
