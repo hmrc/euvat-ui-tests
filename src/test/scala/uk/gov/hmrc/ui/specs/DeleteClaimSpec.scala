@@ -74,7 +74,6 @@ class DeleteClaimSpec
       ClaimDetails.clickChangeLink("EU member state")
       EUMemberStateDetails.verifyPageTitle(EUMemberStateDetails.pageTitle)
       EUMemberStateDetails.continueAsYes()
-      //      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
       ClaimAnEUVATRefund.clickSignOut
     }
 
@@ -105,8 +104,8 @@ class DeleteClaimSpec
       MakeEuvatClaim.clickLinkByText("Delete this claim")
       DeleteClaim.verifyPageTitle(DeleteClaim.pageTitle)
       DeleteClaim.continueAsYes()
-      //    ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
-      ClaimAnEUVATRefund.clickSignOut
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      MakeEuvatClaim.clickSignOut
     }
   }
 }
