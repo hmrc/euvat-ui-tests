@@ -20,9 +20,9 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object DeleteClaim extends BasePage {
 
-  override def pageUrl: String = "eu-member-state-details"
+  override def pageUrl: String = "delete-claim"
 
-  override def pageTitle: String = "EU member state details - EU VAT - GOV.UK"
+  override def pageTitle: String = "Delete claim - EU VAT - GOV.UK"
 
   def continueAsYes(): Unit = {
     radioButton(Locators.rdoYes)

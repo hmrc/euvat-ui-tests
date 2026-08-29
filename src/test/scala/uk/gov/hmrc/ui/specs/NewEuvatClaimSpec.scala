@@ -45,13 +45,14 @@ class NewEuvatClaimSpec
   }
 
   Feature("Make a new EUVAT claim - New claim") {
+
     Scenario("01 - Submit a refund request", Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
-      ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
+      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
-      ManageYourEuvatClaim.clickLinkByText("Make a claim for an EU VAT refund")
+      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I add claim details")
@@ -183,7 +184,7 @@ class NewEuvatClaimSpec
       VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
       VATRegistrationNumber.submitVATRegistrationNumber("EE0000000111")
       CheckSupplierVRN.verifyPageTitle(CheckSupplierVRN.pageTitle)
-      CheckSupplierVRN.continueAsYes()
+      CheckSupplierVRN.continue()
 
       //      Purchase amounts
       Currency.verifyPageTitle(Currency.pageTitle)
@@ -273,7 +274,7 @@ class NewEuvatClaimSpec
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
       TotalVatClaim.submitTotalVatClaim("3000.99")
       CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
-      CheckVATClaim.continueAsYes()
+      CheckVATClaim.continue()
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
       //      Change VAT paid
@@ -281,11 +282,11 @@ class NewEuvatClaimSpec
       TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
       TotalVatPaid.submitTotalVatPaid("3000.99")
       CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
-      CheckVATAmount.continueAsYes()
+      CheckVATAmount.continue()
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
       TotalVatClaim.submitTotalVatClaim("4000.99")
       CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
-      CheckVATClaim.continueAsYes()
+      CheckVATClaim.continue()
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
       //      Change amount before VAT
@@ -295,22 +296,22 @@ class NewEuvatClaimSpec
       TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
       TotalVatPaid.submitTotalVatPaid("5000.99")
       CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
-      CheckVATAmount.continueAsYes()
+      CheckVATAmount.continue()
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
       TotalVatClaim.submitTotalVatClaim("6000.99")
       CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
-      CheckVATClaim.continueAsYes()
+      CheckVATClaim.continue()
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickSignOut
     }
 
-    Scenario("02 - Submit a refund request for Germany", Local, WIP) {
+    Scenario("02 - Submit a refund request for Germany", Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
-      ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
+      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
-      ManageYourEuvatClaim.clickLinkByText("Make a claim for an EU VAT refund")
+      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I add claim details")
@@ -341,7 +342,7 @@ class NewEuvatClaimSpec
       InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
       InvoiceItemDescription.submitItemDescription("")
       CheckPurchaseDetails.verifyPageTitle(CheckPurchaseDetails.pageTitle)
-      CheckPurchaseDetails.continueAsYes()
+      CheckPurchaseDetails.continue()
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
       InvoiceType.selectInvoiceType("Simplified invoice")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
@@ -365,7 +366,7 @@ class NewEuvatClaimSpec
       SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
       SupplierTaxIDNumber.submitSupplierTaxID("TID-1")
       CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
-      CheckSupplierTaxIDNumber.continueAsYes()
+      CheckSupplierTaxIDNumber.continue()
       TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
       TotalPurchaseAmount.submitTotalPurchaseAmount("1000.99")
       TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
@@ -388,40 +389,6 @@ class NewEuvatClaimSpec
       VATRegistrationNumber.submitVATRegistrationNumber("1234567890")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickSignOut
-    }
-
-    Scenario("03 - Delete a refund request", Local) {
-      Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "999900001")
-      ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
-
-      When("I start new EUVAT claim")
-      ManageYourEuvatClaim.clickLinkByText("Make a claim for an EU VAT refund")
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-
-      And("I add claim details")
-      MakeEuvatClaim.clickLinkByText("Add claim details")
-      EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
-      EUMemberState.selectCountry("France")
-      Language.verifyPageTitle(Language.pageTitle)
-      Language.selectLanguage("English")
-      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("02", "2025", "04", "2025")
-      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-      ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
-      AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
-      AddBusinessActivity.continueAsNo()
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-      CheckYourClaimDetails.saveAndContinue()
-
-      And("I delete the claim")
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      MakeEuvatClaim.clickLinkByText("View claim details")
-      ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
-      ClaimDetails.clickChangeLink("Refunding EU member state")
-      DeleteClaim.verifyPageTitle(DeleteClaim.pageTitle)
-      DeleteClaim.continueAsYes()
-      MakeEuvatClaim.clickSignOut
     }
   }
 }

@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.purchase
+package uk.gov.hmrc.ui.pages.claim
 
 import uk.gov.hmrc.ui.pages.BasePage
 
-object CheckVATAmount extends BasePage {
+object CheckRefundStartDate extends BasePage {
 
-  override def pageUrl: String = "check-vat-amount"
+  override def pageUrl: String = "check-refund-period-start-date"
 
   override def pageTitle: String =
-    "Are you sure the amount of VAT you paid is correct? - EU VAT - GOV.UK"
+    "Are you sure the refund period start date is correct? - EU VAT - GOV.UK"
 
 }

@@ -48,12 +48,12 @@ class AddPurchaseSpec
     Scenario("01 - Submit a refund request", Local) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
-      ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
+      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
 //      Inject Claim details
       CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
-      ManageYourEuvatClaim.clickLinkByText("Make a claim for an EU VAT refund")
+      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I see claim details page completed")
@@ -99,7 +99,7 @@ class AddPurchaseSpec
       VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
       VATRegistrationNumber.submitVATRegistrationNumber("EE0000000111")
       CheckSupplierVRN.verifyPageTitle(CheckSupplierVRN.pageTitle)
-      CheckSupplierVRN.continueAsYes()
+      CheckSupplierVRN.continue()
 
       //      Purchase amounts
       Currency.verifyPageTitle(Currency.pageTitle)
@@ -189,7 +189,7 @@ class AddPurchaseSpec
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
       TotalVatClaim.submitTotalVatClaim("3000.99")
       CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
-      CheckVATClaim.continueAsYes()
+      CheckVATClaim.continue()
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
       //      Change VAT paid
@@ -197,11 +197,11 @@ class AddPurchaseSpec
       TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
       TotalVatPaid.submitTotalVatPaid("3000.99")
       CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
-      CheckVATAmount.continueAsYes()
+      CheckVATAmount.continue()
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
       TotalVatClaim.submitTotalVatClaim("4000.99")
       CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
-      CheckVATClaim.continueAsYes()
+      CheckVATClaim.continue()
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
       //      Change amount before VAT
@@ -211,11 +211,11 @@ class AddPurchaseSpec
       TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
       TotalVatPaid.submitTotalVatPaid("5000.99")
       CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
-      CheckVATAmount.continueAsYes()
+      CheckVATAmount.continue()
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
       TotalVatClaim.submitTotalVatClaim("6000.99")
       CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
-      CheckVATClaim.continueAsYes()
+      CheckVATClaim.continue()
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickSignOut
     }
@@ -223,12 +223,12 @@ class AddPurchaseSpec
     Scenario("02 - Submit a refund request for Germany", Local) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
-      ManageYourEuvatClaim.verifyPageTitle(ManageYourEuvatClaim.pageTitle)
+      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
       //      Inject Claim details
       CacheHelper.submitUserAnswers("claimDetailsGermany.json", sharedId)
-      ManageYourEuvatClaim.clickLinkByText("Make a claim for an EU VAT refund")
+      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I see claim details page completed")
@@ -250,7 +250,7 @@ class AddPurchaseSpec
       InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
       InvoiceItemDescription.submitItemDescription("")
       CheckPurchaseDetails.verifyPageTitle(CheckPurchaseDetails.pageTitle)
-      CheckPurchaseDetails.continueAsYes()
+      CheckPurchaseDetails.continue()
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
       InvoiceType.selectInvoiceType("Simplified invoice")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
@@ -274,7 +274,7 @@ class AddPurchaseSpec
       SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
       SupplierTaxIDNumber.submitSupplierTaxID("TID-1")
       CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
-      CheckSupplierTaxIDNumber.continueAsYes()
+      CheckSupplierTaxIDNumber.continue()
       TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
       TotalPurchaseAmount.submitTotalPurchaseAmount("1000.99")
       TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)

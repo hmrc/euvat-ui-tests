@@ -26,8 +26,8 @@ object ClaimDetails extends BasePage {
     "Claim details - EU VAT - GOV.UK"
 
   private val linkSelectors = Map(
-    "Refunding EU member state" -> "#main-content > div > div > form > div:nth-child(2) > dl > div > dd.govuk-summary-list__actions > a",
-    "Claim language"            -> "#main-content > div > div > form > div:nth-child(3) > dl > div > dd.govuk-summary-list__actions > a"
+    "EU member state" -> "#main-content > div > div > form > div:nth-child(2) > dl > div > dd.govuk-summary-list__actions > a",
+    "Claim language"  -> "#main-content > div > div > form > div:nth-child(3) > dl > div > dd.govuk-summary-list__actions > a"
   )
 
   def clickChangeLink(changeLink: String): this.type = {

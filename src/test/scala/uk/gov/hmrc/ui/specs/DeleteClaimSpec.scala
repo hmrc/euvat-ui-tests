@@ -25,7 +25,7 @@ import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
 
-class ErrorSpec
+class DeleteClaimSpec
     extends AnyFeatureSpec
     with BaseSpec
     with GivenWhenThen
@@ -43,36 +43,11 @@ class ErrorSpec
     cleanupDatabaseIfNotStub()
   }
 
-  Feature("Error and warning message validation check - New claim") {
+  Feature("Delete a draft EUVAT claim - Delete claim") {
 
-    Scenario("01 - Refund period start and end date validation", Local, Error) {
+    Scenario("01 - Delete a refund claim from Check your claim details page", Local) {
       Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "999900002")
-      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
-
-      When("I start new EUVAT claim")
-      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-
-      And("I check refund period validation")
-      MakeEuvatClaim.clickLinkByText("Add claim details")
-      EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
-      EUMemberState.selectCountry("Croatia")
-      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("02", "2024", "04", "2024")
-      CheckRefundStartDate.verifyPageTitle(CheckRefundStartDate.pageTitle)
-      CheckRefundStartDate.clickLinkByText("No, change the start date")
-      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("06", "2026", "11", "2026")
-      CheckRefundEndDate.verifyPageTitle(CheckRefundEndDate.pageTitle)
-      CheckRefundEndDate.continue()
-      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-      MakeEuvatClaim.clickSignOut
-    }
-
-    Scenario("02 - Validate a duplicate draft refund from the EU member state page", Error) {
-      Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "999900003")
+      AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
@@ -82,10 +57,55 @@ class ErrorSpec
       And("I add claim details")
       MakeEuvatClaim.clickLinkByText("Add claim details")
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
-      EUMemberState.selectCountry("Austria")
-      EUMemberState.errorSummaryDisplayed("You cannot have more than one draft claim for each EU member state")
-      EUMemberState.errorMessageDisplayed("You cannot have more than one draft claim for each EU member state")
-      EUMemberState.clickSignOut
+      EUMemberState.selectCountry("Croatia")
+      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
+      RefundPeriod.submitRefundPeriod("02", "2025", "04", "2025")
+      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
+      ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
+      AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
+      AddBusinessActivity.continueAsNo()
+      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+      CheckYourClaimDetails.saveAndContinue()
+
+      And("I delete the claim")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      MakeEuvatClaim.clickLinkByText("View claim details")
+      ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
+      ClaimDetails.clickChangeLink("EU member state")
+      EUMemberStateDetails.verifyPageTitle(EUMemberStateDetails.pageTitle)
+      EUMemberStateDetails.continueAsYes()
+      ClaimAnEUVATRefund.clickSignOut
+    }
+
+    Scenario("02 - Delete a refund claim from Make a claim for an EU VAT refund page", Local) {
+      Given("I login as an organisation")
+      AuthorityWizard.login("Organisation", "999900001")
+      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+
+      When("I start new EUVAT claim")
+      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
+      And("I add claim details")
+      MakeEuvatClaim.clickLinkByText("Add claim details")
+      EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
+      EUMemberState.selectCountry("Croatia")
+      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
+      RefundPeriod.submitRefundPeriod("02", "2025", "04", "2025")
+      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
+      ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
+      AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
+      AddBusinessActivity.continueAsNo()
+      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+      CheckYourClaimDetails.saveAndContinue()
+
+      And("I delete the claim")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      MakeEuvatClaim.clickLinkByText("Delete this claim")
+      DeleteClaim.verifyPageTitle(DeleteClaim.pageTitle)
+      DeleteClaim.continueAsYes()
+      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+      ClaimAnEUVATRefund.clickSignOut
     }
   }
 }
