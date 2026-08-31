@@ -24,7 +24,7 @@ import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.purchase.*
 import uk.gov.hmrc.ui.tags.*
-import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
+import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper, WelshPageVerifier}
 
 class NewEuvatClaimSpec
     extends AnyFeatureSpec
@@ -188,6 +188,9 @@ class NewEuvatClaimSpec
 
       //      Purchase amounts
       Currency.verifyPageTitle(Currency.pageTitle)
+
+      WelshPageVerifier.verify("RA3.1", Currency)
+
       Currency.selectCurrencyType("Euro")
       TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
       TotalPurchaseAmount.submitTotalPurchaseAmount("1000.01")
