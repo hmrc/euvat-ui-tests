@@ -44,9 +44,9 @@ class WelshLanguageValidationSpec
     cleanupDatabaseIfNotStub()
   }
 
-  Feature("Make a new EUVAT claim - New claim") {
+  Feature("Validate Welsh content - New claim") {
 
-    Scenario("01 - Validate Welsh content", Local, WIP) {
+    Scenario("01 - Validate Welsh content") {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -243,7 +243,7 @@ class WelshLanguageValidationSpec
       TotalPurchaseAmount.continue()
 //      WelshPageVerifier.verify("RA3.2", TotalPurchaseAmount)
       TotalPurchaseAmount.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
-      TotalPurchaseAmount.submitTotalPurchaseAmount("1000.01")
+      TotalPurchaseAmount.submitTotalPurchaseAmount("100.01")
 
       TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
       TotalVatPaid.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
@@ -252,15 +252,111 @@ class WelshLanguageValidationSpec
       TotalVatPaid.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
       TotalVatPaid.submitTotalVatPaid("200.01")
 
+      CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
+      CheckVATAmount.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
+      //      WelshPageVerifier.verify("RA3.3", CheckVATAmount)
+      CheckVATAmount.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
+      CheckVATAmount.continue()
+
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
       TotalVatClaim.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
       TotalVatClaim.continue()
 //      WelshPageVerifier.verify("RA3.4", TotalVatClaim)
       TotalVatClaim.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
-      TotalVatClaim.submitTotalVatClaim("100.01")
+      TotalVatClaim.submitTotalVatClaim("300.01")
+
+      CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
+      CheckVATClaim.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
+      //      WelshPageVerifier.verify("RA3.3", CheckVATClaim)
+      CheckVATClaim.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
+      CheckVATClaim.continue()
 
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+      CheckYourPurchaseDetails.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
+      //      WelshPageVerifier.verify("RA3.3", CheckYourPurchaseDetails)
+      CheckYourPurchaseDetails.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
       CheckYourPurchaseDetails.clickSignOut
+    }
+
+    Scenario("02 - Validate Welsh content for Germany") {
+      Given("I login as an organisation")
+      AuthorityWizard.login("Organisation", "999900001")
+      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+
+      When("I start new EUVAT claim")
+      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
+      And("I add claim details")
+      MakeEuvatClaim.clickLinkByText("Add claim details")
+      EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
+      EUMemberState.selectCountry("Germany")
+      Language.verifyPageTitle(Language.pageTitle)
+      Language.selectLanguage("English")
+      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
+      RefundPeriod.submitRefundPeriod("02", "2025", "04", "2025")
+      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
+      ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
+      AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
+      AddBusinessActivity.continueAsNo()
+      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+      CheckYourClaimDetails.saveAndContinue()
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      insertDuplicatePurchaseRecordTID()
+
+      And("I add purchase details")
+      MakeEuvatClaim.clickLinkByText("Add a purchase")
+      BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
+      BeforeYouStart.continue()
+      PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
+      PurchaseType.selectPurchaseType("Other")
+      PurchaseTypeOther.verifyPageTitle(PurchaseTypeOther.pageTitle)
+      PurchaseTypeOther.selectPurchaseTypeOther("None of these - give more details")
+
+      InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
+      InvoiceItemDescription.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
+      //      WelshPageVerifier.verify("RA3.3", InvoiceItemDescription)
+      InvoiceItemDescription.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
+      InvoiceItemDescription.submitItemDescription("")
+
+      CheckPurchaseDetails.verifyPageTitle(CheckPurchaseDetails.pageTitle)
+      CheckPurchaseDetails.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
+      //      WelshPageVerifier.verify("RA3.3", CheckPurchaseDetails)
+      CheckPurchaseDetails.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
+      CheckPurchaseDetails.continue()
+
+      InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
+      InvoiceType.selectInvoiceType("Simplified invoice")
+      InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
+      InvoiceNumber.submitInvoiceNumber("INV-1")
+      InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
+      InvoiceDate.submitInvoiceDate("08", "12", "2025")
+      SupplierName.verifyPageTitle(SupplierName.pageTitle)
+      SupplierName.submitSupplierName("Test Supplier Name")
+      SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
+      SupplierAddress.submitSupplierAddress("Test address one", "Test address two", "Test address three")
+
+      SupplierTaxNumbers.verifyPageTitle(SupplierTaxNumbers.pageTitle)
+      SupplierTaxNumbers.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
+      SupplierTaxNumbers.continue()
+      WelshPageVerifier.verify("RA8.1.1", SupplierTaxNumbers)
+      SupplierTaxNumbers.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
+      SupplierTaxNumbers.selectTaxNumber("Tax ID Number")
+
+      SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
+      SupplierTaxIDNumber.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
+      SupplierTaxIDNumber.continue()
+      WelshPageVerifier.verify("RA8.1.2", SupplierTaxIDNumber)
+      SupplierTaxIDNumber.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
+      SupplierTaxIDNumber.submitSupplierTaxID("TID-1")
+
+      CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
+      CheckSupplierTaxIDNumber.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
+//      WelshPageVerifier.verify("RA8.1.2", CheckSupplierTaxIDNumber)
+      CheckSupplierTaxIDNumber.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
+      CheckSupplierTaxIDNumber.continue()
+
+      CheckSupplierTaxIDNumber.clickSignOut
     }
   }
 }
