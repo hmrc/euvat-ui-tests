@@ -70,7 +70,7 @@ class ErrorSpec
       MakeEuvatClaim.clickSignOut
     }
 
-    Scenario("02 - Validate a duplicate draft refund from the EU member state page", Error) {
+    Scenario("02 - Validate a duplicate draft refund from the EU member state page", Local, Error) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900003")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
