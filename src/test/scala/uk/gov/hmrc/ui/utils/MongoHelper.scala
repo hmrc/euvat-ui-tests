@@ -40,7 +40,13 @@ trait MongoHelper extends AsyncHelper with BeforeAndAfterEach with BeforeAndAfte
 
     try {
       Await.result(collection1.drop().toFuture(), 10.seconds)
+      println(
+        s"******************** MONGODB COLLECTION 'user-answers' IN DATABASE '$mongoDatabaseName1' DROPPED SUCCESSFULLY. ********************"
+      )
       Await.result(collection2.drop().toFuture(), 10.seconds)
+      println(
+        s"******************** MONGODB COLLECTION 'user-answers' IN DATABASE '$mongoDatabaseName2' DROPPED SUCCESSFULLY. ********************"
+      )
     } catch {
       case e: Exception =>
         println(s"FAILED TO DROP MONGODB COLLECTION 'user-answers': ${e.getMessage}")
