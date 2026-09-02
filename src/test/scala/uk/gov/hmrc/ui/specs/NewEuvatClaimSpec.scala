@@ -267,6 +267,8 @@ class NewEuvatClaimSpec
       CheckYourPurchaseDetails.clickChangeLink("Currency")
       Currency.verifyPageTitle(Currency.pageTitle)
       Currency.selectCurrencyType("Estonian Kroon (kr)")
+      TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
+      TotalPurchaseAmount.submitTotalPurchaseAmount("1000.01")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
       //      Change VAT claim
