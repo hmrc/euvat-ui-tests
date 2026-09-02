@@ -24,9 +24,9 @@ import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.purchase.*
 import uk.gov.hmrc.ui.tags.*
-import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
+import uk.gov.hmrc.ui.utils.{CacheHelper, DatabaseHelper, MongoHelper}
 
-class NewEuvatClaimSpec
+class AddPurchaseSpec
     extends AnyFeatureSpec
     with BaseSpec
     with GivenWhenThen
@@ -44,107 +44,22 @@ class NewEuvatClaimSpec
     cleanupDatabaseIfNotStub()
   }
 
-  Feature("Make a new EUVAT claim - New claim") {
-
+  Feature("Make a new EUVAT claim - Add a purchase") {
     Scenario("01 - Submit a refund request", Local) {
       Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "999900001")
+      val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
+//      Inject Claim details
+      CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I add claim details")
-      MakeEuvatClaim.clickLinkByText("Add claim details")
-      EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
-      EUMemberState.selectCountry("Croatia")
-      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("02", "2025", "04", "2025")
-      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-      ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
-      AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
-      AddBusinessActivity.continueAsNo()
-
-      And("I change claim details")
+      And("I see claim details page completed")
+      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
-      //      Change member state
-      CheckYourClaimDetails.clickChangeLink("Refunding EU member state")
-      EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
-      EUMemberState.selectCountry("Estonia")
-      Language.verifyPageTitle(Language.pageTitle)
-      Language.selectLanguage("English")
-      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("05", "2025", "07", "2025")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-
-      //      Change language
-      CheckYourClaimDetails.clickChangeLink("Claim language")
-      Language.verifyPageTitle(Language.pageTitle)
-      Language.selectLanguage("Estonian")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-
-      //      Change refund period
-      CheckYourClaimDetails.clickChangeLink("End date")
-      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("05", "2025", "10", "2025")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-      CheckYourClaimDetails.clickChangeLink("Start date")
-      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("08", "2025", "10", "2025")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-
-      //      Change contact details
-      CheckYourClaimDetails.clickChangeLink("Email")
-      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-      ContactDetails.submitContactAddress("ChangeTest@gmail.com", "9876543210")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-      CheckYourClaimDetails.clickChangeLink("Phone number")
-      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-      ContactDetails.submitContactAddress("ChangeTest@gmail.com", "+449876543210")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-
-      //      Change SIC code
-      And("I add, change and remove Second SIC code")
-      CheckYourClaimDetails.clickChangeLink("First SIC code")
-      AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
-      AddBusinessActivity.continueAsYes()
-      SecondBusinessActivity.verifyPageTitle(SecondBusinessActivity.pageTitle)
-      SecondBusinessActivity.enterSecondBusinessActivityCode("4711")
-      AddSecondBusinessActivity.verifyPageTitle(AddSecondBusinessActivity.pageTitle)
-      AddSecondBusinessActivity.clickLink("Change Second SIC code")
-      SecondBusinessActivity.verifyPageTitle(SecondBusinessActivity.pageTitle)
-      SecondBusinessActivity.enterSecondBusinessActivityCode("1101")
-      AddSecondBusinessActivity.verifyPageTitle(AddSecondBusinessActivity.pageTitle)
-      AddSecondBusinessActivity.clickLink("Remove Second SIC code")
-      RemoveSecondBusinessActivity.verifyPageTitle(RemoveSecondBusinessActivity.pageTitle)
-      RemoveSecondBusinessActivity.continueAsYes()
-      AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
-      AddBusinessActivity.continueAsYes()
-      SecondBusinessActivity.verifyPageTitle(SecondBusinessActivity.pageTitle)
-      SecondBusinessActivity.enterSecondBusinessActivityCode("4532")
-      AddSecondBusinessActivity.verifyPageTitle(AddSecondBusinessActivity.pageTitle)
-      AddSecondBusinessActivity.continueAsYes()
-
-      And("I add, change and remove Third SIC code")
-      ThirdBusinessActivity.verifyPageTitle(ThirdBusinessActivity.pageTitle)
-      ThirdBusinessActivity.enterThirdBusinessActivityCode("2534")
-      AddThirdBusinessActivity.verifyPageTitle(AddThirdBusinessActivity.pageTitle)
-      AddThirdBusinessActivity.clickLink("Change Third SIC code")
-      ThirdBusinessActivity.verifyPageTitle(ThirdBusinessActivity.pageTitle)
-      ThirdBusinessActivity.enterThirdBusinessActivityCode("4533")
-      AddThirdBusinessActivity.verifyPageTitle(AddThirdBusinessActivity.pageTitle)
-      AddThirdBusinessActivity.clickLink("Remove Third SIC code")
-      RemoveThirdBusinessActivity.verifyPageTitle(RemoveThirdBusinessActivity.pageTitle)
-      RemoveThirdBusinessActivity.continueAsYes()
-      AddSecondBusinessActivity.verifyPageTitle(AddSecondBusinessActivity.pageTitle)
-      AddSecondBusinessActivity.continueAsYes()
-      ThirdBusinessActivity.verifyPageTitle(ThirdBusinessActivity.pageTitle)
-      ThirdBusinessActivity.enterThirdBusinessActivityCode("4712")
-      AddThirdBusinessActivity.verifyPageTitle(AddThirdBusinessActivity.pageTitle)
-      AddThirdBusinessActivity.continue()
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       insertDuplicatePurchaseRecordVRN()
@@ -309,26 +224,19 @@ class NewEuvatClaimSpec
 
     Scenario("02 - Submit a refund request for Germany", Local) {
       Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "999900001")
+      val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
+      //      Inject Claim details
+      CacheHelper.submitUserAnswers("claimDetailsGermany.json", sharedId)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I add claim details")
-      MakeEuvatClaim.clickLinkByText("Add claim details")
-      EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
-      EUMemberState.selectCountry("Germany")
-      Language.verifyPageTitle(Language.pageTitle)
-      Language.selectLanguage("English")
-      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("02", "2025", "04", "2025")
-      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-      ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
-      AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
-      AddBusinessActivity.continueAsNo()
+      And("I see claim details page completed")
+      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       insertDuplicatePurchaseRecordTID()

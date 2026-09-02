@@ -45,7 +45,7 @@ class ErrorSpec
 
   Feature("Error and warning message validation check - New claim") {
 
-    Scenario("Refund period start and end date validation", Local, Error) {
+    Scenario("01 - Refund period start and end date validation", Local, Error) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900002")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -68,6 +68,24 @@ class ErrorSpec
       CheckRefundEndDate.continue()
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       MakeEuvatClaim.clickSignOut
+    }
+
+    Scenario("02 - Validate a duplicate draft refund from the EU member state page", Local, Error) {
+      Given("I login as an organisation")
+      AuthorityWizard.login("Organisation", "999900003")
+      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+
+      When("I start new EUVAT claim")
+      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
+      And("I add claim details")
+      MakeEuvatClaim.clickLinkByText("Add claim details")
+      EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
+      EUMemberState.selectCountry("Austria")
+      EUMemberState.errorSummaryDisplayed("You cannot have more than one draft claim for each EU member state")
+      EUMemberState.errorMessageDisplayed("You cannot have more than one draft claim for each EU member state")
+      EUMemberState.clickSignOut
     }
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,16 +21,17 @@ import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, Suite}
 import org.scalatest.time.SpanSugar.convertIntToGrainOfTime
 import scala.concurrent.Await
 
-trait MongoHelper extends BeforeAndAfterEach with BeforeAndAfterAll { self: Suite =>
+trait MongoHelper extends AsyncHelper with BeforeAndAfterEach with BeforeAndAfterAll { self: Suite =>
 
-  // MongoDB Configuration
+  import scala.language.postfixOps
+
   private val mongoUri           = "mongodb://localhost:27017"
   private val mongoDatabaseName1 = "euvat-management-frontend"
   private val mongoDatabaseName2 = "euvat-filing-frontend"
 
-  def dropMongoCollections(): Unit = {
-    val mongoClient: MongoClient = MongoClient(mongoUri)
+  protected lazy val mongoClient: MongoClient = MongoClient(mongoUri)
 
+  def dropMongoCollections(): Unit = {
     val database1: MongoDatabase = mongoClient.getDatabase(mongoDatabaseName1)
     val database2: MongoDatabase = mongoClient.getDatabase(mongoDatabaseName2)
 
@@ -42,15 +43,13 @@ trait MongoHelper extends BeforeAndAfterEach with BeforeAndAfterAll { self: Suit
       println(
         s"******************** MONGODB COLLECTION 'user-answers' IN DATABASE '$mongoDatabaseName1' DROPPED SUCCESSFULLY. ********************"
       )
-
       Await.result(collection2.drop().toFuture(), 10.seconds)
       println(
         s"******************** MONGODB COLLECTION 'user-answers' IN DATABASE '$mongoDatabaseName2' DROPPED SUCCESSFULLY. ********************"
       )
     } catch {
       case e: Exception =>
-        println(s"********** FAILED TO DROP MONGODB COLLECTION 'user-answers': ${e.getMessage} **********")
-    } finally mongoClient.close()
+        println(s"FAILED TO DROP MONGODB COLLECTION 'user-answers': ${e.getMessage}")
+    }
   }
-
 }

@@ -1,0 +1,34 @@
+{
+  "data" : {
+    "refundingCountryCode" : "EE",
+    "refundingCountryName" : "Estonia",
+    "traderKnownFacts" : {
+      "vatRegNumber" : 999900001,
+      "traderName" : "TraderName1 TraderName2 TraderName3",
+      "addressLine1" : "BusinessAddressLine1",
+      "addressLine2" : "BusinessAddressLine2",
+      "addressLine3" : "BusinessAddressLine3",
+      "addressLine4" : "BusinessAddressLine4",
+      "addressLine5" : "BusinessAddressLine5",
+      "postCode" : "NE99 1YX",
+      "tradeClass" : "7020",
+      "dateOfRegistration" : "2025-01-01T00:00:00",
+      "missingTraderIndicator" : "N"
+    },
+    "refundPeriod" : {
+      "startDate" : "2025-08-01T00:00:00",
+      "endDate" : "2025-10-31T23:59:59.999"
+    },
+    "contactDetails" : {
+      "email" : "ChangeTest@gmail.com",
+      "telephone" : "+449876543210"
+    },
+    "businessActivityCode" : "7020",
+    "refundingLanguage" : "estonian",
+    "businessActivity" : true,
+    "businessActivityCodeTwo" : "4532",
+    "businessActivityTwo" : true,
+    "businessActivityCodeThree" : "4712"
+  },
+    "lastUpdated": "2026-07-04T07:35:10.624Z"
+  }
