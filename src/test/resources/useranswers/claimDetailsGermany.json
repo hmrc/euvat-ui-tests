@@ -1,0 +1,32 @@
+{
+  "data": {
+    "refundingCountryCode": "DE",
+    "refundingCountryName": "Germany",
+    "refundingLanguage": "english",
+    "refundingCurrency": "EUR",
+    "traderKnownFacts" : {
+      "vatRegNumber" : 999900001,
+      "traderName" : "TraderName1 TraderName2 TraderName3",
+      "addressLine1" : "BusinessAddressLine1",
+      "addressLine2" : "BusinessAddressLine2",
+      "addressLine3" : "BusinessAddressLine3",
+      "addressLine4" : "BusinessAddressLine4",
+      "addressLine5" : "BusinessAddressLine5",
+      "postCode" : "NE99 1YX",
+      "tradeClass" : "7020",
+      "dateOfRegistration" : "2025-01-01T00:00:00",
+      "missingTraderIndicator" : "N"
+    },
+    "refundPeriod" : {
+      "startDate" : "2025-08-01T00:00:00",
+      "endDate" : "2025-10-31T23:59:59.999"
+    },
+    "contactDetails" : {
+      "email" : "test@test.com",
+      "telephone" : "+441234567890"
+    },
+    "businessActivityCode" : "7020",
+    "businessActivity" : false
+  },
+  "lastUpdated": "2026-07-26T18:44:37.899Z"
+}
