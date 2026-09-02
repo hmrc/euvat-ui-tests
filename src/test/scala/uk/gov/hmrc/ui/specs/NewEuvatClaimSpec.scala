@@ -46,7 +46,7 @@ class NewEuvatClaimSpec
 
   Feature("Make a new EUVAT claim - New claim") {
 
-    Scenario("01 - Submit a refund request", Local) {
+    Scenario("01 - Submit a refund request", Local, WIP) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -267,6 +267,8 @@ class NewEuvatClaimSpec
       CheckYourPurchaseDetails.clickChangeLink("Currency")
       Currency.verifyPageTitle(Currency.pageTitle)
       Currency.selectCurrencyType("Estonian Kroon (kr)")
+      TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
+      TotalPurchaseAmount.submitTotalPurchaseAmount("1000.01")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
       //      Change VAT claim
