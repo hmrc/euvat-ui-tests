@@ -95,6 +95,16 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
   def continue(): Unit = click(By.cssSelector(Locators.btnSubmit))
 
   /** Navigation methods */
+  def navigateBack(): Unit = {
+    driver.navigate().back()
+    waitForPage()
+  }
+
+  def navigateBackTo(expectedTitle: String): Unit = {
+    driver.navigate().back()
+    waitForPageTitle(expectedTitle)
+  }
+  
   def navigateToPage(url: String): Unit = driver.navigate().to(url)
 
   /** Page validation methods */
