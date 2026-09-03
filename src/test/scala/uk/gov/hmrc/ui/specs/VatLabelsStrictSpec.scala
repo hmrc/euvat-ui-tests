@@ -1,15 +1,16 @@
 package uk.gov.hmrc.ui.specs
 
 import org.scalatest.BeforeAndAfterEach
+import org.scalatest.GivenWhenThen
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
-import org.scalatest.GivenWhenThen
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages._
-import uk.gov.hmrc.ui.pages.claim._
-import uk.gov.hmrc.ui.pages.purchase._
+import uk.gov.hmrc.ui.pages.{AuthorityWizard, ClaimAnEUVATRefund}
+import uk.gov.hmrc.ui.pages.claim.*
+import uk.gov.hmrc.ui.pages.purchase.*
 import uk.gov.hmrc.ui.tags.Local
-import uk.gov.hmrc.ui.utils.{CountryCodeMappingReader, MappingRow}
+import uk.gov.hmrc.ui.utils.CountryCodeMappingReader
+import uk.gov.hmrc.ui.utils.PurchaseFlowRouter
 
 class VatLabelsStrictSpec
   extends AnyFeatureSpec
@@ -28,14 +29,11 @@ class VatLabelsStrictSpec
       .flatMap(_.subCodeLabel)
       .distinct
 
-  private def purchaseTypeLabelFor(code: String): String = code match {
-    case "1"  => "Fuel"
-    case "3"  => "Transport costs"
-    case "7"  => "Food, drink and restaurant services"
-    case "9"  => "Luxuries, entertainment and hospitality"
-    case "10" => "Other"
-    case _    => throw new IllegalArgumentException(s"Unsupported top-level code: $code")
-  }
+  private def expectedSubCategoryLabels(countryCode: String, code: String, subCode: String): Seq[String] =
+    rows
+      .filter(r => r.countryCode == countryCode && r.code == code && r.subCode.contains(subCode))
+      .flatMap(_.subCategoryLabel)
+      .distinct
 
   private def navigateToPurchaseType(countryName: String): Unit = {
     AuthorityWizard.login("Organisation", "999900001")
@@ -48,7 +46,6 @@ class VatLabelsStrictSpec
     EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
     EUMemberState.selectCountry(countryName)
 
-    // some countries go to Language first
     if (Language.getCurrentUrlInBrowser.contains(Language.pageUrl) || Language.getPageTitle.contains("claim language")) {
       Language.verifyPageTitle(Language.pageTitle)
       Language.selectLanguage("English")
@@ -90,13 +87,13 @@ class VatLabelsStrictSpec
 
           if (expectedLabels.nonEmpty) {
             When(s"I select purchase type code $code for $countryCode")
-            PurchaseType.selectPurchaseType(purchaseTypeLabelFor(code))
+            PurchaseType.selectPurchaseType(PurchaseFlowRouter.purchaseTypeLabelFor(code))
 
             Then(s"I should see the expected sub code labels for $countryCode / $code")
-            val page = PurchasePageRegistry.topLevelPageFor(code)
+            val page = PurchaseFlowRouter.topLevelPageFor(code)
+            page.assertCurrentPage()
             page.assertLabelsContain(expectedLabels)
 
-            // return to PurchaseType for next code
             PurchaseType.navigateBack()
             PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
           }
@@ -108,25 +105,28 @@ class VatLabelsStrictSpec
         .groupBy(r => (r.code, r.subCode.get))
 
       subCodeGroups.foreach { case ((code, subCode), groupedRows) =>
-        val expectedSubCategoryLabels = groupedRows.flatMap(_.subCategoryLabel).distinct
+        val expectedLabels = expectedSubCategoryLabels(countryCode, code, subCode)
 
-        if (expectedSubCategoryLabels.nonEmpty) {
+        if (expectedLabels.nonEmpty) {
           Scenario(s"Validate sub category labels for $countryCode code=$code subCode=$subCode", Local) {
             Given(s"I navigate quickly to PurchaseType for $countryName")
             navigateToPurchaseType(countryName)
 
             When(s"I select purchase type $code")
-            PurchaseType.selectPurchaseType(purchaseTypeLabelFor(code))
+            PurchaseType.selectPurchaseType(PurchaseFlowRouter.purchaseTypeLabelFor(code))
 
-            val topPage = PurchasePageRegistry.topLevelPageFor(code)
+            val topPage = PurchaseFlowRouter.topLevelPageFor(code)
+            topPage.assertCurrentPage()
+
             val subCodeLabel = groupedRows.head.subCodeLabel.get
 
             And(s"I select sub code $subCodeLabel")
             topPage.selectByVisibleLabel(subCodeLabel)
 
             Then(s"I should see the expected sub category labels for $countryCode / $code / $subCode")
-            val subPage = PurchasePageRegistry.subCategoryPageFor(code, subCode)
-            subPage.assertLabelsContain(expectedSubCategoryLabels)
+            val subPage = PurchaseFlowRouter.subCategoryPageFor(code, subCode)
+            subPage.assertCurrentPage()
+            subPage.assertLabelsContain(expectedLabels)
           }
         }
       }

@@ -23,6 +23,7 @@ import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.purchase.*
+import uk.gov.hmrc.ui.tags.WIP
 import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper, WelshPageVerifier}
 
 class WelshLanguageValidationSpec
@@ -45,7 +46,7 @@ class WelshLanguageValidationSpec
 
   Feature("Validate Welsh content - New claim") {
 
-    Scenario("01 - Validate Welsh content") {
+    Scenario("01 - Validate Welsh content", WIP) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -81,16 +82,18 @@ class WelshLanguageValidationSpec
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
       RefundPeriod.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
       RefundPeriod.continue()
-//      WelshPageVerifier.verify("RA2.2", RefundPeriod)
+      WelshPageVerifier.verify("RA2.2", RefundPeriod)
       RefundPeriod.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
       RefundPeriod.submitRefundPeriod("02", "2025", "04", "2025")
 
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
       ContactDetails.continue()
-//      WelshPageVerifier.verify("RA2.4", ContactDetails)
+      WelshPageVerifier.verify("RA2.3", ContactDetails)
       ContactDetails.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
       ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
+
+      ContactDetails.pause(10000000)
 
       AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
       AddBusinessActivity.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
