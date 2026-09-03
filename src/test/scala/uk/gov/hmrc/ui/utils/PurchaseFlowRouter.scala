@@ -1,3 +1,19 @@
+/*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package uk.gov.hmrc.ui.utils
 
 import uk.gov.hmrc.ui.pages.purchase.GenericRadioPage
@@ -12,13 +28,22 @@ object PurchaseFlowRouter {
     new GenericRadioPage("transport-cost", "What is the type of transport cost? - EU VAT - GOV.UK")
 
   private val foodDrinkPage =
-    new GenericRadioPage("food-drink-restaurant-cost", "What is the type of food, drink or restaurant cost? - EU VAT - GOV.UK")
+    new GenericRadioPage(
+      "food-drink-restaurant-cost",
+      "What is the type of food, drink or restaurant cost? - EU VAT - GOV.UK"
+    )
 
   private val luxuriesPage =
-    new GenericRadioPage("luxury-entertainment-hospitality-cost", "What is the type of luxury, entertainment or hospitality cost? - EU VAT - GOV.UK")
+    new GenericRadioPage(
+      "luxury-entertainment-hospitality-cost",
+      "What is the type of luxury, entertainment or hospitality cost? - EU VAT - GOV.UK"
+    )
 
   private val otherPage =
-    new GenericRadioPage("purchase-type-other", "What other category best describes the item on your invoice? - EU VAT - GOV.UK")
+    new GenericRadioPage(
+      "purchase-type-other",
+      "What other category best describes the item on your invoice? - EU VAT - GOV.UK"
+    )
 
   // Subcategory pages
   private val fuelTypePage =
@@ -59,13 +84,13 @@ object PurchaseFlowRouter {
     case ("1", "2")                                          => fuelTypeOrVehiclePage
     case ("1", "8") | ("1", "9")                             => vehicleUsePage
 
-    case ("3", "1") | ("3", "2") | ("3", "3") | ("3", "4")  => whatTransportCostPage
-    case ("3", "5") | ("3", "6") | ("3", "7") | ("3", "8")  => vehicleUsePage
+    case ("3", "1") | ("3", "2") | ("3", "3") | ("3", "4") => whatTransportCostPage
+    case ("3", "5") | ("3", "6") | ("3", "7") | ("3", "8") => vehicleUsePage
 
-    case ("7", "1") | ("7", "2")                             => whoFoodDrinkForPage
-    case ("9", "3")                                          => publicityPage
-    case ("10", "5")                                         => propertyPurchaseTypePage
-    case ("10", "17")                                        => propertyCostTypePage
+    case ("7", "1") | ("7", "2") => whoFoodDrinkForPage
+    case ("9", "3")              => publicityPage
+    case ("10", "5")             => propertyPurchaseTypePage
+    case ("10", "17")            => propertyCostTypePage
 
     case x => throw new IllegalArgumentException(s"No subcategory page mapping for: $x")
   }

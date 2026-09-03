@@ -104,7 +104,7 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
     driver.navigate().back()
     waitForPageTitle(expectedTitle)
   }
-  
+
   def navigateToPage(url: String): Unit = driver.navigate().to(url)
 
   /** Page validation methods */

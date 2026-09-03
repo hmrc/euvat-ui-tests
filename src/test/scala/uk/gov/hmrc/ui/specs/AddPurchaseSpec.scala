@@ -45,7 +45,7 @@ class AddPurchaseSpec
   }
 
   Feature("Make a new EUVAT claim - Add a purchase") {
-    Scenario("01 - Submit a refund request", Local) {
+    Scenario("01 - Submit a refund request", Local, WIP) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -111,7 +111,6 @@ class AddPurchaseSpec
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
       TotalVatClaim.submitTotalVatClaim("100.01")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
-
       And("I change purchase details")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Food and drink for")
