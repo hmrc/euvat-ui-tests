@@ -164,6 +164,13 @@ class WelshLanguageValidationSpec
       BeforeYouStart.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
       BeforeYouStart.continue()
 
+      AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
+      AddPurchaseImport.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
+      AddPurchaseImport.continue()
+      //      WelshPageVerifier.verify("RA3.1", AddPurchaseImport)
+      AddPurchaseImport.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
+      AddPurchaseImport.selectPurchaseOrImport("Purchase")
+
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
       PurchaseType.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
       PurchaseType.continue()
@@ -310,6 +317,8 @@ class WelshLanguageValidationSpec
       MakeEuvatClaim.clickLinkByText("Add a purchase")
       BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
       BeforeYouStart.continue()
+      AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
+      AddPurchaseImport.selectPurchaseOrImport("Purchase")
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
       PurchaseType.selectPurchaseType("Other")
       PurchaseTypeOther.verifyPageTitle(PurchaseTypeOther.pageTitle)
