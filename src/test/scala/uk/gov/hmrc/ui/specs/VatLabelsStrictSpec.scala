@@ -23,9 +23,8 @@ import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.{AuthorityWizard, ClaimAnEUVATRefund}
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.purchase.*
-import uk.gov.hmrc.ui.utils.PurchaseFlowRouter
 import uk.gov.hmrc.ui.tags.Local
-import uk.gov.hmrc.ui.utils.{CountryCodeMappingReader, MappingRow}
+import uk.gov.hmrc.ui.utils.{CountryCodeMappingReader, MappingRow, PurchaseFlowRouter}
 
 import java.io.{File, PrintWriter}
 import scala.collection.mutable.ListBuffer
@@ -51,6 +50,8 @@ class VatLabelsStrictSpec
     with BeforeAndAfterAll
     with Browser
     with ScreenshotOnFailure {
+
+  private val NoneLabel = "None"
 
   private val rows     = CountryCodeMappingReader.loadFromResource()
   private val failures = ListBuffer.empty[MappingFailure]
@@ -108,6 +109,9 @@ class VatLabelsStrictSpec
     PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
   }
 
+  private def possibleRoutingHint(actualLabels: Seq[String]): String =
+    if (actualLabels.isEmpty) "\nHint: possible page load/routing issue" else ""
+
   private def recordFailure(
     countryCode: String,
     countryName: String,
@@ -128,7 +132,7 @@ class VatLabelsStrictSpec
       actualPage = actualPage,
       expectedLabels = expectedLabels.sorted,
       actualLabels = actualLabels.sorted,
-      message = message
+      message = message + possibleRoutingHint(actualLabels)
     )
 
   private def writeCsvReport(): Unit = {
@@ -214,6 +218,7 @@ class VatLabelsStrictSpec
                    |code=$code
                    |expected=${subLabels.sorted.mkString("[", ", ", "]")}
                    |actual=${actualLabels.sorted.mkString("[", ", ", "]")}
+                   |${possibleRoutingHint(actualLabels)}
                    |""".stripMargin
               ) {
                 page.assertCurrentPage()
@@ -239,7 +244,11 @@ class VatLabelsStrictSpec
       }
 
       val subCodeGroups = rows
-        .filter(r => r.countryCode == countryCode && r.subCode.nonEmpty)
+        .filter(r =>
+          r.countryCode == countryCode &&
+            r.subCode.nonEmpty &&
+            !r.subCode.contains(NoneLabel)
+        )
         .groupBy(r => (r.code, r.subCode.get))
 
       subCodeGroups.foreach { case ((code, subCode), groupedRows) =>
@@ -294,6 +303,7 @@ class VatLabelsStrictSpec
                    |actual=${actualLabels.sorted.mkString("[", ", ", "]")}
                    |expectedPage=${subPage.pageTitle}
                    |actualPage=${subPage.getPageTitle}
+                   |${possibleRoutingHint(actualLabels)}
                    |""".stripMargin
               ) {
                 subPage.assertCurrentPage()

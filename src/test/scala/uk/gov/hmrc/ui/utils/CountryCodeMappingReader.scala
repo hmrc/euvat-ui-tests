@@ -16,8 +16,9 @@
 
 package uk.gov.hmrc.ui.utils
 
-import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.apache.poi.ss.usermodel.Row
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
+
 import java.io.InputStream
 import scala.jdk.CollectionConverters.*
 
@@ -34,6 +35,8 @@ final case class MappingRow(
 )
 
 object CountryCodeMappingReader {
+
+  private val NoneValue = "None"
 
   def loadFromResource(resourcePath: String = "/CountryCodeMapping.xlsx"): Seq[MappingRow] = {
     val is = Option(getClass.getResourceAsStream(resourcePath))
@@ -56,6 +59,7 @@ object CountryCodeMappingReader {
     val country     = cell(row, 0)
     val countryCode = cell(row, 1)
     val codeRaw     = cell(row, 2)
+
     if (countryCode.isEmpty || codeRaw.isEmpty) None
     else {
       val (code, codeLabel)       = split(codeRaw)
@@ -94,10 +98,15 @@ object CountryCodeMappingReader {
 
   private def splitOptional(raw: String): (Option[String], Option[String]) = {
     val t = raw.trim
-    if (t.isEmpty || t.equalsIgnoreCase("none")) (None, None)
-    else {
+
+    if (t.isEmpty) {
+      (None, None)
+    } else if (t.equalsIgnoreCase(NoneValue)) {
+      (Some(NoneValue), Some(NoneValue))
+    } else {
       val (a, b) = split(t)
-      (Some(a), Option(b).filter(_.nonEmpty))
+      val label  = if (b.nonEmpty) b else a
+      (Some(a), Some(label))
     }
   }
 }
