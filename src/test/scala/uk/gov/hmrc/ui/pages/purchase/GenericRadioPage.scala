@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.ui.pages.purchase
 
-import org.openqa.selenium.By
+import org.openqa.selenium.{By, StaleElementReferenceException}
 import scala.jdk.CollectionConverters._
 import uk.gov.hmrc.ui.pages.BasePage
 
@@ -25,27 +25,53 @@ class GenericRadioPage(
   override val pageTitle: String
 ) extends BasePage {
 
-  def availableLabels(): Seq[String] =
+  private val radioLabelsBy = By.cssSelector(".govuk-radios__item label")
+
+  private def fetchLabelsOnce(): Seq[String] =
     driver
-      .findElements(By.cssSelector(".govuk-radios__item label"))
+      .findElements(radioLabelsBy)
       .asScala
       .map(_.getText.trim)
       .filter(_.nonEmpty)
       .toSeq
 
+  def availableLabels(): Seq[String] = {
+    waitForPage()
+    var last: Throwable = null
+    var attempt         = 0
+    while (attempt < 5)
+      try return fetchLabelsOnce()
+      catch {
+        case e: StaleElementReferenceException =>
+          last = e
+          pause(1)
+          attempt += 1
+      }
+    throw last
+  }
+
   def selectByVisibleLabel(label: String): this.type = {
-    val labels = driver.findElements(By.cssSelector(".govuk-radios__item label")).asScala.toSeq
-    val idx    = labels.indexWhere(_.getText.trim == label.trim)
-
-    if (idx < 0) {
-      throw new IllegalArgumentException(
-        s"Label not found on page '$pageUrl': '$label'. Available: ${availableLabels().mkString(", ")}"
-      )
-    }
-
-    radioButton(s"#value_$idx")
-    continue()
-    this
+    waitForPage()
+    var last: Throwable = null
+    var attempt         = 0
+    while (attempt < 5)
+      try {
+        val labels = driver.findElements(radioLabelsBy).asScala.toSeq
+        val idx    = labels.indexWhere(_.getText.trim == label.trim)
+        if (idx < 0)
+          throw new IllegalArgumentException(
+            s"Label not found on page '$pageUrl': '$label'. Available: ${availableLabels().mkString(", ")}"
+          )
+        radioButton(s"#value_$idx")
+        continue()
+        return this
+      } catch {
+        case e: StaleElementReferenceException =>
+          last = e
+          pause(1)
+          attempt += 1
+      }
+    throw last
   }
 
   def assertLabelsContain(expected: Seq[String]): Unit =

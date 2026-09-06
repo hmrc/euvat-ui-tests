@@ -30,8 +30,7 @@ final case class MappingRow(
   subCode: Option[String],
   subCodeLabel: Option[String],
   subCategoryCode: Option[String],
-  subCategoryLabel: Option[String],
-  title: Option[String]
+  subCategoryLabel: Option[String]
 )
 
 object CountryCodeMappingReader {
@@ -62,10 +61,9 @@ object CountryCodeMappingReader {
 
     if (countryCode.isEmpty || codeRaw.isEmpty) None
     else {
-      val (code, codeLabel)       = split(codeRaw)
+      val (code, codeLabel)       = splitRequired(codeRaw)
       val (subCode, subCodeLabel) = splitOptional(cell(row, 3))
       val (subCat, subCatLabel)   = splitOptional(cell(row, 4))
-      val title                   = opt(cell(row, 7))
 
       Some(
         MappingRow(
@@ -76,8 +74,7 @@ object CountryCodeMappingReader {
           subCode = subCode,
           subCodeLabel = subCodeLabel,
           subCategoryCode = subCat,
-          subCategoryLabel = subCatLabel,
-          title = title
+          subCategoryLabel = subCatLabel
         )
       )
     }
@@ -86,13 +83,10 @@ object CountryCodeMappingReader {
   private def cell(row: Row, idx: Int): String =
     Option(row.getCell(idx)).map(_.toString.trim).getOrElse("")
 
-  private def opt(s: String): Option[String] =
-    Option(s).map(_.trim).filter(_.nonEmpty)
-
-  private def split(s: String): (String, String) = {
-    val t = s.trim
+  private def splitRequired(raw: String): (String, String) = {
+    val t = raw.trim
     val i = t.indexWhere(_.isWhitespace)
-    if (i < 0) (t, "")
+    if (i < 0) (t, t)
     else (t.substring(0, i).trim, t.substring(i + 1).trim)
   }
 
@@ -104,9 +98,15 @@ object CountryCodeMappingReader {
     } else if (t.equalsIgnoreCase(NoneValue)) {
       (Some(NoneValue), Some(NoneValue))
     } else {
-      val (a, b) = split(t)
-      val label  = if (b.nonEmpty) b else a
-      (Some(a), Some(label))
+      val i = t.indexWhere(_.isWhitespace)
+      if (i < 0) {
+        // single token like "17" or "None"
+        (Some(t), Some(t))
+      } else {
+        val code  = t.substring(0, i).trim
+        val label = t.substring(i + 1).trim
+        (Some(code), Some(label))
+      }
     }
   }
 }

@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.ui.specs
 
+import org.apache.poi.ss.usermodel.{CellStyle, FillPatternType, IndexedColors}
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
@@ -24,9 +26,9 @@ import uk.gov.hmrc.ui.pages.{AuthorityWizard, ClaimAnEUVATRefund}
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.purchase.*
 import uk.gov.hmrc.ui.tags.Local
-import uk.gov.hmrc.ui.utils.{CountryCodeMappingReader, MappingRow, PurchaseFlowRouter}
+import uk.gov.hmrc.ui.utils.{CountryCodeMappingReader, MappingRow, MongoHelper, PurchaseFlowRouter}
 
-import java.io.{File, PrintWriter}
+import java.io.{File, FileOutputStream}
 import scala.collection.mutable.ListBuffer
 
 final case class MappingFailure(
@@ -49,12 +51,93 @@ class VatLabelsStrictSpec
     with BeforeAndAfterEach
     with BeforeAndAfterAll
     with Browser
+    with MongoHelper
     with ScreenshotOnFailure {
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    dropMongoCollections()
+  }
 
   private val NoneLabel = "None"
 
   private val rows     = CountryCodeMappingReader.loadFromResource()
   private val failures = ListBuffer.empty[MappingFailure]
+
+  private def writeXlsxReport(): Unit = {
+    val dir = new File("target")
+    if (!dir.exists()) dir.mkdirs()
+
+    val file = new File(dir, "vat-label-mapping-failures.xlsx")
+
+    val workbook = new XSSFWorkbook()
+    try {
+      val sheet = workbook.createSheet("Failures")
+
+      val headerStyle: CellStyle = {
+        val style = workbook.createCellStyle()
+        style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex)
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND)
+        style
+      }
+
+      val wrapStyle: CellStyle = {
+        val style = workbook.createCellStyle()
+        style.setWrapText(true)
+        style
+      }
+
+      val headers = Seq(
+        "countryCode",
+        "countryName",
+        "code",
+        "subCode",
+        "expectedPage",
+        "actualPage",
+        "message",
+        "expectedLabels",
+        "actualLabels"
+      )
+
+      val headerRow = sheet.createRow(0)
+      headers.zipWithIndex.foreach { case (h, i) =>
+        val cell = headerRow.createCell(i)
+        cell.setCellValue(h)
+        cell.setCellStyle(headerStyle)
+      }
+
+      failures.zipWithIndex.foreach { case (f, idx) =>
+        val row = sheet.createRow(idx + 1)
+
+        row.createCell(0).setCellValue(f.countryCode)
+        row.createCell(1).setCellValue(f.countryName)
+        row.createCell(2).setCellValue(f.code)
+        row.createCell(3).setCellValue(f.subCode.getOrElse(""))
+        row.createCell(4).setCellValue(f.expectedPage)
+        row.createCell(5).setCellValue(f.actualPage)
+
+        val messageCell = row.createCell(6)
+        messageCell.setCellValue(f.message)
+        messageCell.setCellStyle(wrapStyle)
+
+        val expectedCell = row.createCell(7)
+        expectedCell.setCellValue(f.expectedLabels.mkString(" | "))
+        expectedCell.setCellStyle(wrapStyle)
+
+        val actualCell = row.createCell(8)
+        actualCell.setCellValue(f.actualLabels.mkString(" | "))
+        actualCell.setCellStyle(wrapStyle)
+      }
+
+      sheet.createFreezePane(0, 1)
+      sheet.setAutoFilter(new org.apache.poi.ss.util.CellRangeAddress(0, 0, 0, headers.size - 1))
+      headers.indices.foreach(sheet.autoSizeColumn)
+
+      val out = new FileOutputStream(file)
+      try workbook.write(out)
+      finally out.close()
+    } finally workbook.close()
+  }
 
   private def topLevelRows(countryCode: String, code: String): Seq[MappingRow] =
     rows.filter(r => r.countryCode == countryCode && r.code == code)
@@ -62,12 +145,14 @@ class VatLabelsStrictSpec
   private def expectedSubCodeLabels(countryCode: String, code: String): Seq[String] =
     topLevelRows(countryCode, code)
       .flatMap(_.subCodeLabel)
+      .filter(_.nonEmpty)
       .distinct
 
   private def expectedSubCategoryLabels(countryCode: String, code: String, subCode: String): Seq[String] =
     rows
       .filter(r => r.countryCode == countryCode && r.code == code && r.subCode.contains(subCode))
       .flatMap(_.subCategoryLabel)
+      .filter(_.nonEmpty)
       .distinct
 
   private def navigateToPurchaseType(countryName: String): Unit = {
@@ -81,30 +166,29 @@ class VatLabelsStrictSpec
     EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
     EUMemberState.selectCountry(countryName)
 
-    if (
-      Language.getCurrentUrlInBrowser.contains(Language.pageUrl) || Language.getPageTitle.contains("claim language")
-    ) {
-      Language.verifyPageTitle(Language.pageTitle)
-      Language.selectLanguage("English")
+    countryName match {
+      case "Croatia" | "Czech Republic" =>
+        RefundPeriod.waitForPage()
+      case _                            =>
+        Language.waitForPage()
     }
 
-    RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-    RefundPeriod.submitRefundPeriod("02", "2025", "04", "2025")
+    val purchaseTypeUrl = "http://localhost:18501/file-eu-vat/purchase-type"
 
-    ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-    ContactDetails.submitContactAddress("mapping@test.com", "07700900000")
+    var attempts = 0
+    var loaded   = false
 
-    AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
-    AddBusinessActivity.continueAsNo()
-
-    CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-    CheckYourClaimDetails.saveAndContinue()
-
-    MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-    MakeEuvatClaim.clickLinkByText("Add a purchase")
-
-    BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
-    BeforeYouStart.continue()
+    while (attempts < 3 && !loaded) {
+      Language.navigateToPage(purchaseTypeUrl)
+      try {
+        PurchaseType.waitForPageTitle(PurchaseType.pageTitle)
+        loaded = true
+      } catch {
+        case _: Throwable =>
+          attempts += 1
+          PurchaseType.pause(1)
+      }
+    }
 
     PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
   }
@@ -135,33 +219,62 @@ class VatLabelsStrictSpec
       message = message + possibleRoutingHint(actualLabels)
     )
 
-  private def writeCsvReport(): Unit = {
-    val dir = new File("target")
-    if (!dir.exists()) dir.mkdirs()
+  private def verifyTopLevelLabels(
+    countryCode: String,
+    countryName: String,
+    code: String,
+    page: GenericRadioPage,
+    expectedLabels: Seq[String]
+  ): Unit = {
+    page.waitForPage()
+    page.assertCurrentPage()
+    val actualLabels = page.availableLabels()
 
-    val file = new File(dir, "vat-label-mapping-failures.csv")
-    val pw   = new PrintWriter(file)
+    withClue(
+      s"""
+         |Sub-code label mismatch
+         |country=$countryCode
+         |countryName=$countryName
+         |code=$code
+         |expected=${expectedLabels.sorted.mkString("[", ", ", "]")}
+         |actual=${actualLabels.sorted.mkString("[", ", ", "]")}
+         |${possibleRoutingHint(actualLabels)}
+         |""".stripMargin
+    ) {
+      page.assertLabelsContain(expectedLabels)
+    }
+  }
 
-    try {
-      pw.println("countryCode,countryName,code,subCode,expectedPage,actualPage,message,expectedLabels,actualLabels")
-      failures.foreach { f =>
-        def esc(s: String): String = "\"" + s.replace("\"", "\"\"") + "\""
+  private def verifySubCategoryLabels(
+    countryCode: String,
+    countryName: String,
+    code: String,
+    subCode: String,
+    subCodeLabel: String,
+    page: GenericRadioPage,
+    expectedLabels: Seq[String]
+  ): Unit = {
+    page.waitForPage()
+    page.assertCurrentPage()
+    val actualLabels = page.availableLabels()
 
-        pw.println(
-          Seq(
-            esc(f.countryCode),
-            esc(f.countryName),
-            esc(f.code),
-            esc(f.subCode.getOrElse("")),
-            esc(f.expectedPage),
-            esc(f.actualPage),
-            esc(f.message),
-            esc(f.expectedLabels.mkString(" | ")),
-            esc(f.actualLabels.mkString(" | "))
-          ).mkString(",")
-        )
-      }
-    } finally pw.close()
+    withClue(
+      s"""
+         |Sub-category label mismatch
+         |country=$countryCode
+         |countryName=$countryName
+         |code=$code
+         |subCode=$subCode
+         |subCodeLabel=$subCodeLabel
+         |expected=${expectedLabels.sorted.mkString("[", ", ", "]")}
+         |actual=${actualLabels.sorted.mkString("[", ", ", "]")}
+         |expectedPage=${page.pageTitle}
+         |actualPage=${page.getPageTitle}
+         |${possibleRoutingHint(actualLabels)}
+         |""".stripMargin
+    ) {
+      page.assertLabelsContain(expectedLabels)
+    }
   }
 
   override def afterAll(): Unit =
@@ -184,7 +297,7 @@ class VatLabelsStrictSpec
                |""".stripMargin
           )
         }
-        writeCsvReport()
+        writeXlsxReport()
       }
     finally
       super.afterAll()
@@ -206,26 +319,15 @@ class VatLabelsStrictSpec
             PurchaseType.selectPurchaseType(PurchaseFlowRouter.purchaseTypeLabelFor(code))
 
             Then(s"I should see the expected sub code labels")
-            val page         = PurchaseFlowRouter.topLevelPageFor(code)
-            val actualLabels = page.availableLabels()
+            val page = PurchaseFlowRouter.topLevelPageFor(code)
 
             try
-              withClue(
-                s"""
-                   |Sub-code label mismatch
-                   |country=$countryCode
-                   |countryName=$countryName
-                   |code=$code
-                   |expected=${subLabels.sorted.mkString("[", ", ", "]")}
-                   |actual=${actualLabels.sorted.mkString("[", ", ", "]")}
-                   |${possibleRoutingHint(actualLabels)}
-                   |""".stripMargin
-              ) {
-                page.assertCurrentPage()
-                page.assertLabelsContain(subLabels)
-              }
+              verifyTopLevelLabels(countryCode, countryName, code, page, subLabels)
             catch {
               case e: Throwable =>
+                val actualLabels =
+                  try page.availableLabels()
+                  catch { case _: Throwable => Seq.empty[String] }
                 recordFailure(
                   countryCode = countryCode,
                   countryName = countryName,
@@ -247,6 +349,7 @@ class VatLabelsStrictSpec
         .filter(r =>
           r.countryCode == countryCode &&
             r.subCode.nonEmpty &&
+            r.subCodeLabel.nonEmpty &&
             !r.subCode.contains(NoneLabel)
         )
         .groupBy(r => (r.code, r.subCode.get))
@@ -280,6 +383,7 @@ class VatLabelsStrictSpec
                  |actualPage=${topPage.getPageTitle}
                  |""".stripMargin
             ) {
+              topPage.waitForPage()
               topPage.assertCurrentPage()
             }
 
@@ -287,30 +391,15 @@ class VatLabelsStrictSpec
             topPage.selectByVisibleLabel(subCodeLabel)
 
             Then(s"I should see the expected sub category labels")
-            val subPage      = PurchaseFlowRouter.subCategoryPageFor(code, subCode)
-            val actualLabels = subPage.availableLabels()
+            val subPage = PurchaseFlowRouter.subCategoryPageFor(code, subCode)
 
             try
-              withClue(
-                s"""
-                   |Sub-category label mismatch
-                   |country=$countryCode
-                   |countryName=$countryName
-                   |code=$code
-                   |subCode=$subCode
-                   |subCodeLabel=$subCodeLabel
-                   |expected=${expectedLabels.sorted.mkString("[", ", ", "]")}
-                   |actual=${actualLabels.sorted.mkString("[", ", ", "]")}
-                   |expectedPage=${subPage.pageTitle}
-                   |actualPage=${subPage.getPageTitle}
-                   |${possibleRoutingHint(actualLabels)}
-                   |""".stripMargin
-              ) {
-                subPage.assertCurrentPage()
-                subPage.assertLabelsContain(expectedLabels)
-              }
+              verifySubCategoryLabels(countryCode, countryName, code, subCode, subCodeLabel, subPage, expectedLabels)
             catch {
               case e: Throwable =>
+                val actualLabels =
+                  try subPage.availableLabels()
+                  catch { case _: Throwable => Seq.empty[String] }
                 recordFailure(
                   countryCode = countryCode,
                   countryName = countryName,
