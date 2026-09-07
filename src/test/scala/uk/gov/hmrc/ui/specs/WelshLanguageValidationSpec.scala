@@ -23,7 +23,6 @@ import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.purchase.*
-import uk.gov.hmrc.ui.tags.WIP
 import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper, WelshPageVerifier}
 
 class WelshLanguageValidationSpec
@@ -46,7 +45,7 @@ class WelshLanguageValidationSpec
 
   Feature("Validate Welsh content - New claim") {
 
-    Scenario("01 - Validate Welsh content", WIP) {
+    Scenario("01 - Validate Welsh content") {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)

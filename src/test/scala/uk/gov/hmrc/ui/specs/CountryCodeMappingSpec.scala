@@ -43,7 +43,7 @@ final case class MappingFailure(
   message: String
 )
 
-class VatLabelsStrictSpec
+class CountryCodeMappingSpec
     extends AnyFeatureSpec
     with BaseSpec
     with GivenWhenThen
