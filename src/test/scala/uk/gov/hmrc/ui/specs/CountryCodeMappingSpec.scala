@@ -25,7 +25,6 @@ import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.{AuthorityWizard, ClaimAnEUVATRefund}
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.purchase.*
-import uk.gov.hmrc.ui.tags.Local
 import uk.gov.hmrc.ui.utils.{CountryCodeMappingReader, MappingRow, MongoHelper, PurchaseFlowRouter}
 
 import java.io.{File, FileOutputStream}
@@ -309,7 +308,7 @@ class CountryCodeMappingSpec
         val subLabels = expectedSubCodeLabels(countryCode, code)
 
         if (subLabels.nonEmpty) {
-          Scenario(s"Validate sub code labels for country=$countryCode code=$code", Local) {
+          Scenario(s"Validate sub code labels for country=$countryCode code=$code") {
             println(s"[DEBUG] Starting scenario: country=$countryCode countryName=$countryName code=$code subCode=-")
 
             Given(s"I navigate to PurchaseType for $countryName")
@@ -358,7 +357,7 @@ class CountryCodeMappingSpec
         val expectedLabels = expectedSubCategoryLabels(countryCode, code, subCode)
 
         if (expectedLabels.nonEmpty) {
-          Scenario(s"Validate sub category labels for country=$countryCode code=$code subCode=$subCode", Local) {
+          Scenario(s"Validate sub category labels for country=$countryCode code=$code subCode=$subCode") {
             println(
               s"[DEBUG] Starting scenario: country=$countryCode countryName=$countryName code=$code subCode=$subCode"
             )
