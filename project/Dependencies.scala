@@ -10,6 +10,8 @@ object Dependencies {
     "com.oracle.database.jdbc" % "ojdbc8" % "23.26.3.0.0", // Oracle JDBC driver
     "org.scalatest" %% "scalatest" % "3.2.20" % Test,
     "org.seleniumhq.selenium" % "selenium-java" % "4.48.0" % Test,
+    "org.scalatestplus.play" %% "scalatestplus-play" % "7.0.2" % Test,
+    "org.scalatestplus" %% "selenium-4-21" % "3.2.19.0" % Test,
     "org.apache.poi" % "poi-ooxml" % "5.5.1" % Test
   )
 

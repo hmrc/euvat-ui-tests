@@ -81,14 +81,14 @@ class WelshLanguageValidationSpec
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
       RefundPeriod.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
       RefundPeriod.continue()
-//      WelshPageVerifier.verify("RA2.2", RefundPeriod)
+      WelshPageVerifier.verify("RA2.2", RefundPeriod)
       RefundPeriod.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
       RefundPeriod.submitRefundPeriod("02", "2025", "04", "2025")
 
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
       ContactDetails.continue()
-//      WelshPageVerifier.verify("RA2.4", ContactDetails)
+      WelshPageVerifier.verify("RA2.3", ContactDetails)
       ContactDetails.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
       ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
 
