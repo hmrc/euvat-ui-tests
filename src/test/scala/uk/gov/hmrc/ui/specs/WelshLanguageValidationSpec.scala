@@ -92,8 +92,6 @@ class WelshLanguageValidationSpec
       ContactDetails.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
       ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
 
-      ContactDetails.pause(10000000)
-
       AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
       AddBusinessActivity.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
       AddBusinessActivity.continue()
