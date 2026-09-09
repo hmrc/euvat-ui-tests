@@ -72,10 +72,10 @@ class AddPurchaseSpec
       AddPurchaseImport.selectPurchaseOrImport("Purchase")
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
       PurchaseType.selectPurchaseType("Food, drink and restaurant services")
-      FoodDrink.verifyPageTitle(FoodDrink.pageTitle)
-      FoodDrink.selectFoodDrinkCostType("Food and drink from hotels")
-      WhoFoodDrink.verifyPageTitle(WhoFoodDrink.pageTitle)
-      WhoFoodDrink.selectWhoFoodDrinkFor("The taxable person")
+      PurchaseTypeFood.verifyPageTitle(PurchaseTypeFood.pageTitle)
+      PurchaseTypeFood.selectFoodType("Food and drink from hotels")
+      PurchaseSubCategoryFood.verifyPageTitle(PurchaseSubCategoryFood.pageTitle)
+      PurchaseSubCategoryFood.selectWhoFoodDrinkFor("The taxable person")
 
       //      Invoice details
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
@@ -116,13 +116,13 @@ class AddPurchaseSpec
       And("I change purchase details")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Food and drink for")
-      WhoFoodDrink.verifyPageTitle(WhoFoodDrink.pageTitle)
-      WhoFoodDrink.selectWhoFoodDrinkFor("The taxable person")
+      PurchaseSubCategoryFood.verifyPageTitle(PurchaseSubCategoryFood.pageTitle)
+      PurchaseSubCategoryFood.selectWhoFoodDrinkFor("The taxable person")
 
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Food and drink cost type")
-      FoodDrink.verifyPageTitle(FoodDrink.pageTitle)
-      FoodDrink.selectFoodDrinkCostType("None")
+      PurchaseTypeFood.verifyPageTitle(PurchaseTypeFood.pageTitle)
+      PurchaseTypeFood.selectFoodType("None")
 
       //      Change purchase type
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)

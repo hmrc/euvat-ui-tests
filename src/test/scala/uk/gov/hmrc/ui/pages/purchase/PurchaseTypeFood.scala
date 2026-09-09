@@ -18,7 +18,7 @@ package uk.gov.hmrc.ui.pages.purchase
 
 import uk.gov.hmrc.ui.pages.BasePage
 
-object FoodDrink extends BasePage {
+object PurchaseTypeFood extends BasePage {
 
   override def pageUrl: String = "food-drink-restaurant-cost"
 
@@ -27,7 +27,7 @@ object FoodDrink extends BasePage {
   val rdoFood = "#value_0"
   val rdoNone = "#value_1"
 
-  def selectFoodDrinkCostType(radio: String): this.type = {
+  def selectFoodType(radio: String): this.type = {
     val selector = radio match {
       case "Food and drink from hotels" => rdoFood
       case "None"                       => rdoNone
