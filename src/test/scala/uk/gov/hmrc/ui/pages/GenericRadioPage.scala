@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.purchase
+package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.{By, StaleElementReferenceException}
-import scala.jdk.CollectionConverters._
 import uk.gov.hmrc.ui.pages.BasePage
+
+import scala.jdk.CollectionConverters.*
 
 class GenericRadioPage(
   override val pageUrl: String,

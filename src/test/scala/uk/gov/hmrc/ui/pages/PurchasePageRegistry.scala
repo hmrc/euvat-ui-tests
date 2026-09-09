@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.purchase
+package uk.gov.hmrc.ui.pages
+
+import uk.gov.hmrc.ui.pages.GenericRadioPage
 
 object PurchasePageRegistry {
 

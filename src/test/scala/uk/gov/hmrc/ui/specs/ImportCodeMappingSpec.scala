@@ -24,26 +24,28 @@ import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.{AuthorityWizard, ClaimAnEUVATRefund, GenericRadioPage}
 import uk.gov.hmrc.ui.pages.claim.*
-import uk.gov.hmrc.ui.pages.purchase.*
+import uk.gov.hmrc.ui.pages.imports.ImportType
+import uk.gov.hmrc.ui.tags.Local
 import uk.gov.hmrc.ui.utils.{CountryCodeMappingReader, MappingRow, MongoHelper, PurchaseFlowRouter}
+import uk.gov.hmrc.ui.utils.PurchaseFlowRouter.ImportFlow
 
 import java.io.{File, FileOutputStream}
 import scala.collection.mutable.ListBuffer
 
-final case class MappingFailure(
-  countryCode: String,
-  countryName: String,
-  code: String,
-  subCode: Option[String],
-  expectedPage: String,
-  actualPage: String,
-  expectedLabels: Seq[String],
-  actualLabels: Seq[String],
-  message: String
-)
+final case class ImportMappingFailure(
+                                       countryCode: String,
+                                       countryName: String,
+                                       code: String,
+                                       subCode: Option[String],
+                                       expectedPage: String,
+                                       actualPage: String,
+                                       expectedLabels: Seq[String],
+                                       actualLabels: Seq[String],
+                                       message: String
+                                     )
 
-class CountryCodeMappingSpec
-    extends AnyFeatureSpec
+class ImportCodeMappingSpec
+  extends AnyFeatureSpec
     with BaseSpec
     with GivenWhenThen
     with ShouldVerb
@@ -61,13 +63,13 @@ class CountryCodeMappingSpec
   private val NoneLabel = "None"
 
   private val rows     = CountryCodeMappingReader.loadFromResource()
-  private val failures = ListBuffer.empty[MappingFailure]
+  private val failures = ListBuffer.empty[ImportMappingFailure]
 
   private def writeXlsxReport(): Unit = {
     val dir = new File("target")
     if (!dir.exists()) dir.mkdirs()
 
-    val file = new File(dir, "vat-label-mapping-failures.xlsx")
+    val file = new File(dir, "import-code-mapping-failures.xlsx")
 
     val workbook = new XSSFWorkbook()
     try {
@@ -154,7 +156,7 @@ class CountryCodeMappingSpec
       .filter(_.nonEmpty)
       .distinct
 
-  private def navigateToPurchaseType(countryName: String): Unit = {
+  private def navigateToImportType(countryName: String): Unit = {
     AuthorityWizard.login("Organisation", "999900001")
     ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
@@ -166,47 +168,30 @@ class CountryCodeMappingSpec
     EUMemberState.selectCountry(countryName)
 
     countryName match {
-      case "Croatia" | "Czech Republic" =>
-        RefundPeriod.waitForPage()
-      case _                            =>
-        Language.waitForPage()
+      case "Croatia" | "Czech Republic" => RefundPeriod.waitForPage()
+      case _                            => Language.waitForPage()
     }
 
-    val purchaseTypeUrl = "http://localhost:18501/file-eu-vat/purchase-type"
-
-    var attempts = 0
-    var loaded   = false
-
-    while (attempts < 3 && !loaded) {
-      Language.navigateToPage(purchaseTypeUrl)
-      try {
-        PurchaseType.waitForPageTitle(PurchaseType.pageTitle)
-        loaded = true
-      } catch {
-        case _: Throwable =>
-          attempts += 1
-          PurchaseType.pause(1)
-      }
-    }
-
-    PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
+    ImportType.navigateToPage("http://localhost:18501/file-eu-vat/import-type")
+    ImportType.waitForPage()
+    ImportType.verifyPageTitle(ImportType.pageTitle)
   }
 
   private def possibleRoutingHint(actualLabels: Seq[String]): String =
     if (actualLabels.isEmpty) "\nHint: possible page load/routing issue" else ""
 
   private def recordFailure(
-    countryCode: String,
-    countryName: String,
-    code: String,
-    subCode: Option[String],
-    expectedPage: String,
-    actualPage: String,
-    expectedLabels: Seq[String],
-    actualLabels: Seq[String],
-    message: String
-  ): Unit =
-    failures += MappingFailure(
+                             countryCode: String,
+                             countryName: String,
+                             code: String,
+                             subCode: Option[String],
+                             expectedPage: String,
+                             actualPage: String,
+                             expectedLabels: Seq[String],
+                             actualLabels: Seq[String],
+                             message: String
+                           ): Unit =
+    failures += ImportMappingFailure(
       countryCode = countryCode,
       countryName = countryName,
       code = code,
@@ -219,19 +204,19 @@ class CountryCodeMappingSpec
     )
 
   private def verifyTopLevelLabels(
-    countryCode: String,
-    countryName: String,
-    code: String,
-    page: GenericRadioPage,
-    expectedLabels: Seq[String]
-  ): Unit = {
+                                    countryCode: String,
+                                    countryName: String,
+                                    code: String,
+                                    page: GenericRadioPage,
+                                    expectedLabels: Seq[String]
+                                  ): Unit = {
     page.waitForPage()
     page.assertCurrentPage()
     val actualLabels = page.availableLabels()
 
     withClue(
       s"""
-         |Sub-code label mismatch
+         |Top-level import label mismatch
          |country=$countryCode
          |countryName=$countryName
          |code=$code
@@ -245,21 +230,21 @@ class CountryCodeMappingSpec
   }
 
   private def verifySubCategoryLabels(
-    countryCode: String,
-    countryName: String,
-    code: String,
-    subCode: String,
-    subCodeLabel: String,
-    page: GenericRadioPage,
-    expectedLabels: Seq[String]
-  ): Unit = {
+                                       countryCode: String,
+                                       countryName: String,
+                                       code: String,
+                                       subCode: String,
+                                       subCodeLabel: String,
+                                       page: GenericRadioPage,
+                                       expectedLabels: Seq[String]
+                                     ): Unit = {
     page.waitForPage()
     page.assertCurrentPage()
     val actualLabels = page.availableLabels()
 
     withClue(
       s"""
-         |Sub-category label mismatch
+         |Sub-category import label mismatch
          |country=$countryCode
          |countryName=$countryName
          |code=$code
@@ -277,9 +262,9 @@ class CountryCodeMappingSpec
   }
 
   override def afterAll(): Unit =
-    try
+    try {
       if (failures.nonEmpty) {
-        println("\n================ VAT LABEL MAPPING FAILURE SUMMARY ================")
+        println("\n================ IMPORT CODE MAPPING FAILURE SUMMARY ================")
         failures.foreach { f =>
           println(
             s"""
@@ -298,35 +283,34 @@ class CountryCodeMappingSpec
         }
         writeXlsxReport()
       }
-    finally
+    } finally {
       super.afterAll()
+    }
 
-  Feature("Purchase mapping labels from CountryCodeMapping.xlsx") {
+  Feature("Import mapping labels from CountryCodeMapping.xlsx") {
 
     rows.map(r => (r.countryCode, r.country)).distinct.foreach { case (countryCode, countryName) =>
       Seq("1", "3", "7", "9", "10").foreach { code =>
         val subLabels = expectedSubCodeLabels(countryCode, code)
 
         if (subLabels.nonEmpty) {
-          Scenario(s"Validate sub code labels for country=$countryCode code=$code") {
-            println(s"[DEBUG] Starting scenario: country=$countryCode countryName=$countryName code=$code subCode=-")
+          Scenario(s"Validate import sub code labels for country=$countryCode code=$code", Local) {
+            println(s"[DEBUG] Starting import scenario: country=$countryCode countryName=$countryName code=$code subCode=-")
 
-            Given(s"I navigate to PurchaseType for $countryName")
-            navigateToPurchaseType(countryName)
+            Given(s"I navigate to ImportType for $countryName")
+            navigateToImportType(countryName)
 
-            When(s"I select purchase type code $code")
-            PurchaseType.selectPurchaseType(PurchaseFlowRouter.purchaseTypeLabelFor(code))
+            When(s"I select import type code $code")
+            ImportType.selectImportType(PurchaseFlowRouter.purchaseTypeLabelFor(code))
 
-            Then(s"I should see the expected sub code labels")
-            val page = PurchaseFlowRouter.topLevelPageFor(code)
+            Then(s"I should see the expected import sub code labels")
+            val page = PurchaseFlowRouter.topLevelPageFor(code, ImportFlow)
 
-            try
+            try {
               verifyTopLevelLabels(countryCode, countryName, code, page, subLabels)
-            catch {
+            } catch {
               case e: Throwable =>
-                val actualLabels =
-                  try page.availableLabels()
-                  catch { case _: Throwable => Seq.empty[String] }
+                val actualLabels = try page.availableLabels() catch { case _: Throwable => Seq.empty[String] }
                 recordFailure(
                   countryCode = countryCode,
                   countryName = countryName,
@@ -357,23 +341,23 @@ class CountryCodeMappingSpec
         val expectedLabels = expectedSubCategoryLabels(countryCode, code, subCode)
 
         if (expectedLabels.nonEmpty) {
-          Scenario(s"Validate sub category labels for country=$countryCode code=$code subCode=$subCode") {
+          Scenario(s"Validate import sub category labels for country=$countryCode code=$code subCode=$subCode", Local) {
             println(
-              s"[DEBUG] Starting scenario: country=$countryCode countryName=$countryName code=$code subCode=$subCode"
+              s"[DEBUG] Starting import scenario: country=$countryCode countryName=$countryName code=$code subCode=$subCode"
             )
 
-            Given(s"I navigate to PurchaseType for $countryName")
-            navigateToPurchaseType(countryName)
+            Given(s"I navigate to ImportType for $countryName")
+            navigateToImportType(countryName)
 
-            When(s"I select purchase type code $code")
-            PurchaseType.selectPurchaseType(PurchaseFlowRouter.purchaseTypeLabelFor(code))
+            When(s"I select import type code $code")
+            ImportType.selectImportType(PurchaseFlowRouter.purchaseTypeLabelFor(code))
 
-            val topPage      = PurchaseFlowRouter.topLevelPageFor(code)
+            val topPage      = PurchaseFlowRouter.topLevelPageFor(code, ImportFlow)
             val subCodeLabel = groupedRows.head.subCodeLabel.get
 
             withClue(
               s"""
-                 |Top-level page mismatch before sub-code selection
+                 |Top-level import page mismatch before sub-code selection
                  |country=$countryCode
                  |countryName=$countryName
                  |code=$code
@@ -389,16 +373,14 @@ class CountryCodeMappingSpec
             And(s"I select sub code $subCodeLabel")
             topPage.selectByVisibleLabel(subCodeLabel)
 
-            Then(s"I should see the expected sub category labels")
-            val subPage = PurchaseFlowRouter.subCategoryPageFor(code, subCode)
+            Then(s"I should see the expected import sub category labels")
+            val subPage = PurchaseFlowRouter.subCategoryPageFor(code, subCode, ImportFlow)
 
-            try
+            try {
               verifySubCategoryLabels(countryCode, countryName, code, subCode, subCodeLabel, subPage, expectedLabels)
-            catch {
+            } catch {
               case e: Throwable =>
-                val actualLabels =
-                  try subPage.availableLabels()
-                  catch { case _: Throwable => Seq.empty[String] }
+                val actualLabels = try subPage.availableLabels() catch { case _: Throwable => Seq.empty[String] }
                 recordFailure(
                   countryCode = countryCode,
                   countryName = countryName,
