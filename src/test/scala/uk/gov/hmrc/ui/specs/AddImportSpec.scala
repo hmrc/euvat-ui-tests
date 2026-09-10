@@ -22,6 +22,7 @@ import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
+import uk.gov.hmrc.ui.pages.imports.*
 import uk.gov.hmrc.ui.pages.purchase.*
 import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{CacheHelper, DatabaseHelper, MongoHelper}
@@ -45,7 +46,7 @@ class AddImportSpec
   }
 
   Feature("Make a new EUVAT claim - Add import details") {
-    Scenario("01 - Submit a refund request", Local) {
+    Scenario("01 - Submit a refund request", Local, WIP) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -72,7 +73,8 @@ class AddImportSpec
       AddPurchaseImport.selectPurchaseOrImport("Import")
       ImportType.verifyPageTitle(ImportType.pageTitle)
       ImportType.selectImportType("Food, drink and restaurant services")
-      ImportType.clickSignOut
+      ImportTypeFood.selectFoodType("Food and drink from hotels")
+      ImportTypeFood.clickSignOut
     }
 
   }
