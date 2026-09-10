@@ -74,6 +74,6 @@ class AddImportSpec
       ImportType.selectImportType("Food, drink and restaurant services")
       ImportType.clickSignOut
     }
-    
+
   }
 }
