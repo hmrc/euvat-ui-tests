@@ -113,11 +113,13 @@ class AddPurchaseSpec
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
       TotalVatClaim.submitTotalVatClaim("100.01")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+
+      //    Check your purchase details
       And("I change purchase details")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Food and drink for")
       WhoFoodDrink.verifyPageTitle(WhoFoodDrink.pageTitle)
-      WhoFoodDrink.selectWhoFoodDrinkFor("The taxable person")
+      WhoFoodDrink.selectWhoFoodDrinkFor("Someone other")
 
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Food and drink cost type")
