@@ -27,10 +27,6 @@ object RefundPeriod extends BasePage {
 
   override def pageTitle: String = "Refund period - EU VAT - GOV.UK"
 
-//  val taxYearStart: LocalDate = LocalDate.parse("2024-04-06")
-  val sep30: LocalDate = LocalDate.parse("2026-09-30")
-  val today: LocalDate = LocalDate.now()
-
   val txtStartMonth: By = By.ById("start.month")
   val txtStartYear: By  = By.ById("start.year")
   val txtEndMonth: By   = By.ById("end.month")
@@ -43,5 +39,8 @@ object RefundPeriod extends BasePage {
     input(txtEndYear, endYear)
     continue()
   }
+
+  def isAfter30September(date: LocalDate): Boolean =
+    date.isAfter(LocalDate.of(date.getYear, 9, 30))
 
 }
