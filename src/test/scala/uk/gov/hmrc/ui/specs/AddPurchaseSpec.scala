@@ -223,7 +223,6 @@ class AddPurchaseSpec
       CheckYourPurchaseDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       MakeEuvatClaim.clickSignOut
-      //CheckYourPurchaseDetails.clickSignOut
     }
 
     Scenario("02 - Submit a refund request for Germany", Local) {

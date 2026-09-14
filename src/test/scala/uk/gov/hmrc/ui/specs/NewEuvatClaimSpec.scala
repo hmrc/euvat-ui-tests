@@ -46,7 +46,7 @@ class NewEuvatClaimSpec
 
   Feature("Make a new EUVAT claim - New claim") {
 
-    Scenario("01 - Submit a refund request", Local, WIP) {
+    Scenario("01 - Submit a refund request", Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -309,7 +309,6 @@ class NewEuvatClaimSpec
       CheckYourPurchaseDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       MakeEuvatClaim.clickSignOut
-      // CheckYourPurchaseDetails.clickSignOut
     }
 
     Scenario("02 - Submit a refund request for Germany", Local) {
