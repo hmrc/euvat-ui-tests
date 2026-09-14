@@ -220,7 +220,10 @@ class AddPurchaseSpec
       CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
       CheckVATClaim.continue()
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
-      CheckYourPurchaseDetails.clickSignOut
+      CheckYourPurchaseDetails.saveAndContinue()
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      MakeEuvatClaim.clickSignOut
+      //CheckYourPurchaseDetails.clickSignOut
     }
 
     Scenario("02 - Submit a refund request for Germany", Local) {
