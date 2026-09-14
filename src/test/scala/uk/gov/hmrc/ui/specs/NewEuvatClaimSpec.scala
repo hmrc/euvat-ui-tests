@@ -396,7 +396,9 @@ class NewEuvatClaimSpec
       VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
       VATRegistrationNumber.submitVATRegistrationNumber("1234567890")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
-      CheckYourPurchaseDetails.clickSignOut
+      CheckYourPurchaseDetails.saveAndContinue()
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      MakeEuvatClaim.clickSignOut
     }
   }
 }
