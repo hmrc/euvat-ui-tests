@@ -45,6 +45,61 @@ class ErrorSpec
 
   Feature("Error and warning message validation check - New claim") {
 
+    Scenario("05 - Refund period start and end date validation", Local, Error, WIP) {
+      Given("I login as an organisation")
+      AuthorityWizard.login("Organisation", "999900002")
+      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+
+      When("I start new EUVAT claim")
+      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
+      And("I check refund period validation")
+      MakeEuvatClaim.clickLinkByText("Add claim details")
+      EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
+      EUMemberState.selectCountry("Croatia")
+      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
+//TC-01
+      RefundPeriod.submitRefundPeriod("5", "2026", "04", "2026")
+      EUMemberState.errorSummaryDisplayed("Refund period start date must be earlier than the refund period end date")
+      EUMemberState.errorMessageDisplayed("Refund period start date must be earlier than the refund period end date")
+//TC-08
+      RefundPeriod.submitRefundPeriod("01", "2026", "02", "2026")
+      EUMemberState.errorSummaryDisplayed("Refund period must be at least 3 months long unless the period ends in December")
+      EUMemberState.errorMessageDisplayed("Refund period must be at least 3 months long unless the period ends in December")
+//TC-09
+      RefundPeriod.submitRefundPeriod("01", "2025", "02", "2026")
+      EUMemberState.errorSummaryDisplayed("Refund period start date and end date must be in the same calendar year")
+      EUMemberState.errorMessageDisplayed("Refund period start date and end date must be in the same calendar year")
+
+//      999900001
+//      RefundPeriod.submitRefundPeriod("02", "2024", "04", "2024")
+//      Refund period start date must be after the VAT registration date if you registered for VAT during the first quarter
+
+//TC-02
+//      Test after 1 October 2026
+      RefundPeriod.submitRefundPeriod("05", "2025", "08", "2025")
+//      You’ve told us the refund period start date is 05/2025. The refund period start date cannot be before 01/2026.
+      CheckRefundStartDate.verifyPageTitle(CheckRefundStartDate.pageTitle)
+      CheckRefundStartDate.clickLinkByText("No, change the start date")
+
+//TC-07
+      RefundPeriod.submitRefundPeriod("02", "2024", "04", "2024")
+//      You’ve told us the refund period start date is 02/2024. The refund period start date cannot be before 01/2025.
+      CheckRefundStartDate.verifyPageTitle(CheckRefundStartDate.pageTitle)
+      CheckRefundStartDate.clickLinkByText("No, change the start date")
+
+      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
+      RefundPeriod.submitRefundPeriod("06", "2026", "11", "2026")
+//TC-10
+//      You’ve told us the refund period end date is 11/2026. The refund period end date must be in the past.
+      CheckRefundEndDate.verifyPageTitle(CheckRefundEndDate.pageTitle)
+
+      CheckRefundEndDate.continue()
+      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
+      MakeEuvatClaim.clickSignOut
+    }
+
     Scenario("01 - Refund period start and end date validation", Local, Error) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900002")

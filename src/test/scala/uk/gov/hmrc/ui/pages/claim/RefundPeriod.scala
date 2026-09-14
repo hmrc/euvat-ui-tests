@@ -19,11 +19,17 @@ package uk.gov.hmrc.ui.pages.claim
 import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.BasePage
 
+import java.time.LocalDate
+
 object RefundPeriod extends BasePage {
 
   override def pageUrl: String = "refund-period"
 
   override def pageTitle: String = "Refund period - EU VAT - GOV.UK"
+
+//  val taxYearStart: LocalDate = LocalDate.parse("2024-04-06")
+  val sep30: LocalDate = LocalDate.parse("2026-09-30")
+  val today: LocalDate = LocalDate.now()
 
   val txtStartMonth: By = By.ById("start.month")
   val txtStartYear: By  = By.ById("start.year")
