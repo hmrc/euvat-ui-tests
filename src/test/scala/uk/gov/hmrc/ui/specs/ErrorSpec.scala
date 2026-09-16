@@ -46,7 +46,7 @@ class ErrorSpec
 
   Feature("Error and warning message validation check - New claim") {
 
-    Scenario("01 - Refund period start and end date validation", Local, Error, WIP) {
+    Scenario("01 - Refund period start and end date validation", Local, Error) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900002")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
