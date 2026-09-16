@@ -24,6 +24,7 @@ import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
+import java.time.LocalDate
 
 class ErrorSpec
     extends AnyFeatureSpec
@@ -59,13 +60,62 @@ class ErrorSpec
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Croatia")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
+
+      RefundPeriod.submitRefundPeriod("5", "2026", "04", "2026")
+      RefundPeriod.errorSummaryDisplayed("Refund period start date must be earlier than the refund period end date")
+      RefundPeriod.errorMessageDisplayed("Refund period start date must be earlier than the refund period end date")
+
+      RefundPeriod.submitRefundPeriod("01", "2026", "02", "2026")
+      RefundPeriod.errorSummaryDisplayed(
+        "Refund period must be at least 3 months long unless the period ends in December"
+      )
+      RefundPeriod.errorMessageDisplayed(
+        "Refund period must be at least 3 months long unless the period ends in December"
+      )
+
+      RefundPeriod.submitRefundPeriod("01", "2025", "02", "2026")
+      RefundPeriod.errorSummaryDisplayed("Refund period start date and end date must be in the same calendar year")
+      RefundPeriod.errorMessageDisplayed("Refund period start date and end date must be in the same calendar year")
+
+      RefundPeriod.submitRefundPeriod("05", "2025", "08", "2025")
+      if (RefundPeriod.isAfter30September(LocalDate.now())) {
+        CheckRefundStartDate.verifyPageTitle(CheckRefundStartDate.pageTitle)
+        CheckRefundStartDate.textDisplayed(
+          "You’ve told us the refund period start date is 05/2025. The refund period start date cannot be before 01/2026."
+        )
+        CheckRefundStartDate.clickLinkByText("No, change the start date")
+      } else {
+        ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
+        ContactDetails.clickLinkByText("Back")
+      }
+
       RefundPeriod.submitRefundPeriod("02", "2024", "04", "2024")
-      CheckRefundStartDate.verifyPageTitle(CheckRefundStartDate.pageTitle)
-      CheckRefundStartDate.clickLinkByText("No, change the start date")
+      if (!RefundPeriod.isAfter30September(LocalDate.now())) {
+        CheckRefundStartDate.verifyPageTitle(CheckRefundStartDate.pageTitle)
+        CheckRefundStartDate.textDisplayed(
+          "You’ve told us the refund period start date is 02/2024. The refund period start date cannot be before 01/2025."
+        )
+        CheckRefundStartDate.clickLinkByText("No, change the start date")
+      } else {
+        ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
+        ContactDetails.clickLinkByText("Back")
+      }
+
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
+      RefundPeriod.submitRefundPeriod("01", "2023", "03", "2023")
+      RefundPeriod.errorSummaryDisplayed(
+        "Refund period start date must be after the VAT registration date if you registered for VAT during the first quarter"
+      )
+      RefundPeriod.errorMessageDisplayed(
+        "Refund period start date must be after the VAT registration date if you registered for VAT during the first quarter"
+      )
+
       RefundPeriod.submitRefundPeriod("06", "2026", "11", "2026")
       CheckRefundEndDate.verifyPageTitle(CheckRefundEndDate.pageTitle)
       CheckRefundEndDate.continue()
+      CheckRefundEndDate.textDisplayed(
+        "You’ve told us the refund period end date is 11/2026. The refund period end date must be in the past."
+      )
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       MakeEuvatClaim.clickSignOut
     }
