@@ -60,11 +60,11 @@ class ErrorSpec
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Croatia")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-//TC-01
+
       RefundPeriod.submitRefundPeriod("5", "2026", "04", "2026")
       RefundPeriod.errorSummaryDisplayed("Refund period start date must be earlier than the refund period end date")
       RefundPeriod.errorMessageDisplayed("Refund period start date must be earlier than the refund period end date")
-//TC-08
+
       RefundPeriod.submitRefundPeriod("01", "2026", "02", "2026")
       RefundPeriod.errorSummaryDisplayed(
         "Refund period must be at least 3 months long unless the period ends in December"
@@ -72,13 +72,11 @@ class ErrorSpec
       RefundPeriod.errorMessageDisplayed(
         "Refund period must be at least 3 months long unless the period ends in December"
       )
-//TC-09
+
       RefundPeriod.submitRefundPeriod("01", "2025", "02", "2026")
       RefundPeriod.errorSummaryDisplayed("Refund period start date and end date must be in the same calendar year")
       RefundPeriod.errorMessageDisplayed("Refund period start date and end date must be in the same calendar year")
 
-//TC-02
-//      Test after 1 October 2026
       RefundPeriod.submitRefundPeriod("05", "2025", "08", "2025")
       if (RefundPeriod.isAfter30September(LocalDate.now())) {
         CheckRefundStartDate.verifyPageTitle(CheckRefundStartDate.pageTitle)
@@ -90,7 +88,7 @@ class ErrorSpec
         ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
         ContactDetails.clickLinkByText("Back")
       }
-//TC-07
+
       RefundPeriod.submitRefundPeriod("02", "2024", "04", "2024")
       if (!RefundPeriod.isAfter30September(LocalDate.now())) {
         CheckRefundStartDate.verifyPageTitle(CheckRefundStartDate.pageTitle)
@@ -111,7 +109,7 @@ class ErrorSpec
       RefundPeriod.errorMessageDisplayed(
         "Refund period start date must be after the VAT registration date if you registered for VAT during the first quarter"
       )
-      // TC-10
+
       RefundPeriod.submitRefundPeriod("06", "2026", "11", "2026")
       CheckRefundEndDate.verifyPageTitle(CheckRefundEndDate.pageTitle)
       CheckRefundEndDate.continue()
