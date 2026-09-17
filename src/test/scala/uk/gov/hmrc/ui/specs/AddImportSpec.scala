@@ -46,7 +46,7 @@ class AddImportSpec
   }
 
   Feature("Make a new EUVAT claim - Add import details") {
-    Scenario("01 - Submit a refund request", Local, WIP) {
+    Scenario("01 - Submit a refund request", Local) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -73,6 +73,7 @@ class AddImportSpec
       AddPurchaseImport.selectPurchaseOrImport("Import")
       ImportType.verifyPageTitle(ImportType.pageTitle)
       ImportType.selectImportType("Food, drink and restaurant services")
+      ImportTypeFood.verifyPageTitle(ImportTypeFood.pageTitle)
       ImportTypeFood.selectFoodType("Food and drink from hotels")
       ImportTypeFood.clickSignOut
     }
