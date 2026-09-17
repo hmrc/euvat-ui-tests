@@ -310,7 +310,9 @@ class NewEuvatClaimSpec
 //      CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
 //      CheckVATClaim.continue()
 //      CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
-//      CheckYourPurchaseDetails.clickSignOut
+//      CheckYourPurchaseDetails.saveAndContinue()
+//      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+//      MakeEuvatClaim.clickSignOut
 //    }
 
     Scenario("02 - Submit a refund request for Germany", Local) {
@@ -400,7 +402,9 @@ class NewEuvatClaimSpec
       VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
       VATRegistrationNumber.submitVATRegistrationNumber("1234567890")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
-      CheckYourPurchaseDetails.clickSignOut
+      CheckYourPurchaseDetails.saveAndContinue()
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      MakeEuvatClaim.clickSignOut
     }
   }
 }
