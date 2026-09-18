@@ -19,6 +19,8 @@ package uk.gov.hmrc.ui.pages.claim
 import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.BasePage
 
+import java.time.LocalDate
+
 object RefundPeriod extends BasePage {
 
   override def pageUrl: String = "refund-period"
@@ -37,5 +39,8 @@ object RefundPeriod extends BasePage {
     input(txtEndYear, endYear)
     continue()
   }
+
+  def isAfter30September(date: LocalDate): Boolean =
+    date.isAfter(LocalDate.of(date.getYear, 9, 30))
 
 }

@@ -225,4 +225,9 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
       element.getText.trim == expectedMessage
     }
 
+  def textDisplayed(expectedText: String): Boolean =
+    driver.findElements(By.tagName("body")).asScala.exists { element =>
+      element.getText.trim == expectedText.trim
+    }
+
 }
