@@ -172,7 +172,7 @@ class CountryCodeMappingSpec
         Language.waitForPage()
     }
 
-    val purchaseTypeUrl = "http://localhost:18501/file-eu-vat/purchase-type"
+    val purchaseTypeUrl = "http://localhost:18501/file-eu-vat/purchase/purchase-type"
 
     var attempts = 0
     var loaded   = false

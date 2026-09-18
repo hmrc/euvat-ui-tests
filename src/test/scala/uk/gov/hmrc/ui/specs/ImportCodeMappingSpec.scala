@@ -172,7 +172,7 @@ class ImportCodeMappingSpec
       case _                            => Language.waitForPage()
     }
 
-    ImportType.navigateToPage("http://localhost:18501/file-eu-vat/import-type")
+    ImportType.navigateToPage("http://localhost:18501/file-eu-vat/import/import-type")
     ImportType.waitForPage()
     ImportType.verifyPageTitle(ImportType.pageTitle)
   }
