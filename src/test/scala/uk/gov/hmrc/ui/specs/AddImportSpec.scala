@@ -46,7 +46,7 @@ class AddImportSpec
   }
 
   Feature("Make a new EUVAT claim - Add import details") {
-    Scenario("01 - Submit a refund request", Local) {
+    Scenario("01 - Add an import", Local) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -63,7 +63,7 @@ class AddImportSpec
 
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      insertDuplicatePurchaseRecordVRN()
+//      insertDuplicateImportRecordVRN()
 
       And("I add import details")
       MakeEuvatClaim.clickLinkByText("Add a purchase")
@@ -74,8 +74,40 @@ class AddImportSpec
       ImportType.verifyPageTitle(ImportType.pageTitle)
       ImportType.selectImportType("Food, drink and restaurant services")
       ImportTypeFood.verifyPageTitle(ImportTypeFood.pageTitle)
-      ImportTypeFood.selectFoodType("Food and drink from hotels")
+      ImportTypeFood.selectImportFoodType("Food and drink from hotels")
       ImportTypeFood.clickSignOut
+    }
+
+    Scenario("02 - Add an import for Germany", Local) {
+      Given("I login as an organisation")
+      val sharedId = AuthorityWizard.login("Organisation", "999900001")
+      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+
+      When("I start new EUVAT claim")
+      //      Inject Claim details
+      CacheHelper.submitUserAnswers("claimDetailsGermany.json", sharedId)
+      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
+      And("I see claim details page completed")
+      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
+      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+
+      CheckYourClaimDetails.saveAndContinue()
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+//      insertDuplicateImportRecordTID()
+
+      And("I add import details")
+      MakeEuvatClaim.clickLinkByText("Add a purchase")
+      BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
+      BeforeYouStart.continue()
+      AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
+      AddPurchaseImport.selectPurchaseOrImport("Import")
+      ImportType.verifyPageTitle(ImportType.pageTitle)
+      ImportType.selectImportType("Other")
+      ImportTypeOther.verifyPageTitle(ImportTypeOther.pageTitle)
+      ImportTypeOther.selectImportTypeOther("None of these - give more details")
+      ImportTypeOther.clickSignOut
     }
 
   }
