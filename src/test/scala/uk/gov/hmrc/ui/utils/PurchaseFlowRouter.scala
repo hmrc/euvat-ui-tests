@@ -72,6 +72,15 @@ object PurchaseFlowRouter {
     case ImportFlow   => slug(flowType, "import-type-other")
   }
 
+  /**
+   * Special-case title for the "Other" top-level page because
+   * purchase and import journeys use different wording.
+   */
+  private def otherTitle(flowType: FlowType): String = flowType match {
+    case PurchaseFlow => "What other category best describes the item on your invoice? - EU VAT - GOV.UK"
+    case ImportFlow   => "What other category best describes the item? - EU VAT - GOV.UK"
+  }
+
   // Top-level sub-code pages
 
   private def fuelUsePage(flowType: FlowType) =
@@ -95,7 +104,7 @@ object PurchaseFlowRouter {
   private def otherPage(flowType: FlowType) =
     new GenericRadioPage(
       otherSlug(flowType),
-      "What other category best describes the item on your invoice? - EU VAT - GOV.UK"
+      otherTitle(flowType)
     )
 
   // Sub-category pages
