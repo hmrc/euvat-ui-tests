@@ -30,7 +30,7 @@ import uk.gov.hmrc.ui.pages.GenericRadioPage
  * Purchase URLs are under /purchase/...
  * Import URLs are under /import/...
  */
-object PurchaseFlowRouter {
+object CodeMappingFlowRouter {
 
   /**
    * Defines which journey is being tested.

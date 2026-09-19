@@ -25,7 +25,7 @@ import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.{AuthorityWizard, ClaimAnEUVATRefund, GenericRadioPage}
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.purchase.*
-import uk.gov.hmrc.ui.utils.{CountryCodeMappingReader, MappingRow, MongoHelper, PurchaseFlowRouter}
+import uk.gov.hmrc.ui.utils.{CountryCodeMappingReader, MappingRow, MongoHelper, CodeMappingFlowRouter}
 
 import java.io.{File, FileOutputStream}
 import scala.collection.mutable.ListBuffer
@@ -178,7 +178,7 @@ class CountryCodeMappingSpec
       case _                            => Language.waitForPage()
     }
 
-    val purchaseTypeUrl = s"http://localhost:18501/file-eu-vat/${PurchaseFlowRouter.entryPageSlug(PurchaseFlowRouter.PurchaseFlow)}"
+    val purchaseTypeUrl = s"http://localhost:18501/file-eu-vat/${CodeMappingFlowRouter.entryPageSlug(CodeMappingFlowRouter.PurchaseFlow)}"
     PurchaseType.navigateToPage(purchaseTypeUrl)
     PurchaseType.waitForPage()
     PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
@@ -307,10 +307,10 @@ class CountryCodeMappingSpec
             navigateToPurchaseType(countryName)
 
             When(s"I select purchase type code $code")
-            PurchaseType.selectPurchaseType(PurchaseFlowRouter.purchaseTypeLabelFor(code))
+            PurchaseType.selectPurchaseType(CodeMappingFlowRouter.purchaseTypeLabelFor(code))
 
             Then(s"I should see the expected sub code labels")
-            val page = PurchaseFlowRouter.topLevelPageFor(code)
+            val page = CodeMappingFlowRouter.topLevelPageFor(code)
 
             try
               verifyTopLevelLabels(countryCode, countryName, code, page, subLabels)
@@ -358,9 +358,9 @@ class CountryCodeMappingSpec
             navigateToPurchaseType(countryName)
 
             When(s"I select purchase type code $code")
-            PurchaseType.selectPurchaseType(PurchaseFlowRouter.purchaseTypeLabelFor(code))
+            PurchaseType.selectPurchaseType(CodeMappingFlowRouter.purchaseTypeLabelFor(code))
 
-            val topPage      = PurchaseFlowRouter.topLevelPageFor(code)
+            val topPage      = CodeMappingFlowRouter.topLevelPageFor(code)
             val subCodeLabel = groupedRows.head.subCodeLabel.get
 
             withClue(
@@ -382,7 +382,7 @@ class CountryCodeMappingSpec
             topPage.selectByVisibleLabel(subCodeLabel)
 
             Then(s"I should see the expected sub category labels")
-            val subPage = PurchaseFlowRouter.subCategoryPageFor(code, subCode)
+            val subPage = CodeMappingFlowRouter.subCategoryPageFor(code, subCode)
 
             try
               verifySubCategoryLabels(countryCode, countryName, code, subCode, subCodeLabel, subPage, expectedLabels)

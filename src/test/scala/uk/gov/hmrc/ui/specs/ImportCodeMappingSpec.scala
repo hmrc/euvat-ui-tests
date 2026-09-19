@@ -26,8 +26,8 @@ import uk.gov.hmrc.ui.pages.{AuthorityWizard, ClaimAnEUVATRefund, GenericRadioPa
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.imports.ImportType
 import uk.gov.hmrc.ui.tags.Local
-import uk.gov.hmrc.ui.utils.{CountryCodeMappingReader, MappingRow, MongoHelper, PurchaseFlowRouter}
-import uk.gov.hmrc.ui.utils.PurchaseFlowRouter.ImportFlow
+import uk.gov.hmrc.ui.utils.{CountryCodeMappingReader, MappingRow, MongoHelper, CodeMappingFlowRouter}
+import uk.gov.hmrc.ui.utils.CodeMappingFlowRouter.ImportFlow
 
 import java.io.{File, FileOutputStream}
 import scala.collection.mutable.ListBuffer
@@ -180,7 +180,7 @@ class ImportCodeMappingSpec
       case _                            => Language.waitForPage()
     }
 
-    val importTypeUrl = s"http://localhost:18501/file-eu-vat/${PurchaseFlowRouter.entryPageSlug(PurchaseFlowRouter.ImportFlow)}"
+    val importTypeUrl = s"http://localhost:18501/file-eu-vat/${CodeMappingFlowRouter.entryPageSlug(CodeMappingFlowRouter.ImportFlow)}"
     ImportType.navigateToPage(importTypeUrl)
     ImportType.waitForPage()
     ImportType.verifyPageTitle(ImportType.pageTitle)
@@ -310,10 +310,10 @@ class ImportCodeMappingSpec
             navigateToImportType(countryName)
 
             When(s"I select import type code $code")
-            ImportType.selectImportType(PurchaseFlowRouter.purchaseTypeLabelFor(code))
+            ImportType.selectImportType(CodeMappingFlowRouter.purchaseTypeLabelFor(code))
 
             Then(s"I should see the expected import sub code labels")
-            val page = PurchaseFlowRouter.topLevelPageFor(code, ImportFlow)
+            val page = CodeMappingFlowRouter.topLevelPageFor(code, ImportFlow)
 
             try {
               verifyTopLevelLabels(countryCode, countryName, code, page, subLabels)
@@ -359,9 +359,9 @@ class ImportCodeMappingSpec
             navigateToImportType(countryName)
 
             When(s"I select import type code $code")
-            ImportType.selectImportType(PurchaseFlowRouter.purchaseTypeLabelFor(code))
+            ImportType.selectImportType(CodeMappingFlowRouter.purchaseTypeLabelFor(code))
 
-            val topPage      = PurchaseFlowRouter.topLevelPageFor(code, ImportFlow)
+            val topPage      = CodeMappingFlowRouter.topLevelPageFor(code, ImportFlow)
             val subCodeLabel = groupedRows.head.subCodeLabel.get
 
             withClue(
@@ -383,7 +383,7 @@ class ImportCodeMappingSpec
             topPage.selectByVisibleLabel(subCodeLabel)
 
             Then(s"I should see the expected import sub category labels")
-            val subPage = PurchaseFlowRouter.subCategoryPageFor(code, subCode, ImportFlow)
+            val subPage = CodeMappingFlowRouter.subCategoryPageFor(code, subCode, ImportFlow)
 
             try {
               verifySubCategoryLabels(countryCode, countryName, code, subCode, subCodeLabel, subPage, expectedLabels)
