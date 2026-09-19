@@ -156,6 +156,14 @@ class ImportCodeMappingSpec
       .filter(_.nonEmpty)
       .distinct
 
+  /**
+   * Logs in, starts a claim, selects the EU member state, waits for the
+   * immediate post-country page to settle, then jumps directly to the
+   * import entry page for the Import journey.
+   *
+   * This is an optimisation for mapping tests so they do not need to
+   * complete the full claim journey before reaching ImportType.
+   */
   private def navigateToImportType(countryName: String): Unit = {
     AuthorityWizard.login("Organisation", "999900001")
     ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -172,7 +180,8 @@ class ImportCodeMappingSpec
       case _                            => Language.waitForPage()
     }
 
-    ImportType.navigateToPage("http://localhost:18501/file-eu-vat/import/import-type")
+    val importTypeUrl = s"http://localhost:18501/file-eu-vat/${PurchaseFlowRouter.entryPageSlug(PurchaseFlowRouter.ImportFlow)}"
+    ImportType.navigateToPage(importTypeUrl)
     ImportType.waitForPage()
     ImportType.verifyPageTitle(ImportType.pageTitle)
   }

@@ -154,6 +154,14 @@ class CountryCodeMappingSpec
       .filter(_.nonEmpty)
       .distinct
 
+  /**
+   * Logs in, starts a claim, selects the EU member state, waits for the
+   * immediate post-country page to settle, then jumps directly to the
+   * purchase entry page for the Purchase journey.
+   *
+   * This is an optimisation for mapping tests so they do not need to
+   * complete the full claim journey before reaching PurchaseType.
+   */
   private def navigateToPurchaseType(countryName: String): Unit = {
     AuthorityWizard.login("Organisation", "999900001")
     ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -166,29 +174,13 @@ class CountryCodeMappingSpec
     EUMemberState.selectCountry(countryName)
 
     countryName match {
-      case "Croatia" | "Czech Republic" =>
-        RefundPeriod.waitForPage()
-      case _                            =>
-        Language.waitForPage()
+      case "Croatia" | "Czech Republic" => RefundPeriod.waitForPage()
+      case _                            => Language.waitForPage()
     }
 
-    val purchaseTypeUrl = "http://localhost:18501/file-eu-vat/purchase/purchase-type"
-
-    var attempts = 0
-    var loaded   = false
-
-    while (attempts < 3 && !loaded) {
-      Language.navigateToPage(purchaseTypeUrl)
-      try {
-        PurchaseType.waitForPageTitle(PurchaseType.pageTitle)
-        loaded = true
-      } catch {
-        case _: Throwable =>
-          attempts += 1
-          PurchaseType.pause(1)
-      }
-    }
-
+    val purchaseTypeUrl = s"http://localhost:18501/file-eu-vat/${PurchaseFlowRouter.entryPageSlug(PurchaseFlowRouter.PurchaseFlow)}"
+    PurchaseType.navigateToPage(purchaseTypeUrl)
+    PurchaseType.waitForPage()
     PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
   }
 
