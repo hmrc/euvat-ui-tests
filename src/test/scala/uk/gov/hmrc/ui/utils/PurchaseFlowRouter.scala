@@ -21,19 +21,22 @@ import uk.gov.hmrc.ui.pages.GenericRadioPage
 object PurchaseFlowRouter {
 
   sealed trait FlowType {
-    def prefix: String
+    def pathSegment: String
+    def entrySlug: String
   }
 
   case object PurchaseFlow extends FlowType {
-    override val prefix: String = ""
+    override val pathSegment: String = "purchase"
+    override val entrySlug: String = "purchase-type"
   }
 
   case object ImportFlow extends FlowType {
-    override val prefix: String = "import-"
+    override val pathSegment: String = "import"
+    override val entrySlug: String = "import-type"
   }
 
-  private def slug(flowType: FlowType, base: String): String =
-    s"${flowType.prefix}$base"
+  private def slug(flowType: FlowType, page: String): String =
+    s"${flowType.pathSegment}/$page"
 
   // Top-level subcode pages
   private def fuelUsePage(flowType: FlowType) =
@@ -84,6 +87,9 @@ object PurchaseFlowRouter {
 
   private def propertyCostTypePage(flowType: FlowType) =
     new GenericRadioPage(slug(flowType, "property-cost-type"), "What is the type of property cost? - EU VAT - GOV.UK")
+
+  def entryPageSlug(flowType: FlowType = PurchaseFlow): String =
+    s"${flowType.pathSegment}/${flowType.entrySlug}"
 
   def topLevelPageFor(code: String, flowType: FlowType = PurchaseFlow): GenericRadioPage = code match {
     case "1"  => fuelUsePage(flowType)
