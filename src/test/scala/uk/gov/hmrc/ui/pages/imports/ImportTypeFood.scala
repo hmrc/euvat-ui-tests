@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object ImportTypeFood extends BasePage {
 
-  override def pageUrl: String = "import-food-drink-restaurant-cost"
+  override def pageUrl: String = "import/food-drink-restaurant-cost"
 
   override def pageTitle: String = "What is the type of food, drink or restaurant cost? - EU VAT - GOV.UK"
 
