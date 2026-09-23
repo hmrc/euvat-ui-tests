@@ -25,13 +25,16 @@ object AddSADRefNumber extends BasePage {
   override def pageTitle: String =
     "Do you have a Single Administrative Document (SAD) reference number? - EU VAT - GOV.UK"
 
+  val rdoYes = "#hasSadNumber"
+  val rdoNo  = "#hasSadNumber-2"
+
   def continueAsYes(): Unit = {
-    radioButton(Locators.rdoYes)
+    radioButton(rdoYes)
     continue()
   }
 
   def continueAsNo(): Unit = {
-    radioButton(Locators.rdoNo)
+    radioButton(rdoNo)
     continue()
   }
 
