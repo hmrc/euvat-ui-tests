@@ -45,6 +45,7 @@ class AddPurchaseSpec
   }
 
   Feature("Make a new EUVAT claim - Add a purchase") {
+
 //    Scenario("01 - Submit a refund request", Local) {
 //      Given("I login as an organisation")
 //      val sharedId = AuthorityWizard.login("Organisation", "999900001")
@@ -72,10 +73,10 @@ class AddPurchaseSpec
 //      AddPurchaseImport.selectPurchaseOrImport("Purchase")
 //      PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
 //      PurchaseType.selectPurchaseType("Food, drink and restaurant services")
-//      FoodDrink.verifyPageTitle(FoodDrink.pageTitle)
-//      FoodDrink.selectFoodDrinkCostType("Food and drink from hotels")
-//      WhoFoodDrink.verifyPageTitle(WhoFoodDrink.pageTitle)
-//      WhoFoodDrink.selectWhoFoodDrinkFor("The taxable person")
+//      PurchaseTypeFood.verifyPageTitle(PurchaseTypeFood.pageTitle)
+//      PurchaseTypeFood.selectFoodType("Food and drink from hotels")
+//      PurchaseSubCategoryFood.verifyPageTitle(PurchaseSubCategoryFood.pageTitle)
+//      PurchaseSubCategoryFood.selectWhoFoodDrinkFor("The taxable person")
 //
 //      //      Invoice details
 //      InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
@@ -120,21 +121,21 @@ class AddPurchaseSpec
 //      And("I change purchase details")
 //      CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 //      CheckYourPurchaseDetails.clickChangeLink("Food and drink for")
-//      WhoFoodDrink.verifyPageTitle(WhoFoodDrink.pageTitle)
-//      WhoFoodDrink.selectWhoFoodDrinkFor("Someone other")
+//      PurchaseSubCategoryFood.verifyPageTitle(WhoFoodDrink.pageTitle)
+//      PurchaseSubCategoryFood.selectWhoFoodDrinkFor("Someone other")
 //
 //      CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 //      CheckYourPurchaseDetails.clickChangeLink("Food and drink cost type")
-//      FoodDrink.verifyPageTitle(FoodDrink.pageTitle)
-//      FoodDrink.selectFoodDrinkCostType("None")
+//      PurchaseTypeFood.verifyPageTitle(FoodDrink.pageTitle)
+//      PurchaseTypeFood.selectFoodDrinkCostType("None")
 //
 //      //      Change purchase type
 //      CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 //      CheckYourPurchaseDetails.clickChangeLink("Purchase type")
 //      PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
 //      PurchaseType.selectPurchaseType("Luxuries, entertainment and hospitality")
-//      LuxuryEntertainment.verifyPageTitle(LuxuryEntertainment.pageTitle)
-//      LuxuryEntertainment.selectLuxuryType("Receptions, entertainment and hospitality")
+//      PurchaseTypeLuxury.verifyPageTitle(LuxuryEntertainment.pageTitle)
+//      PurchaseTypeLuxury.selectLuxuryType("Receptions, entertainment and hospitality")
 //      CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 //
 //      //      Change invoice type
