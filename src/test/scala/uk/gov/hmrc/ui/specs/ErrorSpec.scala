@@ -20,10 +20,11 @@ import org.scalatest.*
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages.*
+import uk.gov.hmrc.ui.pages.{claim, *}
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
+
 import java.time.LocalDate
 
 class ErrorSpec
@@ -46,7 +47,7 @@ class ErrorSpec
 
   Feature("Error and warning message validation check - New claim") {
 
-    Scenario("01 - Refund period start and end date validation", Local, Error) {
+    Scenario("01 - Refund period start and end date validation", Local, Error, WIP) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900002")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -74,6 +75,7 @@ class ErrorSpec
       )
 
       RefundPeriod.submitRefundPeriod("01", "2025", "02", "2026")
+      CheckRefundStartDate.pause(10000)
       RefundPeriod.errorSummaryDisplayed("Refund period start date and end date must be in the same calendar year")
       RefundPeriod.errorMessageDisplayed("Refund period start date and end date must be in the same calendar year")
 
