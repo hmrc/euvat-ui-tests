@@ -19,7 +19,7 @@ package uk.gov.hmrc.ui.pages
 import com.typesafe.scalalogging.LazyLogging
 import driver.BrowserDriver
 import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait, Wait, WebDriverWait}
-import org.openqa.selenium.{By, JavascriptExecutor, StaleElementReferenceException, WebDriver, WebElement}
+import org.openqa.selenium.{By, JavascriptExecutor, NoSuchElementException, StaleElementReferenceException, WebDriver, WebElement}
 import org.scalatest.concurrent.Eventually
 import org.scalatest.matchers.must.Matchers
 import uk.gov.hmrc.selenium.component.PageObject
@@ -150,6 +150,7 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
     } catch {
       case e: Exception =>
         println(s"Failed to click the link with ID: $linkId. Error: ${e.getMessage}")
+        throw e
     }
 
   def clickLinkByCSS(linkCSS: String): Unit =
@@ -170,6 +171,7 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
     } catch {
       case e: Exception =>
         println(s"Failed to click the link with text: $linkText. Error: ${e.getMessage}")
+        throw e
     }
 
   def verifyPageTitle(expectedTitle: String): Unit = {
@@ -215,15 +217,40 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
     Thread.sleep(seconds * 1000L)
   }
 
-  def errorMessageDisplayed(expectedMessage: String): Boolean =
-    driver.findElements(By.cssSelector(".govuk-error-message")).asScala.exists { element =>
-      element.getText.trim == expectedMessage
-    }
+  def normaliseErrorText(text: String): String =
+    text.replaceFirst("^Error:\\s*", "").trim
 
-  def errorSummaryDisplayed(expectedMessage: String): Boolean =
-    driver.findElements(By.cssSelector(".govuk-error-summary__list a")).asScala.exists { element =>
-      element.getText.trim == expectedMessage
-    }
+  def errorMessageDisplayed(expectedMessage: String): Unit = {
+    val locator = By.cssSelector(".govuk-error-message")
+
+    val found = new FluentWait[WebDriver](driver)
+      .withTimeout(Duration.ofSeconds(10))
+      .pollingEvery(Duration.ofMillis(200))
+      .ignoring(classOf[StaleElementReferenceException])
+      .ignoring(classOf[NoSuchElementException])
+      .until { (d: WebDriver) =>
+        val texts = d.findElements(locator).asScala.map(e => normaliseErrorText(e.getText))
+        texts.contains(expectedMessage)
+      }
+
+    assert(found, s"Expected error message not found: $expectedMessage")
+  }
+
+  def errorSummaryDisplayed(expectedMessage: String): Unit = {
+    val locator = By.cssSelector(".govuk-error-summary__list a")
+
+    val found = new FluentWait[WebDriver](driver)
+      .withTimeout(Duration.ofSeconds(10))
+      .pollingEvery(Duration.ofMillis(200))
+      .ignoring(classOf[StaleElementReferenceException])
+      .ignoring(classOf[NoSuchElementException])
+      .until { (d: WebDriver) =>
+        val texts = d.findElements(locator).asScala.map(_.getText.trim)
+        texts.contains(expectedMessage)
+      }
+
+    assert(found, s"Expected error summary message not found: $expectedMessage")
+  }
 
   def textDisplayed(expectedText: String): Boolean =
     driver.findElements(By.tagName("body")).asScala.exists { element =>
