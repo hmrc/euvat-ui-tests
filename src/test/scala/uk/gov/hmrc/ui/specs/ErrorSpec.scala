@@ -47,7 +47,7 @@ class ErrorSpec
 
   Feature("Error and warning message validation check - New claim") {
 
-    Scenario("01 - Refund period start and end date validation", Local, Error, WIP) {
+    Scenario("01 - Refund period start and end date validation", Local, Error) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900002")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -75,7 +75,7 @@ class ErrorSpec
       )
 
       RefundPeriod.submitRefundPeriod("01", "2025", "02", "2026")
-      CheckRefundStartDate.pause(10000)
+//      CheckRefundStartDate.pause(10000)
       RefundPeriod.errorSummaryDisplayed("Refund period start date and end date must be in the same calendar year")
       RefundPeriod.errorMessageDisplayed("Refund period start date and end date must be in the same calendar year")
 
@@ -114,10 +114,10 @@ class ErrorSpec
 
       RefundPeriod.submitRefundPeriod("06", "2026", "11", "2026")
       CheckRefundEndDate.verifyPageTitle(CheckRefundEndDate.pageTitle)
-      CheckRefundEndDate.continue()
       CheckRefundEndDate.textDisplayed(
         "You’ve told us the refund period end date is 11/2026. The refund period end date must be in the past."
       )
+      CheckRefundEndDate.continue()
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.clickSignOut
     }
@@ -127,7 +127,6 @@ class ErrorSpec
       AuthorityWizard.login("Organisation", "999900003")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
-      When("I start new EUVAT claim")
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
