@@ -199,7 +199,6 @@ class NewEuvatClaimSpec
       TotalVatPaid.submitTotalVatPaid("200.01")
       TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
       TotalVatClaim.submitTotalVatClaim("100.01")
-      TotalVatClaim.submitTotalVatClaim("100.01")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
       //    Check your purchase details
