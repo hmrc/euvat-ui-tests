@@ -122,7 +122,6 @@ class AddPurchaseSpec
       CheckYourPurchaseDetails.clickChangeLink("Food and drink for")
       WhoFoodDrink.verifyPageTitle(WhoFoodDrink.pageTitle)
       WhoFoodDrink.selectWhoFoodDrinkFor("Someone other")
-
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Food and drink cost type")
       FoodDrink.verifyPageTitle(FoodDrink.pageTitle)
