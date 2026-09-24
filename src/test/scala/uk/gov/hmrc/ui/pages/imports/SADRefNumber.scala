@@ -14,28 +14,25 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.purchase
+package uk.gov.hmrc.ui.pages.imports
 
 import uk.gov.hmrc.ui.pages.BasePage
 
-object FoodDrink extends BasePage {
+object SADRefNumber extends BasePage {
 
-  override def pageUrl: String = "food-drink-restaurant-cost"
+  override def pageUrl: String = "import/single-administrative-document-reference-number-available"
 
-  override def pageTitle: String = "What is the type of food, drink or restaurant cost? - EU VAT - GOV.UK"
+  override def pageTitle: String =
+    "Do you have a Single Administrative Document (SAD) reference number? - EU VAT - GOV.UK"
 
-  val rdoFood = "#value_0"
-  val rdoNone = "#value_1"
-
-  def selectFoodDrinkCostType(radio: String): this.type = {
-    val selector = radio match {
-      case "Food and drink from hotels" => rdoFood
-      case "None"                       => rdoNone
-      case _                            => throw new IllegalArgumentException(s"Invalid option: $radio")
-    }
-    radioButton(selector)
+  def continueAsYes(): Unit = {
+    radioButton(Locators.rdoYes)
     continue()
-    this
+  }
+
+  def continueAsNo(): Unit = {
+    radioButton(Locators.rdoNo)
+    continue()
   }
 
 }
