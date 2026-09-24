@@ -3,7 +3,7 @@ import sbt.*
 object Dependencies {
 
   val test: Seq[ModuleID] = Seq(
-    "uk.gov.hmrc" %% "ui-test-runner" % "0.55.0" % Test,
+    "uk.gov.hmrc" %% "ui-test-runner" % "0.56.0" % Test,
     "com.typesafe.play" %% "play-ahc-ws-standalone" % "2.2.17" % Test,
     ("com.typesafe.play" %% "play-json" % "2.10.8" % Test).cross(CrossVersion.for3Use2_13),
     "org.mongodb.scala" %% "mongo-scala-driver" % "5.11.0" cross CrossVersion.for3Use2_13,
