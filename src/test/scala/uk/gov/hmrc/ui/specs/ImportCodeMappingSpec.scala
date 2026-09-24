@@ -179,9 +179,23 @@ class ImportCodeMappingSpec
     }
 
     val importTypeUrl =
-      s"http://localhost:18501/file-eu-vat/${CodeMappingFlowRouter.entryPageSlug(CodeMappingFlowRouter.ImportFlow)}"
-    ImportType.navigateToPage(importTypeUrl)
-    ImportType.waitForPage()
+      s"http://localhost:18501/file-eu-vat/${CodeMappingFlowRouter.entryPageSlug(ImportFlow)}"
+
+    var attempts = 0
+    var loaded   = false
+
+    while (attempts < 3 && !loaded) {
+      ImportType.navigateToPage(importTypeUrl)
+      try {
+        ImportType.waitForPageTitle(ImportType.pageTitle)
+        loaded = true
+      } catch {
+        case _: Throwable =>
+          attempts += 1
+          ImportType.pause(1)
+      }
+    }
+
     ImportType.verifyPageTitle(ImportType.pageTitle)
   }
 

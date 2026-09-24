@@ -75,6 +75,8 @@ class AddImportSpec
       ImportType.selectImportType("Food, drink and restaurant services")
       ImportTypeFood.verifyPageTitle(ImportTypeFood.pageTitle)
       ImportTypeFood.selectImportFoodType("Food and drink from hotels")
+      ImportSubCategoryFood.verifyPageTitle(ImportSubCategoryFood.pageTitle)
+      ImportSubCategoryFood.selectWhoFoodDrinkFor("The taxable person")
       SADRefNumber.verifyPageTitle(SADRefNumber.pageTitle)
       SADRefNumber.clickSignOut
     }
