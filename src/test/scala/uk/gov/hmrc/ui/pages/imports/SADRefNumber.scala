@@ -26,7 +26,7 @@ object SADRefNumber extends BasePage {
   override def pageTitle: String =
     "What is your Single Administrative Document (SAD) reference number? - EU VAT - GOV.UK"
 
-  val txtSADRefNumber: By = By.cssSelector("#sad-number")
+  val txtSADRefNumber: By = By.cssSelector("#value")
 
   def submitSADRefNumber(SADReferenceNumber: String): Unit = {
     input(txtSADRefNumber, SADReferenceNumber)
