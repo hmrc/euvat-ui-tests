@@ -75,8 +75,9 @@ class AddImportSpec
       ImportType.selectImportType("Food, drink and restaurant services")
       ImportTypeFood.verifyPageTitle(ImportTypeFood.pageTitle)
       ImportTypeFood.selectImportFoodType("Food and drink from hotels")
-      SADRefNumber.verifyPageTitle(SADRefNumber.pageTitle)
-      SADRefNumber.clickSignOut
+      AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
+      AddSADRefNumber.continueAsYes()
+      AddSADRefNumber.clickSignOut
     }
 
     Scenario("02 - Add an import for Germany", Local) {
@@ -108,8 +109,9 @@ class AddImportSpec
       ImportType.selectImportType("Other")
       ImportTypeOther.verifyPageTitle(ImportTypeOther.pageTitle)
       ImportTypeOther.selectImportTypeOther("None of these - give more details")
-      SADRefNumber.verifyPageTitle(SADRefNumber.pageTitle)
-      SADRefNumber.clickSignOut
+      AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
+      AddSADRefNumber.continueAsYes()
+      AddSADRefNumber.clickSignOut
     }
 
   }
