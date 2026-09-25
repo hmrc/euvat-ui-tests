@@ -18,7 +18,7 @@ package uk.gov.hmrc.ui.pages.imports
 
 import uk.gov.hmrc.ui.pages.BasePage
 
-object ImportTypeFoodAndDrinkCustomer extends BasePage {
+object ImportSubCategoryFood extends BasePage {
 
   override def pageUrl: String = "import/cost-for-publicity-purposes"
 

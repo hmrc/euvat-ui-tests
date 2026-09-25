@@ -75,13 +75,11 @@ class AddImportSpec
       ImportType.selectImportType("Food, drink and restaurant services")
       ImportTypeFood.verifyPageTitle(ImportTypeFood.pageTitle)
       ImportTypeFood.selectImportFoodType("Food and drink from hotels")
+      ImportSubCategoryFood.verifyPageTitle(ImportSubCategoryFood.pageTitle)
+      ImportSubCategoryFood.selectImportFoodAndDrinkCustomer("Someone other than the taxable person or an employee")
       AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
       AddSADRefNumber.continueAsYes()
       AddSADRefNumber.clickSignOut
-      ImportTypeFoodAndDrinkCustomer.verifyPageTitle(ImportTypeFoodAndDrinkCustomer.pageTitle)
-      ImportTypeFoodAndDrinkCustomer.selectImportFoodAndDrinkCustomer("Someone other than the taxable person or an employee")
-      SADRefNumber.verifyPageTitle(SADRefNumber.pageTitle)
-      SADRefNumber.clickSignOut
     }
 
     Scenario("02 - Add an import for Germany", Local) {
@@ -116,8 +114,6 @@ class AddImportSpec
       AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
       AddSADRefNumber.continueAsNo()
       AddSADRefNumber.clickSignOut
-      SADRefNumber.verifyPageTitle(SADRefNumber.pageTitle)
-      SADRefNumber.clickSignOut
     }
 
   }
