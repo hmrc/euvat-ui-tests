@@ -25,10 +25,31 @@ object ClaimDetails extends BasePage {
   override def pageTitle: String =
     "Claim details - EU VAT - GOV.UK"
 
-  private val linkSelectors = Map(
-    "EU member state" -> "#main-content > div > div > form > div:nth-child(2) > dl > div > dd.govuk-summary-list__actions > a",
-    "Claim language"  -> "#main-content > div > div > form > div:nth-child(3) > dl > div > dd.govuk-summary-list__actions > a"
-  )
+//  private val linkSelectors = Map(
+//    "EU member state" -> "#main-content > div > div > form > div:nth-child(2) > dl > div > dd.govuk-summary-list__actions > a",
+//    "Claim language"  -> "#main-content > div > div > form > div:nth-child(3) > dl > div > dd.govuk-summary-list__actions > a"
+//  )
+
+  private val base =
+    "#main-content > div > div > form > div:nth-child(%d) > dl > div:nth-child(%d) > dd.govuk-summary-list__actions > a"
+
+  private def selector(section: Int, row: Int): String =
+    base.format(section, row)
+
+  private val linkSelectors: Map[String, String] =
+    Seq(
+      "EU member state"     -> (2, 1),
+      "Claim language"      -> (3, 1),
+      "Start date"          -> (4, 1),
+      "End date"            -> (4, 1),
+      "Email"               -> (5, 1),
+      "Phone number"        -> (5, 2),
+      "View first SIC code" -> (6, 1),
+      "Second SIC code"     -> (6, 2),
+      "Third SIC code"      -> (6, 3)
+    ).map { case (label, (section, row)) =>
+      label -> selector(section, row)
+    }.toMap
 
   def clickChangeLink(changeLink: String): this.type = {
     val linkCSS = linkSelectors.getOrElse(changeLink, throw new IllegalArgumentException(s"Invalid link: $changeLink"))

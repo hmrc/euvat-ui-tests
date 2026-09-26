@@ -45,7 +45,7 @@ class DeleteClaimSpec
 
   Feature("Delete a draft EUVAT claim - Delete claim") {
 
-    Scenario("01 - Delete a refund claim from Check your claim details page", Local) {
+    Scenario("01 - Delete a refund claim from Claim details page", Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
