@@ -31,22 +31,5 @@ object ThirdBusinessActivity extends BasePage {
     input(txtThirdBusinessActivityCode, businessActivityCode)
     continue()
   }
-
-  /** Clear already selected country value */
-  def clearThirdBusinessActivityCodeDropdown(selector: By): Unit = {
-    val element = waitForVisibilityOfElement(selector)
-    element.sendKeys(Keys.CONTROL, "a")
-    element.sendKeys(Keys.DELETE)
-  }
-
-  def clearThirdBusinessActivityCode(selector: By): Unit = {
-    val el      = waitForVisibilityOfElement(selector)
-    el.click()
-    val current = Option(el.getAttribute("value")).getOrElse("")
-    if (current.nonEmpty) {
-      for (_ <- 1 to current.length)
-        el.sendKeys(Keys.BACK_SPACE)
-    }
-  }
-
+  
 }

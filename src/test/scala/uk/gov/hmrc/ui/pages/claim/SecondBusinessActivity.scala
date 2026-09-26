@@ -32,21 +32,4 @@ object SecondBusinessActivity extends BasePage {
     continue()
   }
 
-  /** Clear already selected country value */
-  def clearSecondBusinessActivityCodeDropdown(selector: By): Unit = {
-    val element = waitForVisibilityOfElement(selector)
-    element.sendKeys(Keys.CONTROL, "a")
-    element.sendKeys(Keys.DELETE)
-  }
-
-  def clearSecondBusinessActivityCode(selector: By): Unit = {
-    val el      = waitForVisibilityOfElement(selector)
-    el.click()
-    val current = Option(el.getAttribute("value")).getOrElse("")
-    if (current.nonEmpty) {
-      for (_ <- 1 to current.length)
-        el.sendKeys(Keys.BACK_SPACE)
-    }
-  }
-
 }
