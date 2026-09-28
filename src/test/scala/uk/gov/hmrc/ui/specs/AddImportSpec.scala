@@ -77,9 +77,9 @@ class AddImportSpec
       ImportTypeFood.selectImportFoodType("Food and drink from hotels")
       AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
       AddSADRefNumber.continueAsYes()
-      SADRefNumber.verifyPageTitle(SADRefNumber.pageTitle)
-      SADRefNumber.submitSADRefNumber("98765")
-      SADRefNumber.clickSignOut
+      SubmitSADRefNumber.verifyPageTitle(SubmitSADRefNumber.pageTitle)
+      SubmitSADRefNumber.submitSADRefNumber("98765")
+      SubmitSADRefNumber.clickSignOut
     }
 
     Scenario("02 - Add an import for Germany", Local) {
