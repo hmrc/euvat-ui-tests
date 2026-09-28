@@ -252,9 +252,20 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
     assert(found, s"Expected error summary message not found: $expectedMessage")
   }
 
-  def textDisplayed(expectedText: String): Boolean =
-    driver.findElements(By.tagName("body")).asScala.exists { element =>
-      element.getText.trim == expectedText.trim
-    }
+  def textDisplayed(expectedText: String): Unit = {
+    val locator = By.tagName("body")
+
+    val found = new FluentWait[WebDriver](driver)
+      .withTimeout(Duration.ofSeconds(10))
+      .pollingEvery(Duration.ofMillis(200))
+      .ignoring(classOf[StaleElementReferenceException])
+      .ignoring(classOf[NoSuchElementException])
+      .until { (d: WebDriver) =>
+        val bodyText = d.findElement(locator).getText.trim
+        bodyText.contains(expectedText.trim)
+      }
+
+    assert(found, s"Expected text not found in page body: $expectedText")
+  }
 
 }
