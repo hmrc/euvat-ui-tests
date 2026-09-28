@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.ui.pages.claim
 
-import org.openqa.selenium.{By, Keys}
+import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.BasePage
 
 object SecondBusinessActivity extends BasePage {
