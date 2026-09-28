@@ -85,7 +85,7 @@ class NewEuvatClaimSpecRefactored
       signOut(Driver.instance)
     }
 
-    Scenario("05 - Edit purchase details across category, invoice, supplier, currency and amounts", Local, WIP) {
+    Scenario("05 - Edit purchase details across category, invoice, supplier, currency and amounts", Local) {
       loginAndOpenNewClaim()
       addClaimDetails(estoniaClaim)
       saveClaimDetails()

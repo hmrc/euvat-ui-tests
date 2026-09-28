@@ -18,7 +18,7 @@ package uk.gov.hmrc.ui.pages.purchase
 
 import uk.gov.hmrc.ui.pages.BasePage
 
-object PurchaseTypeOther extends BasePage {
+object PurchaseSubCodeOther extends BasePage {
 
   override def pageUrl: String = "purchase-type-other"
 
