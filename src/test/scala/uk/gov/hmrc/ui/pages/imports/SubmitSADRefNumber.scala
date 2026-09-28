@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.claim
+package uk.gov.hmrc.ui.pages.imports
 
 import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.BasePage
 
-object SecondBusinessActivity extends BasePage {
+object SubmitSADRefNumber extends BasePage {
 
-  override def pageUrl: String = "what-is-the-second-SIC-code"
+  override def pageUrl: String = "/import/single-administrative-document-reference-number"
 
-  override def pageTitle: String = "What is the second SIC code? - EU VAT - GOV.UK"
+  override def pageTitle: String =
+    "What is your Single Administrative Document (SAD) reference number? - EU VAT - GOV.UK"
 
-  val txtSecondBusinessActivityCode: By = By.cssSelector("#value")
+  val txtSADRefNumber: By = By.cssSelector("#value")
 
-  def enterSecondBusinessActivityCode(businessActivityCode: String): Unit = {
-    input(txtSecondBusinessActivityCode, businessActivityCode)
+  def submitSADRefNumber(SADReferenceNumber: String): Unit = {
+    input(txtSADRefNumber, SADReferenceNumber)
     continue()
   }
-
 }
