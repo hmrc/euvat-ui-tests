@@ -112,10 +112,10 @@ class ErrorSpec
 
       RefundPeriod.submitRefundPeriod("06", "2026", "11", "2026")
       CheckRefundEndDate.verifyPageTitle(CheckRefundEndDate.pageTitle)
-      CheckRefundEndDate.continue()
       CheckRefundEndDate.textDisplayed(
         "You’ve told us the refund period end date is 11/2026. The refund period end date must be in the past."
       )
+      CheckRefundEndDate.continue()
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.clickSignOut
     }
