@@ -79,6 +79,7 @@ class AddImportSpec
       AddSADRefNumber.continueAsYes()
       SADRefNumber.verifyPageTitle(SADRefNumber.pageTitle)
       SADRefNumber.submitSADRefNumber("98765")
+      SADRefNumber.clickSignOut
     }
 
     Scenario("02 - Add an import for Germany", Local) {

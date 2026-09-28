@@ -134,8 +134,8 @@ class AddPurchaseSpec
       CheckYourPurchaseDetails.clickChangeLink("Purchase type")
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
       PurchaseType.selectPurchaseType("Luxuries, entertainment and hospitality")
-      LuxuryEntertainment.verifyPageTitle(LuxuryEntertainment.pageTitle)
-      LuxuryEntertainment.selectLuxuryType("Receptions, entertainment and hospitality")
+      PurchaseTypeLuxury.verifyPageTitle(PurchaseTypeLuxury.pageTitle)
+      PurchaseTypeLuxury.selectLuxuryType("Receptions, entertainment and hospitality")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
       //      Change invoice type
