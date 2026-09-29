@@ -157,10 +157,10 @@ class NewEuvatClaimSpec
       AddPurchaseImport.selectPurchaseOrImport("Purchase")
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
       PurchaseType.selectPurchaseType("Food, drink and restaurant services")
-      FoodDrink.verifyPageTitle(FoodDrink.pageTitle)
-      FoodDrink.selectFoodDrinkCostType("Food and drink from hotels")
-      WhoFoodDrink.verifyPageTitle(WhoFoodDrink.pageTitle)
-      WhoFoodDrink.selectWhoFoodDrinkFor("The taxable person")
+      PurchaseSubcodeFood.verifyPageTitle(PurchaseSubcodeFood.pageTitle)
+      PurchaseSubcodeFood.selectFoodCostType("Food and drink from hotels")
+      PurchaseSubcategoryFood.verifyPageTitle(PurchaseSubcategoryFood.pageTitle)
+      PurchaseSubcategoryFood.selectWhoFoodFor("The taxable person")
 
       //      Invoice details
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
@@ -205,13 +205,13 @@ class NewEuvatClaimSpec
       And("I change purchase details")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Food and drink for")
-      WhoFoodDrink.verifyPageTitle(WhoFoodDrink.pageTitle)
-      WhoFoodDrink.selectWhoFoodDrinkFor("Someone other")
+      PurchaseSubcategoryFood.verifyPageTitle(PurchaseSubcategoryFood.pageTitle)
+      PurchaseSubcategoryFood.selectWhoFoodFor("Someone other")
 
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Food and drink cost type")
-      FoodDrink.verifyPageTitle(FoodDrink.pageTitle)
-      FoodDrink.selectFoodDrinkCostType("None")
+      PurchaseSubcodeFood.verifyPageTitle(PurchaseSubcodeFood.pageTitle)
+      PurchaseSubcodeFood.selectFoodCostType("None")
 
       //      Change purchase type
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
@@ -348,8 +348,8 @@ class NewEuvatClaimSpec
       AddPurchaseImport.selectPurchaseOrImport("Purchase")
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
       PurchaseType.selectPurchaseType("Other")
-      PurchaseTypeOther.verifyPageTitle(PurchaseTypeOther.pageTitle)
-      PurchaseTypeOther.selectPurchaseTypeOther("None of these - give more details")
+      PurchaseSubcodeOther.verifyPageTitle(PurchaseSubcodeOther.pageTitle)
+      PurchaseSubcodeOther.selectSubcategoryOther("None of these - give more details")
       InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
       InvoiceItemDescription.submitItemDescription("")
       CheckPurchaseDetails.verifyPageTitle(CheckPurchaseDetails.pageTitle)
