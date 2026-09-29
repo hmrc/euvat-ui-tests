@@ -80,7 +80,7 @@ class AddImportSpec
       AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
       AddSADRefNumber.continueAsNo()
       ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
-      ImportDocumentDetails.submitDocumentDetails("Test Document Details")
+      ImportDocumentDetails.submitDocumentDetails("Test Import Document Details")
       SystemError.clickLinkByText("Back")
       ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
       ImportDocumentDetails.clickLinkByText("Back")
