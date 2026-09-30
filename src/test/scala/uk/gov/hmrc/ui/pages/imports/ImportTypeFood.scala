@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.purchase
+package uk.gov.hmrc.ui.pages.imports
 
 import uk.gov.hmrc.ui.pages.BasePage
 
-object FoodDrink extends BasePage {
+object ImportTypeFood extends BasePage {
 
-  override def pageUrl: String = "food-drink-restaurant-cost"
+  override def pageUrl: String = "import/food-drink-restaurant-cost"
 
   override def pageTitle: String = "What is the type of food, drink or restaurant cost? - EU VAT - GOV.UK"
 
   val rdoFood = "#value_0"
   val rdoNone = "#value_1"
 
-  def selectFoodDrinkCostType(radio: String): this.type = {
+  def selectImportFoodType(radio: String): this.type = {
     val selector = radio match {
       case "Food and drink from hotels" => rdoFood
       case "None"                       => rdoNone
