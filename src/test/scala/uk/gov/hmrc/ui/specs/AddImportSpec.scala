@@ -78,13 +78,6 @@ class AddImportSpec
       ImportSubCategoryFood.verifyPageTitle(ImportSubCategoryFood.pageTitle)
       ImportSubCategoryFood.selectImportFoodAndDrinkCustomer("Someone other than the taxable person or an employee")
       AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
-      AddSADRefNumber.continueAsNo()
-      ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
-      ImportDocumentDetails.submitDocumentDetails("Test Import Document Details")
-      SystemError.clickLinkByText("Back")
-      ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
-      ImportDocumentDetails.clickLinkByText("Back")
-      AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
       AddSADRefNumber.continueAsYes()
       SubmitSADRefNumber.verifyPageTitle(SubmitSADRefNumber.pageTitle)
       SubmitSADRefNumber.submitSADRefNumber("98765")
@@ -122,7 +115,9 @@ class AddImportSpec
       ImportTypeOther.selectImportTypeOther("None of these - give more details")
       AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
       AddSADRefNumber.continueAsNo()
-      AddSADRefNumber.clickSignOut
+      ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
+      ImportDocumentDetails.submitDocumentDetails("Test Import Document Details")
+      ImportDocumentDetails.clickSignOut
     }
 
   }
