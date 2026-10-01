@@ -115,7 +115,9 @@ class AddImportSpec
       ImportTypeOther.selectImportTypeOther("None of these - give more details")
       AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
       AddSADRefNumber.continueAsNo()
-      AddSADRefNumber.clickSignOut
+      ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
+      ImportDocumentDetails.submitDocumentDetails("Test Import Document Details")
+      ImportDocumentDetails.clickSignOut
     }
 
   }
