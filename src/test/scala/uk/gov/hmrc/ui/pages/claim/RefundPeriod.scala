@@ -23,14 +23,13 @@ import java.time.LocalDate
 
 object RefundPeriod extends BasePage {
 
-  override def pageUrl: String = "refund-period"
-
+  override def pageUrl: String   = "refund-period"
   override def pageTitle: String = "Refund period - EU VAT - GOV.UK"
 
-  val txtStartMonth: By = By.ById("start.month")
-  val txtStartYear: By  = By.ById("start.year")
-  val txtEndMonth: By   = By.ById("end.month")
-  val txtEndYear: By    = By.ById("end.year")
+  val txtStartMonth: By = By.id("start.month")
+  val txtStartYear: By  = By.id("start.year")
+  val txtEndMonth: By   = By.id("end.month")
+  val txtEndYear: By    = By.id("end.year")
 
   def submitRefundPeriod(startMonth: String, startYear: String, endMonth: String, endYear: String): Unit = {
     input(txtStartMonth, startMonth)
@@ -40,7 +39,27 @@ object RefundPeriod extends BasePage {
     continue()
   }
 
+  def submitRefundPeriodUsingCurrentYear(startMonth: String, endMonth: String): Unit = {
+    val currentYear = LocalDate.now().getYear.toString
+
+    input(txtStartMonth, startMonth)
+    input(txtStartYear, currentYear)
+    input(txtEndMonth, endMonth)
+    input(txtEndYear, currentYear)
+    continue()
+  }
+
+  def submitRefundPeriodUsingLastYear(startMonth: String, endMonth: String): Unit = {
+    val currentYear = LocalDate.now().getYear.toString
+    val lastYear = (currentYear.toInt - 1).toString
+
+    input(txtStartMonth, startMonth)
+    input(txtStartYear, lastYear)
+    input(txtEndMonth, endMonth)
+    input(txtEndYear, currentYear)
+    continue()
+  }
+
   def isAfter30September(date: LocalDate): Boolean =
     date.isAfter(LocalDate.of(date.getYear, 9, 30))
-
 }
