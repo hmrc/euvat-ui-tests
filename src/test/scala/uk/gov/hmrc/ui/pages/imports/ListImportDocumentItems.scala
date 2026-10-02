@@ -21,7 +21,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object ListImportDocumentItems extends BasePage {
 
-  override def pageUrl: String = "/import/list-items"
+  override def pageUrl: String = "import/list-items"
 
   override def pageTitle: String =
     "List each item from your import document - EU VAT - GOV.UK"
