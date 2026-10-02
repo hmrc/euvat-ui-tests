@@ -60,7 +60,7 @@ class NewEuvatClaimSpec
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Croatia")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("02", "2025", "04", "2025")
+      RefundPeriod.submitRefundPeriod("02", "2026", "04", "2026")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
       AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
@@ -76,7 +76,7 @@ class NewEuvatClaimSpec
       Language.verifyPageTitle(Language.pageTitle)
       Language.selectLanguage("English")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("05", "2025", "07", "2025")
+      RefundPeriod.submitRefundPeriod("05", "2026", "07", "2026")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
       //      Change language
@@ -88,11 +88,11 @@ class NewEuvatClaimSpec
       //      Change refund period
       CheckYourClaimDetails.clickChangeLink("End date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("05", "2025", "10", "2025")
+      RefundPeriod.submitRefundPeriod("05", "2026", "8", "2026")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.clickChangeLink("Start date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("08", "2025", "10", "2025")
+      RefundPeriod.submitRefundPeriod("06", "2026", "09", "2026")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
       //      Change contact details
@@ -330,7 +330,7 @@ class NewEuvatClaimSpec
       Language.verifyPageTitle(Language.pageTitle)
       Language.selectLanguage("English")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("02", "2025", "04", "2025")
+      RefundPeriod.submitRefundPeriod("02", "2026", "04", "2026")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
       AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
@@ -359,7 +359,7 @@ class NewEuvatClaimSpec
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
       InvoiceNumber.submitInvoiceNumber("INV-1")
       InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
-      InvoiceDate.submitInvoiceDate("08", "12", "2025")
+      InvoiceDate.submitInvoiceDate("08", "8", "2026")
       SupplierName.verifyPageTitle(SupplierName.pageTitle)
       SupplierName.submitSupplierName("Test Supplier Name")
       SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
