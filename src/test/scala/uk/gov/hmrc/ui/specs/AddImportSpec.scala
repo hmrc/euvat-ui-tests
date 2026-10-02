@@ -81,7 +81,9 @@ class AddImportSpec
       AddSADRefNumber.continueAsYes()
       SubmitSADRefNumber.verifyPageTitle(SubmitSADRefNumber.pageTitle)
       SubmitSADRefNumber.submitSADRefNumber("98765")
-      SubmitSADRefNumber.clickSignOut
+      TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
+      TotalImportAmount.submitTotalImportAmount("100")
+      TotalImportAmount.clickSignOut
     }
 
     Scenario("02 - Add an import for Germany", Local) {
@@ -113,6 +115,8 @@ class AddImportSpec
       ImportType.selectImportType("Other")
       ImportTypeOther.verifyPageTitle(ImportTypeOther.pageTitle)
       ImportTypeOther.selectImportTypeOther("None of these - give more details")
+      ListImportDocumentItems.verifyPageTitle(ListImportDocumentItems.pageTitle)
+      ListImportDocumentItems.submitImportDocumentList("Listed items from import document")
       AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
       AddSADRefNumber.continueAsNo()
       ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
