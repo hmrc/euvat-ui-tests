@@ -119,7 +119,9 @@ class AddImportSpec
       AddSADRefNumber.continueAsNo()
       ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
       ImportDocumentDetails.submitDocumentDetails("Test Import Document Details")
-      ImportDocumentDetails.clickSignOut
+      TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
+      TotalImportAmount.submitTotalImportAmount("100")
+      TotalImportAmount.clickSignOut
     }
 
   }
