@@ -113,6 +113,8 @@ class AddImportSpec
       ImportType.selectImportType("Other")
       ImportTypeOther.verifyPageTitle(ImportTypeOther.pageTitle)
       ImportTypeOther.selectImportTypeOther("None of these - give more details")
+      ListImportDocumentItems.verifyPageTitle(ListImportDocumentItems.pageTitle)
+      ListImportDocumentItems.submitImportDocumentList("Listed items from import document")
       AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
       AddSADRefNumber.continueAsNo()
       ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
