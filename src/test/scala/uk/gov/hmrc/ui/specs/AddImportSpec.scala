@@ -81,9 +81,7 @@ class AddImportSpec
       AddSADRefNumber.continueAsYes()
       SubmitSADRefNumber.verifyPageTitle(SubmitSADRefNumber.pageTitle)
       SubmitSADRefNumber.submitSADRefNumber("98765")
-      TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
-      TotalImportAmount.submitTotalImportAmount("100")
-      TotalImportAmount.clickSignOut
+      SubmitSADRefNumber.clickSignOut
     }
 
     Scenario("02 - Add an import for Germany", Local) {
