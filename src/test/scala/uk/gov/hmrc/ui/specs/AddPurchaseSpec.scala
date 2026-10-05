@@ -45,6 +45,7 @@ class AddPurchaseSpec
   }
 
   Feature("Make a new EUVAT claim - Add a purchase") {
+
     Scenario("01 - Submit a refund request", Local) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
@@ -122,6 +123,7 @@ class AddPurchaseSpec
       CheckYourPurchaseDetails.clickChangeLink("Food and drink for")
       PurchaseSubcategoryFood.verifyPageTitle(PurchaseSubcategoryFood.pageTitle)
       PurchaseSubcategoryFood.selectWhoFoodFor("Someone other")
+
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Food and drink cost type")
       PurchaseSubcodeFood.verifyPageTitle(PurchaseSubcodeFood.pageTitle)
@@ -132,8 +134,8 @@ class AddPurchaseSpec
       CheckYourPurchaseDetails.clickChangeLink("Purchase type")
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
       PurchaseType.selectPurchaseType("Luxuries, entertainment and hospitality")
-      LuxuryEntertainment.verifyPageTitle(LuxuryEntertainment.pageTitle)
-      LuxuryEntertainment.selectLuxuryType("Receptions, entertainment and hospitality")
+      PurchaseSubcodeLuxury.verifyPageTitle(PurchaseSubcodeLuxury.pageTitle)
+      PurchaseSubcodeLuxury.selectLuxuryType("Receptions, entertainment and hospitality")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
       //      Change invoice type

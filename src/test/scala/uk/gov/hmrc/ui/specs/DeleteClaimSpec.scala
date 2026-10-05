@@ -59,7 +59,7 @@ class DeleteClaimSpec
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Czech Republic")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("02", "2025", "04", "2025")
+      RefundPeriod.submitRefundPeriod("02", "2026", "04", "2026")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
       AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
