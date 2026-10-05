@@ -206,7 +206,7 @@ class NewEuvatClaimSpec
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Food and drink for")
       PurchaseSubCategoryFood.verifyPageTitle(PurchaseSubCategoryFood.pageTitle)
-      PurchaseSubCategoryFood.selectWhoFoodDrinkFor("The taxable person")
+      PurchaseSubCategoryFood.selectWhoFoodDrinkFor("Someone other")
 
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Food and drink cost type")

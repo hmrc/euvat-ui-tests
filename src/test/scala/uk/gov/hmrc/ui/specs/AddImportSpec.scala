@@ -76,7 +76,7 @@ class AddImportSpec
       ImportTypeFood.verifyPageTitle(ImportTypeFood.pageTitle)
       ImportTypeFood.selectImportFoodType("Food and drink from hotels")
       ImportSubCategoryFood.verifyPageTitle(ImportSubCategoryFood.pageTitle)
-      ImportSubCategoryFood.selectImportFoodAndDrinkCustomer("Someone other than the taxable person or an employee")
+      ImportSubCategoryFood.selectWhoFoodDrinkFor("Someone other")
       AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
       AddSADRefNumber.continueAsYes()
       SubmitSADRefNumber.verifyPageTitle(SubmitSADRefNumber.pageTitle)

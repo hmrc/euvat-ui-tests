@@ -72,7 +72,8 @@ class AddPurchaseSpec
       AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
       AddPurchaseImport.selectPurchaseOrImport("Purchase")
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
-      PurchaseType.selectPurchaseType("Food, drink and restaurant services")PurchaseTypeFood.verifyPageTitle(PurchaseTypeFood.pageTitle)
+      PurchaseType.selectPurchaseType("Food, drink and restaurant services")
+      PurchaseTypeFood.verifyPageTitle(PurchaseTypeFood.pageTitle)
       PurchaseTypeFood.selectFoodType("Food and drink from hotels")
       PurchaseSubCategoryFood.verifyPageTitle(PurchaseSubCategoryFood.pageTitle)
       PurchaseSubCategoryFood.selectWhoFoodDrinkFor("The taxable person")
@@ -121,7 +122,7 @@ class AddPurchaseSpec
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Food and drink for")
       PurchaseSubCategoryFood.verifyPageTitle(PurchaseSubCategoryFood.pageTitle)
-      PurchaseSubCategoryFood.selectWhoFoodDrinkFor("The taxable person")
+      PurchaseSubCategoryFood.selectWhoFoodDrinkFor("Someone other")
 
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Food and drink cost type")
