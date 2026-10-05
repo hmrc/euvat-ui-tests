@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.claim
+package uk.gov.hmrc.ui.pages.imports
 
 import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.BasePage
 
-object SecondBusinessActivity extends BasePage {
+object ImportDocumentDetails extends BasePage {
 
-  override def pageUrl: String = "what-is-the-second-SIC-code"
+  override def pageUrl: String = "/import/import-document-details"
 
-  override def pageTitle: String = "What is the second SIC code? - EU VAT - GOV.UK"
+  override def pageTitle: String =
+    "Import document information - EU VAT - GOV.UK"
 
-  val txtSecondBusinessActivityCode: By = By.cssSelector("#value")
+  val txtDocumentDetails: By = By.cssSelector("#value")
 
-  def enterSecondBusinessActivityCode(businessActivityCode: String): Unit = {
-    input(txtSecondBusinessActivityCode, businessActivityCode)
+  def submitDocumentDetails(DocumentDetails: String): Unit = {
+    input(txtDocumentDetails, DocumentDetails)
     continue()
   }
-
 }

@@ -45,6 +45,7 @@ class AddPurchaseSpec
   }
 
   Feature("Make a new EUVAT claim - Add a purchase") {
+
     Scenario("01 - Submit a refund request", Local) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
@@ -71,8 +72,7 @@ class AddPurchaseSpec
       AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
       AddPurchaseImport.selectPurchaseOrImport("Purchase")
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
-      PurchaseType.selectPurchaseType("Food, drink and restaurant services")
-      PurchaseTypeFood.verifyPageTitle(PurchaseTypeFood.pageTitle)
+      PurchaseType.selectPurchaseType("Food, drink and restaurant services")PurchaseTypeFood.verifyPageTitle(PurchaseTypeFood.pageTitle)
       PurchaseTypeFood.selectFoodType("Food and drink from hotels")
       PurchaseSubCategoryFood.verifyPageTitle(PurchaseSubCategoryFood.pageTitle)
       PurchaseSubCategoryFood.selectWhoFoodDrinkFor("The taxable person")
@@ -121,7 +121,8 @@ class AddPurchaseSpec
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Food and drink for")
       PurchaseSubCategoryFood.verifyPageTitle(PurchaseSubCategoryFood.pageTitle)
-      PurchaseSubCategoryFood.selectWhoFoodDrinkFor("Someone other")
+      PurchaseSubCategoryFood.selectWhoFoodDrinkFor("The taxable person")
+
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Food and drink cost type")
       PurchaseTypeFood.verifyPageTitle(PurchaseTypeFood.pageTitle)

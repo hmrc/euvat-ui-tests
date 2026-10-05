@@ -76,9 +76,12 @@ class AddImportSpec
       ImportTypeFood.verifyPageTitle(ImportTypeFood.pageTitle)
       ImportTypeFood.selectImportFoodType("Food and drink from hotels")
       ImportSubCategoryFood.verifyPageTitle(ImportSubCategoryFood.pageTitle)
-      ImportSubCategoryFood.selectWhoFoodDrinkFor("The taxable person")
-      SADRefNumber.verifyPageTitle(SADRefNumber.pageTitle)
-      SADRefNumber.clickSignOut
+      ImportSubCategoryFood.selectImportFoodAndDrinkCustomer("Someone other than the taxable person or an employee")
+      AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
+      AddSADRefNumber.continueAsYes()
+      SubmitSADRefNumber.verifyPageTitle(SubmitSADRefNumber.pageTitle)
+      SubmitSADRefNumber.submitSADRefNumber("98765")
+      SubmitSADRefNumber.clickSignOut
     }
 
     Scenario("02 - Add an import for Germany", Local) {
@@ -110,8 +113,13 @@ class AddImportSpec
       ImportType.selectImportType("Other")
       ImportTypeOther.verifyPageTitle(ImportTypeOther.pageTitle)
       ImportTypeOther.selectImportTypeOther("None of these - give more details")
-      SADRefNumber.verifyPageTitle(SADRefNumber.pageTitle)
-      SADRefNumber.clickSignOut
+      ListImportDocumentItems.verifyPageTitle(ListImportDocumentItems.pageTitle)
+      ListImportDocumentItems.submitImportDocumentList("Listed items from import document")
+      AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
+      AddSADRefNumber.continueAsNo()
+      ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
+      ImportDocumentDetails.submitDocumentDetails("Test Import Document Details")
+      ImportDocumentDetails.clickSignOut
     }
 
   }
