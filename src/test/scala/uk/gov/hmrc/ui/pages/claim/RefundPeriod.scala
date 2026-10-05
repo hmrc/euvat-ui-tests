@@ -31,6 +31,11 @@ object RefundPeriod extends BasePage {
   val txtEndMonth: By   = By.id("end.month")
   val txtEndYear: By    = By.id("end.year")
 
+  private def currentYear: Int          = LocalDate.now().getYear
+  private def currentYearString: String = currentYear.toString
+  private def lastYearString: String    = (currentYear - 1).toString
+  private def twoYearsAgoString: String = (currentYear - 2).toString
+
   def submitRefundPeriod(startMonth: String, startYear: String, endMonth: String, endYear: String): Unit = {
     input(txtStartMonth, startMonth)
     input(txtStartYear, startYear)
@@ -39,27 +44,25 @@ object RefundPeriod extends BasePage {
     continue()
   }
 
-  def submitRefundPeriodUsingCurrentYear(startMonth: String, endMonth: String): Unit = {
-    val currentYear = LocalDate.now().getYear.toString
+  def submitRefundPeriodUsingCurrentYear(startMonth: String, endMonth: String): Unit =
+    submitRefundPeriod(startMonth, currentYearString, endMonth, currentYearString)
 
-    input(txtStartMonth, startMonth)
-    input(txtStartYear, currentYear)
-    input(txtEndMonth, endMonth)
-    input(txtEndYear, currentYear)
-    continue()
-  }
+  def submitRefundPeriodUsingStartLastYear(startMonth: String, endMonth: String): Unit =
+    submitRefundPeriod(startMonth, lastYearString, endMonth, currentYearString)
 
-  def submitRefundPeriodUsingLastYear(startMonth: String, endMonth: String): Unit = {
-    val currentYear = LocalDate.now().getYear.toString
-    val lastYear = (currentYear.toInt - 1).toString
+  def submitRefundPeriodUsingTwoYearsAgo(startMonth: String, endMonth: String): Unit =
+    submitRefundPeriod(startMonth, twoYearsAgoString, endMonth, twoYearsAgoString)
 
-    input(txtStartMonth, startMonth)
-    input(txtStartYear, lastYear)
-    input(txtEndMonth, endMonth)
-    input(txtEndYear, currentYear)
-    continue()
-  }
+  def isOnOrBefore30September(today: LocalDate = LocalDate.now()): Boolean =
+    !today.isAfter(LocalDate.of(today.getYear, 9, 30))
 
-  def isAfter30September(date: LocalDate): Boolean =
-    date.isAfter(LocalDate.of(date.getYear, 9, 30))
+  def checkRefundStartDateMessageUsingTwoYearsAgo(startMonth: String): String =
+    s"You’ve told us the refund period start date is $startMonth/$twoYearsAgoString. The refund period start date cannot be before 01/$lastYearString."
+
+  def checkRefundStartDateMessageUsingTwoYearsAgoAndCurrentYear(startMonth: String): String =
+    s"You’ve told us the refund period start date is $startMonth/$twoYearsAgoString. The refund period start date cannot be before 01/$currentYearString."
+
+  def checkRefundEndDateMessageUsingCurrentYear(endMonth: String): String =
+    s"You’ve told us the refund period end date is $endMonth/$currentYearString. The refund period end date must be in the past."
+
 }
