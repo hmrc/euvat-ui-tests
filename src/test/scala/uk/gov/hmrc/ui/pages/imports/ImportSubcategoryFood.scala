@@ -28,7 +28,7 @@ object ImportSubcategoryFood extends BasePage {
   val rdoSomeoneOther  = "#value_1"
   val rdoNone          = "#value_2"
 
-  def selectWhoFoodDrinkFor(radio: String): this.type = {
+  def selectWhoFoodFor(radio: String): this.type = {
     val selector = radio match {
       case "The taxable person" => rdoTaxablePerson
       case "Someone other"      => rdoSomeoneOther
