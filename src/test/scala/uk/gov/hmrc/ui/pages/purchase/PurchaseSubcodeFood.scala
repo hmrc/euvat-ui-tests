@@ -18,20 +18,20 @@ package uk.gov.hmrc.ui.pages.purchase
 
 import uk.gov.hmrc.ui.pages.BasePage
 
-object PurchaseTypeOther extends BasePage {
+object PurchaseSubcodeFood extends BasePage {
 
-  override def pageUrl: String = "purchase-type-other"
+  override def pageUrl: String = "food-drink-restaurant-cost"
 
-  override def pageTitle: String = "What other category best describes the item on your invoice? - EU VAT - GOV.UK"
+  override def pageTitle: String = "What is the type of food, drink or restaurant cost? - EU VAT - GOV.UK"
 
-  val rdoPropertyRelated = "#value_0"
-  val rdoNone            = "#value_1"
+  val rdoFood = "#value_0"
+  val rdoNone = "#value_1"
 
-  def selectPurchaseTypeOther(radio: String): this.type = {
+  def selectFoodCostType(radio: String): this.type = {
     val selector = radio match {
-      case "Property-related costs"            => rdoPropertyRelated
-      case "None of these - give more details" => rdoNone
-      case _                                   => throw new IllegalArgumentException(s"Invalid option: $radio")
+      case "Food and drink from hotels" => rdoFood
+      case "None"                       => rdoNone
+      case _                            => throw new IllegalArgumentException(s"Invalid option: $radio")
     }
     radioButton(selector)
     continue()

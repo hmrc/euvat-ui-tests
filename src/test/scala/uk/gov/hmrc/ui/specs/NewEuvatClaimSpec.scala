@@ -157,10 +157,10 @@ class NewEuvatClaimSpec
       AddPurchaseImport.selectPurchaseOrImport("Purchase")
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
       PurchaseType.selectPurchaseType("Food, drink and restaurant services")
-      PurchaseTypeFood.verifyPageTitle(PurchaseTypeFood.pageTitle)
-      PurchaseTypeFood.selectFoodType("Food and drink from hotels")
-      PurchaseSubCategoryFood.verifyPageTitle(PurchaseSubCategoryFood.pageTitle)
-      PurchaseSubCategoryFood.selectWhoFoodDrinkFor("The taxable person")
+      PurchaseSubcodeFood.verifyPageTitle(PurchaseSubcodeFood.pageTitle)
+      PurchaseSubcodeFood.selectFoodCostType("Food and drink from hotels")
+      PurchaseSubcategoryFood.verifyPageTitle(PurchaseSubcategoryFood.pageTitle)
+      PurchaseSubcategoryFood.selectWhoFoodFor("The taxable person")
 
       //      Invoice details
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
@@ -205,21 +205,21 @@ class NewEuvatClaimSpec
       And("I change purchase details")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Food and drink for")
-      PurchaseSubCategoryFood.verifyPageTitle(PurchaseSubCategoryFood.pageTitle)
-      PurchaseSubCategoryFood.selectWhoFoodDrinkFor("The taxable person")
+      PurchaseSubcategoryFood.verifyPageTitle(PurchaseSubcategoryFood.pageTitle)
+      PurchaseSubcategoryFood.selectWhoFoodFor("Someone other")
 
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Food and drink cost type")
-      PurchaseTypeFood.verifyPageTitle(PurchaseTypeFood.pageTitle)
-      PurchaseTypeFood.selectFoodType("None")
+      PurchaseSubcodeFood.verifyPageTitle(PurchaseSubcodeFood.pageTitle)
+      PurchaseSubcodeFood.selectFoodCostType("None")
 
       //      Change purchase type
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Purchase type")
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
       PurchaseType.selectPurchaseType("Luxuries, entertainment and hospitality")
-      PurchaseTypeLuxury.verifyPageTitle(PurchaseTypeLuxury.pageTitle)
-      PurchaseTypeLuxury.selectLuxuryType("Receptions, entertainment and hospitality")
+      PurchaseSubcodeLuxury.verifyPageTitle(PurchaseSubcodeLuxury.pageTitle)
+      PurchaseSubcodeLuxury.selectLuxuryType("Receptions, entertainment and hospitality")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
       //      Change invoice type
@@ -348,8 +348,8 @@ class NewEuvatClaimSpec
       AddPurchaseImport.selectPurchaseOrImport("Purchase")
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
       PurchaseType.selectPurchaseType("Other")
-      PurchaseTypeOther.verifyPageTitle(PurchaseTypeOther.pageTitle)
-      PurchaseTypeOther.selectPurchaseTypeOther("None of these - give more details")
+      PurchaseSubcodeOther.verifyPageTitle(PurchaseSubcodeOther.pageTitle)
+      PurchaseSubcodeOther.selectSubcategoryOther("None of these - give more details")
       InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
       InvoiceItemDescription.submitItemDescription("")
       CheckPurchaseDetails.verifyPageTitle(CheckPurchaseDetails.pageTitle)
