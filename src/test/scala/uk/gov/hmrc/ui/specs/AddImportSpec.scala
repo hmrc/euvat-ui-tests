@@ -73,15 +73,17 @@ class AddImportSpec
       AddPurchaseImport.selectPurchaseOrImport("Import")
       ImportType.verifyPageTitle(ImportType.pageTitle)
       ImportType.selectImportType("Food, drink and restaurant services")
-      ImportTypeFood.verifyPageTitle(ImportTypeFood.pageTitle)
-      ImportTypeFood.selectImportFoodType("Food and drink from hotels")
-      ImportSubCategoryFood.verifyPageTitle(ImportSubCategoryFood.pageTitle)
-      ImportSubCategoryFood.selectImportFoodAndDrinkCustomer("Someone other than the taxable person or an employee")
+      ImportSubcodeFood.verifyPageTitle(ImportSubcodeFood.pageTitle)
+      ImportSubcodeFood.selectImportFoodType("Food and drink from hotels")
+      ImportSubcategoryFood.verifyPageTitle(ImportSubcategoryFood.pageTitle)
+      ImportSubcategoryFood.selectImportFoodAndDrinkCustomer("Someone other than the taxable person or an employee")
       AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
       AddSADRefNumber.continueAsYes()
       SubmitSADRefNumber.verifyPageTitle(SubmitSADRefNumber.pageTitle)
       SubmitSADRefNumber.submitSADRefNumber("98765")
-      SubmitSADRefNumber.clickSignOut
+      SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
+      SubmitSupplierName.submitSupplierName("Test Supplier")
+      SubmitSupplierName.clickSignOut
     }
 
     Scenario("02 - Add an import for Germany", Local) {
@@ -111,8 +113,8 @@ class AddImportSpec
       AddPurchaseImport.selectPurchaseOrImport("Import")
       ImportType.verifyPageTitle(ImportType.pageTitle)
       ImportType.selectImportType("Other")
-      ImportTypeOther.verifyPageTitle(ImportTypeOther.pageTitle)
-      ImportTypeOther.selectImportTypeOther("None of these - give more details")
+      ImportSubcodeOther.verifyPageTitle(ImportSubcodeOther.pageTitle)
+      ImportSubcodeOther.selectImportTypeOther("None of these - give more details")
       ListImportDocumentItems.verifyPageTitle(ListImportDocumentItems.pageTitle)
       ListImportDocumentItems.submitImportDocumentList("Listed items from import document")
       AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
