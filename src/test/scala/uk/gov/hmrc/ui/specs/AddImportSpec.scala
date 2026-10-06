@@ -85,7 +85,9 @@ class AddImportSpec
       SubmitSupplierName.submitSupplierName("Test Supplier")
       ImportCurrency.verifyPageTitle(ImportCurrency.pageTitle)
       ImportCurrency.selectImportCurrencyType("Euro")
-      ImportCurrency.clickSignOut
+      TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
+      TotalImportAmount.submitTotalImportAmount("100")
+      TotalImportAmount.clickSignOut
     }
 
     Scenario("02 - Add an import for Germany", Local) {
@@ -123,6 +125,8 @@ class AddImportSpec
       AddSADRefNumber.continueAsNo()
       ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
       ImportDocumentDetails.submitDocumentDetails("Test Import Document Details")
+      SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
+      SubmitSupplierName.submitSupplierName("Test Supplier")
       TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
       TotalImportAmount.submitTotalImportAmount("100")
       TotalImportAmount.clickSignOut
