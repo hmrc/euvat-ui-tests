@@ -23,14 +23,18 @@ import java.time.LocalDate
 
 object RefundPeriod extends BasePage {
 
-  override def pageUrl: String = "refund-period"
-
+  override def pageUrl: String   = "refund-period"
   override def pageTitle: String = "Refund period - EU VAT - GOV.UK"
 
-  val txtStartMonth: By = By.ById("start.month")
-  val txtStartYear: By  = By.ById("start.year")
-  val txtEndMonth: By   = By.ById("end.month")
-  val txtEndYear: By    = By.ById("end.year")
+  val txtStartMonth: By = By.id("start.month")
+  val txtStartYear: By  = By.id("start.year")
+  val txtEndMonth: By   = By.id("end.month")
+  val txtEndYear: By    = By.id("end.year")
+
+  private def currentYear: Int          = LocalDate.now().getYear
+  private def currentYearString: String = currentYear.toString
+  private def lastYearString: String    = (currentYear - 1).toString
+  private def twoYearsAgoString: String = (currentYear - 2).toString
 
   def submitRefundPeriod(startMonth: String, startYear: String, endMonth: String, endYear: String): Unit = {
     input(txtStartMonth, startMonth)
@@ -40,7 +44,25 @@ object RefundPeriod extends BasePage {
     continue()
   }
 
-  def isAfter30September(date: LocalDate): Boolean =
-    date.isAfter(LocalDate.of(date.getYear, 9, 30))
+  def submitRefundPeriodUsingCurrentYear(startMonth: String, endMonth: String): Unit =
+    submitRefundPeriod(startMonth, currentYearString, endMonth, currentYearString)
+
+  def submitRefundPeriodUsingStartLastYear(startMonth: String, endMonth: String): Unit =
+    submitRefundPeriod(startMonth, lastYearString, endMonth, currentYearString)
+
+  def submitRefundPeriodUsingTwoYearsAgo(startMonth: String, endMonth: String): Unit =
+    submitRefundPeriod(startMonth, twoYearsAgoString, endMonth, twoYearsAgoString)
+
+  def isOnOrBefore30September(today: LocalDate = LocalDate.now()): Boolean =
+    !today.isAfter(LocalDate.of(today.getYear, 9, 30))
+
+  def checkRefundStartDateMessageUsingTwoYearsAgo(startMonth: String): String =
+    s"You’ve told us the refund period start date is $startMonth/$twoYearsAgoString. The refund period start date cannot be before 01/$lastYearString."
+
+  def checkRefundStartDateMessageUsingTwoYearsAgoAndCurrentYear(startMonth: String): String =
+    s"You’ve told us the refund period start date is $startMonth/$twoYearsAgoString. The refund period start date cannot be before 01/$currentYearString."
+
+  def checkRefundEndDateMessageUsingCurrentYear(endMonth: String): String =
+    s"You’ve told us the refund period end date is $endMonth/$currentYearString. The refund period end date must be in the past."
 
 }

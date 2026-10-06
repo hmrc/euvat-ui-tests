@@ -40,7 +40,8 @@ trait ClaimFlows {
     }
 
     RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-    RefundPeriod.submitRefundPeriod(data.fromMonth, data.fromYear, data.toMonth, data.toYear)
+//    RefundPeriod.submitRefundPeriod(data.fromMonth, data.fromYear, data.toMonth, data.toYear)
+    RefundPeriod.submitRefundPeriodUsingCurrentYear(data.fromMonth, data.toMonth)
 
     ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
     ContactDetails.submitContactAddress(data.email, data.phone)
@@ -59,7 +60,7 @@ trait ClaimFlows {
   def signOut(webDriver: WebDriver): Unit =
     MakeEuvatClaim.clickSignOut(webDriver)
 
-  def editClaimDetailsJourney(): Unit = {
+  def changeClaimDetailsJourney(): Unit = {
     CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
     CheckYourClaimDetails.clickChangeLink("Refunding EU member state")
@@ -68,7 +69,7 @@ trait ClaimFlows {
     Language.verifyPageTitle(Language.pageTitle)
     Language.selectLanguage("English")
     RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-    RefundPeriod.submitRefundPeriod("05", "2025", "07", "2025")
+    RefundPeriod.submitRefundPeriodUsingCurrentYear("05", "07")
     CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
     CheckYourClaimDetails.clickChangeLink("Claim language")
@@ -78,12 +79,12 @@ trait ClaimFlows {
 
     CheckYourClaimDetails.clickChangeLink("End date")
     RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-    RefundPeriod.submitRefundPeriod("05", "2025", "10", "2025")
+    RefundPeriod.submitRefundPeriodUsingCurrentYear("05", "08")
     CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
     CheckYourClaimDetails.clickChangeLink("Start date")
     RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-    RefundPeriod.submitRefundPeriod("08", "2025", "10", "2025")
+    RefundPeriod.submitRefundPeriodUsingCurrentYear("06", "08")
     CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
     CheckYourClaimDetails.clickChangeLink("Email")

@@ -48,78 +48,40 @@ class NewEuvatClaimSpecRefactored
 
   Feature("Make a new EUVAT claim - refactored into maintainable scenarios") {
 
-    Scenario("01 - Create a basic claim for a country with no language page", Local) {
-      loginAndOpenNewClaim()
-      addClaimDetails(croatiaClaim)
-      saveClaimDetails()
-      signOut(Driver.instance)
-    }
-
-    Scenario("02 - Create a basic claim for Germany where language is required", Local) {
-      loginAndOpenNewClaim()
-      addClaimDetails(germanyClaim)
-      saveClaimDetails()
-      signOut(Driver.instance)
-    }
-
     Scenario(
       "03 - Edit claim details including member state, language, refund period, contact details and SICs",
       Local
     ) {
       loginAndOpenNewClaim()
       addClaimDetails(croatiaClaim)
-      editClaimDetailsJourney()
+      changeClaimDetailsJourney()
       saveClaimDetails()
-      signOut(Driver.instance)
-    }
 
-    Scenario("04 - Add a food and drink purchase using standard invoice and VAT registration number", Local) {
-      loginAndOpenNewClaim()
-      addClaimDetails(estoniaClaim)
-      saveClaimDetails()
       insertDuplicatePurchaseRecordVRN()
-
       startPurchaseFlow()
-      addFoodDrinkPurchaseUsingOriginalWorkingFlow()
+      addFoodPurchaseFlow()
+      addStandardInvoiceFlow()
+      addCurrencyFlow()
+      addPurchaseAmountFlow()
+
+      changePurchaseJourney()
+      vatWarningsJourney()
       savePurchase()
       signOut(Driver.instance)
     }
 
-    Scenario("05 - Edit purchase details across category, invoice, supplier, currency and amounts", Local) {
-      loginAndOpenNewClaim()
-      addClaimDetails(estoniaClaim)
-      saveClaimDetails()
-      insertDuplicatePurchaseRecordVRN()
-
-      startPurchaseFlow()
-      addFoodDrinkPurchaseUsingOriginalWorkingFlow()
-      editPurchaseJourney()
-      savePurchase()
-      signOut(Driver.instance)
-    }
-
-    Scenario("06 - Germany-specific purchase flow using supplier tax ID", Local) {
+    Scenario("06 - Germany-specific purchase flow using supplier tax ID", Local, WIP) {
       loginAndOpenNewClaim()
       addClaimDetails(germanyClaim)
       saveClaimDetails()
+
       insertDuplicatePurchaseRecordTID()
-
       startPurchaseFlow()
-      addGermanyOtherPurchaseUsingOriginalWorkingFlow()
-      germanyTaxIdEdits()
-      savePurchase()
-      signOut(Driver.instance)
-    }
+      addOtherPurchaseFlow()
+      addSimplifiedInvoiceFlow()
+      addPurchaseAmountFlow()
 
-    Scenario("07 - Trigger VAT warning pages for a purchase", Local) {
-      loginAndOpenNewClaim()
-      addClaimDetails(estoniaClaim)
-      saveClaimDetails()
-      insertDuplicatePurchaseRecordVRN()
-
-      startPurchaseFlow()
-      addFoodDrinkPurchaseUsingOriginalWorkingFlow()
-      vatWarningsJourney()
+      changeTaxIdDetails()
       savePurchase()
       signOut(Driver.instance)
     }

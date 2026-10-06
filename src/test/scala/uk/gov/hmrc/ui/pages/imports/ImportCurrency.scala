@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.purchase
+package uk.gov.hmrc.ui.pages.imports
 
 import uk.gov.hmrc.ui.pages.BasePage
 
-object PurchaseSubCodeLuxury extends BasePage {
+object ImportCurrency extends BasePage {
 
-  override def pageUrl: String = "luxury-entertainment-hospitality-cost"
+  override def pageUrl: String = "import/currency"
 
-  override def pageTitle: String = "What is the type of luxury, entertainment or hospitality cost? - EU VAT - GOV.UK"
+  override def pageTitle: String = "Which currency do you want to use for this import? - EU VAT - GOV.UK"
 
-  val rdoReceptions = "#value_0"
-  val rdoNone       = "#value_1"
+  val rdoEuroCurrency    = "#value"
+  val rdoNonEuroCurrency = "#value_1"
 
-  def selectLuxuryType(radio: String): this.type = {
+  def selectImportCurrencyType(radio: String): this.type = {
     val selector = radio match {
-      case "Receptions, entertainment and hospitality" => rdoReceptions
-      case "None"                                      => rdoNone
-      case _                                           => throw new IllegalArgumentException(s"Invalid option: $radio")
+      case "Euro"                => rdoEuroCurrency
+      case "Estonian Kroon (kr)" => rdoNonEuroCurrency
+      case _                     => throw new IllegalArgumentException(s"Invalid currency option: $radio")
     }
     radioButton(selector)
     continue()

@@ -55,9 +55,9 @@ object TestData {
       country = "Croatia",
       language = None,
       fromMonth = "02",
-      fromYear = "2025",
+      fromYear = "2026",
       toMonth = "04",
-      toYear = "2025",
+      toYear = "2026",
       email = "test@gmail.com",
       phone = "9876543210"
     )
@@ -66,10 +66,10 @@ object TestData {
     ClaimData(
       country = "Estonia",
       language = Some("English"),
-      fromMonth = "05",
-      fromYear = "2025",
-      toMonth = "10",
-      toYear = "2025",
+      fromMonth = "06",
+      fromYear = "2026",
+      toMonth = "08",
+      toYear = "2026",
       email = "changetest@gmail.com",
       phone = "+449876543210"
     )
@@ -79,9 +79,9 @@ object TestData {
       country = "Germany",
       language = Some("English"),
       fromMonth = "02",
-      fromYear = "2025",
+      fromYear = "2026",
       toMonth = "04",
-      toYear = "2025",
+      toYear = "2026",
       email = "test@gmail.com",
       phone = "9876543210"
     )

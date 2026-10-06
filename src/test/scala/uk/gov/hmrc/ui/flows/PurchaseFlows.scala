@@ -30,18 +30,18 @@ trait PurchaseFlows {
     AddPurchaseImport.selectPurchaseOrImport("Purchase")
   }
 
-  /** Food/drink journey kept aligned to original working spec: PurchaseType -> FoodDrink -> WhoFoodDrink -> InvoiceType
-    */
-  def addFoodDrinkPurchaseUsingOriginalWorkingFlow(): Unit = {
+  def addFoodPurchaseFlow(): Unit = {
     PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
     PurchaseType.selectPurchaseType("Food, drink and restaurant services")
 
-    PurchaseSubCodeFood.verifyPageTitle(PurchaseSubCodeFood.pageTitle)
-    PurchaseSubCodeFood.selectFoodDrinkCostType("Food and drink from hotels")
+    PurchaseSubcodeFood.verifyPageTitle(PurchaseSubcodeFood.pageTitle)
+    PurchaseSubcodeFood.selectFoodCostType("Food and drink from hotels")
 
-    PurchaseSubCategoryFood.verifyPageTitle(PurchaseSubCategoryFood.pageTitle)
-    PurchaseSubCategoryFood.selectWhoFoodDrinkFor("The taxable person")
+    PurchaseSubcategoryFood.verifyPageTitle(PurchaseSubcategoryFood.pageTitle)
+    PurchaseSubcategoryFood.selectWhoFoodFor("The taxable person")
+  }
 
+  def addStandardInvoiceFlow(): Unit = {
     InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
     InvoiceType.selectInvoiceType("Standard invoice")
 
@@ -49,7 +49,7 @@ trait PurchaseFlows {
     InvoiceNumber.submitInvoiceNumber("DUP")
 
     InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
-    InvoiceDate.submitInvoiceDate("08", "12", "2025")
+    InvoiceDate.submitInvoiceDate("01", "01", "2026")
 
     SupplierName.verifyPageTitle(SupplierName.pageTitle)
     SupplierName.submitSupplierName("Test Supplier Name")
@@ -77,10 +77,14 @@ trait PurchaseFlows {
 
     CheckSupplierVRN.verifyPageTitle(CheckSupplierVRN.pageTitle)
     CheckSupplierVRN.continue()
+  }
 
+  def addCurrencyFlow(): Unit = {
     Currency.verifyPageTitle(Currency.pageTitle)
     Currency.selectCurrencyType("Euro")
+  }
 
+  def addPurchaseAmountFlow(): Unit = {
     TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
     TotalPurchaseAmount.submitTotalPurchaseAmount("1000.01")
 
@@ -93,22 +97,27 @@ trait PurchaseFlows {
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
   }
 
+  /** Food/drink journey kept aligned to original working spec: PurchaseType -> FoodDrink -> WhoFoodDrink -> InvoiceType
+    */
+
   /** Germany/Other journey kept aligned to original working spec: PurchaseType -> PurchaseTypeOther ->
     * InvoiceItemDescription -> CheckPurchaseDetails -> InvoiceType
     */
-  def addGermanyOtherPurchaseUsingOriginalWorkingFlow(): Unit = {
+  def addOtherPurchaseFlow(): Unit = {
     PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
     PurchaseType.selectPurchaseType("Other")
 
-    PurchaseSubCodeOther.verifyPageTitle(PurchaseSubCodeOther.pageTitle)
-    PurchaseSubCodeOther.selectPurchaseTypeOther("None of these - give more details")
+    PurchaseSubcodeOther.verifyPageTitle(PurchaseSubcodeOther.pageTitle)
+    PurchaseSubcodeOther.selectSubcategoryOther("None of these - give more details")
 
     InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
     InvoiceItemDescription.submitItemDescription("")
 
     CheckPurchaseDetails.verifyPageTitle(CheckPurchaseDetails.pageTitle)
     CheckPurchaseDetails.continue()
+  }
 
+  def addSimplifiedInvoiceFlow(): Unit = {
     InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
     InvoiceType.selectInvoiceType("Simplified invoice")
 
@@ -116,7 +125,7 @@ trait PurchaseFlows {
     InvoiceNumber.submitInvoiceNumber("INV-1")
 
     InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
-    InvoiceDate.submitInvoiceDate("08", "12", "2025")
+    InvoiceDate.submitInvoiceDate("01", "01", "2026")
 
     SupplierName.verifyPageTitle(SupplierName.pageTitle)
     SupplierName.submitSupplierName("Test Supplier Name")
@@ -147,17 +156,6 @@ trait PurchaseFlows {
 
     CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
     CheckSupplierTaxIDNumber.continue()
-
-    TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
-    TotalPurchaseAmount.submitTotalPurchaseAmount("1000.99")
-
-    TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
-    TotalVatPaid.submitTotalVatPaid("200.99")
-
-    TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
-    TotalVatClaim.submitTotalVatClaim("100.99")
-
-    CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
   }
 
   def savePurchase(): Unit = {
@@ -166,23 +164,23 @@ trait PurchaseFlows {
     MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
   }
 
-  def editPurchaseJourney(): Unit = {
+  def changePurchaseJourney(): Unit = {
     CheckYourPurchaseDetails.clickChangeLink("Food and drink for")
-    PurchaseSubCategoryFood.verifyPageTitle(PurchaseSubCategoryFood.pageTitle)
-    PurchaseSubCategoryFood.selectWhoFoodDrinkFor("Someone other")
+    PurchaseSubcategoryFood.verifyPageTitle(PurchaseSubcategoryFood.pageTitle)
+    PurchaseSubcategoryFood.selectWhoFoodFor("Someone other")
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
     CheckYourPurchaseDetails.clickChangeLink("Food and drink cost type")
-    PurchaseSubCodeFood.verifyPageTitle(PurchaseSubCodeFood.pageTitle)
-    PurchaseSubCodeFood.selectFoodDrinkCostType("None")
+    PurchaseSubcodeFood.verifyPageTitle(PurchaseSubcodeFood.pageTitle)
+    PurchaseSubcodeFood.selectFoodCostType("None")
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
     CheckYourPurchaseDetails.clickChangeLink("Purchase type")
     PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
     PurchaseType.selectPurchaseType("Luxuries, entertainment and hospitality")
 
-    PurchaseSubCodeLuxury.verifyPageTitle(PurchaseSubCodeLuxury.pageTitle)
-    PurchaseSubCodeLuxury.selectLuxuryType("Receptions, entertainment and hospitality")
+    PurchaseSubcodeLuxury.verifyPageTitle(PurchaseSubcodeLuxury.pageTitle)
+    PurchaseSubcodeLuxury.selectLuxuryType("Receptions, entertainment and hospitality")
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
     CheckYourPurchaseDetails.clickChangeLink("Invoice type")
@@ -235,7 +233,7 @@ trait PurchaseFlows {
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
   }
 
-  def germanyTaxIdEdits(): Unit = {
+  def changeTaxIdDetails(): Unit = {
     CheckYourPurchaseDetails.clickChangeLink("Supplier tax identifier")
     SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
     SupplierTaxIDNumber.submitSupplierTaxID("12345")
