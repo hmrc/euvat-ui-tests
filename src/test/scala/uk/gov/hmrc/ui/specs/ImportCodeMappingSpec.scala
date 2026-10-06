@@ -25,7 +25,6 @@ import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.{AuthorityWizard, ClaimAnEUVATRefund, GenericRadioPage}
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.imports.ImportType
-import uk.gov.hmrc.ui.tags.Local
 import uk.gov.hmrc.ui.utils.{CodeMappingFlowRouter, CountryCodeMappingReader, MappingRow, MongoHelper}
 import uk.gov.hmrc.ui.utils.CodeMappingFlowRouter.ImportFlow
 
