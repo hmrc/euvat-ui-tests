@@ -83,7 +83,9 @@ class AddImportSpec
       SubmitSADRefNumber.submitSADRefNumber("98765")
       SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
       SubmitSupplierName.submitSupplierName("Test Supplier")
-      SubmitSupplierName.clickSignOut
+      ImportCurrency.verifyPageTitle(ImportCurrency.pageTitle)
+      ImportCurrency.selectImportCurrencyType("Euro")
+      ImportCurrency.clickSignOut
     }
 
     Scenario("02 - Add an import for Germany", Local) {
