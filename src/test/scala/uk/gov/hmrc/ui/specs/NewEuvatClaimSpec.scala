@@ -60,7 +60,7 @@ class NewEuvatClaimSpec
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Croatia")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("02", "2026", "04", "2026")
+      RefundPeriod.submitRefundPeriodUsingCurrentYear("02", "04")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
       AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
@@ -76,7 +76,7 @@ class NewEuvatClaimSpec
       Language.verifyPageTitle(Language.pageTitle)
       Language.selectLanguage("English")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("05", "2026", "07", "2026")
+      RefundPeriod.submitRefundPeriodUsingCurrentYear("05", "07")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
       //      Change language
@@ -88,11 +88,11 @@ class NewEuvatClaimSpec
       //      Change refund period
       CheckYourClaimDetails.clickChangeLink("End date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("05", "2026", "8", "2026")
+      RefundPeriod.submitRefundPeriodUsingCurrentYear("05", "08")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.clickChangeLink("Start date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("06", "2026", "09", "2026")
+      RefundPeriod.submitRefundPeriodUsingCurrentYear("06", "08")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
       //      Change contact details
@@ -330,7 +330,7 @@ class NewEuvatClaimSpec
       Language.verifyPageTitle(Language.pageTitle)
       Language.selectLanguage("English")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("02", "2026", "04", "2026")
+      RefundPeriod.submitRefundPeriodUsingCurrentYear("02", "04")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
       AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
