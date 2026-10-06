@@ -16,28 +16,20 @@
 
 package uk.gov.hmrc.ui.pages.imports
 
+import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.BasePage
 
-object ImportSubCategoryFood extends BasePage {
+object SubmitSupplierName extends BasePage {
 
-  override def pageUrl: String = "import/who-food-drink-for"
+  override def pageUrl: String = "/import/supplier-name"
 
-  override def pageTitle: String = "Who is the food and drink for? - EU VAT - GOV.UK"
+  override def pageTitle: String =
+    "What is the supplier’s name? - EU VAT - GOV.UK"
 
-  val rdoTaxablePerson = "#value_0"
-  val rdoSomeoneOther  = "#value_1"
-  val rdoNone          = "#value_2"
+  val submitSupplierName: By = By.cssSelector("#value")
 
-  def selectWhoFoodDrinkFor(radio: String): this.type = {
-    val selector = radio match {
-      case "The taxable person" => rdoTaxablePerson
-      case "Someone other"      => rdoSomeoneOther
-      case "None"               => rdoNone
-      case _                    => throw new IllegalArgumentException(s"Invalid option: $radio")
-    }
-    radioButton(selector)
+  def submitSupplierName(SupplierName: String): Unit = {
+    input(submitSupplierName, SupplierName)
     continue()
-    this
   }
-
 }

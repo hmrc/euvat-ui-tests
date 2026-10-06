@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.purchase
+package uk.gov.hmrc.ui.pages.imports
 
 import uk.gov.hmrc.ui.pages.BasePage
 
-object PurchaseTypeLuxury extends BasePage {
+object ImportSubcodeFood extends BasePage {
 
-  override def pageUrl: String = "luxury-entertainment-hospitality-cost"
+  override def pageUrl: String = "import/food-drink-restaurant-cost"
 
-  override def pageTitle: String = "What is the type of luxury, entertainment or hospitality cost? - EU VAT - GOV.UK"
+  override def pageTitle: String = "What is the type of food, drink or restaurant cost? - EU VAT - GOV.UK"
 
-  val rdoReceptions = "#value_0"
-  val rdoNone       = "#value_1"
+  val rdoFood = "#value_0"
+  val rdoNone = "#value_1"
 
-  def selectLuxuryType(radio: String): this.type = {
+  def selectImportFoodType(radio: String): this.type = {
     val selector = radio match {
-      case "Receptions, entertainment and hospitality" => rdoReceptions
-      case "None"                                      => rdoNone
-      case _                                           => throw new IllegalArgumentException(s"Invalid option: $radio")
+      case "Food and drink from hotels" => rdoFood
+      case "None"                       => rdoNone
+      case _                            => throw new IllegalArgumentException(s"Invalid option: $radio")
     }
     radioButton(selector)
     continue()

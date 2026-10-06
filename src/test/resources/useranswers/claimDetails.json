@@ -16,8 +16,8 @@
       "missingTraderIndicator" : "N"
     },
     "refundPeriod" : {
-      "startDate" : "2025-08-01T00:00:00",
-      "endDate" : "2025-10-31T23:59:59.999"
+      "startDate" : "2026-06-01T00:00:00",
+      "endDate" : "2026-08-31T23:59:59.999"
     },
     "contactDetails" : {
       "email" : "ChangeTest@gmail.com",

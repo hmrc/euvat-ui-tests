@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.purchase
+package uk.gov.hmrc.ui.pages.imports
 
 import uk.gov.hmrc.ui.pages.BasePage
 
-object PurchaseSubCategoryFood extends BasePage {
+object ImportSubcategoryFood extends BasePage {
 
-  override def pageUrl: String = "who-food-drink-for"
+  override def pageUrl: String = "import/who-food-drink-for"
 
   override def pageTitle: String = "Who is the food and drink for? - EU VAT - GOV.UK"
 

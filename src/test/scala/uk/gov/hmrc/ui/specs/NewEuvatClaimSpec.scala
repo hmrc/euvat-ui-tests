@@ -60,7 +60,7 @@ class NewEuvatClaimSpec
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Croatia")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("02", "2026", "04", "2026")
+      RefundPeriod.submitRefundPeriodUsingCurrentYear("02", "04")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
       AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
@@ -76,7 +76,7 @@ class NewEuvatClaimSpec
       Language.verifyPageTitle(Language.pageTitle)
       Language.selectLanguage("English")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("05", "2026", "07", "2026")
+      RefundPeriod.submitRefundPeriodUsingCurrentYear("05", "07")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
       //      Change language
@@ -88,11 +88,11 @@ class NewEuvatClaimSpec
       //      Change refund period
       CheckYourClaimDetails.clickChangeLink("End date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("05", "2026", "8", "2026")
+      RefundPeriod.submitRefundPeriodUsingCurrentYear("05", "08")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.clickChangeLink("Start date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("06", "2026", "09", "2026")
+      RefundPeriod.submitRefundPeriodUsingCurrentYear("06", "08")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
       //      Change contact details
@@ -157,10 +157,10 @@ class NewEuvatClaimSpec
       AddPurchaseImport.selectPurchaseOrImport("Purchase")
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
       PurchaseType.selectPurchaseType("Food, drink and restaurant services")
-      PurchaseTypeFood.verifyPageTitle(PurchaseTypeFood.pageTitle)
-      PurchaseTypeFood.selectFoodType("Food and drink from hotels")
-      PurchaseSubCategoryFood.verifyPageTitle(PurchaseSubCategoryFood.pageTitle)
-      PurchaseSubCategoryFood.selectWhoFoodDrinkFor("The taxable person")
+      PurchaseSubcodeFood.verifyPageTitle(PurchaseSubcodeFood.pageTitle)
+      PurchaseSubcodeFood.selectFoodCostType("Food and drink from hotels")
+      PurchaseSubcategoryFood.verifyPageTitle(PurchaseSubcategoryFood.pageTitle)
+      PurchaseSubcategoryFood.selectWhoFoodFor("The taxable person")
 
       //      Invoice details
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
@@ -205,21 +205,21 @@ class NewEuvatClaimSpec
       And("I change purchase details")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Food and drink for")
-      PurchaseSubCategoryFood.verifyPageTitle(PurchaseSubCategoryFood.pageTitle)
-      PurchaseSubCategoryFood.selectWhoFoodDrinkFor("Someone other")
+      PurchaseSubcategoryFood.verifyPageTitle(PurchaseSubcategoryFood.pageTitle)
+      PurchaseSubcategoryFood.selectWhoFoodFor("Someone other")
 
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Food and drink cost type")
-      PurchaseTypeFood.verifyPageTitle(PurchaseTypeFood.pageTitle)
-      PurchaseTypeFood.selectFoodType("None")
+      PurchaseSubcodeFood.verifyPageTitle(PurchaseSubcodeFood.pageTitle)
+      PurchaseSubcodeFood.selectFoodCostType("None")
 
       //      Change purchase type
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.clickChangeLink("Purchase type")
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
       PurchaseType.selectPurchaseType("Luxuries, entertainment and hospitality")
-      PurchaseTypeLuxury.verifyPageTitle(PurchaseTypeLuxury.pageTitle)
-      PurchaseTypeLuxury.selectLuxuryType("Receptions, entertainment and hospitality")
+      PurchaseSubcodeLuxury.verifyPageTitle(PurchaseSubcodeLuxury.pageTitle)
+      PurchaseSubcodeLuxury.selectLuxuryType("Receptions, entertainment and hospitality")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
       //      Change invoice type
@@ -330,7 +330,7 @@ class NewEuvatClaimSpec
       Language.verifyPageTitle(Language.pageTitle)
       Language.selectLanguage("English")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("02", "2026", "04", "2026")
+      RefundPeriod.submitRefundPeriodUsingCurrentYear("02", "04")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
       AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
@@ -348,8 +348,8 @@ class NewEuvatClaimSpec
       AddPurchaseImport.selectPurchaseOrImport("Purchase")
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
       PurchaseType.selectPurchaseType("Other")
-      PurchaseTypeOther.verifyPageTitle(PurchaseTypeOther.pageTitle)
-      PurchaseTypeOther.selectPurchaseTypeOther("None of these - give more details")
+      PurchaseSubcodeOther.verifyPageTitle(PurchaseSubcodeOther.pageTitle)
+      PurchaseSubcodeOther.selectSubcategoryOther("None of these - give more details")
       InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
       InvoiceItemDescription.submitItemDescription("")
       CheckPurchaseDetails.verifyPageTitle(CheckPurchaseDetails.pageTitle)
