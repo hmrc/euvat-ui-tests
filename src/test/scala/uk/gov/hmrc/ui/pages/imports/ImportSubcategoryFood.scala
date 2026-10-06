@@ -20,20 +20,20 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object ImportSubcategoryFood extends BasePage {
 
-  override def pageUrl: String = "import/cost-for-publicity-purposes"
+  override def pageUrl: String = "import/who-food-drink-for"
 
   override def pageTitle: String = "Who is the food and drink for? - EU VAT - GOV.UK"
 
   val rdoTaxablePerson = "#value_0"
-  val rdoOtherPerson   = "#value_1"
+  val rdoSomeoneOther  = "#value_1"
   val rdoNone          = "#value_2"
 
-  def selectImportFoodAndDrinkCustomer(radio: String): this.type = {
+  def selectWhoFoodFor(radio: String): this.type = {
     val selector = radio match {
-      case "The taxable person or an employee"                    => rdoTaxablePerson
-      case "Someone other than the taxable person or an employee" => rdoOtherPerson
-      case "None"                                                 => rdoNone
-      case _                                                      => throw new IllegalArgumentException(s"Invalid option: $radio")
+      case "The taxable person" => rdoTaxablePerson
+      case "Someone other"      => rdoSomeoneOther
+      case "None"               => rdoNone
+      case _                    => throw new IllegalArgumentException(s"Invalid option: $radio")
     }
     radioButton(selector)
     continue()
