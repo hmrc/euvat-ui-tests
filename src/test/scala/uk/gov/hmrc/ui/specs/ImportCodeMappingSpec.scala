@@ -315,7 +315,7 @@ class ImportCodeMappingSpec
         val subLabels = expectedSubCodeLabels(countryCode, code)
 
         if (subLabels.nonEmpty) {
-          Scenario(s"Validate import sub code labels for country=$countryCode code=$code", Local) {
+          Scenario(s"Validate import sub code labels for country=$countryCode code=$code") {
             println(
               s"[DEBUG] Starting import scenario: country=$countryCode countryName=$countryName code=$code subCode=-"
             )
@@ -366,7 +366,7 @@ class ImportCodeMappingSpec
         val expectedLabels = expectedSubCategoryLabels(countryCode, code, subCode)
 
         if (expectedLabels.nonEmpty) {
-          Scenario(s"Validate import sub category labels for country=$countryCode code=$code subCode=$subCode", Local) {
+          Scenario(s"Validate import sub category labels for country=$countryCode code=$code subCode=$subCode") {
             println(
               s"[DEBUG] Starting import scenario: country=$countryCode countryName=$countryName code=$code subCode=$subCode"
             )
