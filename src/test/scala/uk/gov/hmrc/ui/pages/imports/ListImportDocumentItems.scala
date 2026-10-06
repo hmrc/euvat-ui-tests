@@ -16,26 +16,20 @@
 
 package uk.gov.hmrc.ui.pages.imports
 
+import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.BasePage
 
-object ImportTypeOther extends BasePage {
+object ListImportDocumentItems extends BasePage {
 
-  override def pageUrl: String = "import/import-type-other"
+  override def pageUrl: String = "import/list-items"
 
-  override def pageTitle: String = "What other category best describes the item? - EU VAT - GOV.UK"
+  override def pageTitle: String =
+    "List each item from your import document - EU VAT - GOV.UK"
 
-  val rdoPropertyRelated = "#value_0"
-  val rdoNone            = "#value_1"
+  val txtImportDocumentList: By = By.cssSelector("#value")
 
-  def selectImportTypeOther(radio: String): this.type = {
-    val selector = radio match {
-      case "Property-related costs"            => rdoPropertyRelated
-      case "None of these - give more details" => rdoNone
-      case _                                   => throw new IllegalArgumentException(s"Invalid option: $radio")
-    }
-    radioButton(selector)
+  def submitImportDocumentList(ImportDocumentList: String): Unit = {
+    input(txtImportDocumentList, ImportDocumentList)
     continue()
-    this
   }
-
 }

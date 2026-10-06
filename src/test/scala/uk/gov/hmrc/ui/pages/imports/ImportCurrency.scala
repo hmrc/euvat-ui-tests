@@ -18,20 +18,20 @@ package uk.gov.hmrc.ui.pages.imports
 
 import uk.gov.hmrc.ui.pages.BasePage
 
-object ImportTypeFood extends BasePage {
+object ImportCurrency extends BasePage {
 
-  override def pageUrl: String = "import/food-drink-restaurant-cost"
+  override def pageUrl: String = "import/currency"
 
-  override def pageTitle: String = "What is the type of food, drink or restaurant cost? - EU VAT - GOV.UK"
+  override def pageTitle: String = "Which currency do you want to use for this import? - EU VAT - GOV.UK"
 
-  val rdoFood = "#value_0"
-  val rdoNone = "#value_1"
+  val rdoEuroCurrency    = "#value"
+  val rdoNonEuroCurrency = "#value_1"
 
-  def selectImportFoodType(radio: String): this.type = {
+  def selectImportCurrencyType(radio: String): this.type = {
     val selector = radio match {
-      case "Food and drink from hotels" => rdoFood
-      case "None"                       => rdoNone
-      case _                            => throw new IllegalArgumentException(s"Invalid option: $radio")
+      case "Euro"                => rdoEuroCurrency
+      case "Estonian Kroon (kr)" => rdoNonEuroCurrency
+      case _                     => throw new IllegalArgumentException(s"Invalid currency option: $radio")
     }
     radioButton(selector)
     continue()
