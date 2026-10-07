@@ -20,9 +20,12 @@ import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.{BeforeAndAfterEach, GivenWhenThen}
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
+import org.openqa.selenium.{By, NoSuchElementException, StaleElementReferenceException, WebDriver}
+import org.openqa.selenium.support.ui.FluentWait
+import java.time.Duration
 
 trait BaseSpec
-    extends AnyFeatureSpec
+  extends AnyFeatureSpec
     with GivenWhenThen
     with Matchers
     with BeforeAndAfterEach
@@ -35,4 +38,24 @@ trait BaseSpec
   override def afterEach(): Unit =
     quitBrowser()
 
+  def clickSignOut(driver: WebDriver): Unit = {
+    val signOut = By.linkText("Sign out")
+
+    val wait = new FluentWait[WebDriver](driver)
+      .withTimeout(Duration.ofSeconds(10))
+      .pollingEvery(Duration.ofMillis(200))
+      .ignoring(classOf[StaleElementReferenceException])
+      .ignoring(classOf[NoSuchElementException])
+
+    wait.until((d: WebDriver) => {
+      val elements = d.findElements(signOut)
+      if (!elements.isEmpty) {
+        val el = elements.get(0)
+        if (el.isDisplayed && el.isEnabled) {
+          el.click()
+          true
+        } else false
+      } else false
+    })
+  }
 }

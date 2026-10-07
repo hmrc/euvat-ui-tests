@@ -21,7 +21,6 @@ import driver.BrowserDriver
 import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait, Wait, WebDriverWait}
 import org.openqa.selenium.{By, JavascriptExecutor, NoSuchElementException, StaleElementReferenceException, WebDriver, WebElement}
 import org.scalatest.concurrent.Eventually
-import org.scalatest.matchers.must.Matchers
 import uk.gov.hmrc.selenium.component.PageObject
 import uk.gov.hmrc.selenium.webdriver.Driver
 
@@ -29,7 +28,7 @@ import java.time.Duration
 import java.util.function.Function
 import scala.jdk.CollectionConverters.*
 
-trait BasePage extends PageObject with Eventually with Matchers with LazyLogging with BrowserDriver {
+trait BasePage extends PageObject with Eventually with LazyLogging with BrowserDriver {
 
   /** Implicit wait */
   implicit def w: WebDriverWait = new WebDriverWait(driver, Duration.ofSeconds(30))
@@ -189,28 +188,6 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
 
   def waitForPageTitle(expectedTitle: String): Unit =
     fluentWait.until(ExpectedConditions.titleIs(expectedTitle))
-
-  def clickSignOut(driver: WebDriver): Unit = {
-    val signOut = By.linkText("Sign out")
-
-    val wait = new FluentWait[WebDriver](driver)
-      .withTimeout(Duration.ofSeconds(10))
-      .pollingEvery(Duration.ofMillis(200))
-      .ignoring(classOf[StaleElementReferenceException])
-
-    val condition = new Function[WebDriver, Boolean] {
-      override def apply(driver: WebDriver): Boolean = {
-        val el = driver.findElement(signOut)
-        if (el.isDisplayed && el.isEnabled) {
-          el.click()
-          true
-        } else {
-          false
-        }
-      }
-    }
-    wait.until(condition)
-  }
 
   def pause(seconds: Int): Unit = {
     require(seconds >= 0, "seconds must be >= 0")

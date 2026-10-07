@@ -57,8 +57,8 @@ trait ClaimFlows {
     MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
   }
 
-  def signOut(webDriver: WebDriver): Unit =
-    MakeEuvatClaim.clickSignOut(webDriver)
+//  def signOut(webDriver: WebDriver): Unit =
+//    MakeEuvatClaim.clickSignOut(webDriver)
 
   def changeClaimDetailsJourney(): Unit = {
     CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)

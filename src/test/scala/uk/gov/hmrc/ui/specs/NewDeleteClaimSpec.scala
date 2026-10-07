@@ -27,17 +27,12 @@ import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
 
 class NewDeleteClaimSpec
-    extends AnyFeatureSpec
-    with BaseSpec
-    with GivenWhenThen
-    with ShouldVerb
+  extends BaseSpec
     with BeforeAndAfterAll
-    with BeforeAndAfterEach
-    with Browser
-    with ScreenshotOnFailure
     with MongoHelper
     with DatabaseHelper
-    with ClaimFlows {
+    with ClaimFlows
+    with PurchaseFlows {
 
   import TestData.*
 
@@ -68,7 +63,7 @@ class NewDeleteClaimSpec
       EUMemberStateDetails.continueAsYes()
 
       Then("I sign out")
-      signOut(Driver.instance)
+      clickSignOut(Driver.instance)
     }
 
     Scenario("02 - Delete a refund claim from Make a claim for an EU VAT refund page", Local) {
@@ -89,7 +84,7 @@ class NewDeleteClaimSpec
 
       Then("I return to the claim landing page and sign out")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
-      signOut(Driver.instance)
+      clickSignOut(Driver.instance)
     }
   }
 }
