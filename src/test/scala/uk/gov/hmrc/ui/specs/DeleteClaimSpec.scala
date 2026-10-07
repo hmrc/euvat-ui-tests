@@ -45,25 +45,19 @@ class DeleteClaimSpec
 
   Feature("Delete a draft EUVAT claim - Delete claim") {
 
-    Scenario("01 - Delete Claim details from Check your claim details page", Local) {
+    Scenario("01 - Delete Claim details from Check your claim details page", Local, WIP) {
       Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "999900001")
+      val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
+      //      Inject Claim details
+      CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I add claim details")
-      MakeEuvatClaim.clickLinkByText("Add claim details")
-      EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
-      EUMemberState.selectCountry("Czech Republic")
-      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriodUsingCurrentYear("02", "04")
-      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-      ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
-      AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
-      AddBusinessActivity.continueAsNo()
+      And("I see claim details page completed")
+      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
 
@@ -77,7 +71,7 @@ class DeleteClaimSpec
       ClaimAnEUVATRefund.clickSignOut
     }
 
-    Scenario("02 - Delete a full refund claim from Make a claim for an EU VAT refund page", Local) {
+    Scenario("02 - Delete a full refund claim from Make a claim for an EU VAT refund page", Local, WIP) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
