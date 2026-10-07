@@ -1,0 +1,28 @@
+{
+  "updateSequenceNumber": 1,
+  "purchaseOrImport": "purchase",
+  "purchaseType": "foodAndDrink",
+  "addPurchaseResponse": {
+    "itemNumber": 4,
+    "updateSequenceNumber": 1
+  },
+  "purchaseSubType": "7.1",
+  "purchaseSubTypeLabel": "Food and drink from hotels, bars, restaurants and boarding houses (including breakfast)",
+  "purchaseSubCategory": "7.1.1",
+  "purchaseSubCategoryLabel": "The taxable person or an employee",
+  "invoiceType": "standard invoice",
+  "invoiceNumber": "1234567890",
+  "invoiceNumberFlag": false,
+  "invoiceDate": "2025-12-08",
+  "suppliersName": "Test Supplier Name",
+  "supplierAddress": {
+    "line1": "Test address one",
+    "line2": "Test address two",
+    "line3": "Test address three"
+  },
+  "supplierVatRegistrationNumber": "CZ1234567890",
+  "refundingCurrency": "EUR",
+  "totalPurchaseAmountBeforeVat": 1000.01,
+  "totalVatPaid": 200.01,
+  "totalVatClaim": 100.01
+}

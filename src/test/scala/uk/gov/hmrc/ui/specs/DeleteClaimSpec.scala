@@ -77,55 +77,23 @@ class DeleteClaimSpec
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
-      //      Inject Claim details
       CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
+
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I see claim details page completed")
+      And("I save the injected claim details to the database")
       MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
+
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I add purchase details")
-      MakeEuvatClaim.clickLinkByText("Add a purchase")
-      BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
-      BeforeYouStart.continue()
-      AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
-      AddPurchaseImport.selectPurchaseOrImport("Purchase")
-      PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
-      PurchaseType.selectPurchaseType("Food, drink and restaurant services")
-      PurchaseSubcodeFood.verifyPageTitle(PurchaseSubcodeFood.pageTitle)
-      PurchaseSubcodeFood.selectFoodCostType("Food and drink from hotels")
-      PurchaseSubcategoryFood.verifyPageTitle(PurchaseSubcategoryFood.pageTitle)
-      PurchaseSubcategoryFood.selectWhoFoodFor("The taxable person")
+      And("I inject purchase details into the existing session")
+      CacheHelper.updateUserAnswers("purchaseDetails.json", sharedId)
 
-      //      Invoice details
-      InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
-      InvoiceType.selectInvoiceType("Standard invoice")
-      InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
-      InvoiceNumber.submitInvoiceNumber("1234567890")
-      InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
-      InvoiceDate.submitInvoiceDate("08", "12", "2025")
-
-      //      Supplier details
-      SupplierName.verifyPageTitle(SupplierName.pageTitle)
-      SupplierName.submitSupplierName("Test Supplier Name")
-      SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
-      SupplierAddress.submitSupplierAddress("Test address one", "Test address two", "Test address three")
-      VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
-      VATRegistrationNumber.submitVATRegistrationNumber("CZ1234567890")
-
-      //      Purchase amounts
-      Currency.verifyPageTitle(Currency.pageTitle)
-      Currency.selectCurrencyType("Euro")
-      TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
-      TotalPurchaseAmount.submitTotalPurchaseAmount("1000.01")
-      TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
-      TotalVatPaid.submitTotalVatPaid("200.01")
-      TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
-      TotalVatClaim.submitTotalVatClaim("100.01")
+      And("I save the injected purchase details to the database")
+      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/purchase/check-your-purchase-details")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
 
