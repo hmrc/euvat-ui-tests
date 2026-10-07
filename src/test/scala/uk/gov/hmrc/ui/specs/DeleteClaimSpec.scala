@@ -55,7 +55,7 @@ class DeleteClaimSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I add claim details")
-      MakeEuvatClaim.clickLinkByText("Add claim details")
+      MakeEuvatClaim.clickLinkByText("Claim details")
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Czech Republic")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
@@ -69,7 +69,7 @@ class DeleteClaimSpec
 
       And("I delete the claim")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      MakeEuvatClaim.clickLinkByText("View claim details")
+      MakeEuvatClaim.clickLinkByText("Claim details")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
       ClaimDetails.clickChangeLink("EU member state")
       EUMemberStateDetails.verifyPageTitle(EUMemberStateDetails.pageTitle)
@@ -95,7 +95,7 @@ class DeleteClaimSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I add purchase details")
-      MakeEuvatClaim.clickLinkByText("Add a purchase")
+      MakeEuvatClaim.clickLinkByText("Purchases and imports")
       BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
       BeforeYouStart.continue()
       AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
@@ -134,6 +134,12 @@ class DeleteClaimSpec
       TotalVatClaim.submitTotalVatClaim("100.01")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
+      PurchaseImportSummary.verifyDynamicPageTitle(
+        PurchaseImportSummary.pageTitle1,
+        "3",
+        PurchaseImportSummary.pageTitle2
+      )
+      PurchaseImportSummary.continueAsNo()
 
       And("I delete the claim")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)

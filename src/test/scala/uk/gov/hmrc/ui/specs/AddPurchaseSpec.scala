@@ -66,7 +66,7 @@ class AddPurchaseSpec
       insertDuplicatePurchaseRecordVRN()
 
       And("I add purchase details")
-      MakeEuvatClaim.clickLinkByText("Add a purchase")
+      MakeEuvatClaim.clickLinkByText("Purchases and imports")
       BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
       BeforeYouStart.continue()
       AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
@@ -226,6 +226,12 @@ class AddPurchaseSpec
       CheckVATClaim.continue()
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
+      PurchaseImportSummary.verifyDynamicPageTitle(
+        PurchaseImportSummary.pageTitle1,
+        "3",
+        PurchaseImportSummary.pageTitle2
+      )
+      PurchaseImportSummary.continueAsNo()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       MakeEuvatClaim.clickSignOut
     }
@@ -250,7 +256,7 @@ class AddPurchaseSpec
       insertDuplicatePurchaseRecordTID()
 
       And("I add purchase details")
-      MakeEuvatClaim.clickLinkByText("Add a purchase")
+      MakeEuvatClaim.clickLinkByText("Purchases and imports")
       BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
       BeforeYouStart.continue()
       AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
@@ -312,6 +318,12 @@ class AddPurchaseSpec
       VATRegistrationNumber.submitVATRegistrationNumber("1234567890")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
+      PurchaseImportSummary.verifyDynamicPageTitle(
+        PurchaseImportSummary.pageTitle1,
+        "3",
+        PurchaseImportSummary.pageTitle2
+      )
+      PurchaseImportSummary.continueAsNo()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       MakeEuvatClaim.clickSignOut
     }

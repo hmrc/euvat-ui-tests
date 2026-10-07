@@ -183,6 +183,17 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
     println("Actual page title is: " + getPageTitle)
   }
 
+  def verifyDynamicPageTitle(expectedTitle1: String, varNum: String, expectedTitle2: String): Unit = {
+    def expectedTitle = expectedTitle1 + " " + varNum + " " + expectedTitle2
+
+    waitForPageTitle(expectedTitle)
+    assert(
+      getPageTitle contains expectedTitle,
+      s"Page title mismatch! Expected: $expectedTitle, Actual: $getPageTitle"
+    )
+    println("Actual page title is: " + getPageTitle)
+  }
+
   def clickByXpath(xpath: String): Unit = clickBy(By.xpath(xpath))
 
   def findByXpath(xpath: String): String = driver.findElement(By.xpath(xpath)).getText

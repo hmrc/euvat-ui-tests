@@ -56,7 +56,7 @@ class NewEuvatClaimSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I add claim details")
-      MakeEuvatClaim.clickLinkByText("Add claim details")
+      MakeEuvatClaim.clickLinkByText("Claim details")
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Croatia")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
@@ -150,7 +150,7 @@ class NewEuvatClaimSpec
       insertDuplicatePurchaseRecordVRN()
 
       And("I add purchase details")
-      MakeEuvatClaim.clickLinkByText("Add a purchase")
+      MakeEuvatClaim.clickLinkByText("Purchases and imports")
       BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
       BeforeYouStart.continue()
       AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
@@ -310,6 +310,12 @@ class NewEuvatClaimSpec
       CheckVATClaim.continue()
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
+      PurchaseImportSummary.verifyDynamicPageTitle(
+        PurchaseImportSummary.pageTitle1,
+        "3",
+        PurchaseImportSummary.pageTitle2
+      )
+      PurchaseImportSummary.continueAsNo()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       MakeEuvatClaim.clickSignOut
     }
@@ -324,7 +330,7 @@ class NewEuvatClaimSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I add claim details")
-      MakeEuvatClaim.clickLinkByText("Add claim details")
+      MakeEuvatClaim.clickLinkByText("Claim details")
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Germany")
       Language.verifyPageTitle(Language.pageTitle)
@@ -341,7 +347,7 @@ class NewEuvatClaimSpec
       insertDuplicatePurchaseRecordTID()
 
       And("I add purchase details")
-      MakeEuvatClaim.clickLinkByText("Add a purchase")
+      MakeEuvatClaim.clickLinkByText("Purchases and imports")
       BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
       BeforeYouStart.continue()
       AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
@@ -402,6 +408,12 @@ class NewEuvatClaimSpec
       VATRegistrationNumber.submitVATRegistrationNumber("1234567890")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
+      PurchaseImportSummary.verifyDynamicPageTitle(
+        PurchaseImportSummary.pageTitle1,
+        "3",
+        PurchaseImportSummary.pageTitle2
+      )
+      PurchaseImportSummary.continueAsNo()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       MakeEuvatClaim.clickSignOut
     }

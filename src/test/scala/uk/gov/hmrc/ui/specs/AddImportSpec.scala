@@ -66,7 +66,7 @@ class AddImportSpec
 //      insertDuplicateImportRecordVRN()
 
       And("I add import details")
-      MakeEuvatClaim.clickLinkByText("Add a purchase")
+      MakeEuvatClaim.clickLinkByText("Purchases and imports")
       BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
       BeforeYouStart.continue()
       AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
@@ -110,7 +110,7 @@ class AddImportSpec
 //      insertDuplicateImportRecordTID()
 
       And("I add import details")
-      MakeEuvatClaim.clickLinkByText("Add a purchase")
+      MakeEuvatClaim.clickLinkByText("Purchases and imports")
       BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
       BeforeYouStart.continue()
       AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
