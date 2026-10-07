@@ -30,6 +30,12 @@ trait PurchaseFlows {
     AddPurchaseImport.selectPurchaseOrImport("Purchase")
   }
 
+  def goToSavePurchaseDetails(): Unit = {
+    MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/purchase/check-your-purchase-details")
+    CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+    CheckYourPurchaseDetails.saveAndContinue()
+  }
+
   def addFoodPurchaseFlow(): Unit = {
     PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
     PurchaseType.selectPurchaseType("Food, drink and restaurant services")

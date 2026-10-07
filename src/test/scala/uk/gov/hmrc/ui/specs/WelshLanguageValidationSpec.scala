@@ -19,7 +19,7 @@ package uk.gov.hmrc.ui.specs
 import org.scalatest.*
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
-import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
+import uk.gov.hmrc.selenium.webdriver.{Browser, Driver, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.purchase.*
@@ -281,7 +281,7 @@ class WelshLanguageValidationSpec
       CheckYourPurchaseDetails.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
       //      WelshPageVerifier.verify("RA3.3", CheckYourPurchaseDetails)
       CheckYourPurchaseDetails.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
-      CheckYourPurchaseDetails.clickSignOut
+      clickSignOut(Driver.instance)
     }
 
     Scenario("02 - Validate Welsh content for Germany") {
@@ -363,8 +363,7 @@ class WelshLanguageValidationSpec
 //      WelshPageVerifier.verify("RA8.1.2", CheckSupplierTaxIDNumber)
       CheckSupplierTaxIDNumber.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
       CheckSupplierTaxIDNumber.continue()
-
-      CheckSupplierTaxIDNumber.clickSignOut
+      clickSignOut(Driver.instance)
     }
   }
 }

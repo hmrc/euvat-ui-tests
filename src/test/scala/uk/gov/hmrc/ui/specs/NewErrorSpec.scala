@@ -20,13 +20,14 @@ import org.scalatest.*
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, Driver, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.flows.TestData.croatiaClaim
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
+import uk.gov.hmrc.ui.flows.*
+import uk.gov.hmrc.ui.flows.TestData.croatiaClaim
 import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
 
-class ErrorSpec
+class NewErrorSpec
     extends AnyFeatureSpec
     with BaseSpec
     with GivenWhenThen
@@ -110,17 +111,10 @@ class ErrorSpec
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       clickSignOut(Driver.instance)
     }
-    
-    
-    
-    
 
     Scenario("02 - Validate a duplicate draft refund from the EU member state page", Local, Error) {
-      
       loginAndOpenNewClaim()
-      addClaimDetails(croatiaClaim)
-      AuthorityWizard.login("Organisation", "999900003")
-      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+      addClaimDetailsErrors(croatiaClaim)
 
       When("I start new EUVAT claim")
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")

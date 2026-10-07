@@ -16,9 +16,9 @@
 
 package uk.gov.hmrc.ui.flows
 
-import org.openqa.selenium.WebDriver
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
+import uk.gov.hmrc.ui.utils.CacheHelper
 
 trait ClaimFlows {
 
@@ -27,6 +27,42 @@ trait ClaimFlows {
     ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
     ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
     MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+  }
+
+  def loginAndInjectClaimDetails(): String = {
+    val sharedId = AuthorityWizard.login("Organisation", "999900001")
+    ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+    CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
+    ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
+    MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+    sharedId
+  }
+
+  def injectPurchaseDetailsForClaim(sharedId: String): Unit =
+    CacheHelper.updateUserAnswers("purchaseDetails.json", sharedId)
+
+  def goToSaveClaimDetails(): Unit = {
+    MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
+    CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+    CheckYourClaimDetails.saveAndContinue()
+  }
+
+  def deleteClaimFromClaimDetails(): Unit = {
+    MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+    MakeEuvatClaim.clickLinkByText("View claim details")
+    ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
+    ClaimDetails.clickChangeLink("EU member state")
+    EUMemberStateDetails.verifyPageTitle(EUMemberStateDetails.pageTitle)
+    EUMemberStateDetails.continueAsYes()
+    ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+  }
+
+  def deleteClaimFromMakeClaim(): Unit = {
+    MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+    MakeEuvatClaim.clickLinkByText("Delete this claim")
+    DeleteClaim.verifyPageTitle(DeleteClaim.pageTitle)
+    DeleteClaim.continueAsYes()
+    ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
   }
 
   def addClaimDetails(data: ClaimData, addBusinessActivity: Boolean = false): Unit = {
@@ -51,14 +87,34 @@ trait ClaimFlows {
     else AddBusinessActivity.continueAsNo()
   }
 
+  def addClaimDetailsErrors(data: ClaimData): Unit = {
+    MakeEuvatClaim.clickLinkByText("Add claim details")
+    EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
+    EUMemberState.selectCountry(data.country)
+
+    data.language.foreach { lang =>
+      Language.verifyPageTitle(Language.pageTitle)
+      Language.selectLanguage(lang)
+    }
+
+    RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
+    //    RefundPeriod.submitRefundPeriod(data.fromMonth, data.fromYear, data.toMonth, data.toYear)
+    RefundPeriod.submitRefundPeriodUsingCurrentYear(data.fromMonth, data.toMonth)
+
+    ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
+    ContactDetails.submitContactAddress(data.email, data.phone)
+
+    AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
+    if (addBusinessActivity) AddBusinessActivity.continueAsYes()
+    else AddBusinessActivity.continueAsNo()
+  }
+
+
   def saveClaimDetails(): Unit = {
     CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
     CheckYourClaimDetails.saveAndContinue()
     MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
   }
-
-//  def signOut(webDriver: WebDriver): Unit =
-//    MakeEuvatClaim.clickSignOut(webDriver)
 
   def changeClaimDetailsJourney(): Unit = {
     CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)

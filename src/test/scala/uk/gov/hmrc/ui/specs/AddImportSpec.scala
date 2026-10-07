@@ -19,7 +19,7 @@ package uk.gov.hmrc.ui.specs
 import org.scalatest.*
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
-import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
+import uk.gov.hmrc.selenium.webdriver.{Browser, Driver, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.imports.*
@@ -85,7 +85,7 @@ class AddImportSpec
       SubmitSupplierName.submitSupplierName("Test Supplier")
       ImportCurrency.verifyPageTitle(ImportCurrency.pageTitle)
       ImportCurrency.selectImportCurrencyType("Euro")
-      ImportCurrency.clickSignOut
+      clickSignOut(Driver.instance)
     }
 
     Scenario("02 - Add an import for Germany", Local) {
@@ -123,7 +123,7 @@ class AddImportSpec
       AddSADRefNumber.continueAsNo()
       ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
       ImportDocumentDetails.submitDocumentDetails("Test Import Document Details")
-      ImportDocumentDetails.clickSignOut
+      clickSignOut(Driver.instance)
     }
 
   }

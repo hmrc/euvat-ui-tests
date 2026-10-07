@@ -19,7 +19,7 @@ package uk.gov.hmrc.ui.specs
 import org.scalatest.*
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
-import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
+import uk.gov.hmrc.selenium.webdriver.{Browser, Driver, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.purchase.*
@@ -227,7 +227,7 @@ class AddPurchaseSpec
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      MakeEuvatClaim.clickSignOut
+      clickSignOut(Driver.instance)
     }
 
     Scenario("02 - Submit a refund request for Germany", Local) {
@@ -313,7 +313,7 @@ class AddPurchaseSpec
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      MakeEuvatClaim.clickSignOut
+      clickSignOut(Driver.instance)
     }
   }
 }

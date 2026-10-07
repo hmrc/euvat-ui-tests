@@ -25,7 +25,7 @@ import org.openqa.selenium.support.ui.FluentWait
 import java.time.Duration
 
 trait BaseSpec
-  extends AnyFeatureSpec
+    extends AnyFeatureSpec
     with GivenWhenThen
     with Matchers
     with BeforeAndAfterEach
@@ -47,7 +47,7 @@ trait BaseSpec
       .ignoring(classOf[StaleElementReferenceException])
       .ignoring(classOf[NoSuchElementException])
 
-    wait.until((d: WebDriver) => {
+    wait.until { (d: WebDriver) =>
       val elements = d.findElements(signOut)
       if (!elements.isEmpty) {
         val el = elements.get(0)
@@ -56,6 +56,6 @@ trait BaseSpec
           true
         } else false
       } else false
-    })
+    }
   }
 }

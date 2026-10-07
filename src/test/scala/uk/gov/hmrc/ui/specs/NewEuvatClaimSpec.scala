@@ -25,7 +25,7 @@ import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
 import TestData.*
 
 class NewEuvatClaimSpec
-  extends BaseSpec
+    extends BaseSpec
     with BeforeAndAfterAll
     with MongoHelper
     with DatabaseHelper
@@ -59,7 +59,7 @@ class NewEuvatClaimSpec
       clickSignOut(Driver.instance)
     }
 
-    Scenario("02 - Submit a refund request for Germany", Local, WIP) {
+    Scenario("02 - Submit a refund request for Germany", Local) {
       loginAndOpenNewClaim()
       addClaimDetails(germanyClaim)
       saveClaimDetails()
