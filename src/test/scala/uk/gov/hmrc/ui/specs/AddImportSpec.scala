@@ -94,7 +94,7 @@ class AddImportSpec
       TotalImportVatClaim.clickSignOut
     }
 
-    Scenario("02 - Add an import for Germany", Local, WIP) {
+    Scenario("02 - Add an import for Germany", Local) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
