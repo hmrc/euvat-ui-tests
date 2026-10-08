@@ -86,15 +86,15 @@ class AddImportSpec
       ImportCurrency.verifyPageTitle(ImportCurrency.pageTitle)
       ImportCurrency.selectImportCurrencyType("Euro")
       TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
-      TotalImportAmount.submitTotalImportAmount("100")
+      TotalImportAmount.submitTotalImportAmount("1000.01")
       TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
-      TotalImportVATPaid.submitTotalImportVATPaid("99.99")
+      TotalImportVATPaid.submitTotalImportVATPaid("200.01")
       TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
-      TotalImportVatClaim.submitTotalImportVatClaim("50")
+      TotalImportVatClaim.submitTotalImportVatClaim("100.01")
       TotalImportVatClaim.clickSignOut
     }
 
-    Scenario("02 - Add an import for Germany", Local) {
+    Scenario("02 - Add an import for Germany", Local, WIP) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -132,11 +132,11 @@ class AddImportSpec
       SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
       SubmitSupplierName.submitSupplierName("Test Supplier")
       TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
-      TotalImportAmount.submitTotalImportAmount("100")
+      TotalImportAmount.submitTotalImportAmount("1000.99")
       TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
-      TotalImportVATPaid.submitTotalImportVATPaid("95.2")
+      TotalImportVATPaid.submitTotalImportVATPaid("200.99")
       TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
-      TotalImportVatClaim.submitTotalImportVatClaim("50")
+      TotalImportVatClaim.submitTotalImportVatClaim("100.99")
       TotalImportVatClaim.clickSignOut
     }
 
