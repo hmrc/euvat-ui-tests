@@ -50,18 +50,17 @@ class DeleteClaimSpec
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
-      When("I start new EUVAT claim")
-      //      Inject Claim details
+      When("I inject Claim details")
       CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I see claim details page completed")
+      And("I see the Check your claim details page completed")
       MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
 
-      And("I delete the claim")
+      Then("I return to the Claim details page to delete the claim")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       MakeEuvatClaim.clickLinkByText("View claim details")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
@@ -76,28 +75,26 @@ class DeleteClaimSpec
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
-      When("I start new EUVAT claim")
+      When("I inject Claim details")
       CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
-
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I save the injected claim details to the database")
+      And("I see the Check your claim details page completed")
       MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
 
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-
       And("I inject purchase details into the existing session")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       CacheHelper.updateUserAnswers("purchaseDetails.json", sharedId)
 
-      And("I save the injected purchase details to the database")
+      And("I see the Check your purchase details page completed")
       MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/purchase/check-your-purchase-details")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
 
-      And("I delete the claim")
+      Then("I delete the claim")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       MakeEuvatClaim.clickLinkByText("Delete this claim")
       DeleteClaim.verifyPageTitle(DeleteClaim.pageTitle)
