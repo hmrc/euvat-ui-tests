@@ -228,7 +228,7 @@ class AddPurchaseSpec
       CheckYourPurchaseDetails.saveAndContinue()
       PurchaseImportSummary.verifyDynamicPageTitle(
         PurchaseImportSummary.pageTitle1,
-        "3",
+        "3 items",
         PurchaseImportSummary.pageTitle2
       )
       PurchaseImportSummary.continueAsNo()
@@ -320,7 +320,7 @@ class AddPurchaseSpec
       CheckYourPurchaseDetails.saveAndContinue()
       PurchaseImportSummary.verifyDynamicPageTitle(
         PurchaseImportSummary.pageTitle1,
-        "3",
+        "3 items",
         PurchaseImportSummary.pageTitle2
       )
       PurchaseImportSummary.continueAsNo()
