@@ -86,8 +86,12 @@ class AddImportSpec
       ImportCurrency.verifyPageTitle(ImportCurrency.pageTitle)
       ImportCurrency.selectImportCurrencyType("Euro")
       TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
-      TotalImportAmount.submitTotalImportAmount("100")
-      TotalImportAmount.clickSignOut
+      TotalImportAmount.submitTotalImportAmount("1000.01")
+      TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
+      TotalImportVATPaid.submitTotalImportVATPaid("200.01")
+      TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
+      TotalImportVatClaim.submitTotalImportVatClaim("100.01")
+      TotalImportVatClaim.clickSignOut
     }
 
     Scenario("02 - Add an import for Germany", Local) {
@@ -128,8 +132,12 @@ class AddImportSpec
       SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
       SubmitSupplierName.submitSupplierName("Test Supplier")
       TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
-      TotalImportAmount.submitTotalImportAmount("100")
-      TotalImportAmount.clickSignOut
+      TotalImportAmount.submitTotalImportAmount("1000.99")
+      TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
+      TotalImportVATPaid.submitTotalImportVATPaid("200.99")
+      TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
+      TotalImportVatClaim.submitTotalImportVatClaim("100.99")
+      TotalImportVatClaim.clickSignOut
     }
 
   }
