@@ -134,11 +134,7 @@ class DeleteClaimSpec
       TotalVatClaim.submitTotalVatClaim("100.01")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
-      PurchaseImportSummary.verifyDynamicPageTitle(
-        PurchaseImportSummary.pageTitle1,
-        "3 items",
-        PurchaseImportSummary.pageTitle2
-      )
+      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("3"))
       PurchaseImportSummary.continueAsNo()
 
       And("I delete the claim")

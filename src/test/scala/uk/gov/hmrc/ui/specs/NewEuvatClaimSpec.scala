@@ -310,11 +310,7 @@ class NewEuvatClaimSpec
       CheckVATClaim.continue()
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
-      PurchaseImportSummary.verifyDynamicPageTitle(
-        PurchaseImportSummary.pageTitle1,
-        "3 items",
-        PurchaseImportSummary.pageTitle2
-      )
+      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("3"))
       PurchaseImportSummary.continueAsNo()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       MakeEuvatClaim.clickSignOut
@@ -408,11 +404,7 @@ class NewEuvatClaimSpec
       VATRegistrationNumber.submitVATRegistrationNumber("1234567890")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
-      PurchaseImportSummary.verifyDynamicPageTitle(
-        PurchaseImportSummary.pageTitle1,
-        "3 items",
-        PurchaseImportSummary.pageTitle2
-      )
+      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("3"))
       PurchaseImportSummary.continueAsNo()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       MakeEuvatClaim.clickSignOut
