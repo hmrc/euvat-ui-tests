@@ -141,9 +141,9 @@ class AddImportSpec
       ImportSupplierAddress.verifyPageTitle(ImportSupplierAddress.pageTitle)
       ImportSupplierAddress.submitImportSupplierAddress(
         "  Test   Street123  ",
-        "Test City456",
-        "Test State789",
-        "HEARD ISLAND & MCDONALD ISLANDS"
+        "",
+        "",
+        "ÅLAND ISLANDS"
       )
       TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
       TotalImportAmount.submitTotalImportAmount("1000.99")

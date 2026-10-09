@@ -28,10 +28,10 @@ object ImportSupplierAddress extends BasePage {
   val txtAddressLine1: By = By.cssSelector("#addressLine1")
   val txtAddressLine2: By = By.cssSelector("#addressLine2")
   val txtAddressLine3: By = By.cssSelector("#addressLine3")
-  //val txtCountryInput: By = By.cssSelector("#country-input")
+  // val txtCountryInput: By = By.cssSelector("#country-input")
 
   val importCountryDropdown = "#country-input__listbox"
-  val txtImportCountry: By = By.cssSelector("#country-input")
+  val txtImportCountry: By  = By.cssSelector("#country-input")
 
   def selectImportCountry(country: String): Unit = {
     clearImportCountry(txtImportCountry)
@@ -43,7 +43,7 @@ object ImportSupplierAddress extends BasePage {
 
   /** Clear already selected country value */
   def clearImportCountry(selector: By): Unit = {
-    val el = waitForVisibilityOfElement(selector)
+    val el      = waitForVisibilityOfElement(selector)
     el.click()
     val current = Option(el.getAttribute("value")).getOrElse("")
     if (current.nonEmpty) {
@@ -52,7 +52,12 @@ object ImportSupplierAddress extends BasePage {
     }
   }
 
-  def submitImportSupplierAddress(addressLine1: String, addressLine2: String, addressLine3: String, countryInput: String): Unit = {
+  def submitImportSupplierAddress(
+    addressLine1: String,
+    addressLine2: String,
+    addressLine3: String,
+    countryInput: String
+  ): Unit = {
     input(txtAddressLine1, addressLine1)
     input(txtAddressLine2, addressLine2)
     input(txtAddressLine3, addressLine3)
