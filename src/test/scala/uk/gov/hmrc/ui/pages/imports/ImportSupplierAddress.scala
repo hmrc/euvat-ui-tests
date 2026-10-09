@@ -28,7 +28,6 @@ object ImportSupplierAddress extends BasePage {
   val txtAddressLine1: By = By.cssSelector("#addressLine1")
   val txtAddressLine2: By = By.cssSelector("#addressLine2")
   val txtAddressLine3: By = By.cssSelector("#addressLine3")
-  // val txtCountryInput: By = By.cssSelector("#country-input")
 
   val importCountryDropdown = "#country-input__listbox"
   val txtImportCountry: By  = By.cssSelector("#country-input")
