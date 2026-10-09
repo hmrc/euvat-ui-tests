@@ -44,7 +44,7 @@ class UpdateDatabaseSpec
   }
 
   Feature("Make a new EUVAT claim - Add a purchase") {
-    Scenario("01 - Submit a refund request", Local) {
+    Scenario("01 - Submit a refund request", Local, WIP) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -61,6 +61,7 @@ class UpdateDatabaseSpec
 
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+//      MakeEuvatClaim.pause(1000000)
 
       And("I reopen claim details and update them again after database save")
       MakeEuvatClaim.clickLinkByText("View claim details")
@@ -74,11 +75,15 @@ class UpdateDatabaseSpec
       ClaimDetails.clickChangeLink("End date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
       RefundPeriod.submitRefundPeriodUsingCurrentYear("06", "09")
+      CheckRefundPeriod.verifyPageTitle(CheckRefundPeriod.pageTitle)
+      CheckRefundPeriod.continue()
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
       ClaimDetails.clickChangeLink("Start date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
       RefundPeriod.submitRefundPeriodUsingCurrentYear("07", "09")
+      CheckRefundPeriod.verifyPageTitle(CheckRefundPeriod.pageTitle)
+      CheckRefundPeriod.continue()
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
       ClaimDetails.clickChangeLink("Email")
@@ -127,6 +132,7 @@ class UpdateDatabaseSpec
 
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
       And("I reopen claim details and update them again after database save")
       MakeEuvatClaim.clickLinkByText("View claim details")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
