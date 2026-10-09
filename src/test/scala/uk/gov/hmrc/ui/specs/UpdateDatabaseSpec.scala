@@ -74,22 +74,22 @@ class UpdateDatabaseSpec
 
       ClaimDetails.clickChangeLink("End date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("09", "2025", "12", "2025")
+      RefundPeriod.submitRefundPeriodUsingCurrentYear("06", "09")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
       ClaimDetails.clickChangeLink("Start date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriod("10", "2025", "12", "2025")
+      RefundPeriod.submitRefundPeriodUsingCurrentYear("07", "09")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
       ClaimDetails.clickChangeLink("Email")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-      ContactDetails.submitContactAddress("secondchange@gmail.com", "+441234567890")
+      ContactDetails.submitContactDetails("secondchange@gmail.com", "+441234567890")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
       ClaimDetails.clickChangeLink("Phone number")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-      ContactDetails.submitContactAddress("secondchange@gmail.com", "+449999999999")
+      ContactDetails.submitContactDetails("secondchange@gmail.com", "+449999999999")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
       ClaimDetails.clickChangeLink("View first SIC code")
@@ -135,7 +135,7 @@ class UpdateDatabaseSpec
 
       ClaimDetails.clickChangeLink("Phone number")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-      ContactDetails.submitContactAddress("germany-update@gmail.com", "")
+      ContactDetails.submitContactDetails("germany-update@gmail.com", "")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
       ClaimDetails.clickChangeLink("View first SIC code")

@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.ui.pages.claim
 
-import org.openqa.selenium.{By, Keys}
+import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.BasePage
 
 object SecondBusinessActivity extends BasePage {
@@ -30,23 +30,6 @@ object SecondBusinessActivity extends BasePage {
   def enterSecondBusinessActivityCode(businessActivityCode: String): Unit = {
     input(txtSecondBusinessActivityCode, businessActivityCode)
     continue()
-  }
-
-  /** Clear already selected country value */
-  def clearSecondBusinessActivityCodeDropdown(selector: By): Unit = {
-    val element = waitForVisibilityOfElement(selector)
-    element.sendKeys(Keys.CONTROL, "a")
-    element.sendKeys(Keys.DELETE)
-  }
-
-  def clearSecondBusinessActivityCode(selector: By): Unit = {
-    val el      = waitForVisibilityOfElement(selector)
-    el.click()
-    val current = Option(el.getAttribute("value")).getOrElse("")
-    if (current.nonEmpty) {
-      for (_ <- 1 to current.length)
-        el.sendKeys(Keys.BACK_SPACE)
-    }
   }
 
 }

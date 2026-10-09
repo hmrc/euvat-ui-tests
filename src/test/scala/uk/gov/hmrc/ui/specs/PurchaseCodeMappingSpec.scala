@@ -22,10 +22,10 @@ import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages.{AuthorityWizard, ClaimAnEUVATRefund}
+import uk.gov.hmrc.ui.pages.{AuthorityWizard, ClaimAnEUVATRefund, GenericRadioPage}
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.purchase.*
-import uk.gov.hmrc.ui.utils.{CountryCodeMappingReader, MappingRow, MongoHelper, PurchaseFlowRouter}
+import uk.gov.hmrc.ui.utils.{CodeMappingFlowRouter, CountryCodeMappingReader, MappingRow, MongoHelper}
 
 import java.io.{File, FileOutputStream}
 import scala.collection.mutable.ListBuffer
@@ -154,6 +154,12 @@ class CountryCodeMappingSpec
       .filter(_.nonEmpty)
       .distinct
 
+  /** Logs in, starts a claim, selects the EU member state, waits for the immediate post-country page to settle, then
+    * jumps directly to the purchase entry page for the Purchase journey.
+    *
+    * This is an optimisation for mapping tests so they do not need to complete the full claim journey before reaching
+    * PurchaseType.
+    */
   private def navigateToPurchaseType(countryName: String): Unit = {
     AuthorityWizard.login("Organisation", "999900001")
     ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -166,29 +172,14 @@ class CountryCodeMappingSpec
     EUMemberState.selectCountry(countryName)
 
     countryName match {
-      case "Croatia" | "Czech Republic" =>
-        RefundPeriod.waitForPage()
-      case _                            =>
-        Language.waitForPage()
+      case "Croatia" | "Czech Republic" => RefundPeriod.waitForPage()
+      case _                            => Language.waitForPage()
     }
 
-    val purchaseTypeUrl = "http://localhost:18501/file-eu-vat/purchase/purchase-type"
-
-    var attempts = 0
-    var loaded   = false
-
-    while (attempts < 3 && !loaded) {
-      Language.navigateToPage(purchaseTypeUrl)
-      try {
-        PurchaseType.waitForPageTitle(PurchaseType.pageTitle)
-        loaded = true
-      } catch {
-        case _: Throwable =>
-          attempts += 1
-          PurchaseType.pause(1)
-      }
-    }
-
+    val purchaseTypeUrl =
+      s"http://localhost:18501/file-eu-vat/${CodeMappingFlowRouter.entryPageSlug(CodeMappingFlowRouter.PurchaseFlow)}"
+    PurchaseType.navigateToPage(purchaseTypeUrl)
+    PurchaseType.waitForPage()
     PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
   }
 
@@ -315,10 +306,10 @@ class CountryCodeMappingSpec
             navigateToPurchaseType(countryName)
 
             When(s"I select purchase type code $code")
-            PurchaseType.selectPurchaseType(PurchaseFlowRouter.purchaseTypeLabelFor(code))
+            PurchaseType.selectPurchaseType(CodeMappingFlowRouter.purchaseTypeLabelFor(code))
 
             Then(s"I should see the expected sub code labels")
-            val page = PurchaseFlowRouter.topLevelPageFor(code)
+            val page = CodeMappingFlowRouter.topLevelPageFor(code)
 
             try
               verifyTopLevelLabels(countryCode, countryName, code, page, subLabels)
@@ -366,9 +357,9 @@ class CountryCodeMappingSpec
             navigateToPurchaseType(countryName)
 
             When(s"I select purchase type code $code")
-            PurchaseType.selectPurchaseType(PurchaseFlowRouter.purchaseTypeLabelFor(code))
+            PurchaseType.selectPurchaseType(CodeMappingFlowRouter.purchaseTypeLabelFor(code))
 
-            val topPage      = PurchaseFlowRouter.topLevelPageFor(code)
+            val topPage      = CodeMappingFlowRouter.topLevelPageFor(code)
             val subCodeLabel = groupedRows.head.subCodeLabel.get
 
             withClue(
@@ -390,7 +381,7 @@ class CountryCodeMappingSpec
             topPage.selectByVisibleLabel(subCodeLabel)
 
             Then(s"I should see the expected sub category labels")
-            val subPage = PurchaseFlowRouter.subCategoryPageFor(code, subCode)
+            val subPage = CodeMappingFlowRouter.subCategoryPageFor(code, subCode)
 
             try
               verifySubCategoryLabels(countryCode, countryName, code, subCode, subCodeLabel, subPage, expectedLabels)

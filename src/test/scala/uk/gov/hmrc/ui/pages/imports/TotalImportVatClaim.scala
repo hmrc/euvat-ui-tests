@@ -14,28 +14,21 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.purchase
+package uk.gov.hmrc.ui.pages.imports
 
+import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.BasePage
 
-object FoodDrink extends BasePage {
+object TotalImportVatClaim extends BasePage {
 
-  override def pageUrl: String = "food-drink-restaurant-cost"
+  override def pageUrl: String = "import/total-vat-claim"
 
-  override def pageTitle: String = "What is the type of food, drink or restaurant cost? - EU VAT - GOV.UK"
+  override def pageTitle: String = "Total VAT claim - EU VAT - GOV.UK"
 
-  val rdoFood = "#value_0"
-  val rdoNone = "#value_1"
+  val txtTotalImportVatClaim: By = By.cssSelector("#value")
 
-  def selectFoodDrinkCostType(radio: String): this.type = {
-    val selector = radio match {
-      case "Food and drink from hotels" => rdoFood
-      case "None"                       => rdoNone
-      case _                            => throw new IllegalArgumentException(s"Invalid option: $radio")
-    }
-    radioButton(selector)
+  def submitTotalImportVatClaim(totalImportVatClaimAmount: String): Unit = {
+    input(txtTotalImportVatClaim, totalImportVatClaimAmount)
     continue()
-    this
   }
-
 }

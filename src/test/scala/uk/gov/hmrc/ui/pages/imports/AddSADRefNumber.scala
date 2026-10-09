@@ -14,23 +14,25 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.claim
+package uk.gov.hmrc.ui.pages.imports
 
-import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.BasePage
 
-object ContactDetails extends BasePage {
+object AddSADRefNumber extends BasePage {
 
-  override def pageUrl: String = "how-contact-you-about-claim"
+  override def pageUrl: String = "import/single-administrative-document-reference-number-available"
 
-  override def pageTitle: String = "How should we contact you about this claim? - EU VAT - GOV.UK"
+  override def pageTitle: String =
+    "Do you have a Single Administrative Document (SAD) reference number? - EU VAT - GOV.UK"
 
-  val txtEmailAddress: By = By.cssSelector("#contactEmail")
-  val txtTelephone: By    = By.cssSelector("#contactTelephone")
-
-  def submitContactDetails(emailAddress: String, telephoneNumber: String): Unit = {
-    input(txtEmailAddress, emailAddress)
-    input(txtTelephone, telephoneNumber)
+  def continueAsYes(): Unit = {
+    radioButton(Locators.rdoYes)
     continue()
   }
+
+  def continueAsNo(): Unit = {
+    radioButton(Locators.rdoNo)
+    continue()
+  }
+
 }
