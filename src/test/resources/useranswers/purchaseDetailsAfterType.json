@@ -1,11 +1,4 @@
 {
-  "updateSequenceNumber": 2,
-  "purchaseOrImport": "purchase",
-  "purchaseType": "foodAndDrink",
-  "addPurchaseResponse": {
-    "itemNumber": 1,
-    "updateSequenceNumber": 2
-  },
   "purchaseSubType": "7.1",
   "purchaseSubTypeLabel": "Food and drink from hotels, bars, restaurants and boarding houses (including breakfast)",
   "purchaseSubCategory": "7.1.1",

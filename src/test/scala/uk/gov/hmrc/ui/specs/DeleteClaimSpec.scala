@@ -63,7 +63,7 @@ class DeleteClaimSpec
 
       Then("I return to the Claim details page to delete the claim")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      MakeEuvatClaim.clickLinkByText("View claim details")
+      MakeEuvatClaim.clickLinkByText("Claim details")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
       ClaimDetails.clickChangeLink("EU member state")
       EUMemberStateDetails.verifyPageTitle(EUMemberStateDetails.pageTitle)
@@ -71,29 +71,42 @@ class DeleteClaimSpec
       ClaimAnEUVATRefund.clickSignOut
     }
 
-    Scenario("02 - Delete a full refund claim from Make a claim for an EU VAT refund page", Local, WIP) {
+    Scenario("02 - Delete a full refund claim from Make a claim for an EU VAT refund page", Local) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
-      When("I inject Claim details")
+      When("I inject claim details")
       CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
+
+      And("I start the claim")
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I see the Check your claim details page completed")
+      And("I save the injected claim details")
       MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
-
-      And("I inject purchase details into the existing session")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      CacheHelper.updateUserAnswers("purchaseDetails.json", sharedId)
 
-      And("I see the Check your purchase details page completed")
+      And("I create the purchase record through the UI")
+      MakeEuvatClaim.clickLinkByText("Purchases and imports")
+      BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
+      BeforeYouStart.continue()
+      AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
+      AddPurchaseImport.selectPurchaseOrImport("Purchase")
+      PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
+      PurchaseType.selectPurchaseType("Food, drink and restaurant services")
+
+      And("I inject the remaining purchase details")
+      CacheHelper.updateUserAnswers("purchaseDetailsAfterType.json", sharedId)
+
+      And("I go to check your purchase details")
       MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/purchase/check-your-purchase-details")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
+      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1"))
+      PurchaseImportSummary.continueAsNo()
 
       Then("I delete the claim")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
