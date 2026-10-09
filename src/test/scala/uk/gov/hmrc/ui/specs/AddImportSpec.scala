@@ -83,6 +83,13 @@ class AddImportSpec
       SubmitSADRefNumber.submitSADRefNumber("98765")
       SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
       SubmitSupplierName.submitSupplierName("Test Supplier")
+      ImportSupplierAddress.verifyPageTitle(ImportSupplierAddress.pageTitle)
+      ImportSupplierAddress.submitImportSupplierAddress(
+        "  Test   Street123  ",
+        "Test City456",
+        "Test State789",
+        "HEARD ISLAND & MCDONALD ISLANDS"
+      )
       ImportCurrency.verifyPageTitle(ImportCurrency.pageTitle)
       ImportCurrency.selectImportCurrencyType("Euro")
       TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
@@ -131,6 +138,13 @@ class AddImportSpec
       ImportDocumentDetails.submitDocumentDetails("Test Import Document Details")
       SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
       SubmitSupplierName.submitSupplierName("Test Supplier")
+      ImportSupplierAddress.verifyPageTitle(ImportSupplierAddress.pageTitle)
+      ImportSupplierAddress.submitImportSupplierAddress(
+        "  Test   Street123  ",
+        "Test City456",
+        "Test State789",
+        "HEARD ISLAND & MCDONALD ISLANDS"
+      )
       TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
       TotalImportAmount.submitTotalImportAmount("1000.99")
       TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
