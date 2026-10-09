@@ -21,7 +21,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object SupplierTaxIDNumber extends BasePage {
 
-  override def pageUrl: String = "supplier-tax-identifier-number"
+  override def pageUrl: String = "purchase/supplier-tax-identifier"
 
   override def pageTitle: String = "What is the supplier’s tax identifier number? - EU VAT - GOV.UK"
 

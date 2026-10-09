@@ -21,7 +21,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object TotalVatPaid extends BasePage {
 
-  override def pageUrl: String = "total-vat-paid"
+  override def pageUrl: String = "purchase/vat-paid"
 
   override def pageTitle: String = "Total VAT paid - EU VAT - GOV.UK"
 

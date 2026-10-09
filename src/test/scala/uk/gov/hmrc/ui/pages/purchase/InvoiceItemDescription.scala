@@ -21,7 +21,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object InvoiceItemDescription extends BasePage {
 
-  override def pageUrl: String = "describe-items-on-invoice"
+  override def pageUrl: String = "purchase/list-items"
 
   override def pageTitle: String = "Describe the items on your invoice - EU VAT - GOV.UK"
 

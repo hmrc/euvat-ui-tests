@@ -21,7 +21,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object SecondBusinessActivity extends BasePage {
 
-  override def pageUrl: String = "what-is-the-second-SIC-code"
+  override def pageUrl: String = "claim-details/second-SIC-code"
 
   override def pageTitle: String = "What is the second SIC code? - EU VAT - GOV.UK"
 

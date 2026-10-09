@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object RemoveSecondBusinessActivity extends BasePage {
 
-  override def pageUrl: String = "remove-second-SIC-code"
+  override def pageUrl: String = "claim-details/remove-second-SIC-code"
 
   override def pageTitle: String = "Are you sure you want to remove the second SIC code? - EU VAT - GOV.UK"
 

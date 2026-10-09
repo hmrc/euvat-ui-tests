@@ -21,7 +21,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object ContactDetails extends BasePage {
 
-  override def pageUrl: String = "how-contact-you-about-claim"
+  override def pageUrl: String = "claim-details/contact-details"
 
   override def pageTitle: String = "How should we contact you about this claim? - EU VAT - GOV.UK"
 

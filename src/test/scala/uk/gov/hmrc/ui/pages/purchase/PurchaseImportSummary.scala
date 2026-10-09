@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object PurchaseImportSummary extends BasePage {
 
-  override def pageUrl: String = "purchase-import-summary"
+  override def pageUrl: String = "purchases-imports/summary"
 
   override def pageTitle(args: String*): String = {
     val count = args.head.toInt

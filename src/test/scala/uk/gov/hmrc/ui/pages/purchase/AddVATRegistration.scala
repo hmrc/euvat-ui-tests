@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object AddVATRegistration extends BasePage {
 
-  override def pageUrl: String = "simplified-invoice-supplier-vat-registration-check"
+  override def pageUrl: String = "purchase/supplier-vat-registration-check"
 
   override def pageTitle: String =
     "Does the simplified invoice contain the supplier’s VAT registration number? - EU VAT - GOV.UK"

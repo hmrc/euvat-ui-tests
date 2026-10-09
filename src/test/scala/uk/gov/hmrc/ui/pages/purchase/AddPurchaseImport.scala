@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object AddPurchaseImport extends BasePage {
 
-  override def pageUrl: String = "purchase-or-import"
+  override def pageUrl: String = "purchases-imports/select-item"
 
   override def pageTitle: String = "What do you want to add to this claim? - EU VAT - GOV.UK"
 

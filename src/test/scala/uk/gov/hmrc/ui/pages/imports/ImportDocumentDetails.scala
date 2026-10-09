@@ -21,7 +21,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object ImportDocumentDetails extends BasePage {
 
-  override def pageUrl: String = "/import/import-document-details"
+  override def pageUrl: String = "import/import-document-details"
 
   override def pageTitle: String =
     "Import document information - EU VAT - GOV.UK"
