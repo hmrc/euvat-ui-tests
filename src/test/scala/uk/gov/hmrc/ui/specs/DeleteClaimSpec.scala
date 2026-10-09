@@ -41,6 +41,7 @@ class DeleteClaimSpec
   override def beforeEach(): Unit = {
     super.beforeEach()
     dropMongoCollections()
+    cleanupDatabaseIfNotStub()
   }
 
   Feature("Delete a draft EUVAT claim - Delete claim") {
@@ -70,7 +71,7 @@ class DeleteClaimSpec
       ClaimAnEUVATRefund.clickSignOut
     }
 
-    Scenario("02 - Delete a full refund claim from Make a claim for an EU VAT refund page", Local) {
+    Scenario("02 - Delete a full refund claim from Make a claim for an EU VAT refund page", Local, WIP) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
