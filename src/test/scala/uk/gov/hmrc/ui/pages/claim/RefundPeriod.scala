@@ -47,11 +47,21 @@ object RefundPeriod extends BasePage {
   def submitRefundPeriodUsingCurrentYear(startMonth: String, endMonth: String): Unit =
     submitRefundPeriod(startMonth, currentYearString, endMonth, currentYearString)
 
+  def submitRefundPeriodUsingLastYear(startMonth: String, endMonth: String): Unit =
+    submitRefundPeriod(startMonth, lastYearString, endMonth, lastYearString)
+
   def submitRefundPeriodUsingStartLastYear(startMonth: String, endMonth: String): Unit =
     submitRefundPeriod(startMonth, lastYearString, endMonth, currentYearString)
 
   def submitRefundPeriodUsingTwoYearsAgo(startMonth: String, endMonth: String): Unit =
     submitRefundPeriod(startMonth, twoYearsAgoString, endMonth, twoYearsAgoString)
+
+  def submitRefundPeriodUsingDynamicValidYear(startMonth: String, endMonth: String): Unit =
+    if (isOnOrBefore30September()) {
+      submitRefundPeriod(startMonth, lastYearString, endMonth, lastYearString)
+    } else {
+      submitRefundPeriod(startMonth, currentYearString, endMonth, currentYearString)
+    }
 
   def isOnOrBefore30September(today: LocalDate = LocalDate.now()): Boolean =
     !today.isAfter(LocalDate.of(today.getYear, 9, 30))
@@ -64,5 +74,4 @@ object RefundPeriod extends BasePage {
 
   def checkRefundEndDateMessageUsingCurrentYear(endMonth: String): String =
     s"You’ve told us the refund period end date is $endMonth/$currentYearString. The refund period end date must be in the past."
-
 }

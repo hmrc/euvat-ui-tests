@@ -60,11 +60,11 @@ class ErrorSpec
       EUMemberState.selectCountry("Croatia")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
 
-      RefundPeriod.submitRefundPeriodUsingCurrentYear("05", "04")
+      RefundPeriod.submitRefundPeriodUsingDynamicValidYear("02", "01")
       RefundPeriod.errorSummaryDisplayed("Refund period start date must be earlier than the refund period end date")
       RefundPeriod.errorMessageDisplayed("Refund period start date must be earlier than the refund period end date")
 
-      RefundPeriod.submitRefundPeriodUsingCurrentYear("01", "02")
+      RefundPeriod.submitRefundPeriodUsingDynamicValidYear("01", "02")
       RefundPeriod.errorSummaryDisplayed(
         "Refund period must be at least 3 months long unless the period ends in December"
       )
