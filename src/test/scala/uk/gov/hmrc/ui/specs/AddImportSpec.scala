@@ -66,7 +66,7 @@ class AddImportSpec
 //      insertDuplicateImportRecordVRN()
 
       And("I add import details")
-      MakeEuvatClaim.clickLinkByText("Add a purchase")
+      MakeEuvatClaim.clickLinkByText("Purchases and imports")
       BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
       BeforeYouStart.continue()
       AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
@@ -85,6 +85,12 @@ class AddImportSpec
       SubmitSupplierName.submitSupplierName("Test Supplier")
       ImportCurrency.verifyPageTitle(ImportCurrency.pageTitle)
       ImportCurrency.selectImportCurrencyType("Euro")
+      TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
+      TotalImportAmount.submitTotalImportAmount("1000.01")
+      TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
+      TotalImportVATPaid.submitTotalImportVATPaid("200.01")
+      TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
+      TotalImportVatClaim.submitTotalImportVatClaim("100.01")
       clickSignOut(Driver.instance)
     }
 
@@ -108,7 +114,7 @@ class AddImportSpec
 //      insertDuplicateImportRecordTID()
 
       And("I add import details")
-      MakeEuvatClaim.clickLinkByText("Add a purchase")
+      MakeEuvatClaim.clickLinkByText("Purchases and imports")
       BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
       BeforeYouStart.continue()
       AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
@@ -123,6 +129,14 @@ class AddImportSpec
       AddSADRefNumber.continueAsNo()
       ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
       ImportDocumentDetails.submitDocumentDetails("Test Import Document Details")
+      SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
+      SubmitSupplierName.submitSupplierName("Test Supplier")
+      TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
+      TotalImportAmount.submitTotalImportAmount("1000.99")
+      TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
+      TotalImportVATPaid.submitTotalImportVATPaid("200.99")
+      TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
+      TotalImportVatClaim.submitTotalImportVatClaim("100.99")
       clickSignOut(Driver.instance)
     }
 
