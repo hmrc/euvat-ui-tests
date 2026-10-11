@@ -300,7 +300,7 @@ class WelshLanguageValidationSpec
       Language.verifyPageTitle(Language.pageTitle)
       Language.selectLanguage("English")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriodUsingCurrentYear("02", "04")
+      RefundPeriod.submitRefundPeriodUsingDynamicValidYear("01", "03")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
       AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
