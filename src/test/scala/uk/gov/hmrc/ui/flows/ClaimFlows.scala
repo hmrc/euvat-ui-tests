@@ -22,15 +22,15 @@ import uk.gov.hmrc.ui.utils.CacheHelper
 
 trait ClaimFlows {
 
-  def loginAndOpenNewClaim(): Unit = {
-    AuthorityWizard.login("Organisation", "999900001")
+  def loginAndOpenNewClaim(vrn: String): Unit = {
+    AuthorityWizard.login("Organisation", vrn)
     ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
     ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
     MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
   }
 
-  def loginAndInjectClaimDetails(): String = {
-    val sharedId = AuthorityWizard.login("Organisation", "999900001")
+  def loginAndInjectClaimDetails(vrn: String): String = {
+    val sharedId = AuthorityWizard.login("Organisation", vrn)
     ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
     CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
     ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
@@ -66,7 +66,7 @@ trait ClaimFlows {
   }
 
   def addClaimDetails(data: ClaimData, addBusinessActivity: Boolean = false): Unit = {
-    MakeEuvatClaim.clickLinkByText("Add claim details")
+    MakeEuvatClaim.clickLinkByText("Claim details")
     EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
     EUMemberState.selectCountry(data.country)
 
@@ -76,8 +76,7 @@ trait ClaimFlows {
     }
 
     RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-//    RefundPeriod.submitRefundPeriod(data.fromMonth, data.fromYear, data.toMonth, data.toYear)
-    RefundPeriod.submitRefundPeriodUsingCurrentYear(data.fromMonth, data.toMonth)
+    RefundPeriod.submitRefundPeriodUsingDynamicValidYear(data.fromMonth, data.toMonth)
 
     ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
     ContactDetails.submitContactAddress(data.email, data.phone)
@@ -88,7 +87,7 @@ trait ClaimFlows {
   }
 
   def addClaimDetailsErrors(data: ClaimData): Unit = {
-    MakeEuvatClaim.clickLinkByText("Add claim details")
+    MakeEuvatClaim.clickLinkByText("Claim details")
     EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
     EUMemberState.selectCountry(data.country)
 
@@ -98,17 +97,7 @@ trait ClaimFlows {
     }
 
     RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-    //    RefundPeriod.submitRefundPeriod(data.fromMonth, data.fromYear, data.toMonth, data.toYear)
-    RefundPeriod.submitRefundPeriodUsingCurrentYear(data.fromMonth, data.toMonth)
-
-    ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-    ContactDetails.submitContactAddress(data.email, data.phone)
-
-    AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
-    if (addBusinessActivity) AddBusinessActivity.continueAsYes()
-    else AddBusinessActivity.continueAsNo()
   }
-
 
   def saveClaimDetails(): Unit = {
     CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
@@ -125,7 +114,7 @@ trait ClaimFlows {
     Language.verifyPageTitle(Language.pageTitle)
     Language.selectLanguage("English")
     RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-    RefundPeriod.submitRefundPeriodUsingCurrentYear("05", "07")
+    RefundPeriod.submitRefundPeriodUsingDynamicValidYear("05", "07")
     CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
     CheckYourClaimDetails.clickChangeLink("Claim language")
@@ -135,12 +124,12 @@ trait ClaimFlows {
 
     CheckYourClaimDetails.clickChangeLink("End date")
     RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-    RefundPeriod.submitRefundPeriodUsingCurrentYear("05", "08")
+    RefundPeriod.submitRefundPeriodUsingDynamicValidYear("05", "08")
     CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
     CheckYourClaimDetails.clickChangeLink("Start date")
     RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-    RefundPeriod.submitRefundPeriodUsingCurrentYear("06", "08")
+    RefundPeriod.submitRefundPeriodUsingDynamicValidYear("06", "08")
     CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
     CheckYourClaimDetails.clickChangeLink("Email")

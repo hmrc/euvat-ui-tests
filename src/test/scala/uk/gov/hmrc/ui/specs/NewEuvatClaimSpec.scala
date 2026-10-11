@@ -41,7 +41,7 @@ class NewEuvatClaimSpec
   Feature("Make a new EUVAT claim - New claim") {
 
     Scenario("01 - Submit a refund request", Local) {
-      loginAndOpenNewClaim()
+      loginAndOpenNewClaim("999900001")
       addClaimDetails(croatiaClaim)
       changeClaimDetailsJourney()
       saveClaimDetails()
@@ -60,7 +60,7 @@ class NewEuvatClaimSpec
     }
 
     Scenario("02 - Submit a refund request for Germany", Local) {
-      loginAndOpenNewClaim()
+      loginAndOpenNewClaim("999900001")
       addClaimDetails(germanyClaim)
       saveClaimDetails()
 

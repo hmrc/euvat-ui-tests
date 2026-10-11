@@ -39,15 +39,15 @@ class NewDeleteClaimSpec
 
   Feature("Delete a draft EUVAT claim - Delete claim") {
 
-    Scenario("01 - Delete a refund claim from Claim details page", Local, WIP) {
-      loginAndInjectClaimDetails()
+    Scenario("01 - Delete a refund claim from Claim details page", Local) {
+      loginAndOpenNewClaim("999900001")
       goToSaveClaimDetails()
       deleteClaimFromClaimDetails()
       clickSignOut(Driver.instance)
     }
 
-    Scenario("02 - Delete a refund claim from Make a claim for an EU VAT refund page", Local, WIP) {
-      val sharedId = loginAndInjectClaimDetails()
+    Scenario("02 - Delete a refund claim from Make a claim for an EU VAT refund page", Local) {
+      val sharedId = loginAndInjectClaimDetails("999900001")
       goToSaveClaimDetails()
       injectPurchaseDetailsForClaim(sharedId)
       goToSavePurchaseDetails()

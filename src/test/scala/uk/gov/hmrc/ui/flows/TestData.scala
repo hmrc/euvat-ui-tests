@@ -74,6 +74,18 @@ object TestData {
       phone = "+449876543210"
     )
 
+  val austriaClaim: ClaimData =
+    ClaimData(
+      country = "Austria",
+      language = None,
+      fromMonth = "06",
+      fromYear = "2026",
+      toMonth = "08",
+      toYear = "2026",
+      email = "changetest@gmail.com",
+      phone = "+449876543210"
+    )
+
   val germanyClaim: ClaimData =
     ClaimData(
       country = "Germany",
