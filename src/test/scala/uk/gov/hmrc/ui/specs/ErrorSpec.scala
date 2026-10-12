@@ -55,7 +55,7 @@ class ErrorSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I check refund period validation")
-      MakeEuvatClaim.clickLinkByText("Add claim details")
+      MakeEuvatClaim.clickLinkByText("Claim details")
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Croatia")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
@@ -120,7 +120,7 @@ class ErrorSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I add claim details")
-      MakeEuvatClaim.clickLinkByText("Add claim details")
+      MakeEuvatClaim.clickLinkByText("Claim details")
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Austria")
       EUMemberState.errorSummaryDisplayed("You cannot have more than one draft claim for each EU member state")
@@ -138,7 +138,7 @@ class ErrorSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I verify VAT registration date")
-      MakeEuvatClaim.clickLinkByText("Add claim details")
+      MakeEuvatClaim.clickLinkByText("Claim details")
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Croatia")
 
