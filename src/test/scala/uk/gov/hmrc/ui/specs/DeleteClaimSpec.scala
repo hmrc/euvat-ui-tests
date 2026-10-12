@@ -105,7 +105,7 @@ class DeleteClaimSpec
       MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/purchase/check-your-purchase-details")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
-      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1"))
+      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("3"))
       PurchaseImportSummary.continueAsNo()
 
       Then("I delete the claim")
