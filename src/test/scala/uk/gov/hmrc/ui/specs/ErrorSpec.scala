@@ -47,7 +47,7 @@ class ErrorSpec
 
     Scenario("01 - Refund period start and end date validation", Local, Error) {
       Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "999900002") //Vat registration date 01/01/2024
+      AuthorityWizard.login("Organisation", "999900002") // Vat registration date 01/01/2024
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
@@ -112,7 +112,7 @@ class ErrorSpec
 
     Scenario("02 - Validate a duplicate draft refund from the EU member state page", Local, Error) {
       Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "999900003") //Vat registration date 01/01/2023
+      AuthorityWizard.login("Organisation", "999900003") // Vat registration date 01/01/2023
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
