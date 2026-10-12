@@ -51,41 +51,53 @@ class UpdateDatabaseSpec
 
       When("I start new EUVAT claim")
 //      Inject Claim details
-      CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
+      CacheHelper.submitUserAnswers("claimDetailsNoCurrency.json", sharedId)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I see claim details page completed")
+      And("I see Check your claim details page completed")
       MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
+      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+
+      //      Change member state
+      CheckYourClaimDetails.clickChangeLink("Refunding EU member state")
+      EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
+      EUMemberState.selectCountry("Estonia")
+      Language.verifyPageTitle(Language.pageTitle)
+      Language.selectLanguage("Estonian")
+      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
+      RefundPeriod.submitRefundPeriodUsingCurrentYear("02", "04")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-//      MakeEuvatClaim.pause(1000000)
 
-      And("I reopen claim details and update them again after database save")
-      MakeEuvatClaim.clickLinkByText("View claim details")
+      And("I reopen Claim details and update them again after database save")
+      MakeEuvatClaim.clickLinkByText("Claim details")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
+      //      Change language
       ClaimDetails.clickChangeLink("Claim language")
       Language.verifyPageTitle(Language.pageTitle)
       Language.selectLanguage("English")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
-
+      CheckYourClaimDetails.pause(100000)
+      //      Change refund period
       ClaimDetails.clickChangeLink("End date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriodUsingCurrentYear("06", "09")
-      CheckRefundPeriod.verifyPageTitle(CheckRefundPeriod.pageTitle)
-      CheckRefundPeriod.continue()
+      RefundPeriod.submitRefundPeriodUsingCurrentYear("05", "07")
+//      CheckRefundPeriod.verifyPageTitle(CheckRefundPeriod.pageTitle)
+//      CheckRefundPeriod.continue()
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
       ClaimDetails.clickChangeLink("Start date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriodUsingCurrentYear("07", "09")
-      CheckRefundPeriod.verifyPageTitle(CheckRefundPeriod.pageTitle)
-      CheckRefundPeriod.continue()
+      RefundPeriod.submitRefundPeriodUsingCurrentYear("08", "10")
+//      CheckRefundPeriod.verifyPageTitle(CheckRefundPeriod.pageTitle)
+//      CheckRefundPeriod.continue()
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
+      //      Change contact details
       ClaimDetails.clickChangeLink("Email")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactDetails("secondchange@gmail.com", "+441234567890")
@@ -133,8 +145,8 @@ class UpdateDatabaseSpec
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I reopen claim details and update them again after database save")
-      MakeEuvatClaim.clickLinkByText("View claim details")
+      And("I reopen Claim details and update them again after database save")
+      MakeEuvatClaim.clickLinkByText("Claim details")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
       ClaimDetails.clickChangeLink("Phone number")
