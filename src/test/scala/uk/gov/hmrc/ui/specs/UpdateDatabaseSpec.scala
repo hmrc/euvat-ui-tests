@@ -44,7 +44,7 @@ class UpdateDatabaseSpec
   }
 
   Feature("Make a new EUVAT claim - Add a purchase") {
-    Scenario("01 - Submit a refund request", Local, WIP) {
+    Scenario("01 - Submit a refund request", Local) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -81,26 +81,22 @@ class UpdateDatabaseSpec
       Language.verifyPageTitle(Language.pageTitle)
       Language.selectLanguage("English")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
-//      CheckYourClaimDetails.pause(100000)
+
       //      Change refund period
       ClaimDetails.clickChangeLink("End date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
       RefundPeriod.submitRefundPeriodUsingDynamicValidYear("05", "07")
-//      CheckRefundPeriod.verifyPageTitle(CheckRefundPeriod.pageTitle)
-//      CheckRefundPeriod.continue()
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
       ClaimDetails.clickChangeLink("Start date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
       RefundPeriod.submitRefundPeriodUsingDynamicValidYear("07", "09")
-//      CheckRefundPeriod.verifyPageTitle(CheckRefundPeriod.pageTitle)
-//      CheckRefundPeriod.continue()
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
       //      Change contact details
       ClaimDetails.clickChangeLink("Email")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-      ContactDetails.submitContactDetails("secondchange@gmail.com", "+441234567890")
+      ContactDetails.submitContactDetails("firstchange@gmail.com", "+441234567890")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
       ClaimDetails.clickChangeLink("Phone number")
@@ -127,7 +123,7 @@ class UpdateDatabaseSpec
       MakeEuvatClaim.clickSignOut
     }
 
-    Scenario("02 - Submit a refund request for Germany", Local) {
+    Scenario("02 - Submit a refund request for Germany", Local, WIP) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -153,6 +149,8 @@ class UpdateDatabaseSpec
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactDetails("germany-update@gmail.com", "")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
+
+//      Delete the SIC codes and then go back and add them again to verify the database is updated correctly
 
       ClaimDetails.clickChangeLink("View first SIC code")
       AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
