@@ -41,33 +41,27 @@ class DeleteClaimSpec
   override def beforeEach(): Unit = {
     super.beforeEach()
     dropMongoCollections()
+    cleanupDatabaseIfNotStub()
   }
 
   Feature("Delete a draft EUVAT claim - Delete claim") {
 
     Scenario("01 - Delete Claim details from Check your claim details page", Local) {
       Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "999900001")
+      val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
-      When("I start new EUVAT claim")
+      When("I inject Claim details")
+      CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I add claim details")
-      MakeEuvatClaim.clickLinkByText("Claim details")
-      EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
-      EUMemberState.selectCountry("Czech Republic")
-      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriodUsingDynamicValidYear("01", "03")
-      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-      ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
-      AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
-      AddBusinessActivity.continueAsNo()
+      And("I see the Check your claim details page completed")
+      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
 
-      And("I delete the claim")
+      Then("I return to the Claim details page to delete the claim")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       MakeEuvatClaim.clickLinkByText("Claim details")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
@@ -82,19 +76,20 @@ class DeleteClaimSpec
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
-      When("I start new EUVAT claim")
-      //      Inject Claim details
+      When("I inject claim details")
       CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
+
+      And("I start the claim")
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I see claim details page completed")
+      And("I save the injected claim details")
       MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I add purchase details")
+      And("I create the purchase record through the UI")
       MakeEuvatClaim.clickLinkByText("Purchases and imports")
       BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
       BeforeYouStart.continue()
@@ -102,42 +97,18 @@ class DeleteClaimSpec
       AddPurchaseImport.selectPurchaseOrImport("Purchase")
       PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
       PurchaseType.selectPurchaseType("Food, drink and restaurant services")
-      PurchaseSubcodeFood.verifyPageTitle(PurchaseSubcodeFood.pageTitle)
-      PurchaseSubcodeFood.selectFoodCostType("Food and drink from hotels")
-      PurchaseSubcategoryFood.verifyPageTitle(PurchaseSubcategoryFood.pageTitle)
-      PurchaseSubcategoryFood.selectWhoFoodFor("The taxable person")
 
-      //      Invoice details
-      InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
-      InvoiceType.selectInvoiceType("Standard invoice")
-      InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
-      InvoiceNumber.submitInvoiceNumber("1234567890")
-      InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
-      InvoiceDate.submitInvoiceDate("08", "12", "2025")
+      And("I inject the remaining purchase details")
+      CacheHelper.updateUserAnswers("purchaseDetailsAfterType.json", sharedId)
 
-      //      Supplier details
-      SupplierName.verifyPageTitle(SupplierName.pageTitle)
-      SupplierName.submitSupplierName("Test Supplier Name")
-      SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
-      SupplierAddress.submitSupplierAddress("Test address one", "Test address two", "Test address three")
-      VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
-      VATRegistrationNumber.submitVATRegistrationNumber("CZ1234567890")
-
-      //      Purchase amounts
-      Currency.verifyPageTitle(Currency.pageTitle)
-      Currency.selectCurrencyType("Euro")
-      TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
-      TotalPurchaseAmount.submitTotalPurchaseAmount("1000.01")
-      TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
-      TotalVatPaid.submitTotalVatPaid("200.01")
-      TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
-      TotalVatClaim.submitTotalVatClaim("100.01")
+      And("I go to check your purchase details")
+      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/purchase/check-your-purchase-details")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
-      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("3"))
+      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1"))
       PurchaseImportSummary.continueAsNo()
 
-      And("I delete the claim")
+      Then("I delete the claim")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       MakeEuvatClaim.clickLinkByText("Delete this claim")
       DeleteClaim.verifyPageTitle(DeleteClaim.pageTitle)
