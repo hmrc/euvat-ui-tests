@@ -46,7 +46,7 @@ class NewEuvatClaimSpec
 
   Feature("Make a new EUVAT claim - New claim") {
 
-    Scenario("01 - Submit a refund request", Local, WIP) {
+    Scenario("01 - Submit a refund request", Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -127,12 +127,12 @@ class NewEuvatClaimSpec
       AddThirdBusinessActivity.verifyPageTitle(AddThirdBusinessActivity.pageTitle)
       AddThirdBusinessActivity.clickLink("Change Third SIC code")
       ThirdBusinessActivity.verifyPageTitle(ThirdBusinessActivity.pageTitle)
-      ThirdBusinessActivity.enterThirdBusinessActivityCode("3333")
+      ThirdBusinessActivity.enterThirdBusinessActivityCode("5555")
       AddThirdBusinessActivity.verifyPageTitle(AddThirdBusinessActivity.pageTitle)
 
       AddThirdBusinessActivity.clickLink("Change Second SIC code")
       SecondBusinessActivity.verifyPageTitle(SecondBusinessActivity.pageTitle)
-      SecondBusinessActivity.enterSecondBusinessActivityCode("2222")
+      SecondBusinessActivity.enterSecondBusinessActivityCode("4444")
       AddThirdBusinessActivity.verifyPageTitle(AddThirdBusinessActivity.pageTitle)
       AddThirdBusinessActivity.continue()
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
