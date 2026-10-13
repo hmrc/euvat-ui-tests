@@ -85,7 +85,7 @@ class AddImportSpec
       SubmitSupplierName.submitSupplierName("Test Supplier")
       ImportSupplierAddress.verifyPageTitle(ImportSupplierAddress.pageTitle)
       ImportSupplierAddress.submitImportSupplierAddress(
-        " Test   Street123  ",
+        "Test Street123",
         "Test City456",
         "Test State789",
         "HEARD ISLAND & MCDONALD ISLANDS"
