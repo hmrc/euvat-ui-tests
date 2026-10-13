@@ -25,9 +25,9 @@ object ImportDate extends BasePage {
 
   override def pageTitle: String = "When is the import date?"
 
-  val txtImportDay: By = By.ById("value.day")
+  val txtImportDay: By   = By.ById("value.day")
   val txtImportMonth: By = By.ById("value.month")
-  val txtImportYear: By = By.ById("value.year")
+  val txtImportYear: By  = By.ById("value.year")
 
   def submitImportDate(importDay: String, importMonth: String, importYear: String): Unit = {
     input(txtImportDay, importDay)
