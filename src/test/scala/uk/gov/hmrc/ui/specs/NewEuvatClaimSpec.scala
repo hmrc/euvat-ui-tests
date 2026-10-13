@@ -390,7 +390,7 @@ class NewEuvatClaimSpec
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
       InvoiceNumber.submitInvoiceNumber("1234567890")
       InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
-      InvoiceDate.submitInvoiceDate("08", "8", "2026")
+      InvoiceDate.submitInvoiceDate("08", "08", "2026")
       SupplierName.verifyPageTitle(SupplierName.pageTitle)
       SupplierName.submitSupplierName("Test Supplier Name")
       SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)

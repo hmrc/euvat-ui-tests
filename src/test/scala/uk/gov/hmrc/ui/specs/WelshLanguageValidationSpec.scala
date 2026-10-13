@@ -150,7 +150,6 @@ class WelshLanguageValidationSpec
       CheckYourClaimDetails.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      insertDuplicatePurchaseRecordVRN()
 
       And("I add purchase details")
       MakeEuvatClaim.clickLinkByText("Add a purchase")
@@ -308,7 +307,6 @@ class WelshLanguageValidationSpec
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      insertDuplicatePurchaseRecordTID()
 
       And("I add purchase details")
       MakeEuvatClaim.clickLinkByText("Add a purchase")

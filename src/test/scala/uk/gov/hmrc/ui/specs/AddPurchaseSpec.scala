@@ -63,7 +63,6 @@ class AddPurchaseSpec
 
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      insertDuplicatePurchaseRecordVRN()
 
       And("I add purchase details")
       MakeEuvatClaim.clickLinkByText("Purchases and imports")
@@ -82,7 +81,7 @@ class AddPurchaseSpec
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
       InvoiceType.selectInvoiceType("Standard invoice")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
-      InvoiceNumber.submitInvoiceNumber("DUP")
+      InvoiceNumber.submitInvoiceNumber("1234567890")
       InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
       InvoiceDate.submitInvoiceDate("08", "12", "2025")
 
@@ -93,18 +92,6 @@ class AddPurchaseSpec
       SupplierAddress.submitSupplierAddress("Test address one", "Test address two", "Test address three")
       VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
       VATRegistrationNumber.submitVATRegistrationNumber("EE0000000111")
-      CheckSupplierVRN.verifyPageTitle(CheckSupplierVRN.pageTitle)
-      CheckSupplierVRN.clickLinkByText("Change invoice number")
-      InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
-      InvoiceNumber.submitInvoiceNumber("DUP")
-      VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
-      VATRegistrationNumber.submitVATRegistrationNumber("EE0000000111")
-      CheckSupplierVRN.verifyPageTitle(CheckSupplierVRN.pageTitle)
-      CheckSupplierVRN.clickLinkByText("Change supplier’s VAT registration number")
-      VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
-      VATRegistrationNumber.submitVATRegistrationNumber("EE0000000111")
-      CheckSupplierVRN.verifyPageTitle(CheckSupplierVRN.pageTitle)
-      CheckSupplierVRN.continue()
 
       //      Purchase amounts
       Currency.verifyPageTitle(Currency.pageTitle)
@@ -249,7 +236,6 @@ class AddPurchaseSpec
 
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      insertDuplicatePurchaseRecordTID()
 
       And("I add purchase details")
       MakeEuvatClaim.clickLinkByText("Purchases and imports")
@@ -268,7 +254,7 @@ class AddPurchaseSpec
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
       InvoiceType.selectInvoiceType("Simplified invoice")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
-      InvoiceNumber.submitInvoiceNumber("INV-1")
+      InvoiceNumber.submitInvoiceNumber("1234567890")
       InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
       InvoiceDate.submitInvoiceDate("08", "12", "2025")
       SupplierName.verifyPageTitle(SupplierName.pageTitle)
@@ -279,19 +265,6 @@ class AddPurchaseSpec
       SupplierTaxNumbers.selectTaxNumber("Tax ID Number")
       SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
       SupplierTaxIDNumber.submitSupplierTaxID("TID-1")
-      CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
-      CheckSupplierTaxIDNumber.clickLinkByText("Change invoice number")
-      InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
-      InvoiceNumber.submitInvoiceNumber("INV-1")
-      SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
-      SupplierTaxIDNumber.submitSupplierTaxID("TID-1")
-
-      CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
-      CheckSupplierTaxIDNumber.clickLinkByText("Change supplier’s tax identifier number")
-      SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
-      SupplierTaxIDNumber.submitSupplierTaxID("TID-1")
-      CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
-      CheckSupplierTaxIDNumber.continue()
       TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
       TotalPurchaseAmount.submitTotalPurchaseAmount("1000.99")
       TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
