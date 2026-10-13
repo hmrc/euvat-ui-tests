@@ -60,7 +60,7 @@ class NewEuvatClaimSpec
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Croatia")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriodUsingCurrentYear("02", "04")
+      RefundPeriod.submitRefundPeriodUsingDynamicValidYear("01", "03")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
       AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
@@ -76,7 +76,7 @@ class NewEuvatClaimSpec
       Language.verifyPageTitle(Language.pageTitle)
       Language.selectLanguage("English")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriodUsingCurrentYear("05", "07")
+      RefundPeriod.submitRefundPeriodUsingDynamicValidYear("02", "04")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
       //      Change language
@@ -88,11 +88,11 @@ class NewEuvatClaimSpec
       //      Change refund period
       CheckYourClaimDetails.clickChangeLink("End date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriodUsingCurrentYear("05", "08")
+      RefundPeriod.submitRefundPeriodUsingDynamicValidYear("02", "05")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.clickChangeLink("Start date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriodUsingCurrentYear("06", "08")
+      RefundPeriod.submitRefundPeriodUsingDynamicValidYear("03", "05")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
       //      Change contact details
@@ -332,7 +332,7 @@ class NewEuvatClaimSpec
       Language.verifyPageTitle(Language.pageTitle)
       Language.selectLanguage("English")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriodUsingCurrentYear("02", "04")
+      RefundPeriod.submitRefundPeriodUsingDynamicValidYear("01", "03")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
       ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
       AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)

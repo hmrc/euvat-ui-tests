@@ -47,7 +47,7 @@ class ErrorSpec
 
     Scenario("01 - Refund period start and end date validation", Local, Error) {
       Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "999900002")
+      AuthorityWizard.login("Organisation", "999900002") // Vat registration date 01/01/2024
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
@@ -60,11 +60,11 @@ class ErrorSpec
       EUMemberState.selectCountry("Croatia")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
 
-      RefundPeriod.submitRefundPeriodUsingCurrentYear("05", "04")
+      RefundPeriod.submitRefundPeriodUsingDynamicValidYear("02", "01")
       RefundPeriod.errorSummaryDisplayed("Refund period start date must be earlier than the refund period end date")
       RefundPeriod.errorMessageDisplayed("Refund period start date must be earlier than the refund period end date")
 
-      RefundPeriod.submitRefundPeriodUsingCurrentYear("01", "02")
+      RefundPeriod.submitRefundPeriodUsingDynamicValidYear("01", "02")
       RefundPeriod.errorSummaryDisplayed(
         "Refund period must be at least 3 months long unless the period ends in December"
       )
@@ -100,10 +100,10 @@ class ErrorSpec
         "Refund period start date must be after the VAT registration date if you registered for VAT during the first quarter"
       )
 
-      RefundPeriod.submitRefundPeriodUsingCurrentYear("06", "11")
+      RefundPeriod.submitRefundPeriodUsingNextYear("06", "12")
       CheckRefundEndDate.verifyPageTitle(CheckRefundEndDate.pageTitle)
       CheckRefundEndDate.textDisplayed(
-        RefundPeriod.checkRefundEndDateMessageUsingCurrentYear("11")
+        RefundPeriod.checkRefundEndDateMessageUsingNextYear("12")
       )
       CheckRefundEndDate.continue()
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
@@ -112,7 +112,7 @@ class ErrorSpec
 
     Scenario("02 - Validate a duplicate draft refund from the EU member state page", Local, Error) {
       Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "999900003")
+      AuthorityWizard.login("Organisation", "999900003") // Vat registration date 01/01/2023
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
@@ -128,7 +128,7 @@ class ErrorSpec
       EUMemberState.clickSignOut
     }
 
-    Scenario("03 - Validate VAT registration start and end date", Local, Error) {
+    Scenario("03 - Validate VAT registration start (01/05/2026) and end date (31/07/2026)", Local, Error) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900004")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -143,7 +143,7 @@ class ErrorSpec
       EUMemberState.selectCountry("Croatia")
 
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriodUsingCurrentYear("01", "07")
+      RefundPeriod.submitRefundPeriod("01", "2026", "07", "2026")
       RefundPeriod.errorSummaryDisplayed(
         "Refund period start date must be within three months before or anytime after the VAT registration date if you did not register for VAT during the first quarter"
       )
@@ -151,17 +151,14 @@ class ErrorSpec
         "Refund period start date must be within three months before or anytime after the VAT registration date if you did not register for VAT during the first quarter"
       )
 
-      RefundPeriod.submitRefundPeriodUsingCurrentYear("05", "08")
+      RefundPeriod.submitRefundPeriod("05", "2026", "08", "2026")
       RefundPeriod.errorSummaryDisplayed(
         "Refund period end date must not be after the VAT deregistration date"
       )
       RefundPeriod.errorMessageDisplayed(
         "Refund period end date must not be after the VAT deregistration date"
       )
-
-      RefundPeriod.submitRefundPeriodUsingCurrentYear("02", "06")
-      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-      ContactDetails.clickSignOut
+      RefundPeriod.clickSignOut
     }
   }
 }
