@@ -23,7 +23,7 @@ object ImportDate extends BasePage {
 
   override def pageUrl: String = "import/import-date"
 
-  override def pageTitle: String = "When is the import date?"
+  override def pageTitle: String = "When is the import date? - EU VAT - GOV.UK"
 
   val txtImportDay: By   = By.ById("value.day")
   val txtImportMonth: By = By.ById("value.month")
