@@ -21,7 +21,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object ThirdBusinessActivity extends BasePage {
 
-  override def pageUrl: String = "what-is-the-third-SIC-code"
+  override def pageUrl: String = "claim-details/third-SIC-code"
 
   override def pageTitle: String = "What is the third SIC code? - EU VAT - GOV.UK"
 

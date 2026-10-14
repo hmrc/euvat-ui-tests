@@ -23,7 +23,7 @@ import java.time.LocalDate
 
 object RefundPeriod extends BasePage {
 
-  override def pageUrl: String   = "refund-period"
+  override def pageUrl: String   = "claim-details/refund-period"
   override def pageTitle: String = "Refund period - EU VAT - GOV.UK"
 
   val txtStartMonth: By = By.id("start.month")

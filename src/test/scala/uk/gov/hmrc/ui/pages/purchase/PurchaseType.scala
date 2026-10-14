@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object PurchaseType extends BasePage {
 
-  override def pageUrl: String = "purchase-type"
+  override def pageUrl: String = "purchase/category"
 
   override def pageTitle: String = "Purchase type - EU VAT - GOV.UK"
 

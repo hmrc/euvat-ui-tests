@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object AddSecondBusinessActivity extends BasePage {
 
-  override def pageUrl: String = "business-activity-2"
+  override def pageUrl: String = "claim-details/business-activity-2"
 
   override def pageTitle: String = "Business activity for this claim - EU VAT - GOV.UK"
 

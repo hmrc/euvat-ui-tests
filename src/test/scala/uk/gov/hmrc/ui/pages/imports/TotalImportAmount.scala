@@ -21,7 +21,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object TotalImportAmount extends BasePage {
 
-  override def pageUrl: String = "import/total-amount-without-vat"
+  override def pageUrl: String = "import/amount-without-vat"
 
   override def pageTitle: String = "Total amount without VAT - EU VAT - GOV.UK"
 
