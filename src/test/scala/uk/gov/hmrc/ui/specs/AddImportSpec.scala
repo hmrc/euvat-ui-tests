@@ -58,7 +58,7 @@ class AddImportSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I see claim details page completed")
-      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
+      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
       CheckYourClaimDetails.saveAndContinue()
@@ -81,7 +81,7 @@ class AddImportSpec
       AddSADRefNumber.continueAsYes()
       SubmitSADRefNumber.verifyPageTitle(SubmitSADRefNumber.pageTitle)
       SubmitSADRefNumber.submitSADRefNumber("98765")
-      ImportDate.verifyPageTitle(ImportDate.pageTitle())
+      ImportDate.verifyPageTitle(ImportDate.pageTitle)
       ImportDate.submitImportDate("01", "01", "2026")
       SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
       SubmitSupplierName.submitSupplierName("Test Supplier")
@@ -115,7 +115,7 @@ class AddImportSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I see claim details page completed")
-      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
+      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
       CheckYourClaimDetails.saveAndContinue()
@@ -138,7 +138,7 @@ class AddImportSpec
       AddSADRefNumber.continueAsNo()
       ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
       ImportDocumentDetails.submitDocumentDetails("Test Import Document Details")
-      ImportDate.verifyPageTitle(ImportDate.pageTitle())
+      ImportDate.verifyPageTitle(ImportDate.pageTitle)
       ImportDate.submitImportDate("01", "01", "2026")
       SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
       SubmitSupplierName.submitSupplierName("Test Supplier")

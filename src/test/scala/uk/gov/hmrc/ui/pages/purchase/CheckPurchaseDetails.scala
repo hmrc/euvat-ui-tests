@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object CheckPurchaseDetails extends BasePage {
 
-  override def pageUrl: String = "check-purchase-details"
+  override def pageUrl: String = "warning/item-details"
 
   override def pageTitle: String =
     "Are you sure the purchase details are correct? - EU VAT - GOV.UK"

@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object Language extends BasePage {
 
-  override def pageUrl: String = "which-language"
+  override def pageUrl: String = "claim-details/language"
 
   override def pageTitle: String = "Which language do you want to use for this claim? - EU VAT - GOV.UK"
 

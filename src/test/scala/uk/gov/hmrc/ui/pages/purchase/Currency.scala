@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object Currency extends BasePage {
 
-  override def pageUrl: String = "which-currency"
+  override def pageUrl: String = "purchase/currency"
 
   override def pageTitle: String = "Which currency do you want to use for this claim? - EU VAT - GOV.UK"
 

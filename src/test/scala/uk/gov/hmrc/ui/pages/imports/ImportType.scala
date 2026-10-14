@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object ImportType extends BasePage {
 
-  override def pageUrl: String = "import-type"
+  override def pageUrl: String = "import/category"
 
   override def pageTitle: String = "Which category best describes the item on your import document? - EU VAT - GOV.UK"
 

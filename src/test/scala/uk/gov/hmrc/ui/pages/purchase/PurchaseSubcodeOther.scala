@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object PurchaseSubcodeOther extends BasePage {
 
-  override def pageUrl: String = "purchase-type-other"
+  override def pageUrl: String = "purchase/other"
 
   override def pageTitle: String = "What other category best describes the item on your invoice? - EU VAT - GOV.UK"
 

@@ -21,7 +21,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object SubmitSADRefNumber extends BasePage {
 
-  override def pageUrl: String = "/import/single-administrative-document-reference-number"
+  override def pageUrl: String = "import/sad-reference-number"
 
   override def pageTitle: String =
     "What is your Single Administrative Document (SAD) reference number? - EU VAT - GOV.UK"

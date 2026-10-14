@@ -57,14 +57,6 @@ object CodeMappingFlowRouter {
   private def slug(flowType: FlowType, page: String): String =
     s"${flowType.pathSegment}/$page"
 
-  /** Special-case slug for the "Other" top-level page because purchases use purchase-type-other and imports use
-    * import-type-other.
-    */
-  private def otherSlug(flowType: FlowType): String = flowType match {
-    case PurchaseFlow => slug(flowType, "purchase-type-other")
-    case ImportFlow   => slug(flowType, "import-type-other")
-  }
-
   /** Special-case title for the "Other" top-level page because purchase and import journeys use different wording.
     */
   private def otherTitle(flowType: FlowType): String = flowType match {
@@ -94,7 +86,7 @@ object CodeMappingFlowRouter {
 
   private def otherPage(flowType: FlowType) =
     new GenericRadioPage(
-      otherSlug(flowType),
+      slug(flowType, "other"),
       otherTitle(flowType)
     )
 

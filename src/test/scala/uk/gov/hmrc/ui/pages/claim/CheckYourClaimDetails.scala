@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object CheckYourClaimDetails extends BasePage {
 
-  override def pageUrl: String = "check-your-claim-details"
+  override def pageUrl: String = "claim-details/check-your-answers"
 
   override def pageTitle: String =
     "Check your claim details - EU VAT - GOV.UK"
