@@ -123,6 +123,7 @@ class NewEuvatClaimSpec
       ContactDetails.submitContactDetails("secondchange@gmail.com", "+449999999999")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
+      //      Change SIC Codes
       ClaimDetails.clickChangeLink("View first SIC code")
       AddThirdBusinessActivity.verifyPageTitle(AddThirdBusinessActivity.pageTitle)
       AddThirdBusinessActivity.clickLink("Change Third SIC code")

@@ -25,11 +25,6 @@ object ClaimDetails extends BasePage {
   override def pageTitle: String =
     "Claim details - EU VAT - GOV.UK"
 
-//  private val linkSelectors = Map(
-//    "EU member state" -> "#main-content > div > div > form > div:nth-child(2) > dl > div > dd.govuk-summary-list__actions > a",
-//    "Claim language"  -> "#main-content > div > div > form > div:nth-child(3) > dl > div > dd.govuk-summary-list__actions > a"
-//  )
-
   private val base =
     "#main-content > div > div > form > div:nth-child(%d) > dl > div:nth-child(%d) > dd.govuk-summary-list__actions > a"
 
