@@ -23,7 +23,7 @@ import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.tags.*
-import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
+import uk.gov.hmrc.ui.utils.{CacheHelper, DatabaseHelper, MongoHelper}
 
 class ErrorSpec
     extends AnyFeatureSpec
@@ -159,6 +159,34 @@ class ErrorSpec
         "Refund period end date must not be after the VAT deregistration date"
       )
       RefundPeriod.clickSignOut
+    }
+
+    Scenario("04 - Validate overlapping refund period", Local, WIP) {
+      Given("I login as an organisation")
+      val sharedId = AuthorityWizard.login("Organisation", "999900001")
+      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+
+      When("I inject Claim details")
+      CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
+      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
+      And("I see the Check your claim details page completed")
+      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
+      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+      CheckYourClaimDetails.saveAndContinue()
+
+      And("I reopen Claim details and update the refund period after database save")
+      MakeEuvatClaim.clickLinkByText("Claim details")
+      ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
+
+      //      Change refund period
+      ClaimDetails.clickChangeLink("End date")
+      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
+      RefundPeriod.submitRefundPeriodUsingDynamicValidYear("01", "04")
+      ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
+
+      ClaimAnEUVATRefund.clickSignOut
     }
   }
 }
