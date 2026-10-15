@@ -183,7 +183,13 @@ class ErrorSpec
       //      Change refund period
       ClaimDetails.clickChangeLink("End date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriodUsingDynamicValidYear("01", "04")
+      RefundPeriod.submitRefundPeriodUsingDynamicValidYear("06", "08")
+      CheckRefundPeriod.verifyPageTitle(CheckRefundPeriod.pageTitle)
+      CheckRefundPeriod.textDisplayed(RefundPeriod.checkRefundPeriodMessageOverlap())
+//      CheckRefundPeriod.pause(1000)
+//      Click the link
+//      Go back and change dates
+      CheckRefundPeriod.continue()
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
       ClaimAnEUVATRefund.clickSignOut

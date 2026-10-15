@@ -78,4 +78,8 @@ object RefundPeriod extends BasePage {
 
   def checkRefundEndDateMessageUsingNextYear(endMonth: String): String =
     s"You’ve told us the refund period end date is $endMonth/$nextYearString. The refund period end date must be in the past."
+
+  def checkRefundPeriodMessageOverlap(): String =
+    s"You’ve told us the refund period is the same used for another claim. The refund period must not overlap with another claim for the same EU member state."
+
 }
