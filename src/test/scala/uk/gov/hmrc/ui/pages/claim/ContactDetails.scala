@@ -28,7 +28,7 @@ object ContactDetails extends BasePage {
   val txtEmailAddress: By = By.cssSelector("#contactEmail")
   val txtTelephone: By    = By.cssSelector("#contactTelephone")
 
-  def submitContactAddress(emailAddress: String, telephoneNumber: String): Unit = {
+  def submitContactDetails(emailAddress: String, telephoneNumber: String): Unit = {
     input(txtEmailAddress, emailAddress)
     input(txtTelephone, telephoneNumber)
     continue()
