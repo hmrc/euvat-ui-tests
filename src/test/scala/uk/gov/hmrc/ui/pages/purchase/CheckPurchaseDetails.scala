@@ -23,6 +23,6 @@ object CheckPurchaseDetails extends BasePage {
   override def pageUrl: String = "warning/item-details"
 
   override def pageTitle: String =
-    "Are you sure these details are correct? - EU VAT - GOV.UK"
+    "Are you sure the purchase details are correct? - EU VAT - GOV.UK"
 
 }
