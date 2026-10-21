@@ -98,8 +98,10 @@ class AddImportSpec
       TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
       TotalImportVATPaid.submitTotalImportVATPaid("200.01")
       TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
-      TotalImportVatClaim.submitTotalImportVatClaim("100.01")
-      TotalImportVatClaim.clickSignOut
+      TotalImportVatClaim.submitTotalImportVatClaim("250.01")
+      CheckImportVATClaim.verifyPageTitle(CheckImportVATClaim.pageTitle)
+      CheckImportVATClaim.continue()
+
     }
 
     Scenario("02 - Add an import for Germany", Local) {
