@@ -368,7 +368,7 @@ class NewEuvatClaimSpec
 
       AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
       AddBusinessActivity.continueAsNo()
-
+      ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
       ClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
