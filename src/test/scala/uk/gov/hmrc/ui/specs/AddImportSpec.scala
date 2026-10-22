@@ -96,9 +96,11 @@ class AddImportSpec
       TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
       TotalImportAmount.submitTotalImportAmount("1000.01")
       TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
-      TotalImportVATPaid.submitTotalImportVATPaid("200.01")
+      TotalImportVATPaid.submitTotalImportVATPaid("2000.01")
+      CheckImportVATAmount.verifyPageTitle(CheckImportVATAmount.pageTitle)
+      CheckImportVATAmount.continue()
       TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
-      TotalImportVatClaim.submitTotalImportVatClaim("250.01")
+      TotalImportVatClaim.submitTotalImportVatClaim("2500.01")
       CheckImportVATClaim.verifyPageTitle(CheckImportVATClaim.pageTitle)
       CheckImportVATClaim.continue()
 
