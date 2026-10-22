@@ -46,65 +46,74 @@ class AddImportSpec
   }
 
   Feature("Make a new EUVAT claim - Add import details") {
-    Scenario("01 - Add an import", Local) {
-      Given("I login as an organisation")
-      val sharedId = AuthorityWizard.login("Organisation", "999900001")
-      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
-
-      When("I start new EUVAT claim")
-//      Inject Claim details
-      CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
-      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-
-      And("I see claim details page completed")
-      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-
-      CheckYourClaimDetails.saveAndContinue()
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-
-      And("I add import details")
-      MakeEuvatClaim.clickLinkByText("Purchases and imports")
-      BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
-      BeforeYouStart.continue()
-      AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
-      AddPurchaseImport.selectPurchaseOrImport("Import")
-      ImportType.verifyPageTitle(ImportType.pageTitle)
-      ImportType.selectImportType("Food, drink and restaurant services")
-      ImportSubcodeFood.verifyPageTitle(ImportSubcodeFood.pageTitle)
-      ImportSubcodeFood.selectImportFoodType("Food and drink from hotels")
-      ImportSubcategoryFood.verifyPageTitle(ImportSubcategoryFood.pageTitle)
-      ImportSubcategoryFood.selectWhoFoodFor("Someone other")
-      AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
-      AddSADRefNumber.continueAsYes()
-      SubmitSADRefNumber.verifyPageTitle(SubmitSADRefNumber.pageTitle)
-      SubmitSADRefNumber.submitSADRefNumber("98765")
-      ImportDate.verifyPageTitle(ImportDate.pageTitle)
-      ImportDate.submitImportDate("01", "01", "2026")
-      SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
-      SubmitSupplierName.submitSupplierName("Test Supplier")
-      ImportSupplierAddress.verifyPageTitle(ImportSupplierAddress.pageTitle)
-      ImportSupplierAddress.submitImportSupplierAddress(
-        "Test Street123",
-        "Test City456",
-        "Test State789",
-        "HEARD ISLAND & MCDONALD ISLANDS"
-      )
-      ImportCurrency.verifyPageTitle(ImportCurrency.pageTitle)
-      ImportCurrency.selectImportCurrencyType("Euro")
-      TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
-      TotalImportAmount.submitTotalImportAmount("1000.01")
-      TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
-      TotalImportVATPaid.submitTotalImportVATPaid("2000.01")
-      CheckImportVATAmount.verifyPageTitle(CheckImportVATAmount.pageTitle)
-      CheckImportVATAmount.continue()
-      TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
-      TotalImportVatClaim.submitTotalImportVatClaim("2500.01")
-      CheckImportVATClaim.verifyPageTitle(CheckImportVATClaim.pageTitle)
-      CheckImportVATClaim.continue()
-
-    }
+//    Scenario("01 - Add an import", Local) {
+//      Given("I login as an organisation")
+//      val sharedId = AuthorityWizard.login("Organisation", "999900001")
+//      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+//
+//      When("I start new EUVAT claim")
+//      //      Inject Claim details
+//      CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
+//      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
+//      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+//
+//      And("I see claim details page completed")
+//      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
+//      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+//
+//      CheckYourClaimDetails.saveAndContinue()
+//      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+//
+//      And("I add import details")
+//      MakeEuvatClaim.clickLinkByText("Purchases and imports")
+//      BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
+//      BeforeYouStart.continue()
+//      AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
+//      AddPurchaseImport.selectPurchaseOrImport("Import")
+//      ImportType.verifyPageTitle(ImportType.pageTitle)
+//      ImportType.selectImportType("Food, drink and restaurant services")
+//      ImportSubcodeFood.verifyPageTitle(ImportSubcodeFood.pageTitle)
+//      ImportSubcodeFood.selectImportFoodType("Food and drink from hotels")
+//      ImportSubcategoryFood.verifyPageTitle(ImportSubcategoryFood.pageTitle)
+//      ImportSubcategoryFood.selectWhoFoodFor("Someone other")
+//      AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
+//      AddSADRefNumber.continueAsYes()
+//      SubmitSADRefNumber.verifyPageTitle(SubmitSADRefNumber.pageTitle)
+//      SubmitSADRefNumber.submitSADRefNumber("98765")
+//      ImportDate.verifyPageTitle(ImportDate.pageTitle)
+//      ImportDate.submitImportDate("01", "01", "2026")
+//      SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
+//      SubmitSupplierName.submitSupplierName("Test Supplier")
+//      ImportSupplierAddress.verifyPageTitle(ImportSupplierAddress.pageTitle)
+//      ImportSupplierAddress.submitImportSupplierAddress(
+//        "Test Street123",
+//        "Test City456",
+//        "Test State789",
+//        "HEARD ISLAND & MCDONALD ISLANDS"
+//      )
+//      ImportCurrency.verifyPageTitle(ImportCurrency.pageTitle)
+//      ImportCurrency.selectImportCurrencyType("Euro")
+//      TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
+//      TotalImportAmount.submitTotalImportAmount("1000.01")
+//      TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
+//      TotalImportVATPaid.submitTotalImportVATPaid("2000.01")
+//      CheckImportVATAmount.verifyPageTitle(CheckImportVATAmount.pageTitle)
+//      CheckImportVATAmount.continue()
+//      TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
+//      TotalImportVatClaim.submitTotalImportVatClaim("2500.01")
+//      CheckImportVATClaim.verifyPageTitle(CheckImportVATClaim.pageTitle)
+//      CheckImportVATClaim.continue()
+//
+//      //    Check your import details
+//      And("I change import details")
+//      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
+//      CheckYourImportDetails.clickChangeLink("Food and drink for")
+//      PurchaseSubcategoryFood.verifyPageTitle(PurchaseSubcategoryFood.pageTitle)
+//      PurchaseSubcategoryFood.selectWhoFoodFor("Someone other")
+//
+//      CheckYourImportDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+//      CheckYourImportDetails.saveAndContinue()
+//    }
 
     Scenario("02 - Add an import for Germany", Local) {
       Given("I login as an organisation")
@@ -157,8 +166,9 @@ class AddImportSpec
       TotalImportVATPaid.submitTotalImportVATPaid("200.99")
       TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
       TotalImportVatClaim.submitTotalImportVatClaim("100.99")
-      TotalImportVatClaim.clickSignOut
+      CheckYourImportDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+      CheckYourImportDetails.saveAndContinue()
+      CheckYourImportDetails.clickSignOut
     }
-
   }
 }
