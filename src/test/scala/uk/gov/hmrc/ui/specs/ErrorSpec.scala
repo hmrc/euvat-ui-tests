@@ -65,12 +65,8 @@ class ErrorSpec
       RefundPeriod.errorMessageDisplayed("Refund period start date must be earlier than the refund period end date")
 
       RefundPeriod.submitRefundPeriodUsingDynamicValidYear("01", "02")
-      RefundPeriod.errorSummaryDisplayed(
-        "Refund period must be at least 3 months long unless the period ends in December"
-      )
-      RefundPeriod.errorMessageDisplayed(
-        "Refund period must be at least 3 months long unless the period ends in December"
-      )
+      CheckRefundPeriod.verifyPageTitle(CheckRefundPeriod.pageTitle)
+      CheckRefundPeriod.clickLinkByText("No, change the refund period")
 
       RefundPeriod.submitRefundPeriodUsingStartLastYear("01", "02")
       RefundPeriod.errorSummaryDisplayed("Refund period start date and end date must be in the same calendar year")
