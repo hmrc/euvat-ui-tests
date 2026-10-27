@@ -2,4 +2,4 @@
 
 BROWSER=$1
 ENVIRONMENT=$2
-sbt scalafmtAll scalafmtCheckAll scalafmtSbtCheck clean compile -Dbrowser="${BROWSER:=chrome}" -Denvironment="${ENVIRONMENT:=local}" -Daccessibility.timeout="1000" "testOnly uk.gov.hmrc.ui.specs.AddImportSpec -- -n uk.gov.hmrc.ui.tags.Local" testReport
+sbt scalafmtAll scalafmtCheckAll scalafmtSbtCheck clean compile -Dbrowser="${BROWSER:=chrome}" -Denvironment="${ENVIRONMENT:=local}" -Daccessibility.timeout="1000" "testOnly uk.gov.hmrc.ui.specs* -- -n uk.gov.hmrc.ui.tags.Local" testReport
