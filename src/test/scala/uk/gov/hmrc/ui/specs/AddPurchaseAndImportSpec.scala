@@ -22,13 +22,13 @@ import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
-import uk.gov.hmrc.ui.pages.imports.{AddSADRefNumber, ImportCurrency, ImportDate, ImportSupplierAddress, ImportType, SubmitSADRefNumber, SubmitSupplierName, TotalImportAmount, TotalImportVATPaid, TotalImportVatClaim}
+import uk.gov.hmrc.ui.pages.imports.*
 import uk.gov.hmrc.ui.pages.purchase.*
 import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{CacheHelper, DatabaseHelper, MongoHelper}
 
 class AddPurchaseAndImportSpec
-  extends AnyFeatureSpec
+    extends AnyFeatureSpec
     with BaseSpec
     with GivenWhenThen
     with ShouldVerb
@@ -146,9 +146,9 @@ class AddPurchaseAndImportSpec
       TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
       TotalImportVatClaim.submitTotalImportVatClaim("234.98")
       //    Check your import details
-//      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
-//      CheckYourImportDetails.saveAndContinue()
-//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
+      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
+      CheckYourImportDetails.saveAndContinue()
+      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
       TotalImportVatClaim.clickSignOut
     }
   }
