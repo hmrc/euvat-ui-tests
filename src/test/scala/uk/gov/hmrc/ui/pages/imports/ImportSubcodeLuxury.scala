@@ -24,7 +24,7 @@ object ImportSubcodeLuxury extends BasePage {
 
   override def pageTitle: String = "What is the type of luxury, entertainment or hospitality cost? - EU VAT - GOV.UK"
 
-  //TODO options differ based on country, value attribute may be better option than ID
+  // TODO options differ based on country, value attribute may be better option than ID
 //  val rdoAlcohol = "#value_0"
 //  val rdoTobaccoProd       = "#value_1"
   val rdoReceptions = "#value_0"
@@ -32,19 +32,19 @@ object ImportSubcodeLuxury extends BasePage {
 //  val rdoArtAntiques = "#value_4"
 //  val rdoLuxEntHospAdv = "#value_5"
 //  val rdoOtherLuxEndHosp = "#value_6"
-  val rdoNone = "#value_1"
+  val rdoNone       = "#value_1"
 
   def selectLuxuryType(radio: String): this.type = {
     val selector = radio match {
 //      case "Alcohol"                                                 => rdoAlcohol
 //      case "Tobacco products"                                        => rdoTobaccoProd
-      case "Receptions, entertainment and hospitality"               => rdoReceptions
+      case "Receptions, entertainment and hospitality" => rdoReceptions
 //      case "Maintenance of pleasure craft"                           => rdoMainPleasureCraft
 //      case "Works of art, collectors’ items and antiques"            => rdoArtAntiques
 //      case "Luxuries, entertainment and hospitality for advertising" => rdoLuxEntHospAdv
 //      case "Other luxuries, entertainment and hospitality"           => rdoOtherLuxEndHosp
-      case "None"                                                    => rdoNone
-      case _                                                         => throw new IllegalArgumentException(s"Invalid option: $radio")
+      case "None"                                      => rdoNone
+      case _                                           => throw new IllegalArgumentException(s"Invalid option: $radio")
     }
     radioButton(selector)
     continue()
