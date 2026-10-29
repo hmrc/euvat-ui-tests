@@ -22,7 +22,11 @@ object PurchaseImportSummary extends BasePage {
 
   override def pageUrl: String = "purchases-imports/summary"
 
-  override def pageTitle: String = "You have added 1 item to this claim - EU VAT - GOV.UK"
+  override def pageTitle(args: String*): String = {
+    val count = args.head.toInt
+    val noun  = if (count == 1) "item" else "items"
+    s"You have added $count $noun to this claim - EU VAT - GOV.UK"
+  }
 
   def continueAsYes(): Unit = {
     radioButton(Locators.rdoYes)
