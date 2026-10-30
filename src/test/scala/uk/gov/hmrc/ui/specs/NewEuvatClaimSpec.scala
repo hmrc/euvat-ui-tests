@@ -345,7 +345,6 @@ class NewEuvatClaimSpec
       AddThirdBusinessActivity.verifyPageTitle(AddThirdBusinessActivity.pageTitle)
       AddThirdBusinessActivity.continue()
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
-
       ClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 

@@ -52,7 +52,7 @@ class AddImportSpec
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
-//      Inject Claim details
+      //      Inject Claim details
       CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
@@ -104,6 +104,78 @@ class AddImportSpec
       CheckImportVATClaim.verifyPageTitle(CheckImportVATClaim.pageTitle)
       CheckImportVATClaim.continue()
 
+      //    Check your import details
+      And("I change import details")
+      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
+      CheckYourImportDetails.clickChangeLink("Food and drink for")
+      ImportSubcategoryFood.verifyPageTitle(ImportSubcategoryFood.pageTitle)
+      ImportSubcategoryFood.selectWhoFoodFor("Someone other")
+
+      CheckYourImportDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+      CheckYourImportDetails.clickChangeLink("Food, drink or restaurant cost type")
+      ImportSubcodeFood.verifyPageTitle(ImportSubcodeFood.pageTitle)
+      ImportSubcodeFood.selectImportFoodType("None")
+
+      //      Change import type
+      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
+      CheckYourImportDetails.clickChangeLink("Import type")
+      ImportType.verifyPageTitle(ImportType.pageTitle)
+      ImportType.selectImportType("Luxuries, entertainment and hospitality")
+      ImportSubcodeLuxury.verifyPageTitle(ImportSubcodeLuxury.pageTitle)
+      ImportSubcodeLuxury.selectLuxuryType("Receptions, entertainment and hospitality")
+
+      //      Change import doc details
+      CheckYourImportDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+      CheckYourImportDetails.clickChangeLink("Single Administrative Document (SAD)")
+      AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
+      AddSADRefNumber.continueAsNo()
+      ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
+      ImportDocumentDetails.submitDocumentDetails("TEST INPUT")
+
+      //      Change invoice date
+      CheckYourImportDetails.clickChangeLink("Import date")
+      ImportDate.verifyPageTitle(ImportDate.pageTitle)
+      ImportDate.submitImportDate("01", "01", "2026")
+      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
+
+      //      Change supplier name
+      CheckYourImportDetails.clickChangeLink("Supplier name")
+      SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
+      SubmitSupplierName.submitSupplierName("Update Test Supplier Name")
+      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
+
+      //      Change supplier address
+      CheckYourImportDetails.clickChangeLink("Supplier address")
+      ImportSupplierAddress.verifyPageTitle(ImportSupplierAddress.pageTitle)
+      ImportSupplierAddress.submitImportSupplierAddress(
+        "Test Street ABC",
+        "Test City 321",
+        "Test State XYZ",
+        "HEARD ISLAND & MCDONALD ISLANDS"
+      )
+      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
+
+      //      Change currency
+      CheckYourImportDetails.clickChangeLink("Currency")
+      ImportCurrency.verifyPageTitle(ImportCurrency.pageTitle)
+      ImportCurrency.selectImportCurrencyType("Estonian Kroon (kr)")
+      TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
+      TotalImportAmount.submitTotalImportAmount("1000.01")
+
+      //      Change VAT paid
+      TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
+      TotalImportVATPaid.submitTotalImportVATPaid("3000.99")
+      CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
+      CheckVATAmount.continue()
+
+      //      Change VAT claim
+      TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
+      TotalImportVatClaim.submitTotalImportVatClaim("4000.99")
+      CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
+      CheckVATClaim.continue()
+
+      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
+      CheckYourImportDetails.saveAndContinue()
     }
 
     Scenario("02 - Add an import for Germany", Local) {
@@ -157,8 +229,9 @@ class AddImportSpec
       TotalImportVATPaid.submitTotalImportVATPaid("200.99")
       TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
       TotalImportVatClaim.submitTotalImportVatClaim("100.99")
-      TotalImportVatClaim.clickSignOut
+      CheckYourImportDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+      CheckYourImportDetails.saveAndContinue()
+      CheckYourImportDetails.clickSignOut
     }
-
   }
 }
