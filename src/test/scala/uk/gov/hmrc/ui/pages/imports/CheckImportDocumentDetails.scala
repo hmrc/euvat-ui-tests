@@ -18,7 +18,7 @@ package uk.gov.hmrc.ui.pages.imports
 
 import uk.gov.hmrc.ui.pages.BasePage
 
-object ImportDocumentDetailsWarning extends BasePage {
+object CheckImportDocumentDetails extends BasePage {
 
   override def pageUrl: String = "warning/import-document-details"
 
