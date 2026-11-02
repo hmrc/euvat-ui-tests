@@ -24,13 +24,13 @@ object AccountHolderType extends BasePage {
 
   override def pageTitle: String = "Who is the account holder? - EU VAT - GOV.UK"
 
-  val rdoApplicant = "#value_0"
+  val rdoApplicant  = "#value_0"
   val rdoThirdParty = "#value_1"
 
   def selectAccountHolderType(radio: String): this.type = {
     val selector = radio match {
-      case "Applicant (you)" => rdoApplicant
-      case "Third party (someone else)"                       => rdoThirdParty
+      case "Applicant (you)"            => rdoApplicant
+      case "Third party (someone else)" => rdoThirdParty
       case _                            => throw new IllegalArgumentException(s"Invalid option: $radio")
     }
     radioButton(selector)
