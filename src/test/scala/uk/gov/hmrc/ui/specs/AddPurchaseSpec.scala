@@ -219,7 +219,7 @@ class AddPurchaseSpec
       MakeEuvatClaim.clickSignOut
     }
 
-    Scenario("02 - Submit a refund request for Germany", Local, WIP) {
+    Scenario("02 - Submit a refund request for Germany", Local) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -288,7 +288,7 @@ class AddPurchaseSpec
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
       PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1"))
-      PurchaseImportSummary.clickChangeLink("Remove")
+      PurchaseImportSummary.clickActionLink(1, "Remove")
       RemoveItem.verifyPageTitle(RemoveItem.pageTitle)
       RemoveItem.selectDeleteItem("Yes")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
@@ -357,7 +357,7 @@ class AddPurchaseSpec
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
       PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // ====
-      PurchaseImportSummary.clickChangeLink(1)
+      PurchaseImportSummary.clickActionLink(1, "Change")
 
       //      Change purchase type
       ChangeYourAnswers.verifyPageTitle(ChangeYourAnswers.pageTitle)

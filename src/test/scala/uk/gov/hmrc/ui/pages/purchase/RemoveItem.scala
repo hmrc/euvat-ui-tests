@@ -25,28 +25,8 @@ object RemoveItem extends BasePage {
 
   override def pageTitle: String = "Remove item - EU VAT - GOV.UK"
 
-  val rdoDeleteItem      = "#value"
-  val rdoDoNotDeleteItem = "#value-no"
-
-  private val base =
-    "#main-content > div > div > form > div:nth-child(%d) > dl > div:nth-child(%d) > dd.govuk-summary-list__actions > a"
-
-  private def selector(section: Int, row: Int, link: Int): String =
-    base.format(section, row, link)
-
-  private val linkSelectors: Map[String, String] =
-    Seq(
-      "Change" -> (2, 1, 1),
-      "Remove" -> (2, 1, 2)
-    ).map { case (label, (section, row, link)) =>
-      label -> selector(section, row, link)
-    }.toMap
-
-  def clickChangeLink(changeLink: String): this.type = {
-    val linkCSS = linkSelectors.getOrElse(changeLink, throw new IllegalArgumentException(s"Invalid link: $changeLink"))
-    super.clickLinkByCSS(linkCSS)
-    this
-  }
+  val rdoDeleteItem      = "#value_0"
+  val rdoDoNotDeleteItem = "#value_1"
 
   def selectDeleteItem(radio: String): this.type = {
     val selector = radio match {

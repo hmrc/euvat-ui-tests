@@ -38,14 +38,20 @@ object PurchaseImportSummary extends BasePage {
     continue()
   }
 
-  private def changeLinkSelector(itemIndex: Int): String = {
+  private def actionLinkSelector(itemIndex: Int, action: String): String = {
     require(itemIndex > 0, "Item index must be greater than 0")
 
-    s"dl.govuk-summary-list > div.govuk-summary-list__row:nth-child($itemIndex) > dd.govuk-summary-list__actions > ul > li:first-child > a"
+    val actionIndex = action match {
+      case "Change" => 1
+      case "Remove" => 2
+      case _        => throw new IllegalArgumentException(s"Invalid action: $action")
+    }
+
+    s"dl.govuk-summary-list > div.govuk-summary-list__row:nth-child($itemIndex) > dd.govuk-summary-list__actions > ul > li:nth-child($actionIndex) > a"
   }
 
-  def clickChangeLink(itemIndex: Int): this.type = {
-    super.clickLinkByCSS(changeLinkSelector(itemIndex))
+  def clickActionLink(itemIndex: Int, action: String): this.type = {
+    super.clickLinkByCSS(actionLinkSelector(itemIndex, action))
     this
   }
 
