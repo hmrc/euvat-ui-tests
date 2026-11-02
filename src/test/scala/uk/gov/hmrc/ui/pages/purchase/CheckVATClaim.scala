@@ -23,6 +23,6 @@ object CheckVATClaim extends BasePage {
   override def pageUrl: String = "warning/vat-claim"
 
   override def pageTitle: String =
-    "Are you sure the amount of VAT you're claiming is correct? - EU VAT - GOV.UK"
+    "Are you sure the amount of VAT you’re claiming is correct? - EU VAT - GOV.UK"
 
 }

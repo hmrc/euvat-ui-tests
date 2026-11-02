@@ -23,7 +23,7 @@ object CheckYourPurchaseDetails extends BasePage {
   override def pageUrl: String = "purchase/check-your-answers"
 
   override def pageTitle: String =
-    "Check your purchase details - EU VAT - GOV.UK"
+    "Check your answers - EU VAT - GOV.UK"
 
   private val linkSelectors: Map[String, String] =
     Seq(
