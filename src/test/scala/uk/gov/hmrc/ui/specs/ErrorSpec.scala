@@ -45,7 +45,7 @@ class ErrorSpec
 
   Feature("Error and warning message validation check - New claim") {
 
-    Scenario("01 - Refund period start and end date validation", Local, Error, WIP) {
+    Scenario("01 - Refund period start and end date validation", Local, Error) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900002") // Vat registration date 01/01/2024
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -176,17 +176,17 @@ class ErrorSpec
       And("I reopen Claim details and update the refund period after database save")
       MakeEuvatClaim.clickLinkByText("Claim details")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
-
       //      Change refund period
       ClaimDetails.clickChangeLink("End date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
       RefundPeriod.submitRefundPeriodUsingDynamicValidYear("06", "08")
-      CheckRefundPeriodShort.verifyPageTitle(CheckRefundPeriodShort.pageTitle)
-      CheckRefundPeriodShort.textDisplayed(RefundPeriod.checkRefundPeriodMessageOverlap())
-//      CheckRefundPeriod.pause(1000)
-//      Click the link
-//      Go back and change dates
-      CheckRefundPeriodShort.continue()
+      CheckRefundPeriodOverlap.verifyPageTitle(CheckRefundPeriodOverlap.pageTitle)
+      CheckRefundPeriodOverlap.textDisplayed(RefundPeriod.checkRefundPeriodMessageOverlap())
+      CheckRefundPeriodOverlap.clickLinkByText("No, change the refund period")
+      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
+      RefundPeriod.submitRefundPeriodUsingDynamicValidYear("07", "09")
+      CheckRefundPeriodOverlap.verifyPageTitle(CheckRefundPeriodOverlap.pageTitle)
+      CheckRefundPeriodOverlap.continue()
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
       ClaimAnEUVATRefund.clickSignOut
