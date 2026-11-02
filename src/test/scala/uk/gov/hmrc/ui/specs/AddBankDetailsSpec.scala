@@ -69,6 +69,8 @@ class AddBankDetailsSpec
       MakeEuvatClaim.clickLinkByText("Bank details")
       BeforeYouStartBank.verifyPageTitle(BeforeYouStartBank.pageTitle)
       BeforeYouStartBank.continue()
+      AccountHolderType.verifyPageTitle(AccountHolderType.pageTitle)
+      AccountHolderType.selectAccountHolderType("Applicant (you)")
     }
   }
 }
