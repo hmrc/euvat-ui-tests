@@ -18,9 +18,9 @@ package uk.gov.hmrc.ui.pages.claim
 
 import uk.gov.hmrc.ui.pages.BasePage
 
-object CheckRefundPeriod extends BasePage {
+object CheckRefundPeriodOverlap extends BasePage {
 
-  override def pageUrl: String = "warning/refund-period-too-short"
+  override def pageUrl: String = "warning/check-refund-period"
 
   override def pageTitle: String =
     "Are you sure the refund period is correct? - EU VAT - GOV.UK"

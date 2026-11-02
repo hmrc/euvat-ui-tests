@@ -45,7 +45,7 @@ class ErrorSpec
 
   Feature("Error and warning message validation check - New claim") {
 
-    Scenario("01 - Refund period start and end date validation", Local, Error) {
+    Scenario("01 - Refund period start and end date validation", Local, Error, WIP) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900002") // Vat registration date 01/01/2024
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -65,8 +65,9 @@ class ErrorSpec
       RefundPeriod.errorMessageDisplayed("Refund period start date must be earlier than the refund period end date")
 
       RefundPeriod.submitRefundPeriodUsingDynamicValidYear("01", "02")
-      CheckRefundPeriod.verifyPageTitle(CheckRefundPeriod.pageTitle)
-      CheckRefundPeriod.clickLinkByText("No, change the refund period")
+      CheckRefundPeriodShort.verifyPageTitle(CheckRefundPeriodShort.pageTitle)
+      CheckRefundPeriodShort.checkRefundPeriodMessageShort()
+      CheckRefundPeriodShort.clickLinkByText("No, change the refund period")
 
       RefundPeriod.submitRefundPeriodUsingStartLastYear("01", "02")
       RefundPeriod.errorSummaryDisplayed("Refund period start date and end date must be in the same calendar year")
@@ -157,7 +158,7 @@ class ErrorSpec
       RefundPeriod.clickSignOut
     }
 
-    Scenario("04 - Validate overlapping refund period", Local, WIP) {
+    Scenario("04 - Validate overlapping refund period", Local) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -180,12 +181,12 @@ class ErrorSpec
       ClaimDetails.clickChangeLink("End date")
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
       RefundPeriod.submitRefundPeriodUsingDynamicValidYear("06", "08")
-      CheckRefundPeriod.verifyPageTitle(CheckRefundPeriod.pageTitle)
-      CheckRefundPeriod.textDisplayed(RefundPeriod.checkRefundPeriodMessageOverlap())
+      CheckRefundPeriodShort.verifyPageTitle(CheckRefundPeriodShort.pageTitle)
+      CheckRefundPeriodShort.textDisplayed(RefundPeriod.checkRefundPeriodMessageOverlap())
 //      CheckRefundPeriod.pause(1000)
 //      Click the link
 //      Go back and change dates
-      CheckRefundPeriod.continue()
+      CheckRefundPeriodShort.continue()
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
       ClaimAnEUVATRefund.clickSignOut
