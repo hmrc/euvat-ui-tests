@@ -38,4 +38,15 @@ object PurchaseImportSummary extends BasePage {
     continue()
   }
 
+  private def changeLinkSelector(itemIndex: Int): String = {
+    require(itemIndex > 0, "Item index must be greater than 0")
+
+    s"dl.govuk-summary-list > div.govuk-summary-list__row:nth-child($itemIndex) > dd.govuk-summary-list__actions > ul > li:first-child > a"
+  }
+
+  def clickChangeLink(itemIndex: Int): this.type = {
+    super.clickLinkByCSS(changeLinkSelector(itemIndex))
+    this
+  }
+
 }
