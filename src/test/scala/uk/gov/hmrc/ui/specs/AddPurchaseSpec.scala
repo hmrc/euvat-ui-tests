@@ -356,7 +356,7 @@ class AddPurchaseSpec
       And("I change purchase details")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
-      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // ====
+      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1"))
       PurchaseImportSummary.clickActionLink(1, "Change")
 
       //      Change purchase type
