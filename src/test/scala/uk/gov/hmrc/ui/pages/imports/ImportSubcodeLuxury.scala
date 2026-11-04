@@ -23,7 +23,7 @@ object ImportSubcodeLuxury extends BasePage {
   override def pageUrl: String = "import/luxury-entertainment-hospitality-cost"
 
   override def pageTitle: String = "What is the type of luxury, entertainment or hospitality cost? - EU VAT - GOV.UK"
-  
+
   val rdoReceptions = "#value_0"
   val rdoNone       = "#value_1"
 
