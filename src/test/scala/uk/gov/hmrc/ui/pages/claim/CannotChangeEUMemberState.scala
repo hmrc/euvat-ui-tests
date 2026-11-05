@@ -18,7 +18,7 @@ package uk.gov.hmrc.ui.pages.claim
 
 import uk.gov.hmrc.ui.pages.BasePage
 
-object EUMemberStateDetails extends BasePage {
+object CannotChangeEUMemberState extends BasePage {
 
   override def pageUrl: String = "claim-details/cannot-change-eu-state"
 
