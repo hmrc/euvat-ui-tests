@@ -21,9 +21,8 @@ import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
-import uk.gov.hmrc.ui.pages.bank.{AccountHolderType, BeforeYouStartBank}
+import uk.gov.hmrc.ui.pages.bank.{AccountHolderType, BankDetailsForm, BeforeYouStartBank}
 import uk.gov.hmrc.ui.pages.claim.*
-import uk.gov.hmrc.ui.pages.purchase.*
 import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{CacheHelper, DatabaseHelper, MongoHelper}
 
@@ -45,7 +44,7 @@ class AddBankDetailsSpec
     cleanupDatabaseIfNotStub()
   }
 
-  Feature("Make a new EUVAT claim - Add a purchase") {
+  Feature("Make a new EUVAT claim - Add Bank Details") {
 
     Scenario("01 - Submit a refund request", Local) {
       Given("I login as an organisation")
@@ -71,6 +70,13 @@ class AddBankDetailsSpec
       BeforeYouStartBank.continue()
       AccountHolderType.verifyPageTitle(AccountHolderType.pageTitle)
       AccountHolderType.selectAccountHolderType("Applicant (you)")
+      BankDetailsForm.verifyPageTitle(BankDetailsForm.pageTitle)
+      BankDetailsForm.submitBankDetailsForm(
+        "ACCOUNTNAME123456789",
+        "FAKEGB21XXX",
+        "GB00TEST00000000000000",
+        "Communauté Financière Africaine BCEAO, Francs"
+      )
     }
   }
 }
