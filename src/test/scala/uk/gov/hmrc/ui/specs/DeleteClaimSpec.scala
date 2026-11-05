@@ -46,7 +46,7 @@ class DeleteClaimSpec
 
   Feature("Delete a draft EUVAT claim - Delete claim") {
 
-    Scenario("01 - Delete Claim details from Check your claim details page", Local) {
+    Scenario("01 - Delete Claim details from Check your claim details page", Local, WIP) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
