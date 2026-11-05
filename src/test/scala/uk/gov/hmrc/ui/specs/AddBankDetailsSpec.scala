@@ -80,12 +80,13 @@ class AddBankDetailsSpec
       )
       CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
 
-      //change bank details
+      // change bank details
       And("I change bank details")
-      CheckYourBankDetails.clickLinkByCSS(".govuk-summary-card__actions")
+      CheckYourBankDetails.clickChangeBankDetailsLink()
       AccountHolderType.selectAccountHolderType("Third party (someone else)")
       InternationalBankAccountDetails.continue()
       CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
+//      // checking if the change has been applied
       CheckYourBankDetails.textDisplayed("Third party (someone else)")
       CheckYourBankDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)

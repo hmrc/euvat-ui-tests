@@ -19,16 +19,15 @@ package uk.gov.hmrc.ui.pages.bank
 import uk.gov.hmrc.ui.pages.BasePage
 import org.openqa.selenium.By
 
-  object CheckYourBankDetails extends BasePage {
+object CheckYourBankDetails extends BasePage {
 
-    override def pageUrl: String = "bank-details/check-your-answers"
+  override def pageUrl: String = "bank-details/check-your-answers"
 
-    override def pageTitle: String =
-      "Check your answers - EU VAT - GOV.UK"
+  override def pageTitle: String = "Check your answers - EU VAT - GOV.UK"
 
-    val txtNameOnTheAccount: By = By.id("NameOnTheAccount")
-
-    //val clickLinkChange: By = By.cssSelector(".govuk-summary-card__actions")
+  def clickChangeBankDetailsLink(): this.type = {
+    val changeLink: By = By.cssSelector(".govuk-summary-card__actions")
+    clickBy(changeLink)
+    this
   }
-
-
+}

@@ -25,22 +25,21 @@ object InternationalBankAccountDetails extends BasePage {
 
   override def pageTitle: String = "International bank account details - EU VAT - GOV.UK"
 
-  val txtNameOnTheAccount: By = By.id("NameOnTheAccount")
-  val txtBIC: By = By.id("BIC")
-  val txtAccountNumber: By = By.id("accountNumber")
+  val txtNameOnTheAccount: By  = By.id("NameOnTheAccount")
+  val txtBIC: By               = By.id("BIC")
+  val txtAccountNumber: By     = By.id("accountNumber")
   val txtCurrencyOfAccount: By = By.id("CurrencyOfAccount-input")
 
   def submitInternationalBankAccountDetails(
-                                   NameOnTheAccount: String,
-                                   BIC: String,
-                                   accountNumber: String,
-                                   CurrencyOfAccount: String
-                                 ): Unit = {
+    NameOnTheAccount: String,
+    BIC: String,
+    accountNumber: String,
+    CurrencyOfAccount: String
+  ): Unit = {
     input(txtNameOnTheAccount, NameOnTheAccount)
     input(txtBIC, BIC)
     input(txtAccountNumber, accountNumber)
     input(txtCurrencyOfAccount, CurrencyOfAccount)
     continue()
   }
-
 }
