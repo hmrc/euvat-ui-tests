@@ -83,13 +83,16 @@ class AddBankDetailsSpec
       // change bank details
       And("I change bank details")
       CheckYourBankDetails.clickChangeBankDetailsLink()
+      ChangeAccountHolderType.verifyPageTitle(ChangeAccountHolderType.pageTitle)
       AccountHolderType.selectAccountHolderType("Third party (someone else)")
-      InternationalBankAccountDetails.continue()
+      ChangeBankDetails.verifyPageTitle(ChangeBankDetails.pageTitle)
+      ChangeBankDetails.continue()
       CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
-//      // checking if the change has been applied
+      // checking if the change has been applied
       CheckYourBankDetails.textDisplayed("Third party (someone else)")
       CheckYourBankDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
     }
   }
 }
