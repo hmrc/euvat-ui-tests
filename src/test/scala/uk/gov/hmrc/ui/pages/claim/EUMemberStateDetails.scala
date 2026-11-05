@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object EUMemberStateDetails extends BasePage {
 
-  override def pageUrl: String = "/claim-details/cannot-change-eu-state"
+  override def pageUrl: String = "claim-details/cannot-change-eu-state"
 
   override def pageTitle: String = "Cannot change EU member state - EU VAT - GOV.UK"
 
