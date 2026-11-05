@@ -17,7 +17,6 @@
 package uk.gov.hmrc.ui.pages.purchase
 
 import uk.gov.hmrc.ui.pages.BasePage
-import uk.gov.hmrc.ui.pages.claim.ClaimDetails.{base, selector}
 
 object RemoveItem extends BasePage {
 

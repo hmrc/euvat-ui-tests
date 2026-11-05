@@ -66,8 +66,8 @@ class DeleteClaimSpec
       MakeEuvatClaim.clickLinkByText("Claim details")
       ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
       ClaimDetails.clickChangeLink("EU member state")
-      EUMemberStateDetails.verifyPageTitle(EUMemberStateDetails.pageTitle)
-      EUMemberStateDetails.continueAsYes()
+      CannotChangeEUMemberState.verifyPageTitle(CannotChangeEUMemberState.pageTitle)
+      CannotChangeEUMemberState.continueAsYes()
       ClaimAnEUVATRefund.clickSignOut
     }
 
