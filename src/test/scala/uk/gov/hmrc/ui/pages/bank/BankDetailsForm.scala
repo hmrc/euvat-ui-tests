@@ -26,8 +26,8 @@ object BankDetailsForm extends BasePage {
   override def pageTitle: String = "International bank account details - EU VAT - GOV.UK"
 
   val txtAccountName: By = By.cssSelector("#NameOnTheAccount")
-  val txtBIC: By = By.cssSelector("#BIC")
-  val txtIBAN: By = By.cssSelector("#accountNumber")
+  val txtBIC: By         = By.cssSelector("#BIC")
+  val txtIBAN: By        = By.cssSelector("#accountNumber")
 
   val bankCurrencyDropdown = "#CurrencyOfAccount-input__listbox"
   val txtBankCurrency: By  = By.cssSelector("#CurrencyOfAccount-input")
