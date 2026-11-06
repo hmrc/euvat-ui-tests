@@ -567,7 +567,6 @@ class AddEuvatRefundSpec
       TotalImportVatClaim.submitTotalImportVatClaim("100.99")
       CheckYourImportDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourImportDetails.saveAndContinue()
-      PurchaseImportSummary.pause(10000)
       PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
       PurchaseImportSummary.continueAsNo()
 
