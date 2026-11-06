@@ -291,7 +291,7 @@ class AddEuvatRefundSpec
       CheckVATClaim.continue()
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
-//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2")) // Only works for the stub
+//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
       PurchaseImportSummary.continueAsYes()
 
       AddPurchaseImport.selectPurchaseOrImport("Import")
@@ -534,7 +534,7 @@ class AddEuvatRefundSpec
       VATRegistrationNumber.submitVATRegistrationNumber("1234567890")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
-//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2")) // Only works for the stub
+//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
       PurchaseImportSummary.continueAsYes()
       //  Add an import
       AddPurchaseImport.selectPurchaseOrImport("Import")

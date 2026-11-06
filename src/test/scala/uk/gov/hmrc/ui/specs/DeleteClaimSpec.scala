@@ -106,6 +106,21 @@ class DeleteClaimSpec
       MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/purchase/check-your-answers")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
+//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
+      PurchaseImportSummary.continueAsYes()
+
+      AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
+      AddPurchaseImport.selectPurchaseOrImport("Import")
+      ImportType.verifyPageTitle(ImportType.pageTitle)
+      ImportType.selectImportType("Food, drink and restaurant services")
+
+      And("I inject the remaining import details")
+      CacheHelper.updateUserAnswers("importDetailsAfterType.json", sharedId)
+
+      And("I go to check your import details")
+      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/import/check-your-answers")
+      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
+      CheckYourImportDetails.saveAndContinue()
       PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
       PurchaseImportSummary.continueAsNo()
 
@@ -118,7 +133,7 @@ class DeleteClaimSpec
       ClaimAnEUVATRefund.clickSignOut
     }
 
-    Scenario("03 - Delete a purchase and import from the Purchase & Import Summary page", Local, WIP) {
+    Scenario("03 - Delete a purchase and import from the Purchase & Import Summary page", Local) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -152,7 +167,7 @@ class DeleteClaimSpec
       MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/purchase/check-your-answers")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
-//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2")) // Only works for the stub
+//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
       PurchaseImportSummary.continueAsYes()
 
       AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
@@ -173,21 +188,14 @@ class DeleteClaimSpec
       PurchaseImportSummary.clickActionLink(2, "Remove")
       RemoveItem.verifyPageTitle(RemoveItem.pageTitle)
       RemoveItem.selectDeleteItem("Yes")
-      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1"))
+//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
       PurchaseImportSummary.clickActionLink(1, "Remove")
       RemoveItem.verifyPageTitle(RemoveItem.pageTitle)
       RemoveItem.selectDeleteItem("Yes")
-//      #main-content > div > div > form > dl > div:nth-child(1) > dd.govuk-summary-list__actions > ul > li:nth-child(2) > a
-//      #main-content > div > div > form > dl > div:nth-child(2) > dd.govuk-summary-list__actions > ul > li:nth-child(2) > a
 
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       MakeEuvatClaim.clickSignOut
-//      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-//      MakeEuvatClaim.clickLinkByText("Delete this claim")
-//      DeleteClaim.verifyPageTitle(DeleteClaim.pageTitle)
-//      DeleteClaim.continueAsYes()
-//      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
-//      ClaimAnEUVATRefund.clickSignOut
+
     }
   }
 }
