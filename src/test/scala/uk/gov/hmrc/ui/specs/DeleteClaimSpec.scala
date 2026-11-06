@@ -22,6 +22,7 @@ import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
+import uk.gov.hmrc.ui.pages.imports.{CheckYourImportDetails, ImportType}
 import uk.gov.hmrc.ui.pages.purchase.*
 import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{CacheHelper, DatabaseHelper, MongoHelper}
@@ -115,6 +116,78 @@ class DeleteClaimSpec
       DeleteClaim.continueAsYes()
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
       ClaimAnEUVATRefund.clickSignOut
+    }
+
+    Scenario("03 - Delete a purchase and import from the Purchase & Import Summary page", Local, WIP) {
+      Given("I login as an organisation")
+      val sharedId = AuthorityWizard.login("Organisation", "999900001")
+      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+
+      When("I inject claim details")
+      CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
+
+      And("I start the claim")
+      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
+      And("I save the injected claim details")
+      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
+      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+      CheckYourClaimDetails.saveAndContinue()
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
+      And("I create the purchase record through the UI")
+      MakeEuvatClaim.clickLinkByText("Purchases and imports")
+      BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
+      BeforeYouStart.continue()
+      AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
+      AddPurchaseImport.selectPurchaseOrImport("Purchase")
+      PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
+      PurchaseType.selectPurchaseType("Food, drink and restaurant services")
+
+      And("I inject the remaining purchase details")
+      CacheHelper.updateUserAnswers("purchaseDetailsAfterType.json", sharedId)
+
+      And("I go to check your purchase details")
+      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/purchase/check-your-answers")
+      CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+      CheckYourPurchaseDetails.saveAndContinue()
+//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2")) // Only works for the stub
+      PurchaseImportSummary.continueAsYes()
+
+      AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
+      AddPurchaseImport.selectPurchaseOrImport("Import")
+      ImportType.verifyPageTitle(ImportType.pageTitle)
+      ImportType.selectImportType("Food, drink and restaurant services")
+
+      And("I inject the remaining import details")
+      CacheHelper.updateUserAnswers("importDetailsAfterType.json", sharedId)
+
+      And("I go to check your import details")
+      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/import/check-your-answers")
+      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
+      CheckYourImportDetails.saveAndContinue()
+      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
+
+      Then("I delete the purchase and import")
+      PurchaseImportSummary.clickActionLink(2, "Remove")
+      RemoveItem.verifyPageTitle(RemoveItem.pageTitle)
+      RemoveItem.selectDeleteItem("Yes")
+      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1"))
+      PurchaseImportSummary.clickActionLink(1, "Remove")
+      RemoveItem.verifyPageTitle(RemoveItem.pageTitle)
+      RemoveItem.selectDeleteItem("Yes")
+//      #main-content > div > div > form > dl > div:nth-child(1) > dd.govuk-summary-list__actions > ul > li:nth-child(2) > a
+//      #main-content > div > div > form > dl > div:nth-child(2) > dd.govuk-summary-list__actions > ul > li:nth-child(2) > a
+
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      MakeEuvatClaim.clickSignOut
+//      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+//      MakeEuvatClaim.clickLinkByText("Delete this claim")
+//      DeleteClaim.verifyPageTitle(DeleteClaim.pageTitle)
+//      DeleteClaim.continueAsYes()
+//      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+//      ClaimAnEUVATRefund.clickSignOut
     }
   }
 }

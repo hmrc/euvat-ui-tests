@@ -27,7 +27,7 @@ import uk.gov.hmrc.ui.pages.purchase.*
 import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
 
-class NewEuvatClaimSpec
+class AddEuvatRefundSpec
     extends AnyFeatureSpec
     with BaseSpec
     with GivenWhenThen
@@ -45,9 +45,9 @@ class NewEuvatClaimSpec
     cleanupDatabaseIfNotStub()
   }
 
-  Feature("Make a new EUVAT claim - New claim") {
+  Feature("Make a new EUVAT claim - New end to end submission") {
 
-    Scenario("01 - Submit a refund request", Local) {
+    Scenario("01 - Submit an end to end refund request", Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -291,7 +291,7 @@ class NewEuvatClaimSpec
       CheckVATClaim.continue()
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
-//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
+//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2")) // Only works for the stub
       PurchaseImportSummary.continueAsYes()
 
       AddPurchaseImport.selectPurchaseOrImport("Import")
@@ -409,7 +409,7 @@ class NewEuvatClaimSpec
       MakeEuvatClaim.clickSignOut
     }
 
-    Scenario("02 - Submit a refund request for Germany", Local) {
+    Scenario("02 - Submit an end to end refund request for Germany", Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -534,9 +534,9 @@ class NewEuvatClaimSpec
       VATRegistrationNumber.submitVATRegistrationNumber("1234567890")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
-//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
+//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2")) // Only works for the stub
       PurchaseImportSummary.continueAsYes()
-
+      //  Add an import
       AddPurchaseImport.selectPurchaseOrImport("Import")
       ImportType.verifyPageTitle(ImportType.pageTitle)
       ImportType.selectImportType("Other")
@@ -567,7 +567,7 @@ class NewEuvatClaimSpec
       TotalImportVatClaim.submitTotalImportVatClaim("100.99")
       CheckYourImportDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourImportDetails.saveAndContinue()
-
+      PurchaseImportSummary.pause(10000)
       PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
       PurchaseImportSummary.continueAsNo()
 
