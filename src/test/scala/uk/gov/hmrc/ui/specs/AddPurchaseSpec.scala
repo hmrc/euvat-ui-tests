@@ -292,5 +292,172 @@ class AddPurchaseSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
       MakeEuvatClaim.clickSignOut
     }
+
+    Scenario("03 - Change your answers for a Purchase refund request", Local) {
+      Given("I login as an organisation")
+      val sharedId = AuthorityWizard.login("Organisation", "999900001")
+      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+
+      When("I start new EUVAT claim")
+      //      Inject Claim details
+      CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
+      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
+      And("I see claim details page completed")
+      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
+      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+
+      CheckYourClaimDetails.saveAndContinue()
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
+      And("I add purchase details")
+      MakeEuvatClaim.clickLinkByText("Purchases and imports")
+      BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
+      BeforeYouStart.continue()
+      AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
+      AddPurchaseImport.selectPurchaseOrImport("Purchase")
+      PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
+      PurchaseType.selectPurchaseType("Food, drink and restaurant services")
+      PurchaseSubcodeFood.verifyPageTitle(PurchaseSubcodeFood.pageTitle)
+      PurchaseSubcodeFood.selectFoodCostType("Food and drink from hotels")
+      PurchaseSubcategoryFood.verifyPageTitle(PurchaseSubcategoryFood.pageTitle)
+      PurchaseSubcategoryFood.selectWhoFoodFor("The taxable person")
+
+      //      Invoice details
+      InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
+      InvoiceType.selectInvoiceType("Standard invoice")
+      InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
+      InvoiceNumber.submitInvoiceNumber("1234567890")
+      InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
+      InvoiceDate.submitInvoiceDate("08", "12", "2025")
+
+      //      Supplier details
+      SupplierName.verifyPageTitle(SupplierName.pageTitle)
+      SupplierName.submitSupplierName("Test Supplier Name")
+      SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
+      SupplierAddress.submitSupplierAddress("Test address one", "Test address two", "Test address three")
+      VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
+      VATRegistrationNumber.submitVATRegistrationNumber("EE0000000111")
+
+      //      Purchase amounts
+      Currency.verifyPageTitle(Currency.pageTitle)
+      Currency.selectCurrencyType("Euro")
+      TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
+      TotalPurchaseAmount.submitTotalPurchaseAmount("1000.01")
+      TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
+      TotalVatPaid.submitTotalVatPaid("200.01")
+      TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
+      TotalVatClaim.submitTotalVatClaim("100.01")
+
+      //    Check your purchase details
+      And("I change purchase details")
+      CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+      CheckYourPurchaseDetails.saveAndContinue()
+      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
+      PurchaseImportSummary.clickActionLink(1, "Change")
+
+      //      Change purchase type
+      ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
+      ChangeYourPurchaseDetails.clickChangeLink("Purchase type")
+      PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
+      PurchaseType.selectPurchaseType("Luxuries, entertainment and hospitality")
+      PurchaseSubcodeLuxury.verifyPageTitle(PurchaseSubcodeLuxury.pageTitle)
+      PurchaseSubcodeLuxury.selectLuxuryType("Receptions, entertainment and hospitality")
+      ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
+
+      //      Change invoice type
+      ChangeYourPurchaseDetails.clickChangeLink("Invoice type")
+      InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
+      InvoiceType.selectInvoiceType("Simplified invoice")
+      ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
+
+      //      Change invoice number
+      ChangeYourPurchaseDetails.clickChangeLink("Invoice number")
+      InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
+      InvoiceNumber.submitInvoiceNumber("XR123456789")
+      VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
+      VATRegistrationNumber.submitVATRegistrationNumber("AA987654321")
+      ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
+
+      //      Change invoice date
+      ChangeYourPurchaseDetails.clickChangeLink("Invoice date")
+      InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
+      InvoiceDate.submitInvoiceDate("01", "01", "2026")
+      ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
+
+      //      Change supplier name
+      ChangeYourPurchaseDetails.clickChangeLink("Supplier name")
+      SupplierName.verifyPageTitle(SupplierName.pageTitle)
+      SupplierName.submitSupplierName("Update Test Supplier Name")
+      ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
+
+      //      Change supplier address
+      ChangeYourPurchaseDetails.clickChangeLink("Supplier address")
+      SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
+      SupplierAddress.submitSupplierAddress("Updated Street", "Updated City", "Updated Country")
+      ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
+
+      //      Change supplier VAT registration check
+      ChangeYourPurchaseDetails.clickChangeLink("Supplier VAT registration check")
+      AddVATRegistration.verifyPageTitle(AddVATRegistration.pageTitle)
+      AddVATRegistration.continueAsYes()
+      ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
+
+      //      Change supplier VAT registration number
+      ChangeYourPurchaseDetails.clickChangeLink("Supplier VAT registration number")
+      VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
+      VATRegistrationNumber.submitVATRegistrationNumber("BB987654321")
+      ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
+
+      //      Change currency
+      ChangeYourPurchaseDetails.clickChangeLink("Currency")
+      Currency.verifyPageTitle(Currency.pageTitle)
+      Currency.selectCurrencyType("Estonian Kroon (kr)")
+      TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
+      TotalPurchaseAmount.submitTotalPurchaseAmount("1000.01")
+      TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
+      TotalVatPaid.submitTotalVatPaid("3000.99")
+      CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
+      CheckVATAmount.continue()
+      TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
+      TotalVatClaim.submitTotalVatClaim("4000.99")
+      CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
+      CheckVATClaim.continue()
+      ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
+
+      //      Change VAT claim
+      ChangeYourPurchaseDetails.clickChangeLink("VAT claim")
+      TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
+      TotalVatClaim.submitTotalVatClaim("2000.99")
+      ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
+
+      //      Change VAT paid
+      ChangeYourPurchaseDetails.clickChangeLink("VAT paid")
+      TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
+      TotalVatPaid.submitTotalVatPaid("1500.99")
+      CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
+      CheckVATAmount.continue()
+      TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
+      TotalVatClaim.submitTotalVatClaim("4100.99")
+      CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
+      CheckVATClaim.continue()
+      ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
+
+      //      Change amount before VAT
+      ChangeYourPurchaseDetails.clickChangeLink("Amount before VAT")
+      TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
+      TotalPurchaseAmount.submitTotalPurchaseAmount("300.99")
+      TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
+      TotalVatPaid.submitTotalVatPaid("5000.99")
+      CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
+      CheckVATAmount.continue()
+      TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
+      TotalVatClaim.submitTotalVatClaim("6000.99")
+      CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
+      CheckVATClaim.continue()
+      ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
+
+    }
   }
 }

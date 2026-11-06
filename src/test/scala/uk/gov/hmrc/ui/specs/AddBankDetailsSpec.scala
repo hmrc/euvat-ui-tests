@@ -64,6 +64,7 @@ class AddBankDetailsSpec
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
+      // Add bank details
       And("I add bank details")
       MakeEuvatClaim.clickLinkByText("Bank details")
       BeforeYouStartBank.verifyPageTitle(BeforeYouStartBank.pageTitle)
@@ -77,6 +78,19 @@ class AddBankDetailsSpec
         "GB00TEST00000000000000",
         "Communauté Financière Africaine BCEAO, Francs"
       )
+      CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
+
+      // change bank details
+      And("I change bank details")
+      CheckYourBankDetails.clickChangeBankDetailsLink()
+      AccountHolderType.verifyPageTitle(AccountHolderType.pageTitle)
+      AccountHolderType.selectAccountHolderType("Third party (someone else)")
+      BankDetailsForm.verifyPageTitle(BankDetailsForm.pageTitle)
+      BankDetailsForm.continue()
+      CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
+      CheckYourBankDetails.saveAndContinue()
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
     }
   }
 }
