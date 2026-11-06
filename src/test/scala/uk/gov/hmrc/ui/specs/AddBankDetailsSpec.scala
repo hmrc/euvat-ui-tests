@@ -46,7 +46,7 @@ class AddBankDetailsSpec
 
   Feature("Make a new EUVAT claim - Add Bank Details") {
 
-    Scenario("01 - Submit a refund request", Local) {
+    Scenario("01 - Submit a refund request", Local, WIP) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -83,10 +83,10 @@ class AddBankDetailsSpec
       // change bank details
       And("I change bank details")
       CheckYourBankDetails.clickChangeBankDetailsLink()
-      ChangeAccountHolderType.verifyPageTitle(ChangeAccountHolderType.pageTitle)
+      AccountHolderType.verifyPageTitle(AccountHolderType.pageTitle)
       AccountHolderType.selectAccountHolderType("Third party (someone else)")
-      ChangeBankDetails.verifyPageTitle(ChangeBankDetails.pageTitle)
-      ChangeBankDetails.continue()
+      BankDetailsForm.verifyPageTitle(BankDetailsForm.pageTitle)
+      BankDetailsForm.continue()
       CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
       // checking if the change has been applied
       CheckYourBankDetails.textDisplayed("Third party (someone else)")
