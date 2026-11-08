@@ -58,9 +58,13 @@ class AddImportSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I see claim details page completed")
-      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+      MakeEuvatClaim.navigateToPageWithRetry(
+        "http://localhost:18501/file-eu-vat/claim-details/check-your-answers",
+        CheckYourClaimDetails.pageTitle
+      )
 
+      And("I see Check your claim details page completed after injecting claim details")
+      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
@@ -190,8 +194,10 @@ class AddImportSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I see claim details page completed")
-      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+      MakeEuvatClaim.navigateToPageWithRetry(
+        "http://localhost:18501/file-eu-vat/claim-details/check-your-answers",
+        CheckYourClaimDetails.pageTitle
+      )
 
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
@@ -246,8 +252,10 @@ class AddImportSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I see claim details page completed")
-      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+      MakeEuvatClaim.navigateToPageWithRetry(
+        "http://localhost:18501/file-eu-vat/claim-details/check-your-answers",
+        CheckYourClaimDetails.pageTitle
+      )
 
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
