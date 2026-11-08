@@ -56,9 +56,11 @@ class DeleteClaimSpec
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I see the Check your claim details page completed")
-      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+      And("I see claim details page completed")
+      MakeEuvatClaim.navigateToPageWithRetry(
+        "http://localhost:18501/file-eu-vat/claim-details/check-your-answers",
+        CheckYourClaimDetails.pageTitle
+      )
       CheckYourClaimDetails.saveAndContinue()
 
       Then("I return to the Claim details page to delete the claim")
@@ -78,14 +80,14 @@ class DeleteClaimSpec
 
       When("I inject claim details")
       CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
-
-      And("I start the claim")
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I save the injected claim details")
-      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+      And("I see claim details page completed")
+      MakeEuvatClaim.navigateToPageWithRetry(
+        "http://localhost:18501/file-eu-vat/claim-details/check-your-answers",
+        CheckYourClaimDetails.pageTitle
+      )
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
@@ -102,8 +104,10 @@ class DeleteClaimSpec
       CacheHelper.updateUserAnswers("purchaseDetailsAfterType.json", sharedId)
 
       And("I go to check your purchase details")
-      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/purchase/check-your-answers")
-      CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+      MakeEuvatClaim.navigateToPageWithRetry(
+        "http://localhost:18501/file-eu-vat/purchase/check-your-answers",
+        CheckYourPurchaseDetails.pageTitle
+      )
       CheckYourPurchaseDetails.saveAndContinue()
       PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
       PurchaseImportSummary.continueAsNo()
