@@ -122,8 +122,9 @@ class DeleteClaimSpec
       CacheHelper.updateUserAnswers("importDetailsAfterType.json", sharedId)
 
       And("I go to check your import details")
-      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/import/check-your-answers")
-      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
+      MakeEuvatClaim.navigateToPageWithRetry("http://localhost:18501/file-eu-vat/import/check-your-answers",
+        CheckYourImportDetails.pageTitle
+      )
       CheckYourImportDetails.saveAndContinue()
       PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
       PurchaseImportSummary.continueAsNo()
@@ -150,8 +151,10 @@ class DeleteClaimSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I save the injected claim details")
-      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+      And("I see claim details page completed")
+      MakeEuvatClaim.navigateToPageWithRetry(
+        "http://localhost:18501/file-eu-vat/claim-details/check-your-answers",
+        CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
@@ -168,7 +171,8 @@ class DeleteClaimSpec
       CacheHelper.updateUserAnswers("purchaseDetailsAfterType.json", sharedId)
 
       And("I go to check your purchase details")
-      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/purchase/check-your-answers")
+      MakeEuvatClaim.navigateToPageWithRetry("http://localhost:18501/file-eu-vat/purchase/check-your-answers",
+      CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
 //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
@@ -183,7 +187,8 @@ class DeleteClaimSpec
       CacheHelper.updateUserAnswers("importDetailsAfterType.json", sharedId)
 
       And("I go to check your import details")
-      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/import/check-your-answers")
+      MakeEuvatClaim.navigateToPageWithRetry("http://localhost:18501/file-eu-vat/import/check-your-answers",
+      CheckYourImportDetails.pageTitle)
       CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
       CheckYourImportDetails.saveAndContinue()
       PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
