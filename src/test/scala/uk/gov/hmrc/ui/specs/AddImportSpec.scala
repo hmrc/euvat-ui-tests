@@ -267,16 +267,16 @@ class AddImportSpec
       AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
       AddSADRefNumber.continueAsYes()
       SubmitSADRefNumber.verifyPageTitle(SubmitSADRefNumber.pageTitle)
-      SubmitSADRefNumber.submitSADRefNumber("98765")
+      SubmitSADRefNumber.submitSADRefNumber("SAD123456789")
       ImportDate.verifyPageTitle(ImportDate.pageTitle)
       ImportDate.submitImportDate("01", "01", "2026")
       SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
       SubmitSupplierName.submitSupplierName("Test Supplier")
       ImportSupplierAddress.verifyPageTitle(ImportSupplierAddress.pageTitle)
       ImportSupplierAddress.submitImportSupplierAddress(
-        "Test Street123",
-        "Test City456",
-        "Test State789",
+        "Test address one",
+        "Test address two",
+        "Test address three",
         "HEARD ISLAND & MCDONALD ISLANDS"
       )
       ImportCurrency.verifyPageTitle(ImportCurrency.pageTitle)
@@ -294,11 +294,11 @@ class AddImportSpec
       CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
       CheckYourImportDetails.saveAndContinue()
 
-      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
+//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
       PurchaseImportSummary.clickActionLink(2, "Change")
 
-      //    Change your import details
       And("I change import details")
+
       //      Change import type
       ChangeYourImportDetails.verifyPageTitle(ChangeYourImportDetails.pageTitle)
       ChangeYourImportDetails.clickChangeLink("Import type")

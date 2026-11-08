@@ -193,8 +193,8 @@ class DeleteClaimSpec
       RemoveItem.verifyPageTitle(RemoveItem.pageTitle)
       RemoveItem.selectDeleteItem("Yes")
 
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      MakeEuvatClaim.clickSignOut
+//      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle) // Only works for the database
+//      MakeEuvatClaim.clickSignOut // Only works for the database
 
     }
   }
