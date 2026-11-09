@@ -54,6 +54,7 @@ class DeleteClaimSpec
 
       When("I inject Claim details")
       CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
+      ClaimAnEUVATRefund.pause(10)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
@@ -81,6 +82,7 @@ class DeleteClaimSpec
 
       When("I inject claim details")
       CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
+      ClaimAnEUVATRefund.pause(10)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
@@ -146,6 +148,7 @@ class DeleteClaimSpec
 
       When("I inject claim details")
       CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
+      ClaimAnEUVATRefund.pause(10)
 
       And("I start the claim")
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")

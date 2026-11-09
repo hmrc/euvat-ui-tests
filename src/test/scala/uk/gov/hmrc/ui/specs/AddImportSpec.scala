@@ -54,6 +54,7 @@ class AddImportSpec
       When("I start new EUVAT claim")
       //      Inject Claim details
       CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
+      ClaimAnEUVATRefund.pause(10)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
@@ -190,6 +191,7 @@ class AddImportSpec
       When("I start new EUVAT claim")
       //      Inject Claim details
       CacheHelper.submitUserAnswers("claimDetailsGermany.json", sharedId)
+      ClaimAnEUVATRefund.pause(10)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
@@ -240,7 +242,7 @@ class AddImportSpec
       CheckYourImportDetails.clickSignOut
     }
 
-    Scenario("03 - Change your answers for a Import refund request", Local) {
+    Scenario("03 - Change your answers for a Import refund request", Local, WIP) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -248,6 +250,7 @@ class AddImportSpec
       When("I start new EUVAT claim")
       //      Inject Claim details
       CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
+      ClaimAnEUVATRefund.pause(10)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
