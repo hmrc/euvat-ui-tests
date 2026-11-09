@@ -18,8 +18,8 @@ package uk.gov.hmrc.ui.pages
 
 import com.typesafe.scalalogging.LazyLogging
 import driver.BrowserDriver
-import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait, Wait, WebDriverWait}
 import org.openqa.selenium.*
+import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait, Wait, WebDriverWait}
 import org.scalatest.concurrent.Eventually
 import org.scalatest.matchers.must.Matchers
 import uk.gov.hmrc.selenium.component.PageObject
@@ -146,7 +146,13 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
 
   /** Radio button interaction */
   def radioButton(optionalValue: String): Unit = {
-    val element: WebElement    = driver.findElement(By.cssSelector(optionalValue))
+    val by = By.cssSelector(optionalValue)
+
+    fluentWait.until { (d: WebDriver) =>
+      d.findElements(by).size() > 0
+    }
+
+    val element: WebElement    = driver.findElement(by)
     val ex: JavascriptExecutor = driver.asInstanceOf[JavascriptExecutor]
     ex.executeScript("arguments[0].click()", element)
   }
