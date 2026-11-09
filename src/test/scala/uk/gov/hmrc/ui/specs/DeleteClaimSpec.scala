@@ -151,7 +151,6 @@ class DeleteClaimSpec
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I save the injected claim details")
       And("I see claim details page completed")
       MakeEuvatClaim.navigateToPageWithRetry(
         "http://localhost:18501/file-eu-vat/claim-details/check-your-answers",
