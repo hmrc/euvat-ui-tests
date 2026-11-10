@@ -344,6 +344,7 @@ class AddPurchaseSpec
       PurchaseType.selectPurchaseType("Food, drink and restaurant services")
       PurchaseSubcodeFood.verifyPageTitle(PurchaseSubcodeFood.pageTitle)
       PurchaseSubcodeFood.selectFoodCostType("Food and drink from hotels")
+//      PurchaseSubcodeFood.pause(100000)
       PurchaseSubcategoryFood.verifyPageTitle(PurchaseSubcategoryFood.pageTitle)
       PurchaseSubcategoryFood.selectWhoFoodFor("The taxable person")
 

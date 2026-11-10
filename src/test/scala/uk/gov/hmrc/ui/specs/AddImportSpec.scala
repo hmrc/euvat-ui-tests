@@ -320,7 +320,7 @@ class AddImportSpec
       CheckYourImportDetails.saveAndContinue()
 
 //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
-      PurchaseImportSummary.clickActionLink(2, "Change")
+      PurchaseImportSummary.clickActionLink(2, "Change") // Does not work for the database, but works for the stubbed version
 
       And("I change import details")
 
