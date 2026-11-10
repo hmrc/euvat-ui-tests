@@ -24,7 +24,7 @@ import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.bank.*
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.tags.*
-import uk.gov.hmrc.ui.utils.{CacheHelper, DatabaseHelper, MongoHelper}
+import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
 
 class AddBankDetailsSpec
     extends AnyFeatureSpec
@@ -48,19 +48,36 @@ class AddBankDetailsSpec
 
     Scenario("01 - Submit a refund request", Local) {
       Given("I login as an organisation")
-      val sharedId = AuthorityWizard.login("Organisation", "999900001")
+      AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
-//      Inject Claim details
-      CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I see claim details page completed")
-      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+      And("I add claim details")
+      MakeEuvatClaim.clickLinkByText("Claim details")
+      EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
+      EUMemberState.selectCountry("Estonia")
+      Language.verifyPageTitle(Language.pageTitle)
+      Language.selectLanguage("Estonian")
+      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
+      RefundPeriod.submitRefundPeriodUsingDynamicValidYear("01", "03")
+      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
+      ContactDetails.submitContactDetails("Test@gmail.com", "9876543210")
+      AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
+      AddBusinessActivity.continueAsYes()
+      SecondBusinessActivity.verifyPageTitle(SecondBusinessActivity.pageTitle)
+      SecondBusinessActivity.enterSecondBusinessActivityCode("2222")
+      AddSecondBusinessActivity.verifyPageTitle(AddSecondBusinessActivity.pageTitle)
+      AddSecondBusinessActivity.continueAsYes()
 
+      ThirdBusinessActivity.verifyPageTitle(ThirdBusinessActivity.pageTitle)
+      ThirdBusinessActivity.enterThirdBusinessActivityCode("3333")
+      AddThirdBusinessActivity.verifyPageTitle(AddThirdBusinessActivity.pageTitle)
+      AddThirdBusinessActivity.continue()
+
+      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
