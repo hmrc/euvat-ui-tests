@@ -68,7 +68,9 @@ class SupportingDocumentsSpec
       And("I add supporting documents")
       MakeEuvatClaim.clickLinkByText("Supporting documents")
       BeforeYouStartSupportingDocuments.verifyPageTitle(BeforeYouStartSupportingDocuments.pageTitle)
-
+      BeforeYouStartSupportingDocuments.continue()
+      AnySupportingDocuments.verifyPageTitle(AnySupportingDocuments.pageTitle)
+      AnySupportingDocuments.selectYesOrNo("Yes")
     }
   }
 }
