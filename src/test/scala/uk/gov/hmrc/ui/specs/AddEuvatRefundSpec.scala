@@ -21,9 +21,11 @@ import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
+import uk.gov.hmrc.ui.pages.bank.*
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.imports.*
 import uk.gov.hmrc.ui.pages.purchase.*
+import uk.gov.hmrc.ui.pages.supportingdocuments.*
 import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
 
@@ -404,9 +406,40 @@ class AddEuvatRefundSpec
 
       PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
       PurchaseImportSummary.continueAsNo()
-
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      MakeEuvatClaim.clickSignOut
+
+      // Add bank details
+      And("I add bank details")
+      MakeEuvatClaim.clickLinkByText("Bank details")
+      BeforeYouStartBank.verifyPageTitle(BeforeYouStartBank.pageTitle)
+      BeforeYouStartBank.continue()
+      AccountHolderType.verifyPageTitle(AccountHolderType.pageTitle)
+      AccountHolderType.selectAccountHolderType("Applicant (you)")
+      BankDetailsForm.verifyPageTitle(BankDetailsForm.pageTitle)
+      BankDetailsForm.submitBankDetailsForm(
+        "ACCOUNTNAME123456789",
+        "FAKEGB21XXX",
+        "GB00TEST00000000000000",
+        "Communauté Financière Africaine BCEAO, Francs"
+      )
+      CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
+
+      // change bank details
+      And("I change bank details")
+      CheckYourBankDetails.clickChangeBankDetailsLink()
+      AccountHolderType.verifyPageTitle(AccountHolderType.pageTitle)
+      AccountHolderType.selectAccountHolderType("Third party (someone else)")
+      BankDetailsForm.verifyPageTitle(BankDetailsForm.pageTitle)
+      BankDetailsForm.continue()
+      CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
+      CheckYourBankDetails.saveAndContinue()
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
+      // Add supporting documents
+      And("I add supporting documents")
+      MakeEuvatClaim.clickLinkByText("Supporting documents")
+      BeforeYouStartSupportingDocuments.verifyPageTitle(BeforeYouStartSupportingDocuments.pageTitle)
+      BeforeYouStartSupportingDocuments.clickSignOut
     }
 
     Scenario("02 - Submit an end to end refund request for Germany", Jenkins, Local) {
@@ -569,9 +602,40 @@ class AddEuvatRefundSpec
       CheckYourImportDetails.saveAndContinue()
       PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
       PurchaseImportSummary.continueAsNo()
-
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      MakeEuvatClaim.clickSignOut
+
+      // Add bank details
+      And("I add bank details")
+      MakeEuvatClaim.clickLinkByText("Bank details")
+      BeforeYouStartBank.verifyPageTitle(BeforeYouStartBank.pageTitle)
+      BeforeYouStartBank.continue()
+      AccountHolderType.verifyPageTitle(AccountHolderType.pageTitle)
+      AccountHolderType.selectAccountHolderType("Applicant (you)")
+      BankDetailsForm.verifyPageTitle(BankDetailsForm.pageTitle)
+      BankDetailsForm.submitBankDetailsForm(
+        "ACCOUNTNAME123456789",
+        "FAKEGB21XXX",
+        "GB00TEST00000000000000",
+        "Communauté Financière Africaine BCEAO, Francs"
+      )
+      CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
+
+      // change bank details
+      And("I change bank details")
+      CheckYourBankDetails.clickChangeBankDetailsLink()
+      AccountHolderType.verifyPageTitle(AccountHolderType.pageTitle)
+      AccountHolderType.selectAccountHolderType("Third party (someone else)")
+      BankDetailsForm.verifyPageTitle(BankDetailsForm.pageTitle)
+      BankDetailsForm.continue()
+      CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
+      CheckYourBankDetails.saveAndContinue()
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
+      // Add supporting documents
+      And("I add supporting documents")
+      MakeEuvatClaim.clickLinkByText("Supporting documents")
+      BeforeYouStartSupportingDocuments.verifyPageTitle(BeforeYouStartSupportingDocuments.pageTitle)
+      BeforeYouStartSupportingDocuments.clickSignOut
     }
   }
 }

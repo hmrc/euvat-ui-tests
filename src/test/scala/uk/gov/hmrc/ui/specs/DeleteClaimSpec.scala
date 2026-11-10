@@ -217,7 +217,7 @@ class DeleteClaimSpec
       ClaimAnEUVATRefund.clickSignOut
     }
 
-    Scenario("03 - Delete a purchase and import from the Purchase & Import Summary page", Local) {
+    Scenario("03 - Delete a purchase and import from the Purchase & Import Summary page", Jenkins, Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
