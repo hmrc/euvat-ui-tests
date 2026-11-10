@@ -1,0 +1,18 @@
+{
+  "singleAdministrativeDocumentReferenceNumberAvailable" : false,
+  "importDate" : "2026-01-01",
+  "importSuppliersName" : "Update Test Supplier Name",
+  "supplierAddress" : {
+    "addressLine1" : "Test Street ABC",
+    "addressLine2" : "Test City 321",
+    "addressLine3" : "Test State XYZ",
+    "country" : "HM"
+  },
+  "importCurrency": "EEK",
+  "importSubCode": "9.3",
+  "importSubTypeLabel" : "Receptions, entertainment and hospitality",
+  "importDetailsInfo" : "TEST INPUT",
+  "totalAmountWithoutVat": 1000.01,
+  "totalVatPaidImport": 200.01,
+  "importTotalVatClaim": 100.01
+}

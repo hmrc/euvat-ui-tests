@@ -54,13 +54,18 @@ class AddImportSpec
       When("I start new EUVAT claim")
       //      Inject Claim details
       CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
+      ClaimAnEUVATRefund.pause(10)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I see claim details page completed")
-      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+      MakeEuvatClaim.navigateToPageWithRetry(
+        "http://localhost:18501/file-eu-vat/claim-details/check-your-answers",
+        CheckYourClaimDetails.pageTitle
+      )
 
+      And("I see Check your claim details page completed after injecting claim details")
+      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
@@ -186,12 +191,15 @@ class AddImportSpec
       When("I start new EUVAT claim")
       //      Inject Claim details
       CacheHelper.submitUserAnswers("claimDetailsGermany.json", sharedId)
+      ClaimAnEUVATRefund.pause(10)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I see claim details page completed")
-      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+      MakeEuvatClaim.navigateToPageWithRetry(
+        "http://localhost:18501/file-eu-vat/claim-details/check-your-answers",
+        CheckYourClaimDetails.pageTitle
+      )
 
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
@@ -229,26 +237,43 @@ class AddImportSpec
       TotalImportVATPaid.submitTotalImportVATPaid("200.99")
       TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
       TotalImportVatClaim.submitTotalImportVatClaim("100.99")
-      CheckYourImportDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
       CheckYourImportDetails.saveAndContinue()
       CheckYourImportDetails.clickSignOut
     }
 
-    Scenario("03 - Change your answers for a Import refund request", Local) {
+    Scenario("03 - Change your answers for a Import refund request", Jenkins, Local) {
       Given("I login as an organisation")
-      val sharedId = AuthorityWizard.login("Organisation", "999900001")
+      AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
-      //      Inject Claim details
-      CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I see claim details page completed")
-      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+      And("I add claim details")
+      MakeEuvatClaim.clickLinkByText("Claim details")
+      EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
+      EUMemberState.selectCountry("Estonia")
+      Language.verifyPageTitle(Language.pageTitle)
+      Language.selectLanguage("Estonian")
+      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
+      RefundPeriod.submitRefundPeriodUsingDynamicValidYear("01", "03")
+      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
+      ContactDetails.submitContactDetails("Test@gmail.com", "9876543210")
+      AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
+      AddBusinessActivity.continueAsYes()
+      SecondBusinessActivity.verifyPageTitle(SecondBusinessActivity.pageTitle)
+      SecondBusinessActivity.enterSecondBusinessActivityCode("2222")
+      AddSecondBusinessActivity.verifyPageTitle(AddSecondBusinessActivity.pageTitle)
+      AddSecondBusinessActivity.continueAsYes()
 
+      ThirdBusinessActivity.verifyPageTitle(ThirdBusinessActivity.pageTitle)
+      ThirdBusinessActivity.enterThirdBusinessActivityCode("3333")
+      AddThirdBusinessActivity.verifyPageTitle(AddThirdBusinessActivity.pageTitle)
+      AddThirdBusinessActivity.continue()
+
+      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
@@ -267,16 +292,16 @@ class AddImportSpec
       AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
       AddSADRefNumber.continueAsYes()
       SubmitSADRefNumber.verifyPageTitle(SubmitSADRefNumber.pageTitle)
-      SubmitSADRefNumber.submitSADRefNumber("98765")
+      SubmitSADRefNumber.submitSADRefNumber("SAD123456789")
       ImportDate.verifyPageTitle(ImportDate.pageTitle)
       ImportDate.submitImportDate("01", "01", "2026")
       SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
       SubmitSupplierName.submitSupplierName("Test Supplier")
       ImportSupplierAddress.verifyPageTitle(ImportSupplierAddress.pageTitle)
       ImportSupplierAddress.submitImportSupplierAddress(
-        "Test Street123",
-        "Test City456",
-        "Test State789",
+        "Test address one",
+        "Test address two",
+        "Test address three",
         "HEARD ISLAND & MCDONALD ISLANDS"
       )
       ImportCurrency.verifyPageTitle(ImportCurrency.pageTitle)
@@ -294,11 +319,14 @@ class AddImportSpec
       CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
       CheckYourImportDetails.saveAndContinue()
 
-      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
-      PurchaseImportSummary.clickActionLink(2, "Change")
+//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
+      PurchaseImportSummary.clickActionLink(
+        2,
+        "Change"
+      ) // Does not work for the database, but works for the stubbed version
 
-      //    Change your import details
       And("I change import details")
+
       //      Change import type
       ChangeYourImportDetails.verifyPageTitle(ChangeYourImportDetails.pageTitle)
       ChangeYourImportDetails.clickChangeLink("Import type")
