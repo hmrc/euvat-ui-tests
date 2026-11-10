@@ -22,6 +22,7 @@ import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
+import uk.gov.hmrc.ui.pages.imports.AddSADRefNumber
 import uk.gov.hmrc.ui.pages.supportingdocuments.*
 import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{CacheHelper, DatabaseHelper, MongoHelper}
@@ -68,7 +69,9 @@ class SupportingDocumentsSpec
       And("I add supporting documents")
       MakeEuvatClaim.clickLinkByText("Supporting documents")
       BeforeYouStartSupportingDocuments.verifyPageTitle(BeforeYouStartSupportingDocuments.pageTitle)
-
+      BeforeYouStartSupportingDocuments.continue()
+      AnySupportingDocuments.verifyPageTitle(AnySupportingDocuments.pageTitle)
+      AnySupportingDocuments.selectYesOrNo("Yes")
     }
   }
 }
