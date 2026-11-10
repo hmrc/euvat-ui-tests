@@ -46,7 +46,7 @@ class DeleteClaimSpec
 
   Feature("Delete a draft EUVAT claim - Delete claim") {
 
-    Scenario("01 - Delete Claim details from Check your claim details page", Local) {
+    Scenario("01 - Delete Claim details from Check your claim details page", Jenkins, Local) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -71,7 +71,7 @@ class DeleteClaimSpec
       ClaimAnEUVATRefund.clickSignOut
     }
 
-    Scenario("02 - Delete a full refund claim from Make a claim for an EU VAT refund page", Local) {
+    Scenario("02 - Delete a full refund claim from Make a claim for an EU VAT refund page", Jenkins, Local) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)

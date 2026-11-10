@@ -45,7 +45,7 @@ class ErrorSpec
 
   Feature("Error and warning message validation check - New claim") {
 
-    Scenario("01 - Refund period start and end date validation", Local, Error) {
+    Scenario("01 - Refund period start and end date validation", Jenkins, Local, Error) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900002") // Vat registration date 01/01/2024
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -106,7 +106,7 @@ class ErrorSpec
       ContactDetails.clickSignOut
     }
 
-    Scenario("02 - Validate a duplicate draft refund from the EU member state page", Local, Error) {
+    Scenario("02 - Validate a duplicate draft refund from the EU member state page", Jenkins, Local, Error) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900003") // Vat registration date 01/01/2023
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -124,7 +124,7 @@ class ErrorSpec
       EUMemberState.clickSignOut
     }
 
-    Scenario("03 - Validate VAT registration start (01/05/2026) and end date (31/07/2026)", Local, Error) {
+    Scenario("03 - Validate VAT registration start (01/05/2026) and end date (31/07/2026)", Jenkins, Local, Error) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900004")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)

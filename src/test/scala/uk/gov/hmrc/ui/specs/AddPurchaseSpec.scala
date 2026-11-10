@@ -297,7 +297,7 @@ class AddPurchaseSpec
       MakeEuvatClaim.clickSignOut
     }
 
-    Scenario("03 - Change your answers for a Purchase refund request", Local) {
+    Scenario("03 - Change your answers for a Purchase refund request", Jenkins, Local) {
       Given("I login as an organisation")
       val sharedId = AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)

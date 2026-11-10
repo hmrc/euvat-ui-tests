@@ -46,7 +46,7 @@ class NewEuvatClaimSpec
 
   Feature("Make a new EUVAT claim - New claim") {
 
-    Scenario("01 - Submit a refund request", Local) {
+    Scenario("01 - Submit a refund request", Jenkins, Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -296,7 +296,7 @@ class NewEuvatClaimSpec
       MakeEuvatClaim.clickSignOut
     }
 
-    Scenario("02 - Submit a refund request for Germany", Local) {
+    Scenario("02 - Submit a refund request for Germany", Jenkins, Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
