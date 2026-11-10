@@ -22,7 +22,6 @@ import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
-import uk.gov.hmrc.ui.pages.imports.AddSADRefNumber
 import uk.gov.hmrc.ui.pages.supportingdocuments.*
 import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{CacheHelper, DatabaseHelper, MongoHelper}
