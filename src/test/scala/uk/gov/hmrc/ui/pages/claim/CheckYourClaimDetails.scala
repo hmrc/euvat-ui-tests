@@ -23,7 +23,7 @@ object CheckYourClaimDetails extends BasePage {
   override def pageUrl: String = "claim-details/check-your-answers"
 
   override def pageTitle: String =
-    "Check your claim details - EU VAT - GOV.UK"
+    "Check your answers - EU VAT - GOV.UK"
 
   private val base =
     "#main-content > div > div > form > div:nth-child(%d) > dl > div:nth-child(%d) > dd.govuk-summary-list__actions > a"
