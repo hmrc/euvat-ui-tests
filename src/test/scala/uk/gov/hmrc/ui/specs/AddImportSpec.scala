@@ -237,7 +237,7 @@ class AddImportSpec
       TotalImportVATPaid.submitTotalImportVATPaid("200.99")
       TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
       TotalImportVatClaim.submitTotalImportVatClaim("100.99")
-      CheckYourImportDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
       CheckYourImportDetails.saveAndContinue()
       CheckYourImportDetails.clickSignOut
     }
@@ -320,7 +320,10 @@ class AddImportSpec
       CheckYourImportDetails.saveAndContinue()
 
 //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
-      PurchaseImportSummary.clickActionLink(2, "Change") // Does not work for the database, but works for the stubbed version
+      PurchaseImportSummary.clickActionLink(
+        2,
+        "Change"
+      ) // Does not work for the database, but works for the stubbed version
 
       And("I change import details")
 
