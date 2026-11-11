@@ -323,7 +323,7 @@ class AddImportSpec
       PurchaseImportSummary.clickActionLink(
         2,
         "Change"
-      ) // Does not work for the database, but works for the stubbed version
+      ) // Does not work for the database, but works for the stubbed version. Change the number 2 to 1 to make it work for the DB
 
       And("I change import details")
 
