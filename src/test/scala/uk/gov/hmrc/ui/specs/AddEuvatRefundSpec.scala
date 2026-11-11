@@ -430,7 +430,12 @@ class AddEuvatRefundSpec
       AccountHolderType.verifyPageTitle(AccountHolderType.pageTitle)
       AccountHolderType.selectAccountHolderType("Third party (someone else)")
       BankDetailsForm.verifyPageTitle(BankDetailsForm.pageTitle)
-      BankDetailsForm.continue()
+      BankDetailsForm.submitBankDetailsForm(
+        "CHANGENAME123456789",
+        "TESTXX00",
+        "GB00TESTIBANXX",
+        "GBP - United Kingdom, Pounds"
+      )
       CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
       CheckYourBankDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
@@ -626,7 +631,12 @@ class AddEuvatRefundSpec
       AccountHolderType.verifyPageTitle(AccountHolderType.pageTitle)
       AccountHolderType.selectAccountHolderType("Third party (someone else)")
       BankDetailsForm.verifyPageTitle(BankDetailsForm.pageTitle)
-      BankDetailsForm.continue()
+      BankDetailsForm.submitBankDetailsForm(
+        "CHANGENAME123456789",
+        "TESTXX00",
+        "GB00TESTIBANXX",
+        "GBP - United Kingdom, Pounds"
+      )
       CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
       CheckYourBankDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
