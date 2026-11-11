@@ -54,7 +54,6 @@ class AddPurchaseSpec
       When("I start new EUVAT claim")
 //      Inject Claim details
       CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
-      ClaimAnEUVATRefund.pause(10)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
@@ -230,7 +229,6 @@ class AddPurchaseSpec
       When("I start new EUVAT claim")
       //      Inject Claim details
       CacheHelper.submitUserAnswers("claimDetailsGermany.json", sharedId)
-      ClaimAnEUVATRefund.pause(10)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
@@ -344,7 +342,6 @@ class AddPurchaseSpec
       PurchaseType.selectPurchaseType("Food, drink and restaurant services")
       PurchaseSubcodeFood.verifyPageTitle(PurchaseSubcodeFood.pageTitle)
       PurchaseSubcodeFood.selectFoodCostType("Food and drink from hotels")
-//      PurchaseSubcodeFood.pause(100000)
       PurchaseSubcategoryFood.verifyPageTitle(PurchaseSubcategoryFood.pageTitle)
       PurchaseSubcategoryFood.selectWhoFoodFor("The taxable person")
 
