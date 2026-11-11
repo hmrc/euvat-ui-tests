@@ -394,16 +394,16 @@ class AddPurchaseSpec
       ChangeYourPurchaseDetails.clickChangeLink("Invoice type")
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
       InvoiceType.selectInvoiceType("Simplified invoice") // Stub needs to change to fix navigation issue
-//      AddVATRegistration.verifyPageTitle(AddVATRegistration.pageTitle) // Will not work for stub
-//      AddVATRegistration.continueAsNo() // Will not work for stub
+      AddVATRegistration.verifyPageTitle(AddVATRegistration.pageTitle)
+      AddVATRegistration.continueAsNo()
       ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
 
       //      Change invoice number
       ChangeYourPurchaseDetails.clickChangeLink("Invoice number")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
       InvoiceNumber.submitInvoiceNumber("XR123456789")
-      VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle) // Will not work for database
-      VATRegistrationNumber.submitVATRegistrationNumber("AA987654321") // Will not work for database
+      // VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
+      // VATRegistrationNumber.submitVATRegistrationNumber("AA987654321")
       ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
 
       //      Change invoice date
@@ -428,8 +428,8 @@ class AddPurchaseSpec
       ChangeYourPurchaseDetails.clickChangeLink("Supplier VAT registration check")
       AddVATRegistration.verifyPageTitle(AddVATRegistration.pageTitle)
       AddVATRegistration.continueAsYes()
-//      VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle) // Only works for the database
-//      VATRegistrationNumber.submitVATRegistrationNumber("BB987654321") // Only works for the database
+      VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
+      VATRegistrationNumber.submitVATRegistrationNumber("BB987654321")
       ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
 
       //      Change supplier VAT registration number
