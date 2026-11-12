@@ -27,7 +27,7 @@ trait DatabaseHelper extends BeforeAndAfterEach with BeforeAndAfterAll { self: S
   private val oracleUsername = "sys as sysdba"
   private val oraclePassword = "oracle"
 
-  //  Deletes data created for VRN 999900001 in Oracle DB tables REFUND_APPLICATION
+  // Deletes data created for VRN 999900001 in Oracle DB tables PURCHASE, IMPORTATION, REFUND_APPLICATION
   def deleteOracleTableData(): Unit = {
     var connection: Connection = null
     var statement: Statement   = null
@@ -50,6 +50,20 @@ trait DatabaseHelper extends BeforeAndAfterEach with BeforeAndAfterAll { self: S
 
       val purchaseRowsDeleted = statement.executeUpdate(deletePurchaseQuery)
       println(s"******************** DELETED $purchaseRowsDeleted ROWS FROM PURCHASE. ********************")
+
+      val deleteImportationQuery =
+        """
+          DELETE FROM EUVAT_FILE_DATA.IMPORTATION
+          WHERE APPLICATION_ID IN (
+            SELECT APPLICATION_ID
+            FROM EUVAT_FILE_DATA.REFUND_APPLICATION
+            WHERE APPLICANT_VAT_REG_NUMBER = 999900001
+              AND REFUNDING_COUNTRY_CODE IN ('EE', 'DE', 'HR')
+          )
+        """
+
+      val importationRowsDeleted = statement.executeUpdate(deleteImportationQuery)
+      println(s"******************** DELETED $importationRowsDeleted ROWS FROM IMPORTATION. ********************")
 
       val deleteRefundApplicationQuery =
         """
