@@ -62,7 +62,7 @@ class WelshLanguageValidationSpec
       MakeEuvatClaim.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
 
       And("I add claim details")
-      MakeEuvatClaim.clickLinkByText("Add claim details")
+      MakeEuvatClaim.clickLinkByText("Claim details")
 
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
@@ -293,7 +293,7 @@ class WelshLanguageValidationSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I add claim details")
-      MakeEuvatClaim.clickLinkByText("Add claim details")
+      MakeEuvatClaim.clickLinkByText("Claim details")
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Germany")
       Language.verifyPageTitle(Language.pageTitle)
