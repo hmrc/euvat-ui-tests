@@ -54,7 +54,6 @@ class AddImportSpec
       When("I start new EUVAT claim")
       //      Inject Claim details
       CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
-      ClaimAnEUVATRefund.pause(10)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
@@ -191,7 +190,6 @@ class AddImportSpec
       When("I start new EUVAT claim")
       //      Inject Claim details
       CacheHelper.submitUserAnswers("claimDetailsGermany.json", sharedId)
-      ClaimAnEUVATRefund.pause(10)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
@@ -323,7 +321,7 @@ class AddImportSpec
       PurchaseImportSummary.clickActionLink(
         2,
         "Change"
-      ) // Does not work for the database, but works for the stubbed version
+      ) // Does not work for the database, but works for the stubbed version. Change the number 2 to 1 to make it work for the DB
 
       And("I change import details")
 

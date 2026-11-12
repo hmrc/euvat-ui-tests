@@ -54,7 +54,6 @@ class AddPurchaseSpec
       When("I start new EUVAT claim")
 //      Inject Claim details
       CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
-      ClaimAnEUVATRefund.pause(10)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
@@ -230,7 +229,6 @@ class AddPurchaseSpec
       When("I start new EUVAT claim")
       //      Inject Claim details
       CacheHelper.submitUserAnswers("claimDetailsGermany.json", sharedId)
-      ClaimAnEUVATRefund.pause(10)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
@@ -344,7 +342,6 @@ class AddPurchaseSpec
       PurchaseType.selectPurchaseType("Food, drink and restaurant services")
       PurchaseSubcodeFood.verifyPageTitle(PurchaseSubcodeFood.pageTitle)
       PurchaseSubcodeFood.selectFoodCostType("Food and drink from hotels")
-//      PurchaseSubcodeFood.pause(100000)
       PurchaseSubcategoryFood.verifyPageTitle(PurchaseSubcategoryFood.pageTitle)
       PurchaseSubcategoryFood.selectWhoFoodFor("The taxable person")
 
@@ -397,16 +394,16 @@ class AddPurchaseSpec
       ChangeYourPurchaseDetails.clickChangeLink("Invoice type")
       InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
       InvoiceType.selectInvoiceType("Simplified invoice") // Stub needs to change to fix navigation issue
-//      AddVATRegistration.verifyPageTitle(AddVATRegistration.pageTitle) // Will not work for stub
-//      AddVATRegistration.continueAsNo() // Will not work for stub
+      AddVATRegistration.verifyPageTitle(AddVATRegistration.pageTitle)
+      AddVATRegistration.continueAsNo()
       ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
 
       //      Change invoice number
       ChangeYourPurchaseDetails.clickChangeLink("Invoice number")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
       InvoiceNumber.submitInvoiceNumber("XR123456789")
-      VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle) // Will not work for database
-      VATRegistrationNumber.submitVATRegistrationNumber("AA987654321") // Will not work for database
+      // VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
+      // VATRegistrationNumber.submitVATRegistrationNumber("AA987654321")
       ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
 
       //      Change invoice date
@@ -431,8 +428,8 @@ class AddPurchaseSpec
       ChangeYourPurchaseDetails.clickChangeLink("Supplier VAT registration check")
       AddVATRegistration.verifyPageTitle(AddVATRegistration.pageTitle)
       AddVATRegistration.continueAsYes()
-//      VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle) // Only works for the database
-//      VATRegistrationNumber.submitVATRegistrationNumber("BB987654321") // Only works for the database
+      VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
+      VATRegistrationNumber.submitVATRegistrationNumber("BB987654321")
       ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
 
       //      Change supplier VAT registration number
