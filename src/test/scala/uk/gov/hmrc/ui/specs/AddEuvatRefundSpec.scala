@@ -635,7 +635,14 @@ class AddEuvatRefundSpec
       And("I add supporting documents")
       MakeEuvatClaim.clickLinkByText("Supporting documents")
       BeforeYouStartSupportingDocuments.verifyPageTitle(BeforeYouStartSupportingDocuments.pageTitle)
-      BeforeYouStartSupportingDocuments.clickSignOut
+      BeforeYouStartSupportingDocuments.continue()
+      AnySupportingDocuments.verifyPageTitle(AnySupportingDocuments.pageTitle)
+      AnySupportingDocuments.selectYesOrNo("Yes")
+      UploadFile.verifyPageTitle(UploadFile.pageTitle)
+      Then("User selects a file to upload in the 'Upload a Gift Aid schedule' page")
+      UploadFile.selectFile("filesForUpload/Test1MbPDF.pdf")
+      UploadFile.inputAdditionalInfo("Test input additional information")
+      UploadFile.continue()
     }
   }
 }

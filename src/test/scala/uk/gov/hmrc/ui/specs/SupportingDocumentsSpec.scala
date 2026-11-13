@@ -74,6 +74,7 @@ class SupportingDocumentsSpec
       UploadFile.verifyPageTitle(UploadFile.pageTitle)
       Then("User selects a file to upload in the 'Upload a Gift Aid schedule' page")
       UploadFile.selectFile("filesForUpload/Test1MbPDF.pdf")
+      UploadFile.inputAdditionalInfo("Test input additional information")
       UploadFile.continue()
     }
   }
