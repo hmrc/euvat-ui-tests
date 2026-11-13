@@ -60,7 +60,6 @@ class AddBankDetailsSpec
       And("I see claim details page completed")
       MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
@@ -86,7 +85,12 @@ class AddBankDetailsSpec
       AccountHolderType.verifyPageTitle(AccountHolderType.pageTitle)
       AccountHolderType.selectAccountHolderType("Third party (someone else)")
       BankDetailsForm.verifyPageTitle(BankDetailsForm.pageTitle)
-      BankDetailsForm.continue()
+      BankDetailsForm.submitBankDetailsForm(
+        "CHANGENAME123456789",
+        "TESTXX00",
+        "GB00TESTIBANXX",
+        "GBP - United Kingdom, Pounds"
+      )
       CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
       CheckYourBankDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
