@@ -71,6 +71,10 @@ class SupportingDocumentsSpec
       BeforeYouStartSupportingDocuments.continue()
       AnySupportingDocuments.verifyPageTitle(AnySupportingDocuments.pageTitle)
       AnySupportingDocuments.selectYesOrNo("Yes")
+      UploadFile.verifyPageTitle(UploadFile.pageTitle)
+      Then("User selects a file to upload in the 'Upload a Gift Aid schedule' page")
+      UploadFile.selectFile("filesForUpload/Test1MbPDF.pdf")
+      UploadFile.continue()
     }
   }
 }

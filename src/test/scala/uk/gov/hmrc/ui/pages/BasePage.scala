@@ -26,6 +26,7 @@ import uk.gov.hmrc.selenium.component.PageObject
 import uk.gov.hmrc.selenium.webdriver.Driver
 import uk.gov.hmrc.ui.utils.Retry
 
+import java.nio.file.Paths
 import java.time.Duration
 import java.util.function.Function
 import scala.concurrent.duration.*
@@ -42,7 +43,7 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
 
   /** Locator values */
   object Locators {
-    val btnSubmit = ".govuk-button"
+    val btnSubmit = "//button[@type='submit']"
     val rdoYes    = "#value"
     val rdoNo     = "#value-2"
   }
@@ -92,9 +93,9 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
   }
 
   /** Specific actions */
-  def saveAndContinue(): Unit = click(By.cssSelector(Locators.btnSubmit))
+  def saveAndContinue(): Unit = click(By.xpath(Locators.btnSubmit))
 
-  def continue(): Unit = click(By.cssSelector(Locators.btnSubmit))
+  def continue(): Unit = click(By.xpath(Locators.btnSubmit))
 
   /** Navigation methods */
   def navigateBack(): Unit = {
@@ -335,6 +336,12 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
       }
 
     assert(found, s"Expected text not found in page body: $expectedText")
+  }
+
+  def selectFile(uploadFilename: String): Unit = {
+    val fileUploadFieldLocator = driver.findElement(By.id("file-upload-1-input"))
+    val inputFilePath          = Paths.get("src/test/resources/" + uploadFilename).toAbsolutePath.toString
+    fileUploadFieldLocator.sendKeys(inputFilePath)
   }
 
 }
