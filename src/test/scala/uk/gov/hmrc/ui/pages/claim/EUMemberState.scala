@@ -21,7 +21,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object EUMemberState extends BasePage {
 
-  override def pageUrl: String = "which-eu-member-state-claiming-back-vat"
+  override def pageUrl: String = "claim-details/eu-member-state"
 
   override def pageTitle: String =
     "Which EU member state are you claiming back VAT from? - EU VAT - GOV.UK"

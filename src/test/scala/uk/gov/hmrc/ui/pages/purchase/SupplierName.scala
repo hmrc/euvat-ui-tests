@@ -21,7 +21,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object SupplierName extends BasePage {
 
-  override def pageUrl: String = "what-supplier-name"
+  override def pageUrl: String = "purchase/supplier-name"
 
   override def pageTitle: String = "What is the supplier’s name? - EU VAT - GOV.UK"
 

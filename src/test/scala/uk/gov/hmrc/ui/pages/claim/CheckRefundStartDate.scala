@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object CheckRefundStartDate extends BasePage {
 
-  override def pageUrl: String = "check-refund-period-start-date"
+  override def pageUrl: String = "warning/start-date"
 
   override def pageTitle: String =
     "Are you sure the refund period start date is correct? - EU VAT - GOV.UK"

@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object PurchaseSubcategoryFood extends BasePage {
 
-  override def pageUrl: String = "who-food-drink-for"
+  override def pageUrl: String = "purchase/who-food-drink-for"
 
   override def pageTitle: String = "Who is the food and drink for? - EU VAT - GOV.UK"
 

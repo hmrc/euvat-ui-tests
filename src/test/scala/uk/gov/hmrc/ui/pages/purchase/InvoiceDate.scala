@@ -21,7 +21,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object InvoiceDate extends BasePage {
 
-  override def pageUrl: String = "what-is-the-invoice-date"
+  override def pageUrl: String = "purchase/invoice-date"
 
   override def pageTitle: String = "What is the invoice date? - EU VAT - GOV.UK"
 

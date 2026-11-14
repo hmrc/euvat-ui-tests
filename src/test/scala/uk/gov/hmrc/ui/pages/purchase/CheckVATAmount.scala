@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object CheckVATAmount extends BasePage {
 
-  override def pageUrl: String = "check-vat-amount"
+  override def pageUrl: String = "warning/vat-paid"
 
   override def pageTitle: String =
     "Are you sure the amount of VAT you paid is correct? - EU VAT - GOV.UK"

@@ -52,8 +52,8 @@ trait ClaimFlows {
     MakeEuvatClaim.clickLinkByText("View claim details")
     ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
     ClaimDetails.clickChangeLink("EU member state")
-    EUMemberStateDetails.verifyPageTitle(EUMemberStateDetails.pageTitle)
-    EUMemberStateDetails.continueAsYes()
+    CannotChangeEUMemberState.verifyPageTitle(CannotChangeEUMemberState.pageTitle)
+    CannotChangeEUMemberState.continueAsYes()
     ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
   }
 
@@ -79,7 +79,7 @@ trait ClaimFlows {
     RefundPeriod.submitRefundPeriodUsingDynamicValidYear(data.fromMonth, data.toMonth)
 
     ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-    ContactDetails.submitContactAddress(data.email, data.phone)
+    ContactDetails.submitContactDetails(data.email, data.phone)
 
     AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
     if (addBusinessActivity) AddBusinessActivity.continueAsYes()
@@ -134,12 +134,12 @@ trait ClaimFlows {
 
     CheckYourClaimDetails.clickChangeLink("Email")
     ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-    ContactDetails.submitContactAddress("changetest@gmail.com", "9876543210")
+    ContactDetails.submitContactDetails("changetest@gmail.com", "9876543210")
     CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
     CheckYourClaimDetails.clickChangeLink("Phone number")
     ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-    ContactDetails.submitContactAddress("changetest@gmail.com", "+449876543210")
+    ContactDetails.submitContactDetails("changetest@gmail.com", "+449876543210")
     CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
 
     CheckYourClaimDetails.clickChangeLink("First SIC code")

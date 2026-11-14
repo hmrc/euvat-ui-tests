@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object BeforeYouStart extends BasePage {
 
-  override def pageUrl: String = "before-you-start"
+  override def pageUrl: String = "purchases-imports/before-you-start"
 
   override def pageTitle: String = "Before you start - EU VAT - GOV.UK"
 

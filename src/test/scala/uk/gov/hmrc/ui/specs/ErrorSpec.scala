@@ -48,7 +48,7 @@ class ErrorSpec
 
   Feature("Error and warning message validation check - New claim") {
 
-    Scenario("01 - Refund period start and end date validation", Local, Error) {
+    Scenario("01 - Refund period start and end date validation", Jenkins, Local, Error) {
       Given("I login as an organisation")
       loginAndOpenNewClaim("999900002")
       addClaimDetailsErrors(croatiaClaim)
@@ -58,12 +58,8 @@ class ErrorSpec
       RefundPeriod.errorMessageDisplayed("Refund period start date must be earlier than the refund period end date")
 
       RefundPeriod.submitRefundPeriodUsingDynamicValidYear("01", "02")
-      RefundPeriod.errorSummaryDisplayed(
-        "Refund period must be at least 3 months long unless the period ends in December"
-      )
-      RefundPeriod.errorMessageDisplayed(
-        "Refund period must be at least 3 months long unless the period ends in December"
-      )
+      CheckRefundPeriod.verifyPageTitle(CheckRefundPeriod.pageTitle)
+      CheckRefundPeriod.clickLinkByText("No, change the refund period")
 
       RefundPeriod.submitRefundPeriodUsingStartLastYear("01", "02")
       RefundPeriod.errorSummaryDisplayed("Refund period start date and end date must be in the same calendar year")
@@ -103,7 +99,7 @@ class ErrorSpec
       clickSignOut(Driver.instance)
     }
 
-    Scenario("02 - Validate a duplicate draft refund from the EU member state page", Local, Error, WIP) {
+    Scenario("02 - Validate a duplicate draft refund from the EU member state page", Jenkins, Local, Error) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900003") // Vat registration date 01/01/2023
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -121,7 +117,7 @@ class ErrorSpec
       clickSignOut(Driver.instance)
     }
 
-    Scenario("03 - Validate VAT registration start (01/05/2026) and end date (31/07/2026)", Local, Error) {
+    Scenario("03 - Validate VAT registration start (01/05/2026) and end date (31/07/2026)", Jenkins, Local, Error) {
       Given("I login as an organisation")
       loginAndOpenNewClaim("999900004")
       addClaimDetailsErrors(croatiaClaim)

@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object PurchaseImportSummary extends BasePage {
 
-  override def pageUrl: String = "purchase-import-summary"
+  override def pageUrl: String = "purchases-imports/summary"
 
   override def pageTitle(args: String*): String = {
     val count = args.head.toInt
@@ -36,6 +36,23 @@ object PurchaseImportSummary extends BasePage {
   def continueAsNo(): Unit = {
     radioButton(Locators.rdoNo)
     continue()
+  }
+
+  private def actionLinkSelector(itemIndex: Int, action: String): String = {
+    require(itemIndex > 0, "Item index must be greater than 0")
+
+    val actionIndex = action match {
+      case "Change" => 1
+      case "Remove" => 2
+      case _        => throw new IllegalArgumentException(s"Invalid action: $action")
+    }
+
+    s"dl.govuk-summary-list > div.govuk-summary-list__row:nth-child($itemIndex) > dd.govuk-summary-list__actions > ul > li:nth-child($actionIndex) > a"
+  }
+
+  def clickActionLink(itemIndex: Int, action: String): this.type = {
+    super.clickLinkByCSS(actionLinkSelector(itemIndex, action))
+    this
   }
 
 }

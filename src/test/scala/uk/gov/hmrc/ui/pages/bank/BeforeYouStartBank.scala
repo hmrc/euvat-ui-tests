@@ -14,24 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.claim
+package uk.gov.hmrc.ui.pages.bank
 
 import uk.gov.hmrc.ui.pages.BasePage
 
-object EUMemberStateDetails extends BasePage {
+object BeforeYouStartBank extends BasePage {
 
-  override def pageUrl: String = "eu-member-state-details"
+  override def pageUrl: String = "bank-details/before-you-start"
 
-  override def pageTitle: String = "EU member state details - EU VAT - GOV.UK"
-
-  def continueAsYes(): Unit = {
-    radioButton(Locators.rdoYes)
-    continue()
-  }
-
-  def continueAsNo(): Unit = {
-    radioButton(Locators.rdoNo)
-    continue()
-  }
+  override def pageTitle: String = "Before you start - EU VAT - GOV.UK"
 
 }

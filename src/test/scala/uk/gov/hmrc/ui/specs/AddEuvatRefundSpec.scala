@@ -18,15 +18,29 @@ package uk.gov.hmrc.ui.specs
 
 import org.scalatest.*
 import org.scalatest.featurespec.AnyFeatureSpec
+import org.scalatest.verbs.ShouldVerb
+import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
+import uk.gov.hmrc.ui.pages.*
+import uk.gov.hmrc.ui.pages.bank.*
+import uk.gov.hmrc.ui.pages.claim.*
+import uk.gov.hmrc.ui.pages.imports.*
+import uk.gov.hmrc.ui.pages.purchase.*
+import uk.gov.hmrc.ui.pages.supportingdocuments.*
 import uk.gov.hmrc.selenium.webdriver.Driver
 import uk.gov.hmrc.ui.flows.*
 import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
 import TestData.*
 
-class NewEuvatClaimSpec
-    extends BaseSpec
+class AddEuvatRefundSpec
+    extends AnyFeatureSpec
+    with BaseSpec
+    with GivenWhenThen
+    with ShouldVerb
     with BeforeAndAfterAll
+    with BeforeAndAfterEach
+    with Browser
+    with ScreenshotOnFailure
     with MongoHelper
     with DatabaseHelper
     with ClaimFlows
@@ -38,15 +52,14 @@ class NewEuvatClaimSpec
     cleanupDatabaseIfNotStub()
   }
 
-  Feature("Make a new EUVAT claim - New claim") {
+  Feature("Make a new EUVAT claim - New end to end submission") {
 
-    Scenario("01 - Submit a refund request", Local) {
+    Scenario("01 - Submit an end to end refund request", Jenkins, Local) {
       loginAndOpenNewClaim("999900001")
       addClaimDetails(croatiaClaim)
       changeClaimDetailsJourney()
       saveClaimDetails()
-
-      insertDuplicatePurchaseRecordVRN()
+      
       startPurchaseFlow()
       addFoodPurchaseFlow()
       addStandardInvoiceFlow()
@@ -59,12 +72,11 @@ class NewEuvatClaimSpec
       clickSignOut(Driver.instance)
     }
 
-    Scenario("02 - Submit a refund request for Germany", Local) {
+    Scenario("02 - Submit an end to end refund request for Germany", Jenkins, Local) {
       loginAndOpenNewClaim("999900001")
       addClaimDetails(germanyClaim)
       saveClaimDetails()
-
-      insertDuplicatePurchaseRecordTID()
+      
       startPurchaseFlow()
       addOtherPurchaseFlow()
       addSimplifiedInvoiceFlow()

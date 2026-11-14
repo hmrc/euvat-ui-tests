@@ -18,17 +18,21 @@ package uk.gov.hmrc.ui.pages
 
 import com.typesafe.scalalogging.LazyLogging
 import driver.BrowserDriver
+import org.openqa.selenium.*
 import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait, Wait, WebDriverWait}
 import org.openqa.selenium.{By, JavascriptExecutor, NoSuchElementException, StaleElementReferenceException, WebDriver, WebElement}
 import org.scalatest.concurrent.Eventually
+import org.scalatest.matchers.must.Matchers
 import uk.gov.hmrc.selenium.component.PageObject
 import uk.gov.hmrc.selenium.webdriver.Driver
+import uk.gov.hmrc.ui.utils.Retry
 
 import java.time.Duration
 import java.util.function.Function
+import scala.concurrent.duration.*
 import scala.jdk.CollectionConverters.*
 
-trait BasePage extends PageObject with Eventually with LazyLogging with BrowserDriver {
+trait BasePage extends PageObject with Eventually with Matchers with LazyLogging with BrowserDriver {
 
   /** Implicit wait */
   implicit def w: WebDriverWait = new WebDriverWait(driver, Duration.ofSeconds(30))
@@ -104,7 +108,25 @@ trait BasePage extends PageObject with Eventually with LazyLogging with BrowserD
     waitForPageTitle(expectedTitle)
   }
 
-  def navigateToPage(url: String): Unit = driver.navigate().to(url)
+  def navigateToPage(url: String): Unit = {
+    driver.navigate().to(url)
+    logger.info(s"Navigated to: $url")
+  }
+
+  def navigateToPageWithRetry(url: String, expectedTitle: String): Unit = {
+    val loaded = Retry.eventually(
+      timeout = 30.seconds,
+      interval = 2.seconds,
+      description = s"page [$url] to load with title [$expectedTitle]"
+    ) {
+      navigateToPage(url)
+      getPageTitle == expectedTitle
+    }
+    assert(
+      loaded,
+      s"Page did not load correctly. Expected title: $expectedTitle, Actual title: $getPageTitle, Url: $getCurrentUrlInBrowser"
+    )
+  }
 
   /** Page validation methods */
   def isCurrentPage: Boolean = pageTitle.startsWith(getPageTitle)
@@ -125,7 +147,13 @@ trait BasePage extends PageObject with Eventually with LazyLogging with BrowserD
 
   /** Radio button interaction */
   def radioButton(optionalValue: String): Unit = {
-    val element: WebElement    = driver.findElement(By.cssSelector(optionalValue))
+    val by = By.cssSelector(optionalValue)
+
+    fluentWait.until { (d: WebDriver) =>
+      d.findElements(by).size() > 0
+    }
+
+    val element: WebElement    = driver.findElement(by)
     val ex: JavascriptExecutor = driver.asInstanceOf[JavascriptExecutor]
     ex.executeScript("arguments[0].click()", element)
   }
@@ -145,10 +173,10 @@ trait BasePage extends PageObject with Eventually with LazyLogging with BrowserD
   def clickLinkById(linkId: String): Unit =
     try {
       click(By.id(linkId))
-      println(s"Successfully clicked the link with ID: $linkId")
+      logger.info(s"Successfully clicked the link with ID: $linkId")
     } catch {
       case e: Exception =>
-        println(s"Failed to click the link with ID: $linkId. Error: ${e.getMessage}")
+        logger.info(s"Failed to click the link with ID: $linkId. Error: ${e.getMessage}")
         throw e
     }
 
@@ -166,28 +194,93 @@ trait BasePage extends PageObject with Eventually with LazyLogging with BrowserD
   def clickLinkByText(linkText: String): Unit =
     try {
       click(By.linkText(linkText))
-      println(s"Successfully clicked the link with text: $linkText")
+      logger.info(s"Successfully clicked the link with text: $linkText")
     } catch {
       case e: Exception =>
-        println(s"Failed to click the link with text: $linkText. Error: ${e.getMessage}")
+        logger.info(s"Failed to click the link with text: $linkText. Error: ${e.getMessage}")
         throw e
     }
 
   def verifyPageTitle(expectedTitle: String): Unit = {
     waitForPageTitle(expectedTitle)
+
+    val actualTitle = getPageTitle
     assert(
-      getPageTitle == expectedTitle,
-      s"Page title mismatch! Expected: $expectedTitle, Actual: $getPageTitle"
+      actualTitle == expectedTitle,
+      s"Page title mismatch! Expected: $expectedTitle, Actual: $actualTitle, Url: $getCurrentUrlInBrowser"
     )
-    println("Actual page title is: " + getPageTitle)
+
+    logger.info(s"Actual page title is: $actualTitle")
   }
+
+  def waitForPageTitle(expectedTitle: String): Unit =
+    try
+      fluentWait.until { (d: WebDriver) =>
+        val actualTitle = safe(d.getTitle)
+        val actualUrl   = safe(d.getCurrentUrl)
+
+        if (isFallbackErrorPage(actualTitle, actualUrl)) {
+          throw new IllegalStateException(
+            s"Reached fallback error page while waiting for title. Expected: $expectedTitle, Actual: $actualTitle, Url: $actualUrl"
+          )
+        }
+
+        actualTitle == expectedTitle
+      }
+    catch {
+      case e: org.openqa.selenium.TimeoutException =>
+        val actualTitle = safe(driver.getTitle)
+        val actualUrl   = safe(driver.getCurrentUrl)
+
+        throw new AssertionError(
+          s"Timed out waiting for page title. Expected: $expectedTitle, Actual: $actualTitle, Url: $actualUrl",
+          e
+        )
+    }
+
+  def verifyNotOnErrorPage(): Unit = {
+    val actualTitle = safe(driver.getTitle)
+    val actualUrl   = safe(driver.getCurrentUrl)
+
+    assert(
+      !isFallbackErrorPage(actualTitle, actualUrl),
+      s"Unexpected fallback error page detected. Title: $actualTitle, Url: $actualUrl"
+    )
+  }
+
+  private def isFallbackErrorPage(title: String, url: String): Boolean =
+    title.contains("global.error.fallbackClientError4xx.title") ||
+      url.contains("/problem-with-service") ||
+      url.contains("/page-not-found")
+
+  private def safe(value: String): String =
+    Option(value).getOrElse("")
 
   def clickByXpath(xpath: String): Unit = clickBy(By.xpath(xpath))
 
   def findByXpath(xpath: String): String = driver.findElement(By.xpath(xpath)).getText
 
-  def waitForPageTitle(expectedTitle: String): Unit =
-    fluentWait.until(ExpectedConditions.titleIs(expectedTitle))
+  def clickSignOut(driver: WebDriver): Unit = {
+    val signOut = By.linkText("Sign out")
+
+    val wait = new FluentWait[WebDriver](driver)
+      .withTimeout(Duration.ofSeconds(10))
+      .pollingEvery(Duration.ofMillis(200))
+      .ignoring(classOf[StaleElementReferenceException])
+
+    val condition = new Function[WebDriver, Boolean] {
+      override def apply(driver: WebDriver): Boolean = {
+        val el = driver.findElement(signOut)
+        if (el.isDisplayed && el.isEnabled) {
+          el.click()
+          true
+        } else {
+          false
+        }
+      }
+    }
+    wait.until(condition)
+  }
 
   def pause(seconds: Int): Unit = {
     require(seconds >= 0, "seconds must be >= 0")

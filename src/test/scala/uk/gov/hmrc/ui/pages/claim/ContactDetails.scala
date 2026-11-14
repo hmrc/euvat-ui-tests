@@ -21,14 +21,14 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object ContactDetails extends BasePage {
 
-  override def pageUrl: String = "how-contact-you-about-claim"
+  override def pageUrl: String = "claim-details/contact-details"
 
   override def pageTitle: String = "How should we contact you about this claim? - EU VAT - GOV.UK"
 
   val txtEmailAddress: By = By.cssSelector("#contactEmail")
   val txtTelephone: By    = By.cssSelector("#contactTelephone")
 
-  def submitContactAddress(emailAddress: String, telephoneNumber: String): Unit = {
+  def submitContactDetails(emailAddress: String, telephoneNumber: String): Unit = {
     input(txtEmailAddress, emailAddress)
     input(txtTelephone, telephoneNumber)
     continue()

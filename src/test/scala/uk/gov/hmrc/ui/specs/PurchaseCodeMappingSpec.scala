@@ -18,13 +18,13 @@ package uk.gov.hmrc.ui.specs
 
 import org.apache.poi.ss.usermodel.{CellStyle, FillPatternType, IndexedColors}
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
-import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
+import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages.{AuthorityWizard, ClaimAnEUVATRefund, GenericRadioPage}
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.purchase.*
+import uk.gov.hmrc.ui.pages.{AuthorityWizard, ClaimAnEUVATRefund, GenericRadioPage}
 import uk.gov.hmrc.ui.utils.{CodeMappingFlowRouter, CountryCodeMappingReader, MappingRow, MongoHelper}
 
 import java.io.{File, FileOutputStream}
@@ -42,7 +42,7 @@ final case class MappingFailure(
   message: String
 )
 
-class CountryCodeMappingSpec
+class PurchaseCodeMappingSpec
     extends AnyFeatureSpec
     with BaseSpec
     with GivenWhenThen
@@ -167,7 +167,7 @@ class CountryCodeMappingSpec
     ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
     MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-    MakeEuvatClaim.clickLinkByText("Add claim details")
+    MakeEuvatClaim.clickLinkByText("Claim details")
     EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
     EUMemberState.selectCountry(countryName)
 

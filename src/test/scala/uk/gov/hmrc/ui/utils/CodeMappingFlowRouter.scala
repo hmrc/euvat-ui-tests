@@ -41,13 +41,13 @@ object CodeMappingFlowRouter {
   /** Purchase journey: /purchase/... */
   case object PurchaseFlow extends FlowType {
     override val pathSegment: String = "purchase"
-    override val entrySlug: String   = "purchase-type"
+    override val entrySlug: String   = "category"
   }
 
   /** Import journey: /import/... */
   case object ImportFlow extends FlowType {
     override val pathSegment: String = "import"
-    override val entrySlug: String   = "import-type"
+    override val entrySlug: String   = "category"
   }
 
   /** Builds a journey-specific page slug. Example:
@@ -56,14 +56,6 @@ object CodeMappingFlowRouter {
     */
   private def slug(flowType: FlowType, page: String): String =
     s"${flowType.pathSegment}/$page"
-
-  /** Special-case slug for the "Other" top-level page because purchases use purchase-type-other and imports use
-    * import-type-other.
-    */
-  private def otherSlug(flowType: FlowType): String = flowType match {
-    case PurchaseFlow => slug(flowType, "purchase-type-other")
-    case ImportFlow   => slug(flowType, "import-type-other")
-  }
 
   /** Special-case title for the "Other" top-level page because purchase and import journeys use different wording.
     */
@@ -94,7 +86,7 @@ object CodeMappingFlowRouter {
 
   private def otherPage(flowType: FlowType) =
     new GenericRadioPage(
-      otherSlug(flowType),
+      slug(flowType, "other"),
       otherTitle(flowType)
     )
 
@@ -137,8 +129,8 @@ object CodeMappingFlowRouter {
     new GenericRadioPage(slug(flowType, "property-cost-type"), "What is the type of property cost? - EU VAT - GOV.UK")
 
   /** Returns the journey entry page slug. Example:
-    *   - PurchaseFlow => purchase/purchase-type
-    *   - ImportFlow => import/import-type
+    *   - PurchaseFlow => purchase/category
+    *   - ImportFlow => import/category
     */
   def entryPageSlug(flowType: FlowType = PurchaseFlow): String =
     s"${flowType.pathSegment}/${flowType.entrySlug}"

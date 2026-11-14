@@ -21,7 +21,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object VATRegistrationNumber extends BasePage {
 
-  override def pageUrl: String = "what-supplier-vat-registration-number"
+  override def pageUrl: String = "purchase/supplier-vat-registration"
 
   override def pageTitle: String = "What is the supplier’s VAT registration number? - EU VAT - GOV.UK"
 

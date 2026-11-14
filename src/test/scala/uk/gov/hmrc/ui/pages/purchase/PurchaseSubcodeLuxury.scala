@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.BasePage
 
 object PurchaseSubcodeLuxury extends BasePage {
 
-  override def pageUrl: String = "luxury-entertainment-hospitality-cost"
+  override def pageUrl: String = "purchase/luxury-entertainment-hospitality-cost"
 
   override def pageTitle: String = "What is the type of luxury, entertainment or hospitality cost? - EU VAT - GOV.UK"
 

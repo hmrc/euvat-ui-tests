@@ -62,7 +62,7 @@ class WelshLanguageValidationSpec
       MakeEuvatClaim.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
 
       And("I add claim details")
-      MakeEuvatClaim.clickLinkByText("Add claim details")
+      MakeEuvatClaim.clickLinkByText("Claim details")
 
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
@@ -90,7 +90,7 @@ class WelshLanguageValidationSpec
       ContactDetails.continue()
       WelshPageVerifier.verify("RA2.3", ContactDetails)
       ContactDetails.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
-      ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
+      ContactDetails.submitContactDetails("Test@gmail.com", "9876543210")
 
       AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
       AddBusinessActivity.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
@@ -150,7 +150,6 @@ class WelshLanguageValidationSpec
       CheckYourClaimDetails.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      insertDuplicatePurchaseRecordVRN()
 
       And("I add purchase details")
       MakeEuvatClaim.clickLinkByText("Add a purchase")
@@ -294,7 +293,7 @@ class WelshLanguageValidationSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       And("I add claim details")
-      MakeEuvatClaim.clickLinkByText("Add claim details")
+      MakeEuvatClaim.clickLinkByText("Claim details")
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Germany")
       Language.verifyPageTitle(Language.pageTitle)
@@ -302,13 +301,12 @@ class WelshLanguageValidationSpec
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
       RefundPeriod.submitRefundPeriodUsingDynamicValidYear("01", "03")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-      ContactDetails.submitContactAddress("Test@gmail.com", "9876543210")
+      ContactDetails.submitContactDetails("Test@gmail.com", "9876543210")
       AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
       AddBusinessActivity.continueAsNo()
       CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
       CheckYourClaimDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      insertDuplicatePurchaseRecordTID()
 
       And("I add purchase details")
       MakeEuvatClaim.clickLinkByText("Add a purchase")
