@@ -29,15 +29,6 @@ trait ClaimFlows {
     MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
   }
 
-  def loginAndInjectClaimDetails(vrn: String): String = {
-    val sharedId = AuthorityWizard.login("Organisation", vrn)
-    ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
-    CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
-    ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
-    MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-    sharedId
-  }
-
   def addClaimDetails(data: ClaimData): Unit = {
     MakeEuvatClaim.clickLinkByText("Claim details")
     EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
@@ -215,10 +206,20 @@ trait ClaimFlows {
   def injectPurchaseDetailsForClaim(sharedId: String): Unit =
     CacheHelper.updateUserAnswers("purchaseDetails.json", sharedId)
 
+  def loginAndInjectClaimDetails(vrn: String): String = {
+    val sharedId = AuthorityWizard.login("Organisation", vrn)
+    ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+    CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
+    ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
+    MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+    sharedId
+  }
+
   def goToSaveClaimDetails(): Unit = {
-    MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/check-your-claim-details")
+    MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
     CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
     CheckYourClaimDetails.saveAndContinue()
+    MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
   }
 
   def deleteClaimFromClaimDetails(): Unit = {

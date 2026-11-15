@@ -86,7 +86,7 @@ class CreateRefundE2ESpec
       clickSignOut(Driver.instance)
     }
 
-    Scenario("02 - Submit an end to end refund request for Germany", Jenkins, Local, WIP) {
+    Scenario("02 - Submit an end to end refund request for Germany", Jenkins, Local) {
       loginAndOpenClaim("999900001")
       addClaimDetails(germanyClaim)
       saveClaimDetails()
