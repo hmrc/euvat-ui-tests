@@ -19,7 +19,7 @@ package uk.gov.hmrc.ui.pages.imports
 import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.BasePage
 
-object TotalImportVATPaid extends BasePage {
+object TotalImportVatPaid extends BasePage {
 
   override def pageUrl: String = "import/vat-paid"
 

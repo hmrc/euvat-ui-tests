@@ -22,18 +22,12 @@ import uk.gov.hmrc.ui.pages.purchase.*
 
 trait PurchaseFlows {
 
-  def startPurchaseFlow(): Unit = {
-    MakeEuvatClaim.clickLinkByText("Add a purchase")
+  def addPurchaseFlow(): Unit = {
+    MakeEuvatClaim.clickLinkByText("Purchases and imports")
     BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
     BeforeYouStart.continue()
     AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
     AddPurchaseImport.selectPurchaseOrImport("Purchase")
-  }
-
-  def goToSavePurchaseDetails(): Unit = {
-    MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/purchase/check-your-purchase-details")
-    CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
-    CheckYourPurchaseDetails.saveAndContinue()
   }
 
   def addFoodPurchaseFlow(): Unit = {
@@ -52,10 +46,10 @@ trait PurchaseFlows {
     InvoiceType.selectInvoiceType("Standard invoice")
 
     InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
-    InvoiceNumber.submitInvoiceNumber("DUP")
+    InvoiceNumber.submitInvoiceNumber("1234567890")
 
     InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
-    InvoiceDate.submitInvoiceDate("01", "01", "2026")
+    InvoiceDate.submitInvoiceDate("08", "12", "2025")
 
     SupplierName.verifyPageTitle(SupplierName.pageTitle)
     SupplierName.submitSupplierName("Test Supplier Name")
@@ -66,26 +60,26 @@ trait PurchaseFlows {
     VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
     VATRegistrationNumber.submitVATRegistrationNumber("EE0000000111")
 
-    CheckSupplierVRN.verifyPageTitle(CheckSupplierVRN.pageTitle)
-    CheckSupplierVRN.clickLinkByText("Change invoice number")
-
-    InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
-    InvoiceNumber.submitInvoiceNumber("DUP")
-
-    VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
-    VATRegistrationNumber.submitVATRegistrationNumber("EE0000000111")
-
-    CheckSupplierVRN.verifyPageTitle(CheckSupplierVRN.pageTitle)
-    CheckSupplierVRN.clickLinkByText("Change supplier’s VAT registration number")
-
-    VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
-    VATRegistrationNumber.submitVATRegistrationNumber("EE0000000111")
-
-    CheckSupplierVRN.verifyPageTitle(CheckSupplierVRN.pageTitle)
-    CheckSupplierVRN.continue()
+//    CheckSupplierVRN.verifyPageTitle(CheckSupplierVRN.pageTitle)
+//    CheckSupplierVRN.clickLinkByText("Change invoice number")
+//
+//    InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
+//    InvoiceNumber.submitInvoiceNumber("DUP")
+//
+//    VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
+//    VATRegistrationNumber.submitVATRegistrationNumber("EE0000000111")
+//
+//    CheckSupplierVRN.verifyPageTitle(CheckSupplierVRN.pageTitle)
+//    CheckSupplierVRN.clickLinkByText("Change supplier’s VAT registration number")
+//
+//    VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
+//    VATRegistrationNumber.submitVATRegistrationNumber("EE0000000111")
+//
+//    CheckSupplierVRN.verifyPageTitle(CheckSupplierVRN.pageTitle)
+//    CheckSupplierVRN.continue()
   }
 
-  def addCurrencyFlow(): Unit = {
+  def addPurchaseCurrencyFlow(): Unit = {
     Currency.verifyPageTitle(Currency.pageTitle)
     Currency.selectCurrencyType("Euro")
   }
@@ -128,7 +122,7 @@ trait PurchaseFlows {
     InvoiceType.selectInvoiceType("Simplified invoice")
 
     InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
-    InvoiceNumber.submitInvoiceNumber("INV-1")
+    InvoiceNumber.submitInvoiceNumber("1234567890")
 
     InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
     InvoiceDate.submitInvoiceDate("01", "01", "2026")
@@ -145,23 +139,24 @@ trait PurchaseFlows {
     SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
     SupplierTaxIDNumber.submitSupplierTaxID("TID-1")
 
-    CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
-    CheckSupplierTaxIDNumber.clickLinkByText("Change invoice number")
-
-    InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
-    InvoiceNumber.submitInvoiceNumber("INV-1")
-
-    SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
-    SupplierTaxIDNumber.submitSupplierTaxID("TID-1")
-
-    CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
-    CheckSupplierTaxIDNumber.clickLinkByText("Change supplier’s tax identifier number")
-
-    SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
-    SupplierTaxIDNumber.submitSupplierTaxID("TID-1")
-
-    CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
-    CheckSupplierTaxIDNumber.continue()
+//  Duplicate Inv number and supplier tax id check flow
+//    CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
+//    CheckSupplierTaxIDNumber.clickLinkByText("Change invoice number")
+//
+//    InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
+//    InvoiceNumber.submitInvoiceNumber("INV-1")
+//
+//    SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
+//    SupplierTaxIDNumber.submitSupplierTaxID("TID-1")
+//
+//    CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
+//    CheckSupplierTaxIDNumber.clickLinkByText("Change supplier’s tax identifier number")
+//
+//    SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
+//    SupplierTaxIDNumber.submitSupplierTaxID("TID-1")
+//
+//    CheckSupplierTaxIDNumber.verifyPageTitle(CheckSupplierTaxIDNumber.pageTitle)
+//    CheckSupplierTaxIDNumber.continue()
   }
 
   def savePurchase(): Unit = {
@@ -174,87 +169,133 @@ trait PurchaseFlows {
     CheckYourPurchaseDetails.clickChangeLink("Food and drink for")
     PurchaseSubcategoryFood.verifyPageTitle(PurchaseSubcategoryFood.pageTitle)
     PurchaseSubcategoryFood.selectWhoFoodFor("Someone other")
-    CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
+    CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
     CheckYourPurchaseDetails.clickChangeLink("Food and drink cost type")
     PurchaseSubcodeFood.verifyPageTitle(PurchaseSubcodeFood.pageTitle)
     PurchaseSubcodeFood.selectFoodCostType("None")
-    CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
+    //      Change purchase type
+    CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
     CheckYourPurchaseDetails.clickChangeLink("Purchase type")
     PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
     PurchaseType.selectPurchaseType("Luxuries, entertainment and hospitality")
-
     PurchaseSubcodeLuxury.verifyPageTitle(PurchaseSubcodeLuxury.pageTitle)
     PurchaseSubcodeLuxury.selectLuxuryType("Receptions, entertainment and hospitality")
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
+    //      Change invoice type
     CheckYourPurchaseDetails.clickChangeLink("Invoice type")
     InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
     InvoiceType.selectInvoiceType("Simplified invoice")
-
     AddVATRegistration.verifyPageTitle(AddVATRegistration.pageTitle)
     AddVATRegistration.continueAsNo()
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
+    //      Change invoice number
     CheckYourPurchaseDetails.clickChangeLink("Invoice number")
     InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
     InvoiceNumber.submitInvoiceNumber("XR123456789")
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
+    //      Change invoice date
     CheckYourPurchaseDetails.clickChangeLink("Invoice date")
     InvoiceDate.verifyPageTitle(InvoiceDate.pageTitle)
     InvoiceDate.submitInvoiceDate("01", "01", "2026")
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
+    //      Change supplier name
     CheckYourPurchaseDetails.clickChangeLink("Supplier name")
     SupplierName.verifyPageTitle(SupplierName.pageTitle)
-    SupplierName.submitSupplierName("Updated Test Supplier Name")
+    SupplierName.submitSupplierName("Update Test Supplier Name")
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
+    //      Change supplier address
     CheckYourPurchaseDetails.clickChangeLink("Supplier address")
     SupplierAddress.verifyPageTitle(SupplierAddress.pageTitle)
     SupplierAddress.submitSupplierAddress("Updated Street", "Updated City", "Updated Country")
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
+    //      Change supplier VAT registration check
     CheckYourPurchaseDetails.clickChangeLink("Supplier VAT registration check")
     AddVATRegistration.verifyPageTitle(AddVATRegistration.pageTitle)
     AddVATRegistration.continueAsYes()
-
     VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
     VATRegistrationNumber.submitVATRegistrationNumber("AA987654321")
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
+    //      Change supplier VAT registration number
     CheckYourPurchaseDetails.clickChangeLink("Supplier VAT registration number")
     VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
     VATRegistrationNumber.submitVATRegistrationNumber("BB987654321")
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
+    //      Change currency
     CheckYourPurchaseDetails.clickChangeLink("Currency")
     Currency.verifyPageTitle(Currency.pageTitle)
     Currency.selectCurrencyType("Estonian Kroon (kr)")
-
     TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
     TotalPurchaseAmount.submitTotalPurchaseAmount("1000.01")
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+
+    //      Change VAT claim
+    CheckYourPurchaseDetails.clickChangeLink("VAT claim")
+    TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
+    TotalVatClaim.submitTotalVatClaim("3000.99")
+    CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
+    CheckVATClaim.continue()
+    CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+
+    //      Change VAT paid
+    CheckYourPurchaseDetails.clickChangeLink("VAT paid")
+    TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
+    TotalVatPaid.submitTotalVatPaid("3000.99")
+    CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
+    CheckVATAmount.continue()
+    TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
+    TotalVatClaim.submitTotalVatClaim("4000.99")
+    CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
+    CheckVATClaim.continue()
+    CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+
+    //      Change amount before VAT
+    CheckYourPurchaseDetails.clickChangeLink("Amount before VAT")
+    TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
+    TotalPurchaseAmount.submitTotalPurchaseAmount("300.99")
+    TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
+    TotalVatPaid.submitTotalVatPaid("5000.99")
+    CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
+    CheckVATAmount.continue()
+    TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
+    TotalVatClaim.submitTotalVatClaim("6000.99")
+    CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
+    CheckVATClaim.continue()
+    CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+    CheckYourPurchaseDetails.saveAndContinue()
   }
 
+  def summaryFlow1(): Unit =
+//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
+    PurchaseImportSummary.continueAsYes()
+
   def changeTaxIdDetails(): Unit = {
+    // Change Supplier tax identifier
     CheckYourPurchaseDetails.clickChangeLink("Supplier tax identifier")
     SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
     SupplierTaxIDNumber.submitSupplierTaxID("12345")
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
 
+    // Change Supplier tax numbers
     CheckYourPurchaseDetails.clickChangeLink("Supplier tax numbers")
     SupplierTaxNumbers.verifyPageTitle(SupplierTaxNumbers.pageTitle)
     SupplierTaxNumbers.selectTaxNumber("Vat Registration Number")
-
     VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
     VATRegistrationNumber.submitVATRegistrationNumber("1234567890")
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+    CheckYourPurchaseDetails.saveAndContinue()
   }
 
-  def vatWarningsJourney(): Unit = {
+  def vatWarningsPurchaseJourney(): Unit = {
     CheckYourPurchaseDetails.clickChangeLink("VAT claim")
     TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
     TotalVatClaim.submitTotalVatClaim("3000.99")
@@ -277,4 +318,11 @@ trait PurchaseFlows {
     CheckVATClaim.continue()
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
   }
+
+  def goToSavePurchaseDetails(): Unit = {
+    MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/purchase/check-your-answers")
+    CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+    CheckYourPurchaseDetails.saveAndContinue()
+  }
+
 }

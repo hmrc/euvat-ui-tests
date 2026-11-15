@@ -99,8 +99,8 @@ class AddImportSpec
       ImportCurrency.selectImportCurrencyType("Euro")
       TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
       TotalImportAmount.submitTotalImportAmount("1000.01")
-      TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
-      TotalImportVATPaid.submitTotalImportVATPaid("2000.01")
+      TotalImportVatPaid.verifyPageTitle(TotalImportVatPaid.pageTitle)
+      TotalImportVatPaid.submitTotalImportVATPaid("2000.01")
       CheckImportVATAmount.verifyPageTitle(CheckImportVATAmount.pageTitle)
       CheckImportVATAmount.continue()
       TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
@@ -167,8 +167,8 @@ class AddImportSpec
       TotalImportAmount.submitTotalImportAmount("1000.01")
 
       //      Change VAT paid
-      TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
-      TotalImportVATPaid.submitTotalImportVATPaid("3000.99")
+      TotalImportVatPaid.verifyPageTitle(TotalImportVatPaid.pageTitle)
+      TotalImportVatPaid.submitTotalImportVATPaid("3000.99")
       CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
       CheckVATAmount.continue()
 
@@ -233,8 +233,8 @@ class AddImportSpec
       )
       TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
       TotalImportAmount.submitTotalImportAmount("1000.99")
-      TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
-      TotalImportVATPaid.submitTotalImportVATPaid("200.99")
+      TotalImportVatPaid.verifyPageTitle(TotalImportVatPaid.pageTitle)
+      TotalImportVatPaid.submitTotalImportVATPaid("200.99")
       TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
       TotalImportVatClaim.submitTotalImportVatClaim("100.99")
       CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
@@ -308,8 +308,8 @@ class AddImportSpec
       ImportCurrency.selectImportCurrencyType("Euro")
       TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
       TotalImportAmount.submitTotalImportAmount("1000.01")
-      TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
-      TotalImportVATPaid.submitTotalImportVATPaid("2000.01")
+      TotalImportVatPaid.verifyPageTitle(TotalImportVatPaid.pageTitle)
+      TotalImportVatPaid.submitTotalImportVATPaid("2000.01")
       CheckImportVATAmount.verifyPageTitle(CheckImportVATAmount.pageTitle)
       CheckImportVATAmount.continue()
       TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
@@ -374,8 +374,8 @@ class AddImportSpec
       TotalImportAmount.submitTotalImportAmount("1000.01")
 
       //      Change VAT paid
-      TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
-      TotalImportVATPaid.submitTotalImportVATPaid("3000.99")
+      TotalImportVatPaid.verifyPageTitle(TotalImportVatPaid.pageTitle)
+      TotalImportVatPaid.submitTotalImportVATPaid("3000.99")
       CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
       CheckVATAmount.continue()
 

@@ -40,7 +40,7 @@ class NewDeleteClaimSpec
   Feature("Delete a draft EUVAT claim - Delete claim") {
 
     Scenario("01 - Delete a refund claim from Claim details page", Local) {
-      loginAndOpenNewClaim("999900001")
+      loginAndOpenClaim("999900001")
       goToSaveClaimDetails()
       deleteClaimFromClaimDetails()
       clickSignOut(Driver.instance)

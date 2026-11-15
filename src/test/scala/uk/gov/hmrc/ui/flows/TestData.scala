@@ -16,6 +16,66 @@
 
 package uk.gov.hmrc.ui.flows
 
+sealed trait AccountHolderTypeData {
+  def value: String
+}
+
+case object ApplicantYou extends AccountHolderTypeData {
+  val value = "Applicant (you)"
+}
+
+case object ThirdPartySomeoneElse extends AccountHolderTypeData {
+  val value = "Third party (someone else)"
+}
+
+final case class BankDetailsData(
+  accountHolderType: AccountHolderTypeData,
+  accountName: String,
+  bic: String,
+  iban: String,
+  currency: String
+)
+
+sealed trait SadFlowData {
+  def importDay: String
+  def importMonth: String
+  def importYear: String
+  def supplierName: String
+  def supplierAddress1: String
+  def supplierAddress2: String
+  def supplierAddress3: String
+  def supplierCountry: String
+}
+
+final case class SadReferenceData(
+  referenceNumber: String,
+  importDay: String,
+  importMonth: String,
+  importYear: String,
+  supplierName: String,
+  supplierAddress1: String,
+  supplierAddress2: String,
+  supplierAddress3: String,
+  supplierCountry: String
+) extends SadFlowData
+
+final case class SadDocumentData(
+  documentDetails: String,
+  importDay: String,
+  importMonth: String,
+  importYear: String,
+  supplierName: String,
+  supplierAddress1: String,
+  supplierAddress2: String,
+  supplierAddress3: String,
+  supplierCountry: String
+) extends SadFlowData
+
+final case class BusinessActivityData(
+  secondSicCode: String,
+  thirdSicCode: String
+)
+
 final case class ClaimData(
   country: String,
   language: Option[String],
@@ -24,7 +84,8 @@ final case class ClaimData(
   toMonth: String,
   toYear: String,
   email: String,
-  phone: String
+  phone: String,
+  businessActivity: Option[BusinessActivityData] = None
 )
 
 final case class SupplierData(
@@ -41,7 +102,66 @@ final case class AmountData(
   vatClaim: String
 )
 
+final case class SupportingDocumentsData(
+  hasSupportingDocuments: Boolean
+)
+
 object TestData {
+
+  val supportingDocumentsYes: SupportingDocumentsData =
+    SupportingDocumentsData(
+      hasSupportingDocuments = true
+    )
+
+  val supportingDocumentsNo: SupportingDocumentsData =
+    SupportingDocumentsData(
+      hasSupportingDocuments = false
+    )
+
+  val initialBankDetails: BankDetailsData =
+    BankDetailsData(
+      accountHolderType = ApplicantYou,
+      accountName = "ACCOUNTNAME123456789",
+      bic = "FAKEGB21XXX",
+      iban = "GB00TEST00000000000000",
+      currency = "Communauté Financière Africaine BCEAO, Francs"
+    )
+
+  val changedBankDetails: BankDetailsData =
+    BankDetailsData(
+      accountHolderType = ThirdPartySomeoneElse,
+      accountName = "CHANGENAME123456789",
+      bic = "TESTXX00",
+      iban = "GB00TESTIBANXX",
+      currency = "GBP - United Kingdom, Pounds"
+    )
+
+  val sadRefData: SadFlowData =
+    SadReferenceData(
+      referenceNumber = "98765",
+      importDay = "01",
+      importMonth = "01",
+      importYear = "2026",
+      supplierName = "Test Supplier",
+      supplierAddress1 = "Test Street123",
+      supplierAddress2 = "Test City456",
+      supplierAddress3 = "Test State789",
+      supplierCountry = "HEARD ISLAND & MCDONALD ISLANDS"
+    )
+
+  val sadDocumentData: SadFlowData =
+    SadDocumentData(
+      documentDetails = "Test Import Document Details",
+      importDay = "01",
+      importMonth = "01",
+      importYear = "2026",
+      supplierName = "Test Supplier",
+      supplierAddress1 = "Test Street123",
+      supplierAddress2 = "Test City456",
+      supplierAddress3 = "Test State789",
+      supplierCountry = "HEARD ISLAND & MCDONALD ISLANDS"
+    )
+
   val defaultSupplier: SupplierData =
     SupplierData(
       name = "Test Supplier Name",
@@ -59,7 +179,13 @@ object TestData {
       toMonth = "04",
       toYear = "2026",
       email = "test@gmail.com",
-      phone = "9876543210"
+      phone = "9876543210",
+      businessActivity = Some(
+        BusinessActivityData(
+          secondSicCode = "2222",
+          thirdSicCode = "3333"
+        )
+      )
     )
 
   val estoniaClaim: ClaimData =
@@ -95,6 +221,7 @@ object TestData {
       toMonth = "04",
       toYear = "2026",
       email = "test@gmail.com",
-      phone = "9876543210"
+      phone = "9876543210",
+      businessActivity = None
     )
 }

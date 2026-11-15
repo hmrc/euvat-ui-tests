@@ -50,7 +50,7 @@ class ErrorSpec
 
     Scenario("01 - Refund period start and end date validation", Jenkins, Local, Error) {
       Given("I login as an organisation")
-      loginAndOpenNewClaim("999900002")
+      loginAndOpenClaim("999900002")
       addClaimDetailsErrors(croatiaClaim)
 
       RefundPeriod.submitRefundPeriodUsingDynamicValidYear("02", "01")
@@ -119,7 +119,7 @@ class ErrorSpec
 
     Scenario("03 - Validate VAT registration start (01/05/2026) and end date (31/07/2026)", Jenkins, Local, Error) {
       Given("I login as an organisation")
-      loginAndOpenNewClaim("999900004")
+      loginAndOpenClaim("999900004")
       addClaimDetailsErrors(croatiaClaim)
       RefundPeriod.submitRefundPeriod("01", "2026", "07", "2026")
       RefundPeriod.errorSummaryDisplayed(

@@ -19,20 +19,13 @@ package uk.gov.hmrc.ui.specs
 import org.scalatest.*
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
-import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages.*
-import uk.gov.hmrc.ui.pages.bank.*
-import uk.gov.hmrc.ui.pages.claim.*
-import uk.gov.hmrc.ui.pages.imports.*
-import uk.gov.hmrc.ui.pages.purchase.*
-import uk.gov.hmrc.ui.pages.supportingdocuments.*
-import uk.gov.hmrc.selenium.webdriver.Driver
+import uk.gov.hmrc.selenium.webdriver.{Browser, Driver, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.flows.*
+import uk.gov.hmrc.ui.flows.TestData.*
 import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
-import TestData.*
 
-class AddEuvatRefundSpec
+class CreateRefundE2ESpec
     extends AnyFeatureSpec
     with BaseSpec
     with GivenWhenThen
@@ -44,7 +37,10 @@ class AddEuvatRefundSpec
     with MongoHelper
     with DatabaseHelper
     with ClaimFlows
-    with PurchaseFlows {
+    with PurchaseFlows
+    with ImportFlows
+    with BankFlows
+    with SupportingDocumentsFlows {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -55,35 +51,69 @@ class AddEuvatRefundSpec
   Feature("Make a new EUVAT claim - New end to end submission") {
 
     Scenario("01 - Submit an end to end refund request", Jenkins, Local) {
-      loginAndOpenNewClaim("999900001")
+      loginAndOpenClaim("999900001")
       addClaimDetails(croatiaClaim)
-      changeClaimDetailsJourney()
+      changeEUMemberState("Estonia")
       saveClaimDetails()
-      
-      startPurchaseFlow()
+      changeClaimDetailsAfterSave()
+//      saveClaimDetails()
+
+      addPurchaseFlow()
       addFoodPurchaseFlow()
       addStandardInvoiceFlow()
-      addCurrencyFlow()
+      addPurchaseCurrencyFlow()
       addPurchaseAmountFlow()
 
       changePurchaseJourney()
-      vatWarningsJourney()
-      savePurchase()
+      summaryFlow1()
+
+      addImportFlow()
+      addFoodImportFlow()
+      addSADFlow(sadRefData)
+      addImportCurrencyFlow()
+      addImportAmountFlow()
+
+      changeImportJourney()
+      summaryFlow2()
+
+      startBankDetailsFlow()
+      addBankDetails(initialBankDetails)
+      changeBankDetails(changedBankDetails)
+      saveBankDetails()
+
+      startSupportingDocumentsFlow()
+      addSupportingDocuments(supportingDocumentsYes)
       clickSignOut(Driver.instance)
     }
 
-    Scenario("02 - Submit an end to end refund request for Germany", Jenkins, Local) {
-      loginAndOpenNewClaim("999900001")
+    Scenario("02 - Submit an end to end refund request for Germany", Jenkins, Local, WIP) {
+      loginAndOpenClaim("999900001")
       addClaimDetails(germanyClaim)
       saveClaimDetails()
-      
-      startPurchaseFlow()
+      changeClaimDetailsAddSicCodesAfterSave()
+      changeClaimDetailsRemoveSicCodesAfterSave()
+
+      addPurchaseFlow()
       addOtherPurchaseFlow()
       addSimplifiedInvoiceFlow()
       addPurchaseAmountFlow()
 
       changeTaxIdDetails()
-      savePurchase()
+      summaryFlow1()
+
+      addImportFlow()
+      addOtherImportFlow()
+      addSADFlow(sadDocumentData)
+      addImportAmountFlow()
+      saveImport()
+      summaryFlow2()
+
+      startBankDetailsFlow()
+      addBankDetails(initialBankDetails)
+      saveBankDetails()
+
+      startSupportingDocumentsFlow()
+      addSupportingDocuments(supportingDocumentsNo)
       clickSignOut(Driver.instance)
     }
   }

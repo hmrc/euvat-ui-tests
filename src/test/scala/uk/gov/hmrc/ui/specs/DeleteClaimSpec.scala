@@ -193,8 +193,8 @@ class DeleteClaimSpec
       ImportCurrency.selectImportCurrencyType("Euro")
       TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
       TotalImportAmount.submitTotalImportAmount("1000.01")
-      TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
-      TotalImportVATPaid.submitTotalImportVATPaid("200.01")
+      TotalImportVatPaid.verifyPageTitle(TotalImportVatPaid.pageTitle)
+      TotalImportVatPaid.submitTotalImportVATPaid("200.01")
       TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
       TotalImportVatClaim.submitTotalImportVatClaim("100.01")
 
@@ -319,8 +319,8 @@ class DeleteClaimSpec
       ImportCurrency.selectImportCurrencyType("Euro")
       TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
       TotalImportAmount.submitTotalImportAmount("1000.01")
-      TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
-      TotalImportVATPaid.submitTotalImportVATPaid("200.01")
+      TotalImportVatPaid.verifyPageTitle(TotalImportVatPaid.pageTitle)
+      TotalImportVatPaid.submitTotalImportVATPaid("200.01")
       TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
       TotalImportVatClaim.submitTotalImportVatClaim("100.01")
 
