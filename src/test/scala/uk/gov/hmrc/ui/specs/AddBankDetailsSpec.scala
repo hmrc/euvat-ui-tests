@@ -49,7 +49,8 @@ class AddBankDetailsSpec
 
     Scenario("01 - Add and Change Bank Details", Local) {
       loginAndInjectClaimDetails("999900001")
-      goToSaveClaimDetails()
+      goToCheckClaimDetails()
+      saveClaimDetails()
 
       startBankDetailsFlow()
       addBankDetails(initialBankDetails)

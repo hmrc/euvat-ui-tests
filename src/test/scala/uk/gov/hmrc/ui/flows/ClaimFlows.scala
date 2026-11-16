@@ -133,9 +133,6 @@ trait ClaimFlows {
     AddThirdBusinessActivity.verifyPageTitle(AddThirdBusinessActivity.pageTitle)
     AddThirdBusinessActivity.continue()
     ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
-
-    ClaimDetails.saveAndContinue()
-    MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
   }
 
   def changeClaimDetailsAddSicCodesAfterSave(): Unit = {
@@ -215,16 +212,21 @@ trait ClaimFlows {
     sharedId
   }
 
-  def goToSaveClaimDetails(): Unit = {
-    MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
-    CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-    CheckYourClaimDetails.saveAndContinue()
+  def loginAndInjectClaimDetailsGermany(vrn: String): String = {
+    val sharedId = AuthorityWizard.login("Organisation", vrn)
+    ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+    CacheHelper.submitUserAnswers("claimDetailsGermany.json", sharedId)
+    ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
     MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+    sharedId
+  }
+
+  def goToCheckClaimDetails(): Unit = {
+    MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
   }
 
   def deleteClaimFromClaimDetails(): Unit = {
-    MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-    MakeEuvatClaim.clickLinkByText("View claim details")
+    MakeEuvatClaim.clickLinkByText("Claim details")
     ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
     ClaimDetails.clickChangeLink("EU member state")
     CannotChangeEUMemberState.verifyPageTitle(CannotChangeEUMemberState.pageTitle)
@@ -239,4 +241,5 @@ trait ClaimFlows {
     DeleteClaim.continueAsYes()
     ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
   }
+
 }

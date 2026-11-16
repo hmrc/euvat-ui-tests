@@ -100,13 +100,7 @@ class ErrorSpec
     }
 
     Scenario("02 - Validate a duplicate draft refund from the EU member state page", Jenkins, Local, Error) {
-      Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "999900003") // Vat registration date 01/01/2023
-      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
-
-      When("I start new EUVAT claim")
-      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      loginAndOpenClaim("999900002")
 
       And("I add claim details")
       MakeEuvatClaim.clickLinkByText("Claim details")

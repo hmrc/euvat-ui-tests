@@ -19,7 +19,7 @@ package uk.gov.hmrc.ui.specs
 import org.scalatest.*
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
-import uk.gov.hmrc.selenium.webdriver.{Browser, Driver, ScreenshotOnFailure}
+import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.purchase.*
@@ -27,7 +27,7 @@ import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{CacheHelper, DatabaseHelper, MongoHelper}
 
 class AddPurchaseSpec
-    extends AnyFeatureSpec
+  extends AnyFeatureSpec
     with BaseSpec
     with GivenWhenThen
     with ShouldVerb
@@ -52,7 +52,7 @@ class AddPurchaseSpec
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
 
       When("I start new EUVAT claim")
-//      Inject Claim details
+      //      Inject Claim details
       CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
       ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
@@ -215,10 +215,10 @@ class AddPurchaseSpec
       CheckVATClaim.continue()
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
-//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
+      //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
       PurchaseImportSummary.continueAsNo()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      clickSignOut(Driver.instance)
+      MakeEuvatClaim.clickSignOut
     }
 
     Scenario("02 - Submit a refund request for Germany", Local) {
@@ -291,10 +291,10 @@ class AddPurchaseSpec
       VATRegistrationNumber.submitVATRegistrationNumber("1234567890")
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
-//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
+      //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
       PurchaseImportSummary.continueAsNo()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      clickSignOut(Driver.instance)
+      MakeEuvatClaim.clickSignOut
     }
 
     Scenario("03 - Change your answers for a Purchase refund request", Jenkins, Local) {
@@ -376,7 +376,7 @@ class AddPurchaseSpec
       CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
       CheckYourPurchaseDetails.saveAndContinue()
 
-//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
+      //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
       PurchaseImportSummary.clickActionLink(1, "Change")
 
       And("I change purchase details")

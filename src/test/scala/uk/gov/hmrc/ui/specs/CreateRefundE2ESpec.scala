@@ -56,7 +56,7 @@ class CreateRefundE2ESpec
       changeEUMemberState("Estonia")
       saveClaimDetails()
       changeClaimDetailsAfterSave()
-//      saveClaimDetails()
+      saveClaimDetails()
 
       addPurchaseFlow()
       addFoodPurchaseFlow()

@@ -19,6 +19,7 @@ package uk.gov.hmrc.ui.flows
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.MakeEuvatClaim
 import uk.gov.hmrc.ui.pages.purchase.*
+import uk.gov.hmrc.ui.utils.CacheHelper
 
 trait PurchaseFlows {
 
@@ -159,11 +160,8 @@ trait PurchaseFlows {
 //    CheckSupplierTaxIDNumber.continue()
   }
 
-  def savePurchase(): Unit = {
-    CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+  def savePurchase(): Unit =
     CheckYourPurchaseDetails.saveAndContinue()
-    MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-  }
 
   def changePurchaseJourney(): Unit = {
     CheckYourPurchaseDetails.clickChangeLink("Food and drink for")
@@ -319,10 +317,30 @@ trait PurchaseFlows {
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
   }
 
-  def goToSavePurchaseDetails(): Unit = {
+  def injectPurchaseDetails(sharedId: String): String = {
+//    ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+    CacheHelper.submitUserAnswers("purchaseDetails.json", sharedId)
+    ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
+    MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+    sharedId
+  }
+
+  def goToCheckPurchaseDetails(): Unit = {
     MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/purchase/check-your-answers")
-    CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
-    CheckYourPurchaseDetails.saveAndContinue()
+  }
+
+  def deleteClaimFromSummary(): Unit = {
+    PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
+    PurchaseImportSummary.clickActionLink(2, "Remove")
+    RemoveItem.verifyPageTitle(RemoveItem.pageTitle)
+    RemoveItem.selectDeleteItem("Yes")
+    //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
+    PurchaseImportSummary.clickActionLink(1, "Remove")
+    RemoveItem.verifyPageTitle(RemoveItem.pageTitle)
+    RemoveItem.selectDeleteItem("Yes")
+
+    //      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle) // Only works for the database
+    //      MakeEuvatClaim.clickSignOut // Only works for the database
   }
 
 }

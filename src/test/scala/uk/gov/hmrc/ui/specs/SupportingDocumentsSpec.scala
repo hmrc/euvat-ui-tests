@@ -20,11 +20,12 @@ import org.scalatest.*
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
+import uk.gov.hmrc.ui.flows.{ClaimFlows, SupportingDocumentsFlows}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.supportingdocuments.*
 import uk.gov.hmrc.ui.tags.*
-import uk.gov.hmrc.ui.utils.{CacheHelper, DatabaseHelper, MongoHelper}
+import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
 
 class SupportingDocumentsSpec
     extends AnyFeatureSpec
@@ -36,7 +37,9 @@ class SupportingDocumentsSpec
     with Browser
     with ScreenshotOnFailure
     with MongoHelper
-    with DatabaseHelper {
+    with DatabaseHelper
+    with ClaimFlows
+    with SupportingDocumentsFlows {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -47,22 +50,9 @@ class SupportingDocumentsSpec
   Feature("Make a new EUVAT claim - Add Bank Details") {
 
     Scenario("01 - Submit a refund request", Local) {
-      Given("I login as an organisation")
-      val sharedId = AuthorityWizard.login("Organisation", "999900001")
-      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
-
-      When("I start new EUVAT claim")
-//      Inject Claim details
-      CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
-      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-
-      And("I see claim details page completed")
-      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-
-      CheckYourClaimDetails.saveAndContinue()
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      loginAndInjectClaimDetails("999900001")
+      goToCheckClaimDetails()
+      saveClaimDetails()
 
       // Add supporting documents
       And("I add supporting documents")

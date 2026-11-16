@@ -102,11 +102,8 @@ trait ImportFlows {
     ListImportDocumentItems.submitImportDocumentList("Listed items from import document")
   }
 
-  def saveImport(): Unit = {
-//    CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
+  def saveImport(): Unit =
     CheckYourImportDetails.saveAndContinue()
-//    MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-  }
 
   def changeImportJourney(): Unit = {
     CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
@@ -114,7 +111,7 @@ trait ImportFlows {
     ImportSubcategoryFood.verifyPageTitle(ImportSubcategoryFood.pageTitle)
     ImportSubcategoryFood.selectWhoFoodFor("Someone other")
 
-    CheckYourImportDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+    CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
     CheckYourImportDetails.clickChangeLink("Food, drink or restaurant cost type")
     ImportSubcodeFood.verifyPageTitle(ImportSubcodeFood.pageTitle)
     ImportSubcodeFood.selectImportFoodType("None")
