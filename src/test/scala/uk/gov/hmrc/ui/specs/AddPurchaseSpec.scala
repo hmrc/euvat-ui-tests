@@ -27,7 +27,7 @@ import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{CacheHelper, DatabaseHelper, MongoHelper}
 
 class AddPurchaseSpec
-  extends AnyFeatureSpec
+    extends AnyFeatureSpec
     with BaseSpec
     with GivenWhenThen
     with ShouldVerb

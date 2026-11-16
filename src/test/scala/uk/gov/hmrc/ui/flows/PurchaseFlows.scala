@@ -325,9 +325,8 @@ trait PurchaseFlows {
     sharedId
   }
 
-  def goToCheckPurchaseDetails(): Unit = {
+  def goToCheckPurchaseDetails(): Unit =
     MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/purchase/check-your-answers")
-  }
 
   def deleteClaimFromSummary(): Unit = {
     PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
