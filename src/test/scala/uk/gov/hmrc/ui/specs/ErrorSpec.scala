@@ -49,7 +49,6 @@ class ErrorSpec
   Feature("Error and warning message validation check - New claim") {
 
     Scenario("01 - Refund period start and end date validation", Jenkins, Local, Error) {
-      Given("I login as an organisation")
       loginAndOpenClaim("999900002")
       addClaimDetailsErrors(croatiaClaim)
 
@@ -102,7 +101,6 @@ class ErrorSpec
     Scenario("02 - Validate a duplicate draft refund from the EU member state page", Jenkins, Local, Error) {
       loginAndOpenClaim("999900003")
 
-      And("I add claim details")
       MakeEuvatClaim.clickLinkByText("Claim details")
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Austria")
@@ -112,7 +110,6 @@ class ErrorSpec
     }
 
     Scenario("03 - Validate VAT registration start (01/05/2026) and end date (31/07/2026)", Jenkins, Local, Error) {
-      Given("I login as an organisation")
       loginAndOpenClaim("999900004")
       addClaimDetailsErrors(croatiaClaim)
       RefundPeriod.submitRefundPeriod("01", "2026", "07", "2026")
