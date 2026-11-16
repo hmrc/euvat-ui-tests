@@ -630,7 +630,8 @@ class AddEuvatRefundSpec
       // change bank details
       And("I change bank details")
       MakeEuvatClaim.clickLinkByText("Bank details")
-      CheckYourBankDetailsPostSave.clickChangeBankDetailsLink()
+      CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
+      CheckYourBankDetails.clickChangeBankDetailsLink()
       AccountHolderType.verifyPageTitle(AccountHolderType.pageTitle)
       AccountHolderType.selectAccountHolderType("Third party (someone else)")
       BankDetailsForm.verifyPageTitle(BankDetailsForm.pageTitle)

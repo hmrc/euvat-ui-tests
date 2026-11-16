@@ -78,9 +78,13 @@ class AddBankDetailsSpec
         "Communauté Financière Africaine BCEAO, Francs"
       )
       CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
+      CheckYourBankDetails.saveAndContinue()
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       // change bank details
       And("I change bank details")
+      MakeEuvatClaim.clickLinkByText("Bank details")
+      CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
       CheckYourBankDetails.clickChangeBankDetailsLink()
       AccountHolderType.verifyPageTitle(AccountHolderType.pageTitle)
       AccountHolderType.selectAccountHolderType("Third party (someone else)")

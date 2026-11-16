@@ -18,6 +18,7 @@ package uk.gov.hmrc.ui.pages.supportingdocuments
 
 import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.BasePage
+import java.nio.file.Paths
 
 object UploadFile extends BasePage {
 
@@ -29,5 +30,11 @@ object UploadFile extends BasePage {
 
   def inputAdditionalInfo(AdditionalInfo: String): Unit =
     input(inputAdditionalInfo, AdditionalInfo)
+
+  def selectFile(uploadFilename: String): Unit = {
+    val fileUploadFieldLocator = driver.findElement(By.id("file-upload-1-input"))
+    val inputFilePath          = Paths.get("src/test/resources/" + uploadFilename).toAbsolutePath.toString
+    fileUploadFieldLocator.sendKeys(inputFilePath)
+  }
 
 }
