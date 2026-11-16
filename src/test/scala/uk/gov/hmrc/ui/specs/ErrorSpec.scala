@@ -100,7 +100,7 @@ class ErrorSpec
     }
 
     Scenario("02 - Validate a duplicate draft refund from the EU member state page", Jenkins, Local, Error) {
-      loginAndOpenClaim("999900002")
+      loginAndOpenClaim("999900003")
 
       And("I add claim details")
       MakeEuvatClaim.clickLinkByText("Claim details")

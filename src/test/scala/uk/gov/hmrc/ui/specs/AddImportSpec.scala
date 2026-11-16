@@ -174,7 +174,6 @@ class AddImportSpec
 
       //      Change VAT claim
       TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
-      TotalImportVatClaim.submitTotalImportVatClaim("100.01")
       TotalImportVatClaim.submitTotalImportVatClaim("4000.99")
       CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
       CheckVATClaim.continue()
