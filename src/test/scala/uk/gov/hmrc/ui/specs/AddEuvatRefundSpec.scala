@@ -624,10 +624,13 @@ class AddEuvatRefundSpec
         "Communauté Financière Africaine BCEAO, Francs"
       )
       CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
+      CheckYourBankDetails.saveAndContinue()
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       // change bank details
       And("I change bank details")
-      CheckYourBankDetails.clickChangeBankDetailsLink()
+      MakeEuvatClaim.clickLinkByText("Bank details")
+      CheckYourBankDetailsPostSave.clickChangeBankDetailsLink()
       AccountHolderType.verifyPageTitle(AccountHolderType.pageTitle)
       AccountHolderType.selectAccountHolderType("Third party (someone else)")
       BankDetailsForm.verifyPageTitle(BankDetailsForm.pageTitle)
