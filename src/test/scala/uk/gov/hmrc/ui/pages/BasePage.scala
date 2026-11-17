@@ -42,7 +42,7 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
 
   /** Locator values */
   object Locators {
-    val btnSubmit = "//button[@type='submit']"
+    val btnSubmit = ".govuk-button:last-of-type"
     val rdoYes    = "#value"
     val rdoNo     = "#value-2"
   }
@@ -92,9 +92,9 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
   }
 
   /** Specific actions */
-  def saveAndContinue(): Unit = click(By.xpath(Locators.btnSubmit))
+  def saveAndContinue(): Unit = click(By.cssSelector(Locators.btnSubmit))
 
-  def continue(): Unit = click(By.xpath(Locators.btnSubmit))
+  def continue(): Unit = click(By.cssSelector(Locators.btnSubmit))
 
   /** Navigation methods */
   def navigateBack(): Unit = {
