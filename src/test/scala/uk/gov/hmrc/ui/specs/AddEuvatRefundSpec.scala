@@ -444,7 +444,11 @@ class AddEuvatRefundSpec
       And("I add supporting documents")
       MakeEuvatClaim.clickLinkByText("Supporting documents")
       BeforeYouStartSupportingDocuments.verifyPageTitle(BeforeYouStartSupportingDocuments.pageTitle)
-      BeforeYouStartSupportingDocuments.clickSignOut
+      BeforeYouStartSupportingDocuments.continue()
+      AnySupportingDocuments.verifyPageTitle(AnySupportingDocuments.pageTitle)
+      AnySupportingDocuments.selectYesOrNo("No")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      MakeEuvatClaim.clickSignOut
     }
 
     Scenario("02 - Submit an end to end refund request for Germany", Jenkins, Local) {
@@ -622,24 +626,6 @@ class AddEuvatRefundSpec
         "FAKEGB21XXX",
         "GB00TEST00000000000000",
         "Communauté Financière Africaine BCEAO, Francs"
-      )
-      CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
-      CheckYourBankDetails.saveAndContinue()
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-
-      // change bank details
-      And("I change bank details")
-      MakeEuvatClaim.clickLinkByText("Bank details")
-      CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
-      CheckYourBankDetails.clickChangeBankDetailsLink()
-      AccountHolderType.verifyPageTitle(AccountHolderType.pageTitle)
-      AccountHolderType.selectAccountHolderType("Third party (someone else)")
-      BankDetailsForm.verifyPageTitle(BankDetailsForm.pageTitle)
-      BankDetailsForm.submitBankDetailsForm(
-        "CHANGENAME123456789",
-        "TESTXX00",
-        "GB00TESTIBANXX",
-        "GBP - United Kingdom, Pounds"
       )
       CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
       CheckYourBankDetails.saveAndContinue()
