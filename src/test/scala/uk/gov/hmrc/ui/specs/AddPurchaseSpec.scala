@@ -20,11 +20,12 @@ import org.scalatest.*
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
+import uk.gov.hmrc.ui.flows.*
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.pages.purchase.*
 import uk.gov.hmrc.ui.tags.*
-import uk.gov.hmrc.ui.utils.{CacheHelper, DatabaseHelper, MongoHelper}
+import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
 
 class AddPurchaseSpec
     extends AnyFeatureSpec
@@ -36,7 +37,9 @@ class AddPurchaseSpec
     with Browser
     with ScreenshotOnFailure
     with MongoHelper
-    with DatabaseHelper {
+    with DatabaseHelper
+    with ClaimFlows
+    with PurchaseFlows {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -47,24 +50,21 @@ class AddPurchaseSpec
   Feature("Make a new EUVAT claim - Add a purchase") {
 
     Scenario("01 - Submit a refund request", Local) {
-      Given("I login as an organisation")
-      val sharedId = AuthorityWizard.login("Organisation", "999900001")
-      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+      loginAndInjectClaimDetails("999900001")
+      goToCheckClaimDetails()
+      saveClaimDetails()
 
-      When("I start new EUVAT claim")
-      //      Inject Claim details
-      CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
-      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      injectPurchaseDetails(sharedId)
 
-      And("I see claim details page completed")
-      MakeEuvatClaim.navigateToPageWithRetry(
-        "http://localhost:18501/file-eu-vat/claim-details/check-your-answers",
-        CheckYourClaimDetails.pageTitle
-      )
 
-      CheckYourClaimDetails.saveAndContinue()
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      addPurchaseFlow()
+      addFoodPurchaseFlow()
+      addStandardInvoiceFlow()
+      addPurchaseCurrencyFlow()
+      addPurchaseAmountFlow()
+
+      changePurchaseJourney()
+      summaryFlow1()
 
       And("I add purchase details")
       MakeEuvatClaim.clickLinkByText("Purchases and imports")
@@ -222,24 +222,19 @@ class AddPurchaseSpec
     }
 
     Scenario("02 - Submit a refund request for Germany", Local) {
-      Given("I login as an organisation")
-      val sharedId = AuthorityWizard.login("Organisation", "999900001")
-      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+      loginAndInjectClaimDetailsGermany("999900001")
+      goToCheckClaimDetails()
+      saveClaimDetails()
 
-      When("I start new EUVAT claim")
-      //      Inject Claim details
-      CacheHelper.submitUserAnswers("claimDetailsGermany.json", sharedId)
-      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
-      And("I see claim details page completed")
-      MakeEuvatClaim.navigateToPageWithRetry(
-        "http://localhost:18501/file-eu-vat/claim-details/check-your-answers",
-        CheckYourClaimDetails.pageTitle
-      )
+      addPurchaseFlow()
+      addOtherPurchaseFlow()
+      addSimplifiedInvoiceFlow()
+      addPurchaseAmountFlow()
 
-      CheckYourClaimDetails.saveAndContinue()
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      changeTaxIdDetails()
+      summaryFlow1()
+
 
       And("I add purchase details")
       MakeEuvatClaim.clickLinkByText("Purchases and imports")
