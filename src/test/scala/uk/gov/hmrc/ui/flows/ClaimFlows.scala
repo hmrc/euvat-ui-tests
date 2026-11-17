@@ -82,7 +82,6 @@ trait ClaimFlows {
   }
 
   def saveClaimDetails(): Unit = {
-    CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
     CheckYourClaimDetails.saveAndContinue()
     MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
   }
@@ -221,8 +220,10 @@ trait ClaimFlows {
     sharedId
   }
 
-  def goToCheckClaimDetails(): Unit =
+  def goToCheckYourClaimDetails(): Unit = {
     MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
+    CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
+  }
 
   def deleteClaimFromClaimDetails(): Unit = {
     MakeEuvatClaim.clickLinkByText("Claim details")

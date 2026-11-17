@@ -51,7 +51,7 @@ class SupportingDocumentsSpec
 
     Scenario("01 - Submit a refund request", Local) {
       loginAndInjectClaimDetails("999900001")
-      goToCheckClaimDetails()
+      goToCheckYourClaimDetails()
       saveClaimDetails()
 
       // Add supporting documents

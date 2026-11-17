@@ -55,7 +55,7 @@ class DeleteClaimSpec
       addClaimDetails(estoniaClaim)
       saveClaimDetails()
 
-      addPurchaseFlow()
+      startPurchaseFlow()
       addFoodPurchaseFlow()
       addStandardInvoiceFlow()
       addPurchaseCurrencyFlow()
@@ -80,7 +80,7 @@ class DeleteClaimSpec
       addClaimDetails(estoniaClaim)
       saveClaimDetails()
 
-      addPurchaseFlow()
+      startPurchaseFlow()
       addFoodPurchaseFlow()
       addStandardInvoiceFlow()
       addPurchaseCurrencyFlow()

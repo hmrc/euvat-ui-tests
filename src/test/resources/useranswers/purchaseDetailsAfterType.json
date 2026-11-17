@@ -4,7 +4,7 @@
   "purchaseSubCategory": "7.1.1",
   "purchaseSubCategoryLabel": "The taxable person or an employee",
   "invoiceType": "standard invoice",
-  "invoiceNumber": "1234567890",
+  "invoiceNumber": "DUP",
   "invoiceNumberFlag": false,
   "invoiceDate": "2025-08-12",
   "suppliersName": "Test Supplier Name",
@@ -13,7 +13,7 @@
     "line2": "Address line 2",
     "line3": "Address line 3"
   },
-  "supplierVatRegistrationNumber": "CZ1234567890",
+  "supplierVatRegistrationNumber": "EE0000000111",
   "refundingCurrency": "EUR",
   "totalPurchaseAmountBeforeVat": 1000.01,
   "totalVatPaid": 200.01,

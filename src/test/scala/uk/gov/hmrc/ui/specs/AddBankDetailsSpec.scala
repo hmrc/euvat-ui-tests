@@ -19,7 +19,7 @@ package uk.gov.hmrc.ui.specs
 import org.scalatest.*
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
-import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
+import uk.gov.hmrc.selenium.webdriver.{Browser, Driver, ScreenshotOnFailure}
 import uk.gov.hmrc.ui.flows.*
 import uk.gov.hmrc.ui.flows.TestData.*
 import uk.gov.hmrc.ui.tags.*
@@ -49,13 +49,14 @@ class AddBankDetailsSpec
 
     Scenario("01 - Add and Change Bank Details", Local) {
       loginAndInjectClaimDetails("999900001")
-      goToCheckClaimDetails()
+      goToCheckYourClaimDetails()
       saveClaimDetails()
 
       startBankDetailsFlow()
       addBankDetails(initialBankDetails)
       changeBankDetails(changedBankDetails)
       saveBankDetails()
+      clickSignOut(Driver.instance)
     }
   }
 }

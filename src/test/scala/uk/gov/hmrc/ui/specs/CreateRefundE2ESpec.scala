@@ -58,7 +58,7 @@ class CreateRefundE2ESpec
       changeClaimDetailsAfterSave()
       saveClaimDetails()
 
-      addPurchaseFlow()
+      startPurchaseFlow()
       addFoodPurchaseFlow()
       addStandardInvoiceFlow()
       addPurchaseCurrencyFlow()
@@ -93,7 +93,7 @@ class CreateRefundE2ESpec
       changeClaimDetailsAddSicCodesAfterSave()
       changeClaimDetailsRemoveSicCodesAfterSave()
 
-      addPurchaseFlow()
+      startPurchaseFlow()
       addOtherPurchaseFlow()
       addSimplifiedInvoiceFlow()
       addPurchaseAmountFlow()
