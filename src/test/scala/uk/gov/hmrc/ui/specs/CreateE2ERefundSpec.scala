@@ -25,7 +25,7 @@ import uk.gov.hmrc.ui.flows.TestData.*
 import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
 
-class CreateRefundE2ESpec
+class CreateE2ERefundSpec
     extends AnyFeatureSpec
     with BaseSpec
     with GivenWhenThen
@@ -97,6 +97,7 @@ class CreateRefundE2ESpec
       addOtherPurchaseFlow()
       addSimplifiedInvoiceFlow()
       addPurchaseAmountFlow()
+      savePurchase()
 
       changeTaxIdDetails()
       summaryFlow1()

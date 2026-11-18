@@ -1,21 +1,20 @@
 {
-  "purchaseSubType": "7.1",
-  "purchaseSubTypeLabel": "Food and drink from hotels, bars, restaurants and boarding houses (including breakfast)",
-  "purchaseSubCategory": "7.1.1",
-  "purchaseSubCategoryLabel": "The taxable person or an employee",
+  "purchaseSubType": "10.99",
+  "purchaseSubTypeLabel": "None of these – give more details",
+  "describeItemsOnInvoice" : "",
   "invoiceType": "simplified invoice",
   "invoiceNumber": "INV-1",
   "invoiceNumberFlag": false,
   "invoiceDate": "2025-08-12",
   "suppliersName": "Test Supplier Name",
-  "supplierAddress": {
-    "line1": "Address line 1",
-    "line2": "Address line 2",
-    "line3": "Address line 3"
+  "supplierAddress" : {
+    "line1" : "Test address one",
+    "line2" : "Test address two",
+    "line3" : "Test address three"
   },
-  "supplierVatRegistrationNumber": "TID-1",
-  "refundingCurrency": "EUR",
-  "totalPurchaseAmountBeforeVat": 1000.01,
-  "totalVatPaid": 200.01,
-  "totalVatClaim": 100.01
+  "supplierTaxNumberCheck" : "taxIdentifierNumber",
+  "supplierTaxIdentifierNumber" : "TID-1",
+  "totalPurchaseAmountBeforeVat" : 1000.01,
+  "totalVatPaid" : 200.01,
+  "totalVatClaim" : 100.01
 }
