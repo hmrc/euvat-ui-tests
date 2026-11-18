@@ -73,7 +73,7 @@ class AddImportSpec
       clickSignOut(Driver.instance)
     }
 
-    Scenario("02 - Create 2 imports with duplicate import document details for Germany", Local, WIP) {
+    Scenario("02 - Create 2 imports with duplicate import document details for Germany", Local) {
       val sharedId = loginAndInjectClaimDetailsGermany("999900001")
       goToCheckYourClaimDetails()
       saveClaimDetails()
@@ -87,7 +87,7 @@ class AddImportSpec
 
       addImportFlow()
       addOtherImportFlow()
-      //Jira ticket raised to fix stub to trigger the CheckImportDocumentDetails page
+      // Jira ticket DTR-10177 raised to fix stub to trigger the CheckImportDocumentDetails page
 //      duplicateSADFlow(sadDocumentData)
 //      addImportAmountFlow()
 //      saveImport()
