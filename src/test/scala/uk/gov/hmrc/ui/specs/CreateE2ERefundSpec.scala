@@ -74,6 +74,7 @@ class CreateE2ERefundSpec
       addImportAmountFlow()
 
       changeImportJourney()
+      saveImport()
       summaryFlowNo()
 
       startBankDetailsFlow()
@@ -86,7 +87,7 @@ class CreateE2ERefundSpec
       clickSignOut(Driver.instance)
     }
 
-    Scenario("02 - Submit an end to end refund request for Germany", Jenkins, Local) {
+    Scenario("02 - Submit an end to end refund request for Germany", Jenkins, Local, WIP) {
       loginAndOpenClaim("999900001")
       addClaimDetails(germanyClaim)
       saveClaimDetails()
@@ -97,9 +98,9 @@ class CreateE2ERefundSpec
       addOtherPurchaseFlow()
       addSimplifiedInvoiceFlow()
       addPurchaseAmountFlow()
-      savePurchase()
 
       changeTaxIdDetails()
+      savePurchase()
       summaryFlowYes()
 
       addImportFlow()

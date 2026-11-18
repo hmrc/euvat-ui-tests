@@ -334,7 +334,7 @@ trait PurchaseFlows {
     //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
   }
 
-  def changeSummaryFlow(): Unit = {
+  def changePurchaseSummaryFlow(): Unit = {
     PurchaseImportSummary.clickActionLink(1, "Change")
     ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
   }
@@ -462,7 +462,6 @@ trait PurchaseFlows {
     VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
     VATRegistrationNumber.submitVATRegistrationNumber("1234567890")
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
-    CheckYourPurchaseDetails.saveAndContinue()
   }
 
   def vatWarningsPurchaseJourney(): Unit = {

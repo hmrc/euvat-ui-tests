@@ -156,7 +156,7 @@ trait ImportFlows {
     CheckYourImportDetails.saveAndContinue()
 
   def changeImportJourney(): Unit = {
-    CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
+//    CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
     CheckYourImportDetails.clickChangeLink("Food and drink for")
     ImportSubcategoryFood.verifyPageTitle(ImportSubcategoryFood.pageTitle)
     ImportSubcategoryFood.selectWhoFoodFor("Someone other")
@@ -225,13 +225,81 @@ trait ImportFlows {
     CheckVATClaim.continue()
 
     CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
-    CheckYourImportDetails.saveAndContinue()
   }
 
   def summaryFlowNo(): Unit =
     PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
     PurchaseImportSummary.continueAsNo()
     MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+
+  def changeImportSummaryFlow(): Unit = {
+    //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
+    PurchaseImportSummary.clickActionLink(2, "Change") // Does not work for the database, but works for stub
+    ChangeYourImportDetails.verifyPageTitle(ChangeYourImportDetails.pageTitle)
+  }
+
+  def changeImportAfterSave(): Unit = {
+    //      Change import type
+    ChangeYourImportDetails.verifyPageTitle(ChangeYourImportDetails.pageTitle)
+    ChangeYourImportDetails.clickChangeLink("Import type")
+    ImportType.verifyPageTitle(ImportType.pageTitle)
+    ImportType.selectImportType("Luxuries, entertainment and hospitality")
+    ImportSubcodeLuxury.verifyPageTitle(ImportSubcodeLuxury.pageTitle)
+    ImportSubcodeLuxury.selectLuxuryType("Receptions, entertainment and hospitality")
+
+    //      Change import doc details
+    ChangeYourImportDetails.verifyPageTitle(ChangeYourImportDetails.pageTitle)
+    ChangeYourImportDetails.clickChangeLink("Single Administrative Document (SAD)")
+    AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
+    AddSADRefNumber.continueAsNo()
+    ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
+    ImportDocumentDetails.submitDocumentDetails("TEST INPUT")
+
+    //      Change invoice date
+    ChangeYourImportDetails.clickChangeLink("Import date")
+    ImportDate.verifyPageTitle(ImportDate.pageTitle)
+    ImportDate.submitImportDate("01", "01", "2026")
+    ChangeYourImportDetails.verifyPageTitle(ChangeYourImportDetails.pageTitle)
+
+    //      Change supplier name
+    ChangeYourImportDetails.clickChangeLink("Supplier name")
+    ImportSupplierName.verifyPageTitle(ImportSupplierName.pageTitle)
+    ImportSupplierName.submitSupplierName("Update Test Supplier Name")
+    ChangeYourImportDetails.verifyPageTitle(ChangeYourImportDetails.pageTitle)
+
+    //      Change supplier address
+    ChangeYourImportDetails.clickChangeLink("Supplier address")
+    ImportSupplierAddress.verifyPageTitle(ImportSupplierAddress.pageTitle)
+    ImportSupplierAddress.submitImportSupplierAddress(
+      "Test Street ABC",
+      "Test City 321",
+      "Test State XYZ",
+      "HEARD ISLAND & MCDONALD ISLANDS"
+    )
+    ChangeYourImportDetails.verifyPageTitle(ChangeYourImportDetails.pageTitle)
+
+    //      Change currency
+    ChangeYourImportDetails.clickChangeLink("Currency")
+    ImportCurrency.verifyPageTitle(ImportCurrency.pageTitle)
+    ImportCurrency.selectImportCurrencyType("Estonian Kroon (kr)")
+    TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
+    TotalImportAmount.submitTotalImportAmount("1000.01")
+
+    //      Change VAT paid
+    TotalImportVatPaid.verifyPageTitle(TotalImportVatPaid.pageTitle)
+    TotalImportVatPaid.submitTotalImportVATPaid("3000.99")
+    CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
+    CheckVATAmount.continue()
+
+    //      Change VAT claim
+    TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
+    TotalImportVatClaim.submitTotalImportVatClaim("4000.99")
+    CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
+    CheckVATClaim.continue()
+
+    ChangeYourImportDetails.verifyPageTitle(ChangeYourImportDetails.pageTitle)
+    ChangeYourImportDetails.saveAndContinue()
+  }
 
   def vatWarningsImportJourney(): Unit = {
     CheckYourImportDetails.clickChangeLink("VAT claim")

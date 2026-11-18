@@ -159,10 +159,10 @@ object TestData {
       importDay = "01",
       importMonth = "01",
       importYear = "2026",
-      supplierName = "Test Supplier",
-      supplierAddress1 = "Test Street123",
-      supplierAddress2 = "Test City456",
-      supplierAddress3 = "Test State789",
+      supplierName = "Test Supplier Name",
+      supplierAddress1 = "Test address one",
+      supplierAddress2 = "Test address two",
+      supplierAddress3 = "Test address three",
       supplierCountry = "HEARD ISLAND & MCDONALD ISLANDS"
     )
 
@@ -224,7 +224,7 @@ object TestData {
       fromYear = "2026",
       toMonth = "04",
       toYear = "2026",
-      email = "test@gmail.com",
+      email = "test@test.com",
       phone = "9876543210",
       businessActivity = None
     )

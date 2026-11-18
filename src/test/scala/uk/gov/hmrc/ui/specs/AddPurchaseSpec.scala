@@ -103,7 +103,7 @@ class AddPurchaseSpec
       addPurchaseAmountFlow()
       savePurchase()
 
-      changeSummaryFlow()
+      changePurchaseSummaryFlow()
 //      Cannot run this step due to the stub data
 //      changePurchaseAfterSave()
 
