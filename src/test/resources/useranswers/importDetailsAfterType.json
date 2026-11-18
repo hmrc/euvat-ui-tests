@@ -1,14 +1,13 @@
 {
   "singleAdministrativeDocumentReferenceNumberAvailable" : false,
   "importDate" : "2026-01-01",
-  "importSuppliersName" : "Update Test Supplier Name",
-  "supplierAddress" : {
-    "addressLine1" : "Test Street ABC",
-    "addressLine2" : "Test City 321",
-    "addressLine3" : "Test State XYZ",
-    "country" : "HM"
+  "importSuppliersName" : "Test Supplier Name",
+  "supplierAddress": {
+    "line1": "Address line 1",
+    "line2": "Address line 2",
+    "line3": "Address line 3"
   },
-  "importCurrency": "EEK",
+  "importCurrency": "EUR",
   "importSubCode": "9.3",
   "importSubTypeLabel" : "Receptions, entertainment and hospitality",
   "importDetailsInfo" : "TEST INPUT",

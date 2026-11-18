@@ -221,7 +221,7 @@ trait PurchaseFlows {
     CheckYourPurchaseDetails.saveAndContinue()
     //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
 
-  def summaryFlow1(): Unit =
+  def summaryFlowYes(): Unit =
     PurchaseImportSummary.continueAsYes()
 
   def changePurchaseJourney(): Unit = {

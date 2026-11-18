@@ -1,0 +1,17 @@
+{
+  "singleAdministrativeDocumentReferenceNumberAvailable" : false,
+  "importDate" : "2026-01-01",
+  "importSuppliersName" : "Test Supplier Name",
+  "supplierAddress": {
+    "line1": "Address line 1",
+    "line2": "Address line 2",
+    "line3": "Address line 3"
+  },
+  "importCurrency": "EUR",
+  "importSubCode": "9.3",
+  "importSubTypeLabel" : "Receptions, entertainment and hospitality",
+  "importDetailsInfo" : "TEST INPUT",
+  "totalAmountWithoutVat": 1000.01,
+  "totalVatPaidImport": 200.01,
+  "importTotalVatClaim": 100.01
+}

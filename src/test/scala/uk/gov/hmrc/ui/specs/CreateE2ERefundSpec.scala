@@ -65,7 +65,7 @@ class CreateE2ERefundSpec
       addPurchaseAmountFlow()
 
       changePurchaseJourney()
-      summaryFlow1()
+      summaryFlowYes()
 
       addImportFlow()
       addFoodImportFlow()
@@ -74,7 +74,7 @@ class CreateE2ERefundSpec
       addImportAmountFlow()
 
       changeImportJourney()
-      summaryFlow2()
+      summaryFlowNo()
 
       startBankDetailsFlow()
       addBankDetails(initialBankDetails)
@@ -100,14 +100,14 @@ class CreateE2ERefundSpec
       savePurchase()
 
       changeTaxIdDetails()
-      summaryFlow1()
+      summaryFlowYes()
 
       addImportFlow()
       addOtherImportFlow()
       addSADFlow(sadDocumentData)
       addImportAmountFlow()
       saveImport()
-      summaryFlow2()
+      summaryFlowNo()
 
       startBankDetailsFlow()
       addBankDetails(initialBankDetails)

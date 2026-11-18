@@ -20,8 +20,17 @@ import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.MakeEuvatClaim
 import uk.gov.hmrc.ui.pages.imports.*
 import uk.gov.hmrc.ui.pages.purchase.*
+import uk.gov.hmrc.ui.utils.CacheHelper
 
 trait ImportFlows {
+
+  def startImportFlow(): Unit = {
+    MakeEuvatClaim.clickLinkByText("Purchases and imports")
+    BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
+    BeforeYouStart.continue()
+    AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
+    AddPurchaseImport.selectPurchaseOrImport("Import")
+  }
 
   def addImportFlow(): Unit = {
     AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
@@ -39,14 +48,29 @@ trait ImportFlows {
     ImportSubcategoryFood.selectWhoFoodFor("The taxable person")
   }
 
+  def addFoodImportType(): Unit = {
+    ImportType.verifyPageTitle(ImportType.pageTitle)
+    ImportType.selectImportType("Food, drink and restaurant services")
+  }
+
+  def injectImportDetailsAfterType(sharedId: String): String = {
+    CacheHelper.updateUserAnswers("importDetailsAfterType.json", sharedId)
+    sharedId
+  }
+
+  def injectImportDetailsAfterTypeGermany(sharedId: String): String = {
+    CacheHelper.updateUserAnswers("importDetailsAfterTypeGermany.json", sharedId)
+    sharedId
+  }
+
   def addSADFlow(data: SadFlowData): Unit = {
     AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
 
     data match {
       case sadRef: SadReferenceData =>
         AddSADRefNumber.continueAsYes()
-        SubmitSADRefNumber.verifyPageTitle(SubmitSADRefNumber.pageTitle)
-        SubmitSADRefNumber.submitSADRefNumber(sadRef.referenceNumber)
+        SADRefNumber.verifyPageTitle(SADRefNumber.pageTitle)
+        SADRefNumber.submitSADRefNumber(sadRef.referenceNumber)
 
       case sadDoc: SadDocumentData =>
         AddSADRefNumber.continueAsNo()
@@ -57,8 +81,40 @@ trait ImportFlows {
     ImportDate.verifyPageTitle(ImportDate.pageTitle)
     ImportDate.submitImportDate(data.importDay, data.importMonth, data.importYear)
 
-    SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
-    SubmitSupplierName.submitSupplierName(data.supplierName)
+    ImportSupplierName.verifyPageTitle(ImportSupplierName.pageTitle)
+    ImportSupplierName.submitSupplierName(data.supplierName)
+
+    ImportSupplierAddress.verifyPageTitle(ImportSupplierAddress.pageTitle)
+    ImportSupplierAddress.submitImportSupplierAddress(
+      data.supplierAddress1,
+      data.supplierAddress2,
+      data.supplierAddress3,
+      data.supplierCountry
+    )
+  }
+
+  def duplicateSADFlow(data: SadFlowData): Unit = {
+    AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
+
+    data match {
+      case sadRef: SadReferenceData =>
+        AddSADRefNumber.continueAsYes()
+        SADRefNumber.verifyPageTitle(SADRefNumber.pageTitle)
+        SADRefNumber.submitSADRefNumber(sadRef.duplicateReferenceNumber)
+        CheckSADRefNumber.continue()
+
+      case sadDoc: SadDocumentData =>
+        AddSADRefNumber.continueAsNo()
+        ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
+        ImportDocumentDetails.submitDocumentDetails(sadDoc.duplicateDocumentDetails)
+        CheckImportDocumentDetails.continue()
+    }
+
+    ImportDate.verifyPageTitle(ImportDate.pageTitle)
+    ImportDate.submitImportDate(data.importDay, data.importMonth, data.importYear)
+
+    ImportSupplierName.verifyPageTitle(ImportSupplierName.pageTitle)
+    ImportSupplierName.submitSupplierName(data.supplierName)
 
     ImportSupplierAddress.verifyPageTitle(ImportSupplierAddress.pageTitle)
     ImportSupplierAddress.submitImportSupplierAddress(
@@ -87,12 +143,6 @@ trait ImportFlows {
     CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
   }
 
-  /** Food/drink journey kept aligned to original working spec: ImportType -> FoodDrink -> WhoFoodDrink -> InvoiceType
-    */
-
-  /** Germany/Other journey kept aligned to original working spec: ImportType -> ImportTypeOther ->
-    * InvoiceItemDescription -> CheckImportDetails -> InvoiceType
-    */
   def addOtherImportFlow(): Unit = {
     ImportType.verifyPageTitle(ImportType.pageTitle)
     ImportType.selectImportType("Other")
@@ -140,8 +190,8 @@ trait ImportFlows {
 
     //      Change supplier name
     CheckYourImportDetails.clickChangeLink("Supplier name")
-    SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
-    SubmitSupplierName.submitSupplierName("Update Test Supplier Name")
+    ImportSupplierName.verifyPageTitle(ImportSupplierName.pageTitle)
+    ImportSupplierName.submitSupplierName("Update Test Supplier Name")
     CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
 
     //      Change supplier address
@@ -178,7 +228,7 @@ trait ImportFlows {
     CheckYourImportDetails.saveAndContinue()
   }
 
-  def summaryFlow2(): Unit =
+  def summaryFlowNo(): Unit =
     PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
     PurchaseImportSummary.continueAsNo()
     MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
@@ -207,10 +257,9 @@ trait ImportFlows {
     CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
   }
 
-  def goToSaveImportDetails(): Unit = {
+  def goToCheckYourImportDetails(): Unit = {
     MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/import/check-your-answers")
     CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
-    CheckYourImportDetails.saveAndContinue()
   }
 
 }

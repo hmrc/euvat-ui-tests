@@ -49,6 +49,7 @@ sealed trait SadFlowData {
 
 final case class SadReferenceData(
   referenceNumber: String,
+  duplicateReferenceNumber: String,
   importDay: String,
   importMonth: String,
   importYear: String,
@@ -61,6 +62,7 @@ final case class SadReferenceData(
 
 final case class SadDocumentData(
   documentDetails: String,
+  duplicateDocumentDetails: String,
   importDay: String,
   importMonth: String,
   importYear: String,
@@ -139,6 +141,7 @@ object TestData {
   val sadRefData: SadFlowData =
     SadReferenceData(
       referenceNumber = "98765",
+      duplicateReferenceNumber = "1234567890111",
       importDay = "01",
       importMonth = "01",
       importYear = "2026",
@@ -152,6 +155,7 @@ object TestData {
   val sadDocumentData: SadFlowData =
     SadDocumentData(
       documentDetails = "Test Import Document Details",
+      duplicateDocumentDetails = "Test duplicate import document details to trigger warning page",
       importDay = "01",
       importMonth = "01",
       importYear = "2026",

@@ -61,7 +61,7 @@ class DeleteClaimSpec
       addPurchaseCurrencyFlow()
       addPurchaseAmountFlow()
       savePurchase()
-      summaryFlow1()
+      summaryFlowYes()
 
       addImportFlow()
       addFoodImportFlow()
@@ -69,7 +69,7 @@ class DeleteClaimSpec
       addImportCurrencyFlow()
       addImportAmountFlow()
       saveImport()
-      summaryFlow2()
+      summaryFlowNo()
 
       deleteClaimFromMakeClaim()
       clickSignOut(Driver.instance)
@@ -86,7 +86,7 @@ class DeleteClaimSpec
       addPurchaseCurrencyFlow()
       addPurchaseAmountFlow()
       savePurchase()
-      summaryFlow1()
+      summaryFlowYes()
 
       addImportFlow()
       addFoodImportFlow()

@@ -16,13 +16,20 @@
 
 package uk.gov.hmrc.ui.pages.imports
 
+import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.BasePage
 
-object DuplicateSADReferenceWarning extends BasePage {
+object SADRefNumber extends BasePage {
 
-  override def pageUrl: String = "warning/sad-reference-number"
+  override def pageUrl: String = "import/sad-reference-number"
 
   override def pageTitle: String =
-    "Are you sure the Single Administrative Document (SAD) reference number is correct? - EU VAT - GOV.UK"
+    "What is your Single Administrative Document (SAD) reference number? - EU VAT - GOV.UK"
 
+  val txtSADRefNumber: By = By.cssSelector("#value")
+
+  def submitSADRefNumber(SADReferenceNumber: String): Unit = {
+    input(txtSADRefNumber, SADReferenceNumber)
+    continue()
+  }
 }

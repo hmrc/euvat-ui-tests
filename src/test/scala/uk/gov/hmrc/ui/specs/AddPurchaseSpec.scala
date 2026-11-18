@@ -57,7 +57,7 @@ class AddPurchaseSpec
       injectPurchaseDetailsAfterType(sharedId)
       goToCheckYourPurchaseDetails()
       savePurchase()
-      summaryFlow1()
+      summaryFlowYes()
 
       addPurchaseFlow()
       addFoodPurchaseFlow()
@@ -65,7 +65,7 @@ class AddPurchaseSpec
       addPurchaseCurrencyFlow()
       addPurchaseAmountFlow()
       savePurchase()
-      summaryFlow2()
+      summaryFlowNo()
       clickSignOut(Driver.instance)
     }
 
@@ -79,19 +79,19 @@ class AddPurchaseSpec
       injectPurchaseDetailsAfterTypeGermany(sharedId)
       goToCheckYourPurchaseDetails()
       savePurchase()
-      summaryFlow1()
+      summaryFlowYes()
 
       addPurchaseFlow()
       addOtherPurchaseFlow()
       duplicateTIDFlow()
       addPurchaseAmountFlow()
       savePurchase()
-      summaryFlow2()
+      summaryFlowNo()
 
       clickSignOut(Driver.instance)
     }
 //  This scenario is incomplete due to a bug with the stub data
-    Scenario("03 - Change your answers for a purchase after saving", Jenkins, Local, WIP) {
+    Scenario("03 - Change your answers for a purchase after saving", Jenkins, Local) {
       loginAndOpenClaim("999900001")
       addClaimDetails(estoniaClaim)
       saveClaimDetails()
