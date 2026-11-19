@@ -402,8 +402,6 @@ class AddPurchaseSpec
       ChangeYourPurchaseDetails.clickChangeLink("Invoice number")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
       InvoiceNumber.submitInvoiceNumber("XR123456789")
-      // VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
-      // VATRegistrationNumber.submitVATRegistrationNumber("AA987654321")
       ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
 
       //      Change invoice date
