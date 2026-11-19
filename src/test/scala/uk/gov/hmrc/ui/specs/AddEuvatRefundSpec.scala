@@ -441,10 +441,14 @@ class AddEuvatRefundSpec
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       // Add supporting documents
-      And("I add supporting documents")
+      And("I choose to not add supporting documents")
       MakeEuvatClaim.clickLinkByText("Supporting documents")
       BeforeYouStartSupportingDocuments.verifyPageTitle(BeforeYouStartSupportingDocuments.pageTitle)
-      BeforeYouStartSupportingDocuments.clickSignOut
+      BeforeYouStartSupportingDocuments.continue()
+      AnySupportingDocuments.verifyPageTitle(AnySupportingDocuments.pageTitle)
+      AnySupportingDocuments.selectYesOrNo("No")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      MakeEuvatClaim.clickSignOut
     }
 
     Scenario("02 - Submit an end to end refund request for Germany", Jenkins, Local) {
@@ -624,28 +628,21 @@ class AddEuvatRefundSpec
         "Communauté Financière Africaine BCEAO, Francs"
       )
       CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
-
-      // change bank details
-      And("I change bank details")
-      CheckYourBankDetails.clickChangeBankDetailsLink()
-      AccountHolderType.verifyPageTitle(AccountHolderType.pageTitle)
-      AccountHolderType.selectAccountHolderType("Third party (someone else)")
-      BankDetailsForm.verifyPageTitle(BankDetailsForm.pageTitle)
-      BankDetailsForm.submitBankDetailsForm(
-        "CHANGENAME123456789",
-        "TESTXX00",
-        "GB00TESTIBANXX",
-        "GBP - United Kingdom, Pounds"
-      )
-      CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
       CheckYourBankDetails.saveAndContinue()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 
       // Add supporting documents
-      And("I add supporting documents")
+      And("I choose to add supporting documents")
       MakeEuvatClaim.clickLinkByText("Supporting documents")
       BeforeYouStartSupportingDocuments.verifyPageTitle(BeforeYouStartSupportingDocuments.pageTitle)
-      BeforeYouStartSupportingDocuments.clickSignOut
+      BeforeYouStartSupportingDocuments.continue()
+      AnySupportingDocuments.verifyPageTitle(AnySupportingDocuments.pageTitle)
+      AnySupportingDocuments.selectYesOrNo("Yes")
+      UploadFile.verifyPageTitle(UploadFile.pageTitle)
+      Then("User selects a file to upload")
+      UploadFile.selectFile("filesForUpload/Test1MbPDF.pdf")
+      UploadFile.inputAdditionalInfo("Test input additional information")
+      UploadFile.continue()
     }
   }
 }

@@ -71,6 +71,11 @@ class SupportingDocumentsSpec
       BeforeYouStartSupportingDocuments.continue()
       AnySupportingDocuments.verifyPageTitle(AnySupportingDocuments.pageTitle)
       AnySupportingDocuments.selectYesOrNo("Yes")
+      UploadFile.verifyPageTitle(UploadFile.pageTitle)
+      Then("User selects a file to upload")
+      UploadFile.selectFile("filesForUpload/Test1MbPDF.pdf")
+      UploadFile.inputAdditionalInfo("Test input additional information")
+      UploadFile.continue()
     }
   }
 }
