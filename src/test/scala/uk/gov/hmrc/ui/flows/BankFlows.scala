@@ -21,7 +21,7 @@ import uk.gov.hmrc.ui.pages.claim.MakeEuvatClaim
 import uk.gov.hmrc.ui.utils.*
 
 trait BankFlows extends FlowLogging {
-  
+
   def startBankDetailsFlow(): Unit = {
     logStep("I start bank details")
     MakeEuvatClaim.clickLinkByText("Bank details")

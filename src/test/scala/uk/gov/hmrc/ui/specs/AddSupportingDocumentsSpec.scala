@@ -19,7 +19,8 @@ package uk.gov.hmrc.ui.specs
 import org.scalatest.*
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
-import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
+import uk.gov.hmrc.selenium.webdriver.{Browser, Driver, ScreenshotOnFailure}
+import uk.gov.hmrc.ui.flows.TestData.supportingDocumentsYes
 import uk.gov.hmrc.ui.flows.{ClaimFlows, SupportingDocumentsFlows}
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
@@ -47,25 +48,16 @@ class AddSupportingDocumentsSpec
     cleanupDatabaseIfNotStub()
   }
 
-  Feature("Make a new EUVAT claim - Add Bank Details") {
+  Feature("Make a new EUVAT claim - Add supporting documents") {
 
-    Scenario("01 - Submit a refund request", Local) {
+    Scenario("01 - Upload a document", Local) {
       loginAndInjectClaimDetails("999900001")
       goToCheckYourClaimDetails()
       saveClaimDetails()
 
-      // Add supporting documents
-      And("I add supporting documents")
-      MakeEuvatClaim.clickLinkByText("Supporting documents")
-      BeforeYouStartSupportingDocuments.verifyPageTitle(BeforeYouStartSupportingDocuments.pageTitle)
-      BeforeYouStartSupportingDocuments.continue()
-      AnySupportingDocuments.verifyPageTitle(AnySupportingDocuments.pageTitle)
-      AnySupportingDocuments.selectYesOrNo("Yes")
-      UploadFile.verifyPageTitle(UploadFile.pageTitle)
-      Then("User selects a file to upload")
-      UploadFile.selectFile("filesForUpload/Test1MbPDF.pdf")
-      UploadFile.inputAdditionalInfo("Test input additional information")
-      UploadFile.continue()
+      startSupportingDocumentsFlow()
+      addSupportingDocuments(supportingDocumentsYes)
+      clickSignOut(Driver.instance)
     }
   }
 }

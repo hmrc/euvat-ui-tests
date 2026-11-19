@@ -91,7 +91,7 @@ class AddPurchaseSpec
       clickSignOut(Driver.instance)
     }
 //  This scenario is incomplete due to a bug with the stub data
-    Scenario("03 - Change your answers for a purchase after saving", Jenkins, Local) {
+    Scenario("03 - Change your answers for a purchase after saving", Jenkins, Local, WIP) {
       loginAndOpenClaim("999900001")
       addClaimDetails(estoniaClaim)
       saveClaimDetails()
@@ -105,7 +105,7 @@ class AddPurchaseSpec
 
       changePurchaseSummaryFlow("Purchase (Food, drink and restaurant services)")
 //      Cannot run this step due to the stub data
-//      changePurchaseAfterSave()
+      changePurchaseAfterSave()
 
       clickSignOut(Driver.instance)
     }
