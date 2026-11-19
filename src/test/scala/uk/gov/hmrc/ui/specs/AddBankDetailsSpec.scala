@@ -54,7 +54,8 @@ class AddBankDetailsSpec
 
       startBankDetailsFlow()
       addBankDetails(initialBankDetails)
-      changeBankDetails(changedBankDetails)
+      saveBankDetails()
+      changeBankDetailsAfterSave(changedBankDetails)
       saveBankDetails()
       clickSignOut(Driver.instance)
     }

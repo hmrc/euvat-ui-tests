@@ -79,7 +79,8 @@ class CreateE2ERefundSpec
 
       startBankDetailsFlow()
       addBankDetails(initialBankDetails)
-      changeBankDetails(changedBankDetails)
+      saveBankDetails()
+      changeBankDetailsAfterSave(changedBankDetails)
       saveBankDetails()
 
       startSupportingDocumentsFlow()

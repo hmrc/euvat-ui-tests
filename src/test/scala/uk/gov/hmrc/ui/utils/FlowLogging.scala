@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.bank
+package uk.gov.hmrc.ui.utils
 
-import org.openqa.selenium.By
-import uk.gov.hmrc.ui.pages.BasePage
+import com.typesafe.scalalogging.LazyLogging
 
-object CheckYourBankDetailsPostSave extends BasePage {
+trait FlowLogging extends LazyLogging {
 
-  override def pageUrl: String = "bank-details/check-your-answers"
-
-  override def pageTitle: String = "Check your answers - EU VAT - GOV.UK"
-
-  def clickChangeBankDetailsLink(): this.type = {
-    val changeLink: By = By.cssSelector(".govuk-summary-card__actions")
-    clickBy(changeLink)
-    this
-  }
+  def logStep(step: String): Unit =
+    logger.info(s"STEP: $step")
 }

@@ -16,18 +16,21 @@
 
 package uk.gov.hmrc.ui.flows
 
-import uk.gov.hmrc.ui.pages.claim.MakeEuvatClaim
 import uk.gov.hmrc.ui.pages.bank.*
+import uk.gov.hmrc.ui.pages.claim.MakeEuvatClaim
+import uk.gov.hmrc.ui.utils.*
 
-trait BankFlows {
-
+trait BankFlows extends FlowLogging {
+  
   def startBankDetailsFlow(): Unit = {
+    logStep("I start bank details")
     MakeEuvatClaim.clickLinkByText("Bank details")
     BeforeYouStartBank.verifyPageTitle(BeforeYouStartBank.pageTitle)
     BeforeYouStartBank.continue()
   }
 
   def addBankDetails(data: BankDetailsData): Unit = {
+    logStep("I add bank details")
     AccountHolderType.verifyPageTitle(AccountHolderType.pageTitle)
     AccountHolderType.selectAccountHolderType(data.accountHolderType.value)
 
@@ -42,7 +45,9 @@ trait BankFlows {
     CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
   }
 
-  def changeBankDetails(data: BankDetailsData): Unit = {
+  def changeBankDetailsAfterSave(data: BankDetailsData): Unit = {
+    logStep("I change bank details")
+    MakeEuvatClaim.clickLinkByText("Bank details")
     CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
     CheckYourBankDetails.clickChangeBankDetailsLink()
 
@@ -61,7 +66,7 @@ trait BankFlows {
   }
 
   def saveBankDetails(): Unit = {
-    CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
+    logStep("I save bank details")
     CheckYourBankDetails.saveAndContinue()
     MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
   }

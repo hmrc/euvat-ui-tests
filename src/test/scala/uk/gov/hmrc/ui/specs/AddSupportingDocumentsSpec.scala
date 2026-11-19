@@ -27,7 +27,7 @@ import uk.gov.hmrc.ui.pages.supportingdocuments.*
 import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
 
-class SupportingDocumentsSpec
+class AddSupportingDocumentsSpec
     extends AnyFeatureSpec
     with BaseSpec
     with GivenWhenThen
@@ -61,6 +61,11 @@ class SupportingDocumentsSpec
       BeforeYouStartSupportingDocuments.continue()
       AnySupportingDocuments.verifyPageTitle(AnySupportingDocuments.pageTitle)
       AnySupportingDocuments.selectYesOrNo("Yes")
+      UploadFile.verifyPageTitle(UploadFile.pageTitle)
+      Then("User selects a file to upload")
+      UploadFile.selectFile("filesForUpload/Test1MbPDF.pdf")
+      UploadFile.inputAdditionalInfo("Test input additional information")
+      UploadFile.continue()
     }
   }
 }

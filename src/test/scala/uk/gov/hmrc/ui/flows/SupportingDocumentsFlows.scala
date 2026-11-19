@@ -18,8 +18,9 @@ package uk.gov.hmrc.ui.flows
 
 import uk.gov.hmrc.ui.pages.claim.MakeEuvatClaim
 import uk.gov.hmrc.ui.pages.supportingdocuments.*
+import uk.gov.hmrc.ui.utils.FlowLogging
 
-trait SupportingDocumentsFlows {
+trait SupportingDocumentsFlows extends FlowLogging {
 
   def startSupportingDocumentsFlow(): Unit = {
     MakeEuvatClaim.clickLinkByText("Supporting documents")
@@ -28,8 +29,18 @@ trait SupportingDocumentsFlows {
   }
 
   def addSupportingDocuments(data: SupportingDocumentsData): Unit = {
+    logStep("I add supporting documents")
     AnySupportingDocuments.verifyPageTitle(AnySupportingDocuments.pageTitle)
-    if (data.hasSupportingDocuments) AnySupportingDocuments.selectYesOrNo("Yes")
-    else AnySupportingDocuments.selectYesOrNo("No")
+    if (data.hasSupportingDocuments) {
+      AnySupportingDocuments.selectYesOrNo("Yes")
+      UploadFile.verifyPageTitle(UploadFile.pageTitle)
+      logStep("User selects a file to upload")
+      UploadFile.selectFile("filesForUpload/Test1MbPDF.pdf")
+      UploadFile.inputAdditionalInfo("Test input additional information")
+      UploadFile.continue()
+    } else {
+      AnySupportingDocuments.selectYesOrNo("No")
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+    }
   }
 }
