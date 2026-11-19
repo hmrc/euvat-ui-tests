@@ -486,6 +486,7 @@ class AddPurchaseSpec
       CheckVATClaim.continue()
       ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
       ChangeYourPurchaseDetails.saveAndContinue()
+      PurchaseImportSummary.clickSignOut
 
     }
   }

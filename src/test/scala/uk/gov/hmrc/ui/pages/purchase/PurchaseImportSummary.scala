@@ -55,4 +55,16 @@ object PurchaseImportSummary extends BasePage {
     this
   }
 
+  def clickActionLink(itemText: String, action: String): this.type = {
+    val xpath =
+    s"""//div[contains(@class,‘govuk-summary-list__row’)]
+    |[
+  . //dt[normalize-space(.)=“$itemText”]]
+    | //a[starts-with(normalize-space(.), “$action”)]""".stripMargin
+    .replace("\n", "")
+
+    clickLinkByXpath(xpath)
+    this
+  }
+
 }
