@@ -240,7 +240,7 @@ class AddImportSpec
       CheckYourImportDetails.clickSignOut
     }
 
-    Scenario("03 - Change your answers for a Import refund request", Jenkins, Local, WIP) {
+    Scenario("03 - Change your answers for a Import refund request", Jenkins, Local) {
       Given("I login as an organisation")
       AuthorityWizard.login("Organisation", "999900001")
       ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
@@ -318,10 +318,7 @@ class AddImportSpec
       CheckYourImportDetails.saveAndContinue()
 
 //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
-      PurchaseImportSummary.clickActionLink(
-        2,
-        "Change"
-      ) // Does not work for the database, but works for the stubbed version. Change the number 2 to 1 to make it work for the DB
+      PurchaseImportSummary.clickActionLink("Import (Food, drink and restaurant services)", "Change")
 
       And("I change import details")
 

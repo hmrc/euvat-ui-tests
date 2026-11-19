@@ -200,6 +200,16 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
         throw e
     }
 
+  def clickLinkByXpath(xpath: String): Unit =
+    try {
+      click(By.xpath(xpath))
+      logger.info(s"Successfully clicked the link with XPath: $xpath")
+    } catch {
+      case e: Exception =>
+        logger.info(s"Failed to click the link with XPath: $xpath. Error: ${e.getMessage}")
+        throw e
+    }
+
   def verifyPageTitle(expectedTitle: String): Unit = {
     waitForPageTitle(expectedTitle)
 

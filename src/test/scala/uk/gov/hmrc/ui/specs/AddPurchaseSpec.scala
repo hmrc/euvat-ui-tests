@@ -377,7 +377,7 @@ class AddPurchaseSpec
       CheckYourPurchaseDetails.saveAndContinue()
 
 //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
-      PurchaseImportSummary.clickActionLink(1, "Change")
+      PurchaseImportSummary.clickActionLink("Purchase (Food, drink and restaurant services)", "Change")
 
       And("I change purchase details")
 
