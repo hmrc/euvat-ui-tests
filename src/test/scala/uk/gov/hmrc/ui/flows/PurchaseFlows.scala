@@ -334,8 +334,8 @@ trait PurchaseFlows {
     //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
   }
 
-  def changePurchaseSummaryFlow(): Unit = {
-    PurchaseImportSummary.clickActionLink(1, "Change")
+  def changePurchaseSummaryFlow(itemText: String): Unit = {
+    PurchaseImportSummary.clickActionLink(itemText, "Change")
     ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
   }
 
@@ -503,15 +503,15 @@ trait PurchaseFlows {
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
   }
 
-  def deleteClaimFromSummary(): Unit = {
-    PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
-    PurchaseImportSummary.clickActionLink(2, "Remove")
+  def deleteClaimFromSummary(itemText: String): Unit = {
+//    PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2")) //Cannot run this with the database
+    PurchaseImportSummary.clickActionLink(itemText, "Remove")
     RemoveItem.verifyPageTitle(RemoveItem.pageTitle)
     RemoveItem.selectDeleteItem("Yes")
     //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
-    PurchaseImportSummary.clickActionLink(1, "Remove")
-    RemoveItem.verifyPageTitle(RemoveItem.pageTitle)
-    RemoveItem.selectDeleteItem("Yes")
+//    PurchaseImportSummary.clickActionLink(itemText, "Remove")
+//    RemoveItem.verifyPageTitle(RemoveItem.pageTitle)
+//    RemoveItem.selectDeleteItem("Yes")
 
     //      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle) // Only works for the database
     //      MakeEuvatClaim.clickSignOut // Only works for the database

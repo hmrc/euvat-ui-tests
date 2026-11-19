@@ -103,7 +103,7 @@ class AddPurchaseSpec
       addPurchaseAmountFlow()
       savePurchase()
 
-      changePurchaseSummaryFlow()
+      changePurchaseSummaryFlow("Purchase (Food, drink and restaurant services)")
 //      Cannot run this step due to the stub data
 //      changePurchaseAfterSave()
 

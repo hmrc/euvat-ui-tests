@@ -95,7 +95,8 @@ class DeleteClaimSpec
       addImportAmountFlow()
       saveImport()
 
-      deleteClaimFromSummary()
+      deleteClaimFromSummary("Purchase (Food, drink and restaurant services)")
+      deleteClaimFromSummary("Import (Food, drink and restaurant services)")
       clickSignOut(Driver.instance)
     }
 

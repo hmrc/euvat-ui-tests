@@ -103,7 +103,7 @@ class AddImportSpec
       addImportAmountFlow()
       saveImport()
 
-      changeImportSummaryFlow()
+      changeImportSummaryFlow("Import (Food, drink and restaurant services)")
       //      Cannot run this step due to the stub data
 //      changeImportAfterSave()
       clickSignOut(Driver.instance)

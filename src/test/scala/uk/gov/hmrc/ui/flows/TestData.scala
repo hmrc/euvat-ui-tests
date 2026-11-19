@@ -140,15 +140,15 @@ object TestData {
 
   val sadRefData: SadFlowData =
     SadReferenceData(
-      referenceNumber = "98765",
-      duplicateReferenceNumber = "1234567890111",
+      referenceNumber = "SAD1234567890",
+      duplicateReferenceNumber = "SAD1234567890111",
       importDay = "01",
       importMonth = "01",
       importYear = "2026",
-      supplierName = "Test Supplier",
-      supplierAddress1 = "Test Street123",
-      supplierAddress2 = "Test City456",
-      supplierAddress3 = "Test State789",
+      supplierName = "Test Supplier Name",
+      supplierAddress1 = "Test address one",
+      supplierAddress2 = "Test address two",
+      supplierAddress3 = "Test address three",
       supplierCountry = "HEARD ISLAND & MCDONALD ISLANDS"
     )
 

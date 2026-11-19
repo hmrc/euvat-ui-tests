@@ -156,7 +156,7 @@ trait ImportFlows {
     CheckYourImportDetails.saveAndContinue()
 
   def changeImportJourney(): Unit = {
-//    CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
+    //    CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
     CheckYourImportDetails.clickChangeLink("Food and drink for")
     ImportSubcategoryFood.verifyPageTitle(ImportSubcategoryFood.pageTitle)
     ImportSubcategoryFood.selectWhoFoodFor("Someone other")
@@ -227,14 +227,15 @@ trait ImportFlows {
     CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
   }
 
-  def summaryFlowNo(): Unit =
+  def summaryFlowNo(): Unit = {
     PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
     PurchaseImportSummary.continueAsNo()
     MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+  }
 
-  def changeImportSummaryFlow(): Unit = {
+  def changeImportSummaryFlow(itemText: String): Unit = {
     //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
-    PurchaseImportSummary.clickActionLink(2, "Change") // Does not work for the database, but works for stub
+    PurchaseImportSummary.clickActionLink(itemText, "Change") // Does not work for the database, but works for stub
     ChangeYourImportDetails.verifyPageTitle(ChangeYourImportDetails.pageTitle)
   }
 
