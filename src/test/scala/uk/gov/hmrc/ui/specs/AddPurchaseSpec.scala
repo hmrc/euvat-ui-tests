@@ -377,7 +377,7 @@ class AddPurchaseSpec
       CheckYourPurchaseDetails.saveAndContinue()
 
 //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
-      PurchaseImportSummary.clickActionLink(1, "Change")
+      PurchaseImportSummary.clickActionLink("Purchase (Food, drink and restaurant services)", "Change")
 
       And("I change purchase details")
 
@@ -402,8 +402,6 @@ class AddPurchaseSpec
       ChangeYourPurchaseDetails.clickChangeLink("Invoice number")
       InvoiceNumber.verifyPageTitle(InvoiceNumber.pageTitle)
       InvoiceNumber.submitInvoiceNumber("XR123456789")
-      // VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
-      // VATRegistrationNumber.submitVATRegistrationNumber("AA987654321")
       ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
 
       //      Change invoice date
@@ -486,6 +484,7 @@ class AddPurchaseSpec
       CheckVATClaim.continue()
       ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
       ChangeYourPurchaseDetails.saveAndContinue()
+      PurchaseImportSummary.clickSignOut
 
     }
   }

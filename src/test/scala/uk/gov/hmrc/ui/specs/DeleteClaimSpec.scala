@@ -334,15 +334,16 @@ class DeleteClaimSpec
       PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
 
       Then("I delete the purchase and import")
-      PurchaseImportSummary.clickActionLink(2, "Remove")
+      PurchaseImportSummary.clickActionLink("Purchase (Food, drink and restaurant services)", "Remove")
       RemoveItem.verifyPageTitle(RemoveItem.pageTitle)
       RemoveItem.selectDeleteItem("Yes")
 //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
-      PurchaseImportSummary.clickActionLink(1, "Remove")
+      PurchaseImportSummary.clickActionLink("Import (Food, drink and restaurant services)", "Remove")
       RemoveItem.verifyPageTitle(RemoveItem.pageTitle)
       RemoveItem.selectDeleteItem("Yes")
-
-//      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle) // Only works for the database
+//      This is the correct navigation which will only work with the database. The stub remains on the
+//      PurchaseImportSummary after all records have been deleted
+//      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
 //      MakeEuvatClaim.clickSignOut // Only works for the database
 
     }

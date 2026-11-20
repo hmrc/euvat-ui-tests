@@ -258,7 +258,7 @@ class AddImportSpec
       RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
       RefundPeriod.submitRefundPeriodUsingDynamicValidYear("01", "03")
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-      ContactDetails.submitContactDetails("Test@gmail.com", "9876543210")
+      ContactDetails.submitContactDetails("Test@test.com", "9876543210")
       AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
       AddBusinessActivity.continueAsYes()
       SecondBusinessActivity.verifyPageTitle(SecondBusinessActivity.pageTitle)
@@ -286,7 +286,7 @@ class AddImportSpec
       ImportSubcodeFood.verifyPageTitle(ImportSubcodeFood.pageTitle)
       ImportSubcodeFood.selectImportFoodType("Food and drink from hotels")
       ImportSubcategoryFood.verifyPageTitle(ImportSubcategoryFood.pageTitle)
-      ImportSubcategoryFood.selectWhoFoodFor("Someone other")
+      ImportSubcategoryFood.selectWhoFoodFor("The taxable person")
       AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
       AddSADRefNumber.continueAsYes()
       SubmitSADRefNumber.verifyPageTitle(SubmitSADRefNumber.pageTitle)
@@ -294,7 +294,7 @@ class AddImportSpec
       ImportDate.verifyPageTitle(ImportDate.pageTitle)
       ImportDate.submitImportDate("01", "01", "2026")
       SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
-      SubmitSupplierName.submitSupplierName("Test Supplier")
+      SubmitSupplierName.submitSupplierName("Test Supplier Name")
       ImportSupplierAddress.verifyPageTitle(ImportSupplierAddress.pageTitle)
       ImportSupplierAddress.submitImportSupplierAddress(
         "Test address one",
@@ -318,10 +318,7 @@ class AddImportSpec
       CheckYourImportDetails.saveAndContinue()
 
 //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
-      PurchaseImportSummary.clickActionLink(
-        2,
-        "Change"
-      ) // Does not work for the database, but works for the stubbed version. Change the number 2 to 1 to make it work for the DB
+      PurchaseImportSummary.clickActionLink("Import (Food, drink and restaurant services)", "Change")
 
       And("I change import details")
 

@@ -90,7 +90,7 @@ class WelshLanguageValidationSpec
       ContactDetails.continue()
       WelshPageVerifier.verify("RA2.3", ContactDetails)
       ContactDetails.clickByXpath("/html/body/header/section/div/nav/ul/li[1]/a")
-      ContactDetails.submitContactDetails("Test@gmail.com", "9876543210")
+      ContactDetails.submitContactDetails("Test@test.com", "9876543210")
 
       AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
       AddBusinessActivity.clickByXpath("/html/body/header/section/div/nav/ul/li[2]/a")
