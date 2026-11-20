@@ -21,7 +21,7 @@ import uk.gov.hmrc.ui.pages.claim.MakeEuvatClaim
 import uk.gov.hmrc.ui.pages.purchase.*
 import uk.gov.hmrc.ui.utils.{CacheHelper, FlowLogging}
 
-trait PurchaseFlows extends FlowLogging{
+trait PurchaseFlows extends FlowLogging {
 
   def startPurchaseFlow(): Unit = {
     logStep("I start a Purchase")
@@ -521,7 +521,6 @@ trait PurchaseFlows extends FlowLogging{
     VATRegistrationNumber.submitVATRegistrationNumber("1234567890")
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
   }
-
 
   def deleteClaimFromSummary(itemText: String): Unit = {
     logStep("I delete a Purchase or Import from the Summary page")
