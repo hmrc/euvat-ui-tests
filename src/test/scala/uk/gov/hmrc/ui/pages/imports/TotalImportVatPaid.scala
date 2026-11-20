@@ -19,17 +19,16 @@ package uk.gov.hmrc.ui.pages.imports
 import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.BasePage
 
-object SubmitSupplierName extends BasePage {
+object TotalImportVatPaid extends BasePage {
 
-  override def pageUrl: String = "import/supplier-name"
+  override def pageUrl: String = "import/vat-paid"
 
-  override def pageTitle: String =
-    "What is the supplier’s name? - EU VAT - GOV.UK"
+  override def pageTitle: String = "Total VAT paid - EU VAT - GOV.UK"
 
-  val submitSupplierName: By = By.cssSelector("#value")
+  val txtTotalImportVATPaid: By = By.cssSelector("#value")
 
-  def submitSupplierName(SupplierName: String): Unit = {
-    input(submitSupplierName, SupplierName)
+  def submitTotalImportVATPaid(totalImportVATPaid: String): Unit = {
+    input(txtTotalImportVATPaid, totalImportVATPaid)
     continue()
   }
 }

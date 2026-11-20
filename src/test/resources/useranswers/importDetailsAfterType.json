@@ -1,18 +1,20 @@
 {
-  "singleAdministrativeDocumentReferenceNumberAvailable" : false,
+  "importSubCode" : "7.1",
+  "importSubTypeLabel" : "Food and drink from hotels, bars, restaurants and boarding houses (including breakfast)",
+  "importSubCategory" : "7.1.1",
+  "importSubCategoryLabel" : "The taxable person or an employee",
+  "singleAdministrativeDocumentReferenceNumberAvailable" : true,
+  "sadReferenceNumber" : "SAD1234567890111",
   "importDate" : "2026-01-01",
-  "importSuppliersName" : "Update Test Supplier Name",
+  "importSuppliersName" : "Test Supplier",
   "supplierAddress" : {
-    "addressLine1" : "Test Street ABC",
-    "addressLine2" : "Test City 321",
-    "addressLine3" : "Test State XYZ",
+    "addressLine1" : "Test address one",
+    "addressLine2" : "Test address two",
+    "addressLine3" : "Test address three",
     "country" : "HM"
   },
-  "importCurrency": "EEK",
-  "importSubCode": "9.3",
-  "importSubTypeLabel" : "Receptions, entertainment and hospitality",
-  "importDetailsInfo" : "TEST INPUT",
-  "totalAmountWithoutVat": 1000.01,
-  "totalVatPaidImport": 200.01,
-  "importTotalVatClaim": 100.01
+  "importCurrency" : "EUR",
+  "totalAmountWithoutVat" : 1000.01,
+  "totalVatPaidImport" : 2000.01,
+  "importTotalVatClaim" : 2500.01
 }

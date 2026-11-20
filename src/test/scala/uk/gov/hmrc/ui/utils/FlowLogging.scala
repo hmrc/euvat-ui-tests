@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.imports
+package uk.gov.hmrc.ui.utils
 
-import org.openqa.selenium.By
-import uk.gov.hmrc.ui.pages.BasePage
+import com.typesafe.scalalogging.LazyLogging
 
-object SubmitSADRefNumber extends BasePage {
+trait FlowLogging extends LazyLogging {
 
-  override def pageUrl: String = "import/sad-reference-number"
-
-  override def pageTitle: String =
-    "What is your Single Administrative Document (SAD) reference number? - EU VAT - GOV.UK"
-
-  val txtSADRefNumber: By = By.cssSelector("#value")
-
-  def submitSADRefNumber(SADReferenceNumber: String): Unit = {
-    input(txtSADRefNumber, SADReferenceNumber)
-    continue()
-  }
+  def logStep(step: String): Unit =
+    logger.info(s"STEP: $step")
 }

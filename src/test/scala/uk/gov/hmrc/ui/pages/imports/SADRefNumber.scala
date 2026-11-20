@@ -19,16 +19,17 @@ package uk.gov.hmrc.ui.pages.imports
 import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.BasePage
 
-object TotalImportVATPaid extends BasePage {
+object SADRefNumber extends BasePage {
 
-  override def pageUrl: String = "import/vat-paid"
+  override def pageUrl: String = "import/sad-reference-number"
 
-  override def pageTitle: String = "Total VAT paid - EU VAT - GOV.UK"
+  override def pageTitle: String =
+    "What is your Single Administrative Document (SAD) reference number? - EU VAT - GOV.UK"
 
-  val txtTotalImportVATPaid: By = By.cssSelector("#value")
+  val txtSADRefNumber: By = By.cssSelector("#value")
 
-  def submitTotalImportVATPaid(totalImportVATPaid: String): Unit = {
-    input(txtTotalImportVATPaid, totalImportVATPaid)
+  def submitSADRefNumber(SADReferenceNumber: String): Unit = {
+    input(txtSADRefNumber, SADReferenceNumber)
     continue()
   }
 }

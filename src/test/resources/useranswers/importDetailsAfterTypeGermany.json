@@ -1,0 +1,16 @@
+{
+  "importSubCode" : "10.99",
+  "importSubTypeLabel" : "None of these – give more details",
+  "describeItemsOnImportDoc" : "Listed items from import document",
+  "singleAdministrativeDocumentReferenceNumberAvailable" : false,
+  "importDetailsInfo" : "Test Import Document Details",
+  "importDate" : "2026-01-01",
+  "importSuppliersName" : "Test Supplier Name",
+  "supplierAddress" : {
+    "addressLine1" : "Test address one",
+    "country" : "HM"
+  },
+  "totalAmountWithoutVat" : 1000.01,
+  "totalVatPaidImport" : 200.01,
+  "importTotalVatClaim" : 100.01
+}

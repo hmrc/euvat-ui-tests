@@ -19,7 +19,9 @@ package uk.gov.hmrc.ui.specs
 import org.scalatest.*
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
-import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
+import uk.gov.hmrc.selenium.webdriver.{Browser, Driver, ScreenshotOnFailure}
+import uk.gov.hmrc.ui.flows.ClaimFlows
+import uk.gov.hmrc.ui.flows.TestData.croatiaClaim
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
 import uk.gov.hmrc.ui.tags.*
@@ -35,7 +37,8 @@ class ErrorSpec
     with Browser
     with ScreenshotOnFailure
     with MongoHelper
-    with DatabaseHelper {
+    with DatabaseHelper
+    with ClaimFlows {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -46,19 +49,8 @@ class ErrorSpec
   Feature("Error and warning message validation check - New claim") {
 
     Scenario("01 - Refund period start and end date validation", Jenkins, Local, Error) {
-      Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "999900002") // Vat registration date 01/01/2024
-      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
-
-      When("I start new EUVAT claim")
-      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-
-      And("I check refund period validation")
-      MakeEuvatClaim.clickLinkByText("Claim details")
-      EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
-      EUMemberState.selectCountry("Croatia")
-      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
+      loginAndOpenClaim("999900002")
+      addClaimDetailsErrors(croatiaClaim)
 
       RefundPeriod.submitRefundPeriodUsingDynamicValidYear("02", "01")
       RefundPeriod.errorSummaryDisplayed("Refund period start date must be earlier than the refund period end date")
@@ -103,42 +95,23 @@ class ErrorSpec
       )
       CheckRefundEndDate.continue()
       ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-      ContactDetails.clickSignOut
+      clickSignOut(Driver.instance)
     }
 
     Scenario("02 - Validate a duplicate draft refund from the EU member state page", Jenkins, Local, Error) {
-      Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "999900003") // Vat registration date 01/01/2023
-      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+      loginAndOpenClaim("999900003")
 
-      When("I start new EUVAT claim")
-      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-
-      And("I add claim details")
       MakeEuvatClaim.clickLinkByText("Claim details")
       EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
       EUMemberState.selectCountry("Austria")
       EUMemberState.errorSummaryDisplayed("You cannot have more than one draft claim for each EU member state")
       EUMemberState.errorMessageDisplayed("You cannot have more than one draft claim for each EU member state")
-      EUMemberState.clickSignOut
+      clickSignOut(Driver.instance)
     }
 
     Scenario("03 - Validate VAT registration start (01/05/2026) and end date (31/07/2026)", Jenkins, Local, Error) {
-      Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "999900004")
-      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
-
-      When("I start new EUVAT claim")
-      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-
-      And("I verify VAT registration date")
-      MakeEuvatClaim.clickLinkByText("Claim details")
-      EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
-      EUMemberState.selectCountry("Croatia")
-
-      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
+      loginAndOpenClaim("999900004")
+      addClaimDetailsErrors(croatiaClaim)
       RefundPeriod.submitRefundPeriod("01", "2026", "07", "2026")
       RefundPeriod.errorSummaryDisplayed(
         "Refund period start date must be within three months before or anytime after the VAT registration date if you did not register for VAT during the first quarter"
@@ -154,7 +127,7 @@ class ErrorSpec
       RefundPeriod.errorMessageDisplayed(
         "Refund period end date must not be after the VAT deregistration date"
       )
-      RefundPeriod.clickSignOut
+      clickSignOut(Driver.instance)
     }
   }
 }

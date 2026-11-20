@@ -19,12 +19,11 @@ package uk.gov.hmrc.ui.specs
 import org.scalatest.*
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
-import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages.*
-import uk.gov.hmrc.ui.pages.bank.*
-import uk.gov.hmrc.ui.pages.claim.*
+import uk.gov.hmrc.selenium.webdriver.{Browser, Driver, ScreenshotOnFailure}
+import uk.gov.hmrc.ui.flows.*
+import uk.gov.hmrc.ui.flows.TestData.*
 import uk.gov.hmrc.ui.tags.*
-import uk.gov.hmrc.ui.utils.{CacheHelper, DatabaseHelper, MongoHelper}
+import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
 
 class AddBankDetailsSpec
     extends AnyFeatureSpec
@@ -36,7 +35,9 @@ class AddBankDetailsSpec
     with Browser
     with ScreenshotOnFailure
     with MongoHelper
-    with DatabaseHelper {
+    with DatabaseHelper
+    with ClaimFlows
+    with BankFlows {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -46,59 +47,17 @@ class AddBankDetailsSpec
 
   Feature("Make a new EUVAT claim - Add Bank Details") {
 
-    Scenario("01 - Submit a refund request", Local) {
-      Given("I login as an organisation")
-      val sharedId = AuthorityWizard.login("Organisation", "999900001")
-      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+    Scenario("01 - Add and Change Bank Details", Local) {
+      loginAndInjectClaimDetails("999900001")
+      goToCheckYourClaimDetails()
+      saveClaimDetails()
 
-      When("I start new EUVAT claim")
-      //      Inject Claim details
-      CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
-      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-
-      And("I see claim details page completed")
-      MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-      CheckYourClaimDetails.saveAndContinue()
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-
-      // Add bank details
-      And("I add bank details")
-      MakeEuvatClaim.clickLinkByText("Bank details")
-      BeforeYouStartBank.verifyPageTitle(BeforeYouStartBank.pageTitle)
-      BeforeYouStartBank.continue()
-      AccountHolderType.verifyPageTitle(AccountHolderType.pageTitle)
-      AccountHolderType.selectAccountHolderType("Applicant (you)")
-      BankDetailsForm.verifyPageTitle(BankDetailsForm.pageTitle)
-      BankDetailsForm.submitBankDetailsForm(
-        "ACCOUNTNAME123456789",
-        "FAKEGB21XXX",
-        "GB00TEST00000000000000",
-        "Communauté Financière Africaine BCEAO, Francs"
-      )
-      CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
-      CheckYourBankDetails.saveAndContinue()
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-
-      // change bank details
-      And("I change bank details")
-      MakeEuvatClaim.clickLinkByText("Bank details")
-      CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
-      CheckYourBankDetails.clickChangeBankDetailsLink()
-      AccountHolderType.verifyPageTitle(AccountHolderType.pageTitle)
-      AccountHolderType.selectAccountHolderType("Third party (someone else)")
-      BankDetailsForm.verifyPageTitle(BankDetailsForm.pageTitle)
-      BankDetailsForm.submitBankDetailsForm(
-        "CHANGENAME123456789",
-        "TESTXX00",
-        "GB00TESTIBANXX",
-        "GBP - United Kingdom, Pounds"
-      )
-      CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
-      CheckYourBankDetails.saveAndContinue()
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-      MakeEuvatClaim.clickSignOut
+      startBankDetailsFlow()
+      addBankDetails(initialBankDetails)
+      saveBankDetails()
+      changeBankDetailsAfterSave(changedBankDetails)
+      saveBankDetails()
+      clickSignOut(Driver.instance)
     }
   }
 }

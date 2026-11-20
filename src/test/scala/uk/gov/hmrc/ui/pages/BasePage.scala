@@ -20,6 +20,7 @@ import com.typesafe.scalalogging.LazyLogging
 import driver.BrowserDriver
 import org.openqa.selenium.*
 import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait, Wait, WebDriverWait}
+import org.openqa.selenium.{By, JavascriptExecutor, NoSuchElementException, StaleElementReferenceException, WebDriver, WebElement}
 import org.scalatest.concurrent.Eventually
 import org.scalatest.matchers.must.Matchers
 import uk.gov.hmrc.selenium.component.PageObject

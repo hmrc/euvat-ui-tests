@@ -19,13 +19,11 @@ package uk.gov.hmrc.ui.specs
 import org.scalatest.*
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
-import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages.*
-import uk.gov.hmrc.ui.pages.claim.*
-import uk.gov.hmrc.ui.pages.imports.*
-import uk.gov.hmrc.ui.pages.purchase.*
+import uk.gov.hmrc.selenium.webdriver.{Browser, Driver, ScreenshotOnFailure}
+import uk.gov.hmrc.ui.flows.*
+import uk.gov.hmrc.ui.flows.TestData.*
 import uk.gov.hmrc.ui.tags.*
-import uk.gov.hmrc.ui.utils.{CacheHelper, DatabaseHelper, MongoHelper}
+import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
 
 class AddImportSpec
     extends AnyFeatureSpec
@@ -37,7 +35,10 @@ class AddImportSpec
     with Browser
     with ScreenshotOnFailure
     with MongoHelper
-    with DatabaseHelper {
+    with DatabaseHelper
+    with ClaimFlows
+    with PurchaseFlows
+    with ImportFlows {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -45,344 +46,66 @@ class AddImportSpec
     cleanupDatabaseIfNotStub()
   }
 
-  Feature("Make a new EUVAT claim - Add import details") {
-    Scenario("01 - Add an import", Local) {
-      Given("I login as an organisation")
-      val sharedId = AuthorityWizard.login("Organisation", "999900001")
-      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+  Feature("Make a new EUVAT claim - Add a duplicate import") {
+    Scenario("01 - Create 2 imports with a duplicate SAD reference number", Local) {
+      val sharedId = loginAndInjectClaimDetails("999900001")
+      goToCheckYourClaimDetails()
+      saveClaimDetails()
 
-      When("I start new EUVAT claim")
-      //      Inject Claim details
-      CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
-      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      startImportFlow()
+      addFoodImportType()
+      injectImportDetailsAfterType(sharedId)
+      goToCheckYourImportDetails()
+      saveImport()
+      summaryFlowYes()
 
-      And("I see claim details page completed")
-      MakeEuvatClaim.navigateToPageWithRetry(
-        "http://localhost:18501/file-eu-vat/claim-details/check-your-answers",
-        CheckYourClaimDetails.pageTitle
-      )
-
-      And("I see Check your claim details page completed after injecting claim details")
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-      CheckYourClaimDetails.saveAndContinue()
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-
-      And("I add import details")
-      MakeEuvatClaim.clickLinkByText("Purchases and imports")
-      BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
-      BeforeYouStart.continue()
-      AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
-      AddPurchaseImport.selectPurchaseOrImport("Import")
-      ImportType.verifyPageTitle(ImportType.pageTitle)
-      ImportType.selectImportType("Food, drink and restaurant services")
-      ImportSubcodeFood.verifyPageTitle(ImportSubcodeFood.pageTitle)
-      ImportSubcodeFood.selectImportFoodType("Food and drink from hotels")
-      ImportSubcategoryFood.verifyPageTitle(ImportSubcategoryFood.pageTitle)
-      ImportSubcategoryFood.selectWhoFoodFor("Someone other")
-      AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
-      AddSADRefNumber.continueAsYes()
-      SubmitSADRefNumber.verifyPageTitle(SubmitSADRefNumber.pageTitle)
-      SubmitSADRefNumber.submitSADRefNumber("98765")
-      ImportDate.verifyPageTitle(ImportDate.pageTitle)
-      ImportDate.submitImportDate("01", "01", "2026")
-      SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
-      SubmitSupplierName.submitSupplierName("Test Supplier")
-      ImportSupplierAddress.verifyPageTitle(ImportSupplierAddress.pageTitle)
-      ImportSupplierAddress.submitImportSupplierAddress(
-        "Test Street123",
-        "Test City456",
-        "Test State789",
-        "HEARD ISLAND & MCDONALD ISLANDS"
-      )
-      ImportCurrency.verifyPageTitle(ImportCurrency.pageTitle)
-      ImportCurrency.selectImportCurrencyType("Euro")
-      TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
-      TotalImportAmount.submitTotalImportAmount("1000.01")
-      TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
-      TotalImportVATPaid.submitTotalImportVATPaid("2000.01")
-      CheckImportVATAmount.verifyPageTitle(CheckImportVATAmount.pageTitle)
-      CheckImportVATAmount.continue()
-      TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
-      TotalImportVatClaim.submitTotalImportVatClaim("2500.01")
-      CheckImportVATClaim.verifyPageTitle(CheckImportVATClaim.pageTitle)
-      CheckImportVATClaim.continue()
-
-      //    Check your import details
-      And("I change import details")
-      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
-      CheckYourImportDetails.clickChangeLink("Food and drink for")
-      ImportSubcategoryFood.verifyPageTitle(ImportSubcategoryFood.pageTitle)
-      ImportSubcategoryFood.selectWhoFoodFor("Someone other")
-
-      CheckYourImportDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
-      CheckYourImportDetails.clickChangeLink("Food, drink or restaurant cost type")
-      ImportSubcodeFood.verifyPageTitle(ImportSubcodeFood.pageTitle)
-      ImportSubcodeFood.selectImportFoodType("None")
-
-      //      Change import type
-      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
-      CheckYourImportDetails.clickChangeLink("Import type")
-      ImportType.verifyPageTitle(ImportType.pageTitle)
-      ImportType.selectImportType("Luxuries, entertainment and hospitality")
-      ImportSubcodeLuxury.verifyPageTitle(ImportSubcodeLuxury.pageTitle)
-      ImportSubcodeLuxury.selectLuxuryType("Receptions, entertainment and hospitality")
-
-      //      Change import doc details
-      CheckYourImportDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
-      CheckYourImportDetails.clickChangeLink("Single Administrative Document (SAD)")
-      AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
-      AddSADRefNumber.continueAsNo()
-      ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
-      ImportDocumentDetails.submitDocumentDetails("TEST INPUT")
-
-      //      Change invoice date
-      CheckYourImportDetails.clickChangeLink("Import date")
-      ImportDate.verifyPageTitle(ImportDate.pageTitle)
-      ImportDate.submitImportDate("01", "01", "2026")
-      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
-
-      //      Change supplier name
-      CheckYourImportDetails.clickChangeLink("Supplier name")
-      SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
-      SubmitSupplierName.submitSupplierName("Update Test Supplier Name")
-      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
-
-      //      Change supplier address
-      CheckYourImportDetails.clickChangeLink("Supplier address")
-      ImportSupplierAddress.verifyPageTitle(ImportSupplierAddress.pageTitle)
-      ImportSupplierAddress.submitImportSupplierAddress(
-        "Test Street ABC",
-        "Test City 321",
-        "Test State XYZ",
-        "HEARD ISLAND & MCDONALD ISLANDS"
-      )
-      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
-
-      //      Change currency
-      CheckYourImportDetails.clickChangeLink("Currency")
-      ImportCurrency.verifyPageTitle(ImportCurrency.pageTitle)
-      ImportCurrency.selectImportCurrencyType("Estonian Kroon (kr)")
-      TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
-      TotalImportAmount.submitTotalImportAmount("1000.01")
-
-      //      Change VAT paid
-      TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
-      TotalImportVATPaid.submitTotalImportVATPaid("3000.99")
-      CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
-      CheckVATAmount.continue()
-
-      //      Change VAT claim
-      TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
-      TotalImportVatClaim.submitTotalImportVatClaim("4000.99")
-      CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
-      CheckVATClaim.continue()
-
-      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
-      CheckYourImportDetails.saveAndContinue()
+      addImportFlow()
+      addFoodImportFlow()
+      duplicateSADFlow(sadRefData)
+      addImportCurrencyFlow()
+      addImportAmountFlow()
+      saveImport()
+      summaryFlowNo()
+      clickSignOut(Driver.instance)
     }
 
-    Scenario("02 - Add an import for Germany", Local) {
-      Given("I login as an organisation")
-      val sharedId = AuthorityWizard.login("Organisation", "999900001")
-      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+    Scenario("02 - Create 2 imports with duplicate import document details for Germany", Local) {
+      val sharedId = loginAndInjectClaimDetailsGermany("999900001")
+      goToCheckYourClaimDetails()
+      saveClaimDetails()
 
-      When("I start new EUVAT claim")
-      //      Inject Claim details
-      CacheHelper.submitUserAnswers("claimDetailsGermany.json", sharedId)
-      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      startImportFlow()
+      addFoodImportType()
+      injectImportDetailsAfterTypeGermany(sharedId) // needs updating
+      goToCheckYourImportDetails()
+      saveImport()
+      summaryFlowYes()
 
-      And("I see claim details page completed")
-      MakeEuvatClaim.navigateToPageWithRetry(
-        "http://localhost:18501/file-eu-vat/claim-details/check-your-answers",
-        CheckYourClaimDetails.pageTitle
-      )
-
-      CheckYourClaimDetails.saveAndContinue()
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-
-      And("I add import details")
-      MakeEuvatClaim.clickLinkByText("Purchases and imports")
-      BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
-      BeforeYouStart.continue()
-      AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
-      AddPurchaseImport.selectPurchaseOrImport("Import")
-      ImportType.verifyPageTitle(ImportType.pageTitle)
-      ImportType.selectImportType("Other")
-      ImportSubcodeOther.verifyPageTitle(ImportSubcodeOther.pageTitle)
-      ImportSubcodeOther.selectImportTypeOther("None of these - give more details")
-      ListImportDocumentItems.verifyPageTitle(ListImportDocumentItems.pageTitle)
-      ListImportDocumentItems.submitImportDocumentList("Listed items from import document")
-      AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
-      AddSADRefNumber.continueAsNo()
-      ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
-      ImportDocumentDetails.submitDocumentDetails("Test Import Document Details")
-      ImportDate.verifyPageTitle(ImportDate.pageTitle)
-      ImportDate.submitImportDate("01", "01", "2026")
-      SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
-      SubmitSupplierName.submitSupplierName("Test Supplier")
-      ImportSupplierAddress.verifyPageTitle(ImportSupplierAddress.pageTitle)
-      ImportSupplierAddress.submitImportSupplierAddress(
-        "Only First Line Test Address",
-        "",
-        "",
-        "ÅLAND ISLANDS"
-      )
-      TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
-      TotalImportAmount.submitTotalImportAmount("1000.99")
-      TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
-      TotalImportVATPaid.submitTotalImportVATPaid("200.99")
-      TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
-      TotalImportVatClaim.submitTotalImportVatClaim("100.99")
-      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
-      CheckYourImportDetails.saveAndContinue()
-      CheckYourImportDetails.clickSignOut
+      addImportFlow()
+      addOtherImportFlow()
+      // Jira ticket DTR-10177 raised to fix stub to trigger the CheckImportDocumentDetails page
+//      duplicateSADFlow(sadDocumentData)
+//      addImportAmountFlow()
+//      saveImport()
+//      summaryFlowNo()
+      clickSignOut(Driver.instance)
     }
 
-    Scenario("03 - Change your answers for a Import refund request", Jenkins, Local) {
-      Given("I login as an organisation")
-      AuthorityWizard.login("Organisation", "999900001")
-      ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
+    Scenario("03 - Change your answers for an Import refund request", Jenkins, Local) {
+      loginAndOpenClaim("999900001")
+      addClaimDetails(estoniaClaim)
+      saveClaimDetails()
 
-      When("I start new EUVAT claim")
-      ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
+      startImportFlow()
+      addFoodImportFlow()
+      addSADFlow(sadRefData)
+      addImportCurrencyFlow()
+      addImportAmountFlow()
+      saveImport()
 
-      And("I add claim details")
-      MakeEuvatClaim.clickLinkByText("Claim details")
-      EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
-      EUMemberState.selectCountry("Estonia")
-      Language.verifyPageTitle(Language.pageTitle)
-      Language.selectLanguage("Estonian")
-      RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
-      RefundPeriod.submitRefundPeriodUsingDynamicValidYear("01", "03")
-      ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-      ContactDetails.submitContactDetails("Test@test.com", "9876543210")
-      AddBusinessActivity.verifyPageTitle(AddBusinessActivity.pageTitle)
-      AddBusinessActivity.continueAsYes()
-      SecondBusinessActivity.verifyPageTitle(SecondBusinessActivity.pageTitle)
-      SecondBusinessActivity.enterSecondBusinessActivityCode("2222")
-      AddSecondBusinessActivity.verifyPageTitle(AddSecondBusinessActivity.pageTitle)
-      AddSecondBusinessActivity.continueAsYes()
-
-      ThirdBusinessActivity.verifyPageTitle(ThirdBusinessActivity.pageTitle)
-      ThirdBusinessActivity.enterThirdBusinessActivityCode("3333")
-      AddThirdBusinessActivity.verifyPageTitle(AddThirdBusinessActivity.pageTitle)
-      AddThirdBusinessActivity.continue()
-
-      CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
-      CheckYourClaimDetails.saveAndContinue()
-      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
-
-      And("I add import details")
-      MakeEuvatClaim.clickLinkByText("Purchases and imports")
-      BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
-      BeforeYouStart.continue()
-      AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
-      AddPurchaseImport.selectPurchaseOrImport("Import")
-      ImportType.verifyPageTitle(ImportType.pageTitle)
-      ImportType.selectImportType("Food, drink and restaurant services")
-      ImportSubcodeFood.verifyPageTitle(ImportSubcodeFood.pageTitle)
-      ImportSubcodeFood.selectImportFoodType("Food and drink from hotels")
-      ImportSubcategoryFood.verifyPageTitle(ImportSubcategoryFood.pageTitle)
-      ImportSubcategoryFood.selectWhoFoodFor("The taxable person")
-      AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
-      AddSADRefNumber.continueAsYes()
-      SubmitSADRefNumber.verifyPageTitle(SubmitSADRefNumber.pageTitle)
-      SubmitSADRefNumber.submitSADRefNumber("SAD123456789")
-      ImportDate.verifyPageTitle(ImportDate.pageTitle)
-      ImportDate.submitImportDate("01", "01", "2026")
-      SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
-      SubmitSupplierName.submitSupplierName("Test Supplier Name")
-      ImportSupplierAddress.verifyPageTitle(ImportSupplierAddress.pageTitle)
-      ImportSupplierAddress.submitImportSupplierAddress(
-        "Test address one",
-        "Test address two",
-        "Test address three",
-        "HEARD ISLAND & MCDONALD ISLANDS"
-      )
-      ImportCurrency.verifyPageTitle(ImportCurrency.pageTitle)
-      ImportCurrency.selectImportCurrencyType("Euro")
-      TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
-      TotalImportAmount.submitTotalImportAmount("1000.01")
-      TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
-      TotalImportVATPaid.submitTotalImportVATPaid("2000.01")
-      CheckImportVATAmount.verifyPageTitle(CheckImportVATAmount.pageTitle)
-      CheckImportVATAmount.continue()
-      TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
-      TotalImportVatClaim.submitTotalImportVatClaim("2500.01")
-      CheckImportVATClaim.verifyPageTitle(CheckImportVATClaim.pageTitle)
-      CheckImportVATClaim.continue()
-      CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
-      CheckYourImportDetails.saveAndContinue()
-
-//      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
-      PurchaseImportSummary.clickActionLink("Import (Food, drink and restaurant services)", "Change")
-
-      And("I change import details")
-
-      //      Change import type
-      ChangeYourImportDetails.verifyPageTitle(ChangeYourImportDetails.pageTitle)
-      ChangeYourImportDetails.clickChangeLink("Import type")
-      ImportType.verifyPageTitle(ImportType.pageTitle)
-      ImportType.selectImportType("Luxuries, entertainment and hospitality")
-      ImportSubcodeLuxury.verifyPageTitle(ImportSubcodeLuxury.pageTitle)
-      ImportSubcodeLuxury.selectLuxuryType("Receptions, entertainment and hospitality")
-
-      //      Change import doc details
-      ChangeYourImportDetails.verifyPageTitle(ChangeYourImportDetails.pageTitle)
-      ChangeYourImportDetails.clickChangeLink("Single Administrative Document (SAD)")
-      AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
-      AddSADRefNumber.continueAsNo()
-      ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
-      ImportDocumentDetails.submitDocumentDetails("TEST INPUT")
-
-      //      Change invoice date
-      ChangeYourImportDetails.clickChangeLink("Import date")
-      ImportDate.verifyPageTitle(ImportDate.pageTitle)
-      ImportDate.submitImportDate("01", "01", "2026")
-      ChangeYourImportDetails.verifyPageTitle(ChangeYourImportDetails.pageTitle)
-
-      //      Change supplier name
-      ChangeYourImportDetails.clickChangeLink("Supplier name")
-      SubmitSupplierName.verifyPageTitle(SubmitSupplierName.pageTitle)
-      SubmitSupplierName.submitSupplierName("Update Test Supplier Name")
-      ChangeYourImportDetails.verifyPageTitle(ChangeYourImportDetails.pageTitle)
-
-      //      Change supplier address
-      ChangeYourImportDetails.clickChangeLink("Supplier address")
-      ImportSupplierAddress.verifyPageTitle(ImportSupplierAddress.pageTitle)
-      ImportSupplierAddress.submitImportSupplierAddress(
-        "Test Street ABC",
-        "Test City 321",
-        "Test State XYZ",
-        "HEARD ISLAND & MCDONALD ISLANDS"
-      )
-      ChangeYourImportDetails.verifyPageTitle(ChangeYourImportDetails.pageTitle)
-
-      //      Change currency
-      ChangeYourImportDetails.clickChangeLink("Currency")
-      ImportCurrency.verifyPageTitle(ImportCurrency.pageTitle)
-      ImportCurrency.selectImportCurrencyType("Estonian Kroon (kr)")
-      TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
-      TotalImportAmount.submitTotalImportAmount("1000.01")
-
-      //      Change VAT paid
-      TotalImportVATPaid.verifyPageTitle(TotalImportVATPaid.pageTitle)
-      TotalImportVATPaid.submitTotalImportVATPaid("3000.99")
-      CheckVATAmount.verifyPageTitle(CheckVATAmount.pageTitle)
-      CheckVATAmount.continue()
-
-      //      Change VAT claim
-      TotalImportVatClaim.verifyPageTitle(TotalImportVatClaim.pageTitle)
-      TotalImportVatClaim.submitTotalImportVatClaim("4000.99")
-      CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
-      CheckVATClaim.continue()
-
-      ChangeYourImportDetails.verifyPageTitle(ChangeYourImportDetails.pageTitle)
-      ChangeYourImportDetails.saveAndContinue()
+      changeImportSummaryFlow("Import (Food, drink and restaurant services)")
+      changeImportAfterSave()
+      clickSignOut(Driver.instance)
     }
-
   }
 }

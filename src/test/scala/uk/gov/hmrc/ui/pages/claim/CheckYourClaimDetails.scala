@@ -33,15 +33,15 @@ object CheckYourClaimDetails extends BasePage {
 
   private val linkSelectors: Map[String, String] =
     Seq(
-      "Refunding EU member state" -> (2, 1),
-      "Claim language"            -> (3, 1),
-      "Start date"                -> (4, 1),
-      "End date"                  -> (4, 1),
-      "Email"                     -> (5, 1),
-      "Phone number"              -> (5, 2),
-      "First SIC code"            -> (6, 1),
-      "Second SIC code"           -> (6, 2),
-      "Third SIC code"            -> (6, 3)
+      "EU member state" -> (2, 1),
+      "Claim language"  -> (3, 1),
+      "Start date"      -> (4, 1),
+      "End date"        -> (4, 1),
+      "Email"           -> (5, 1),
+      "Phone number"    -> (5, 2),
+      "First SIC code"  -> (6, 1),
+      "Second SIC code" -> (6, 2),
+      "Third SIC code"  -> (6, 3)
     ).map { case (label, (section, row)) =>
       label -> selector(section, row)
     }.toMap
