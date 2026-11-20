@@ -41,7 +41,7 @@ class DeleteClaimSpec
 
   Feature("Delete a draft EUVAT claim - Delete claim") {
 
-    Scenario("01 - Delete a refund claim from Claim details page", Local) {
+    Scenario("01 - Delete a refund claim from Claim details page", Jenkins, Local) {
       loginAndOpenClaim("999900001")
       addClaimDetails(estoniaClaim)
       saveClaimDetails()
@@ -50,7 +50,7 @@ class DeleteClaimSpec
       clickSignOut(Driver.instance)
     }
 
-    Scenario("02 - Delete a refund claim from Make a claim for an EU VAT refund page", Local) {
+    Scenario("02 - Delete a refund claim from Make a claim for an EU VAT refund page", Jenkins, Local) {
       loginAndOpenClaim("999900001")
       addClaimDetails(estoniaClaim)
       saveClaimDetails()

@@ -91,7 +91,7 @@ class AddImportSpec
       clickSignOut(Driver.instance)
     }
 
-    Scenario("03 - Change your answers for a Import refund request", Jenkins, Local) {
+    Scenario("03 - Change your answers for an Import refund request", Jenkins, Local) {
       loginAndOpenClaim("999900001")
       addClaimDetails(estoniaClaim)
       saveClaimDetails()
@@ -104,7 +104,6 @@ class AddImportSpec
       saveImport()
 
       changeImportSummaryFlow("Import (Food, drink and restaurant services)")
-      //      Cannot run this step due to the stub data
       changeImportAfterSave()
       clickSignOut(Driver.instance)
     }

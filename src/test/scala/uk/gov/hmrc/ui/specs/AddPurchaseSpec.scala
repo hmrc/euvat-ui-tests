@@ -47,7 +47,7 @@ class AddPurchaseSpec
   }
 
   Feature("Make a new EUVAT claim - Add a duplicate purchase") {
-    Scenario("01 - Create 2 purchases with a duplicate Invoice number and Tax Identifier number", Local) {
+    Scenario("01 - Create 2 purchases with a duplicate Invoice number and VRN", Local) {
       val sharedId = loginAndInjectClaimDetails("999900001")
       goToCheckYourClaimDetails()
       saveClaimDetails()
@@ -69,7 +69,7 @@ class AddPurchaseSpec
       clickSignOut(Driver.instance)
     }
 
-    Scenario("02 - Create 2 purchases with a duplicate Invoice number and VRN for Germany", Local) {
+    Scenario("02 - Create 2 purchases with a duplicate Invoice number and Tax Identifier number for Germany", Local) {
       val sharedId = loginAndInjectClaimDetailsGermany("999900001")
       goToCheckYourClaimDetails()
       saveClaimDetails()
@@ -87,10 +87,9 @@ class AddPurchaseSpec
       addPurchaseAmountFlow()
       savePurchase()
       summaryFlowNo()
-
       clickSignOut(Driver.instance)
     }
-//  This scenario is incomplete due to a bug with the stub data
+
     Scenario("03 - Change your answers for a purchase after saving", Jenkins, Local) {
       loginAndOpenClaim("999900001")
       addClaimDetails(estoniaClaim)
@@ -104,9 +103,7 @@ class AddPurchaseSpec
       savePurchase()
 
       changePurchaseSummaryFlow("Purchase (Food, drink and restaurant services)")
-//      Cannot run this step due to the stub data
       changePurchaseAfterSave()
-
       clickSignOut(Driver.instance)
     }
   }
