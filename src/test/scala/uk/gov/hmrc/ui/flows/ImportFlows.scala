@@ -20,11 +20,12 @@ import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.MakeEuvatClaim
 import uk.gov.hmrc.ui.pages.imports.*
 import uk.gov.hmrc.ui.pages.purchase.*
-import uk.gov.hmrc.ui.utils.CacheHelper
+import uk.gov.hmrc.ui.utils.{CacheHelper, FlowLogging}
 
-trait ImportFlows {
+trait ImportFlows extends FlowLogging {
 
   def startImportFlow(): Unit = {
+    logStep("I start an Import")
     MakeEuvatClaim.clickLinkByText("Purchases and imports")
     BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
     BeforeYouStart.continue()
@@ -33,11 +34,13 @@ trait ImportFlows {
   }
 
   def addImportFlow(): Unit = {
+    logStep("I add an Import")
     AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
     AddPurchaseImport.selectPurchaseOrImport("Import")
   }
 
   def addFoodImportFlow(): Unit = {
+    logStep("I add Import food type, subcode and subcategory")
     ImportType.verifyPageTitle(ImportType.pageTitle)
     ImportType.selectImportType("Food, drink and restaurant services")
 
@@ -48,31 +51,47 @@ trait ImportFlows {
     ImportSubcategoryFood.selectWhoFoodFor("The taxable person")
   }
 
+  def addOtherImportFlow(): Unit = {
+    logStep("I add Import Other type, subcode and document list")
+    ImportType.verifyPageTitle(ImportType.pageTitle)
+    ImportType.selectImportType("Other")
+    ImportSubcodeOther.verifyPageTitle(ImportSubcodeOther.pageTitle)
+    ImportSubcodeOther.selectImportTypeOther("None of these - give more details")
+    ListImportDocumentItems.verifyPageTitle(ListImportDocumentItems.pageTitle)
+    ListImportDocumentItems.submitImportDocumentList("Listed items from import document")
+  }
+
   def addFoodImportType(): Unit = {
+    logStep("I food Import type")
     ImportType.verifyPageTitle(ImportType.pageTitle)
     ImportType.selectImportType("Food, drink and restaurant services")
   }
 
   def injectImportDetailsAfterType(sharedId: String): String = {
+    logStep("I inject Import details after adding import type")
     CacheHelper.updateUserAnswers("importDetailsAfterType.json", sharedId)
     sharedId
   }
 
   def injectImportDetailsAfterTypeGermany(sharedId: String): String = {
+    logStep("I inject Import details after adding import type for Germany")
     CacheHelper.updateUserAnswers("importDetailsAfterTypeGermany.json", sharedId)
     sharedId
   }
 
   def addSADFlow(data: SadFlowData): Unit = {
+    logStep("I add SAD details")
     AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
 
     data match {
       case sadRef: SadReferenceData =>
+        logStep("I add SAD reference number")
         AddSADRefNumber.continueAsYes()
         SADRefNumber.verifyPageTitle(SADRefNumber.pageTitle)
         SADRefNumber.submitSADRefNumber(sadRef.referenceNumber)
 
       case sadDoc: SadDocumentData =>
+        logStep("I add SAD document details")
         AddSADRefNumber.continueAsNo()
         ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
         ImportDocumentDetails.submitDocumentDetails(sadDoc.documentDetails)
@@ -94,16 +113,19 @@ trait ImportFlows {
   }
 
   def duplicateSADFlow(data: SadFlowData): Unit = {
+    logStep("I add duplicate SAD details")
     AddSADRefNumber.verifyPageTitle(AddSADRefNumber.pageTitle)
 
     data match {
       case sadRef: SadReferenceData =>
+        logStep("I add a duplicate SAD reference number")
         AddSADRefNumber.continueAsYes()
         SADRefNumber.verifyPageTitle(SADRefNumber.pageTitle)
         SADRefNumber.submitSADRefNumber(sadRef.duplicateReferenceNumber)
         CheckSADRefNumber.continue()
 
       case sadDoc: SadDocumentData =>
+        logStep("I add a duplicate SAD document details")
         AddSADRefNumber.continueAsNo()
         ImportDocumentDetails.verifyPageTitle(ImportDocumentDetails.pageTitle)
         ImportDocumentDetails.submitDocumentDetails(sadDoc.duplicateDocumentDetails)
@@ -126,11 +148,13 @@ trait ImportFlows {
   }
 
   def addImportCurrencyFlow(): Unit = {
+    logStep("I add Import currency type")
     ImportCurrency.verifyPageTitle(ImportCurrency.pageTitle)
     ImportCurrency.selectImportCurrencyType("Euro")
   }
 
   def addImportAmountFlow(): Unit = {
+    logStep("I add Import VAT amounts")
     TotalImportAmount.verifyPageTitle(TotalImportAmount.pageTitle)
     TotalImportAmount.submitTotalImportAmount("1000.01")
 
@@ -143,20 +167,13 @@ trait ImportFlows {
     CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
   }
 
-  def addOtherImportFlow(): Unit = {
-    ImportType.verifyPageTitle(ImportType.pageTitle)
-    ImportType.selectImportType("Other")
-    ImportSubcodeOther.verifyPageTitle(ImportSubcodeOther.pageTitle)
-    ImportSubcodeOther.selectImportTypeOther("None of these - give more details")
-    ListImportDocumentItems.verifyPageTitle(ListImportDocumentItems.pageTitle)
-    ListImportDocumentItems.submitImportDocumentList("Listed items from import document")
+  def saveImport(): Unit = {
+    logStep("I save Import details")
+    CheckYourImportDetails.saveAndContinue()
   }
 
-  def saveImport(): Unit =
-    CheckYourImportDetails.saveAndContinue()
-
   def changeImportJourney(): Unit = {
-    //    CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
+    logStep("I change Import details")
     CheckYourImportDetails.clickChangeLink("Food and drink for")
     ImportSubcategoryFood.verifyPageTitle(ImportSubcategoryFood.pageTitle)
     ImportSubcategoryFood.selectWhoFoodFor("Someone other")
@@ -228,18 +245,21 @@ trait ImportFlows {
   }
 
   def summaryFlowNo(): Unit = {
+    logStep("I select No on the Purchase Import Summary")
     PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2"))
     PurchaseImportSummary.continueAsNo()
     MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
   }
 
   def changeImportSummaryFlow(itemText: String): Unit = {
+    logStep("I change an Import from the summary page")
     //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
-    PurchaseImportSummary.clickActionLink(itemText, "Change") // Does not work for the database, but works for stub
+    PurchaseImportSummary.clickActionLink(itemText, "Change")
     ChangeYourImportDetails.verifyPageTitle(ChangeYourImportDetails.pageTitle)
   }
 
   def changeImportAfterSave(): Unit = {
+    logStep("I change an Import after saving to database")
     //      Change import type
     ChangeYourImportDetails.verifyPageTitle(ChangeYourImportDetails.pageTitle)
     ChangeYourImportDetails.clickChangeLink("Import type")
@@ -303,6 +323,7 @@ trait ImportFlows {
   }
 
   def vatWarningsImportJourney(): Unit = {
+    logStep("I check Import VAT amounts")
     CheckYourImportDetails.clickChangeLink("VAT claim")
     TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
     TotalVatClaim.submitTotalVatClaim("3000.99")
@@ -327,6 +348,7 @@ trait ImportFlows {
   }
 
   def goToCheckYourImportDetails(): Unit = {
+    logStep("I navigate to the Import CYA page")
     MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/import/check-your-answers")
     CheckYourImportDetails.verifyPageTitle(CheckYourImportDetails.pageTitle)
   }

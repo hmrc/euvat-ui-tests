@@ -91,7 +91,7 @@ class AddPurchaseSpec
       clickSignOut(Driver.instance)
     }
 //  This scenario is incomplete due to a bug with the stub data
-    Scenario("03 - Change your answers for a purchase after saving", Jenkins, Local, WIP) {
+    Scenario("03 - Change your answers for a purchase after saving", Jenkins, Local) {
       loginAndOpenClaim("999900001")
       addClaimDetails(estoniaClaim)
       saveClaimDetails()

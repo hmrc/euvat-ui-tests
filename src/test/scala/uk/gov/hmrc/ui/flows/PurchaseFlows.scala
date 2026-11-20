@@ -19,11 +19,12 @@ package uk.gov.hmrc.ui.flows
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.MakeEuvatClaim
 import uk.gov.hmrc.ui.pages.purchase.*
-import uk.gov.hmrc.ui.utils.CacheHelper
+import uk.gov.hmrc.ui.utils.{CacheHelper, FlowLogging}
 
-trait PurchaseFlows {
+trait PurchaseFlows extends FlowLogging{
 
   def startPurchaseFlow(): Unit = {
+    logStep("I start a Purchase")
     MakeEuvatClaim.clickLinkByText("Purchases and imports")
     BeforeYouStart.verifyPageTitle(BeforeYouStart.pageTitle)
     BeforeYouStart.continue()
@@ -32,11 +33,13 @@ trait PurchaseFlows {
   }
 
   def addPurchaseFlow(): Unit = {
+    logStep("I add a Purchase")
     AddPurchaseImport.verifyPageTitle(AddPurchaseImport.pageTitle)
     AddPurchaseImport.selectPurchaseOrImport("Purchase")
   }
 
   def addFoodPurchaseFlow(): Unit = {
+    logStep("I add Purchase food type, subcode and subcategory")
     PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
     PurchaseType.selectPurchaseType("Food, drink and restaurant services")
 
@@ -47,12 +50,47 @@ trait PurchaseFlows {
     PurchaseSubcategoryFood.selectWhoFoodFor("The taxable person")
   }
 
+  def addOtherPurchaseFlow(): Unit = {
+    logStep("I add Purchase Other type, subcode and Invoice description")
+    PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
+    PurchaseType.selectPurchaseType("Other")
+
+    PurchaseSubcodeOther.verifyPageTitle(PurchaseSubcodeOther.pageTitle)
+    PurchaseSubcodeOther.selectSubcategoryOther("None of these - give more details")
+
+    InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
+    InvoiceItemDescription.submitItemDescription("")
+
+    CheckPurchaseDetails.verifyPageTitle(CheckPurchaseDetails.pageTitle)
+    CheckPurchaseDetails.continue()
+  }
+
   def addFoodPurchaseType(): Unit = {
+    logStep("I add food Purchase type")
     PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
     PurchaseType.selectPurchaseType("Food, drink and restaurant services")
   }
 
+  def addOtherPurchaseType(): Unit = {
+    logStep("I add Other Purchase type")
+    PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
+    PurchaseType.selectPurchaseType("Other")
+  }
+
+  def injectPurchaseDetailsAfterType(sharedId: String): String = {
+    logStep("I inject Purchase details after adding Purchase type")
+    CacheHelper.updateUserAnswers("purchaseDetailsAfterType.json", sharedId)
+    sharedId
+  }
+
+  def injectPurchaseDetailsAfterTypeGermany(sharedId: String): String = {
+    logStep("I inject Purchase details after adding Purchase type for Germany")
+    CacheHelper.updateUserAnswers("purchaseDetailsAfterTypeGermany.json", sharedId)
+    sharedId
+  }
+
   def addStandardInvoiceFlow(): Unit = {
+    logStep("I add Standard invoice")
     InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
     InvoiceType.selectInvoiceType("Standard invoice")
 
@@ -73,6 +111,7 @@ trait PurchaseFlows {
   }
 
   def duplicateVRNFlow(): Unit = {
+    logStep("I add duplicate VRN for Standard invoice")
     InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
     InvoiceType.selectInvoiceType("Standard invoice")
 
@@ -110,50 +149,8 @@ trait PurchaseFlows {
     CheckSupplierVRN.continue()
   }
 
-  def addPurchaseCurrencyFlow(): Unit = {
-    Currency.verifyPageTitle(Currency.pageTitle)
-    Currency.selectCurrencyType("Euro")
-  }
-
-  def addPurchaseAmountFlow(): Unit = {
-    TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
-    TotalPurchaseAmount.submitTotalPurchaseAmount("1000.01")
-
-    TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
-    TotalVatPaid.submitTotalVatPaid("200.01")
-
-    TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
-    TotalVatClaim.submitTotalVatClaim("100.01")
-
-    CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
-  }
-
-  /** Food/drink journey kept aligned to original working spec: PurchaseType -> FoodDrink -> WhoFoodDrink -> InvoiceType
-    */
-
-  /** Germany/Other journey kept aligned to original working spec: PurchaseType -> PurchaseTypeOther ->
-    * InvoiceItemDescription -> CheckPurchaseDetails -> InvoiceType
-    */
-  def addOtherPurchaseFlow(): Unit = {
-    PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
-    PurchaseType.selectPurchaseType("Other")
-
-    PurchaseSubcodeOther.verifyPageTitle(PurchaseSubcodeOther.pageTitle)
-    PurchaseSubcodeOther.selectSubcategoryOther("None of these - give more details")
-
-    InvoiceItemDescription.verifyPageTitle(InvoiceItemDescription.pageTitle)
-    InvoiceItemDescription.submitItemDescription("")
-
-    CheckPurchaseDetails.verifyPageTitle(CheckPurchaseDetails.pageTitle)
-    CheckPurchaseDetails.continue()
-  }
-
-  def addOtherPurchaseType(): Unit = {
-    PurchaseType.verifyPageTitle(PurchaseType.pageTitle)
-    PurchaseType.selectPurchaseType("Other")
-  }
-
   def addSimplifiedInvoiceFlow(): Unit = {
+    logStep("I add Simplified invoice")
     InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
     InvoiceType.selectInvoiceType("Simplified invoice")
 
@@ -177,6 +174,7 @@ trait PurchaseFlows {
   }
 
   def duplicateTIDFlow(): Unit = {
+    logStep("I add duplicate TID for Simplified invoice")
     InvoiceType.verifyPageTitle(InvoiceType.pageTitle)
     InvoiceType.selectInvoiceType("Simplified invoice")
 
@@ -217,14 +215,34 @@ trait PurchaseFlows {
     CheckSupplierTaxIDNumber.continue()
   }
 
-  def savePurchase(): Unit =
+  def addPurchaseCurrencyFlow(): Unit = {
+    logStep("I add Purchase currency type")
+    Currency.verifyPageTitle(Currency.pageTitle)
+    Currency.selectCurrencyType("Euro")
+  }
+
+  def addPurchaseAmountFlow(): Unit = {
+    logStep("I add Purchase VAT amounts")
+    TotalPurchaseAmount.verifyPageTitle(TotalPurchaseAmount.pageTitle)
+    TotalPurchaseAmount.submitTotalPurchaseAmount("1000.01")
+
+    TotalVatPaid.verifyPageTitle(TotalVatPaid.pageTitle)
+    TotalVatPaid.submitTotalVatPaid("200.01")
+
+    TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
+    TotalVatClaim.submitTotalVatClaim("100.01")
+
+    CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+  }
+
+  def savePurchase(): Unit = {
+    logStep("I save Purchase details")
     CheckYourPurchaseDetails.saveAndContinue()
     //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
-
-  def summaryFlowYes(): Unit =
-    PurchaseImportSummary.continueAsYes()
+  }
 
   def changePurchaseJourney(): Unit = {
+    logStep("I change Purchase details")
     CheckYourPurchaseDetails.clickChangeLink("Food and drink for")
     PurchaseSubcategoryFood.verifyPageTitle(PurchaseSubcategoryFood.pageTitle)
     PurchaseSubcategoryFood.selectWhoFoodFor("Someone other")
@@ -334,12 +352,20 @@ trait PurchaseFlows {
     //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
   }
 
+  def summaryFlowYes(): Unit = {
+    logStep("I select Yes on the Purchase Import Summary")
+    PurchaseImportSummary.continueAsYes()
+  }
+
   def changePurchaseSummaryFlow(itemText: String): Unit = {
+    logStep("I change the Purchase from the Summary page")
     PurchaseImportSummary.clickActionLink(itemText, "Change")
     ChangeYourPurchaseDetails.verifyPageTitle(ChangeYourPurchaseDetails.pageTitle)
   }
 
   def changePurchaseAfterSave(): Unit = {
+    logStep("I change a Purchase after saving to database")
+
     ChangeYourPurchaseDetails.clickChangeLink("Food and drink for")
     PurchaseSubcategoryFood.verifyPageTitle(PurchaseSubcategoryFood.pageTitle)
     PurchaseSubcategoryFood.selectWhoFoodFor("Someone other")
@@ -448,23 +474,8 @@ trait PurchaseFlows {
     ChangeYourPurchaseDetails.saveAndContinue()
   }
 
-  def changeTaxIdDetails(): Unit = {
-    // Change Supplier tax identifier
-    CheckYourPurchaseDetails.clickChangeLink("Supplier tax identifier")
-    SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
-    SupplierTaxIDNumber.submitSupplierTaxID("12345")
-    CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
-
-    // Change Supplier tax numbers
-    CheckYourPurchaseDetails.clickChangeLink("Supplier tax numbers")
-    SupplierTaxNumbers.verifyPageTitle(SupplierTaxNumbers.pageTitle)
-    SupplierTaxNumbers.selectTaxNumber("Vat Registration Number")
-    VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
-    VATRegistrationNumber.submitVATRegistrationNumber("1234567890")
-    CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
-  }
-
   def vatWarningsPurchaseJourney(): Unit = {
+    logStep("I check Purchase VAT amounts")
     CheckYourPurchaseDetails.clickChangeLink("VAT claim")
     TotalVatClaim.verifyPageTitle(TotalVatClaim.pageTitle)
     TotalVatClaim.submitTotalVatClaim("3000.99")
@@ -488,31 +499,36 @@ trait PurchaseFlows {
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
   }
 
-  def injectPurchaseDetailsAfterType(sharedId: String): String = {
-    CacheHelper.updateUserAnswers("purchaseDetailsAfterType.json", sharedId)
-    sharedId
-  }
-
-  def injectPurchaseDetailsAfterTypeGermany(sharedId: String): String = {
-    CacheHelper.updateUserAnswers("purchaseDetailsAfterTypeGermany.json", sharedId)
-    sharedId
-  }
-
   def goToCheckYourPurchaseDetails(): Unit = {
+    logStep("I navigate to the Purchase CYA page")
     MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/purchase/check-your-answers")
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
   }
 
+  def changeTaxIdDetails(): Unit = {
+    logStep("I change tax details")
+    // Change Supplier tax identifier
+    CheckYourPurchaseDetails.clickChangeLink("Supplier tax identifier")
+    SupplierTaxIDNumber.verifyPageTitle(SupplierTaxIDNumber.pageTitle)
+    SupplierTaxIDNumber.submitSupplierTaxID("12345")
+    CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+
+    // Change Supplier tax numbers
+    CheckYourPurchaseDetails.clickChangeLink("Supplier tax numbers")
+    SupplierTaxNumbers.verifyPageTitle(SupplierTaxNumbers.pageTitle)
+    SupplierTaxNumbers.selectTaxNumber("Vat Registration Number")
+    VATRegistrationNumber.verifyPageTitle(VATRegistrationNumber.pageTitle)
+    VATRegistrationNumber.submitVATRegistrationNumber("1234567890")
+    CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
+  }
+
+
   def deleteClaimFromSummary(itemText: String): Unit = {
+    logStep("I delete a Purchase or Import from the Summary page")
 //    PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2")) //Cannot run this with the database
     PurchaseImportSummary.clickActionLink(itemText, "Remove")
     RemoveItem.verifyPageTitle(RemoveItem.pageTitle)
     RemoveItem.selectDeleteItem("Yes")
-    //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
-//    PurchaseImportSummary.clickActionLink(itemText, "Remove")
-//    RemoveItem.verifyPageTitle(RemoveItem.pageTitle)
-//    RemoveItem.selectDeleteItem("Yes")
-
     //      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle) // Only works for the database
     //      MakeEuvatClaim.clickSignOut // Only works for the database
   }

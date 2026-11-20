@@ -18,11 +18,12 @@ package uk.gov.hmrc.ui.flows
 
 import uk.gov.hmrc.ui.pages.*
 import uk.gov.hmrc.ui.pages.claim.*
-import uk.gov.hmrc.ui.utils.CacheHelper
+import uk.gov.hmrc.ui.utils.{CacheHelper, FlowLogging}
 
-trait ClaimFlows {
+trait ClaimFlows extends FlowLogging {
 
   def loginAndOpenClaim(vrn: String): Unit = {
+    logStep("I login and open a claim")
     AuthorityWizard.login("Organisation", vrn)
     ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
     ClaimAnEUVATRefund.clickLinkByText("Make a claim for an EU VAT refund")
@@ -30,6 +31,7 @@ trait ClaimFlows {
   }
 
   def addClaimDetails(data: ClaimData): Unit = {
+    logStep("I add claim details")
     MakeEuvatClaim.clickLinkByText("Claim details")
     EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
     EUMemberState.selectCountry(data.country)
@@ -57,6 +59,7 @@ trait ClaimFlows {
   }
 
   def addBusinessActivityDetails(activity: BusinessActivityData): Unit = {
+    logStep("I add business activity details")
     SecondBusinessActivity.verifyPageTitle(SecondBusinessActivity.pageTitle)
     SecondBusinessActivity.enterSecondBusinessActivityCode(activity.secondSicCode)
 
@@ -71,6 +74,7 @@ trait ClaimFlows {
   }
 
   def changeEUMemberState(newCountry: String): Unit = {
+    logStep("I change EU member state")
     CheckYourClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
     CheckYourClaimDetails.clickChangeLink("EU member state")
     EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
@@ -82,11 +86,13 @@ trait ClaimFlows {
   }
 
   def saveClaimDetails(): Unit = {
+    logStep("I save claim details")
     CheckYourClaimDetails.saveAndContinue()
     MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
   }
 
   def changeClaimDetailsAfterSave(): Unit = {
+    logStep("I change claim details after saving to database")
     MakeEuvatClaim.clickLinkByText("Claim details")
     ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
@@ -135,6 +141,7 @@ trait ClaimFlows {
   }
 
   def changeClaimDetailsAddSicCodesAfterSave(): Unit = {
+    logStep("I add business activities after saving to database")
     MakeEuvatClaim.clickLinkByText("Claim details")
     ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
@@ -163,6 +170,7 @@ trait ClaimFlows {
   }
 
   def changeClaimDetailsRemoveSicCodesAfterSave(): Unit = {
+    logStep("I remove business activities after saving to database")
     MakeEuvatClaim.clickLinkByText("Claim details")
     ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
@@ -187,6 +195,7 @@ trait ClaimFlows {
   }
 
   def addClaimDetailsErrors(data: ClaimData): Unit = {
+    logStep("I add member state for refund period validation")
     MakeEuvatClaim.clickLinkByText("Claim details")
     EUMemberState.verifyPageTitle(EUMemberState.pageTitle)
     EUMemberState.selectCountry(data.country)
@@ -199,10 +208,8 @@ trait ClaimFlows {
     RefundPeriod.verifyPageTitle(RefundPeriod.pageTitle)
   }
 
-  def injectPurchaseDetailsForClaim(sharedId: String): Unit =
-    CacheHelper.updateUserAnswers("purchaseDetails.json", sharedId)
-
   def loginAndInjectClaimDetails(vrn: String): String = {
+    logStep("I login and inject claim details")
     val sharedId = AuthorityWizard.login("Organisation", vrn)
     ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
     CacheHelper.submitUserAnswers("claimDetails.json", sharedId)
@@ -212,6 +219,7 @@ trait ClaimFlows {
   }
 
   def loginAndInjectClaimDetailsGermany(vrn: String): String = {
+    logStep("I login and inject claim details for Germany")
     val sharedId = AuthorityWizard.login("Organisation", vrn)
     ClaimAnEUVATRefund.verifyPageTitle(ClaimAnEUVATRefund.pageTitle)
     CacheHelper.submitUserAnswers("claimDetailsGermany.json", sharedId)
@@ -221,11 +229,13 @@ trait ClaimFlows {
   }
 
   def goToCheckYourClaimDetails(): Unit = {
+    logStep("I navigate to claim details CYA")
     MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/claim-details/check-your-answers")
     CheckYourClaimDetails.verifyPageTitle(CheckYourClaimDetails.pageTitle)
   }
 
   def deleteClaimFromClaimDetails(): Unit = {
+    logStep("I delete a claim from Claim details CYA")
     MakeEuvatClaim.clickLinkByText("Claim details")
     ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
     ClaimDetails.clickChangeLink("EU member state")
@@ -235,6 +245,7 @@ trait ClaimFlows {
   }
 
   def deleteClaimFromMakeClaim(): Unit = {
+    logStep("I delete application from Make a claim page")
     MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
     MakeEuvatClaim.clickLinkByText("Delete this claim")
     DeleteClaim.verifyPageTitle(DeleteClaim.pageTitle)

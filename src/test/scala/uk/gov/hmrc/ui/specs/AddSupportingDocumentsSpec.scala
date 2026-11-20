@@ -20,11 +20,8 @@ import org.scalatest.*
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, Driver, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.flows.TestData.supportingDocumentsYes
+import uk.gov.hmrc.ui.flows.TestData.*
 import uk.gov.hmrc.ui.flows.{ClaimFlows, SupportingDocumentsFlows}
-import uk.gov.hmrc.ui.pages.*
-import uk.gov.hmrc.ui.pages.claim.*
-import uk.gov.hmrc.ui.pages.supportingdocuments.*
 import uk.gov.hmrc.ui.tags.*
 import uk.gov.hmrc.ui.utils.{DatabaseHelper, MongoHelper}
 

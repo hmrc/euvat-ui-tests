@@ -23,6 +23,7 @@ import uk.gov.hmrc.ui.utils.FlowLogging
 trait SupportingDocumentsFlows extends FlowLogging {
 
   def startSupportingDocumentsFlow(): Unit = {
+    logStep("I start Supporting documents")
     MakeEuvatClaim.clickLinkByText("Supporting documents")
     BeforeYouStartSupportingDocuments.verifyPageTitle(BeforeYouStartSupportingDocuments.pageTitle)
     BeforeYouStartSupportingDocuments.continue()
