@@ -44,8 +44,8 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
   /** Locator values */
   object Locators {
     val btnSubmit = ".govuk-button:last-of-type"
-    val rdoYes    = "#value"
-    val rdoNo     = "#value-2"
+    val rdoYes    = "#value_0"
+    val rdoNo     = "#value_1"
   }
 
   def pageUrl: String
