@@ -24,7 +24,7 @@ object ImportCurrency extends BasePage {
 
   override def pageTitle: String = "Which currency do you want to use for this import? - EU VAT - GOV.UK"
 
-  val rdoEuroCurrency    = "#value"
+  val rdoEuroCurrency    = "#value_0"
   val rdoNonEuroCurrency = "#value_1"
 
   def selectImportCurrencyType(radio: String): this.type = {
