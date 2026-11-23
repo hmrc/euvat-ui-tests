@@ -26,13 +26,13 @@ object YourFile extends BasePage {
 
   override def pageTitle: String = "Upload file - EU VAT - GOV.UK"
 
-  val fileUploaded = "Uploaded"
-  val uploadFileStatus: By = By.cssSelector("#main-content > div > div > dl > div > dd.govuk-summary-list__value > strong")
+  val fileUploaded            = "Uploaded"
+  val uploadFileStatus: By    =
+    By.cssSelector("#main-content > div > div > dl > div > dd.govuk-summary-list__value > strong")
   val inputAdditionalInfo: By = By.cssSelector("#fileupload-description")
 
-  def waitForFileUpload(): Unit = {
+  def waitForFileUpload(): Unit =
     fluentWait.until(ExpectedConditions.textToBePresentInElementLocated(uploadFileStatus, fileUploaded))
-  }
 
   def inputAdditionalInfo(AdditionalInfo: String): Unit =
     input(inputAdditionalInfo, AdditionalInfo)
