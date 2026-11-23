@@ -116,12 +116,12 @@ trait ClaimFlows extends FlowLogging {
     //      Change contact details
     ClaimDetails.clickChangeLink("Email")
     ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-    ContactDetails.submitContactDetails("firstchange@gmail.com", "+441234567890")
+    ContactDetails.submitContactDetails("firstchange@test.com", "+441234567890")
     ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
     ClaimDetails.clickChangeLink("Phone number")
     ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-    ContactDetails.submitContactDetails("secondchange@gmail.com", "+449999999999")
+    ContactDetails.submitContactDetails("secondchange@test.com", "+449999999999")
     ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
     //      Change SIC Codes
@@ -147,7 +147,7 @@ trait ClaimFlows extends FlowLogging {
 
     ClaimDetails.clickChangeLink("Phone number")
     ContactDetails.verifyPageTitle(ContactDetails.pageTitle)
-    ContactDetails.submitContactDetails("germany-update@gmail.com", "")
+    ContactDetails.submitContactDetails("germany-update@test.com", "")
     ClaimDetails.verifyPageTitle(ClaimDetails.pageTitle)
 
     ClaimDetails.clickChangeLink("View first SIC code")
