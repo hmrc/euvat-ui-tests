@@ -40,7 +40,7 @@ trait SupportingDocumentsFlows extends FlowLogging {
       UploadFile.continue()
       YourFile.verifyPageTitle(YourFile.pageTitle)
       YourFile.inputAdditionalInfo("Test input additional information")
-      YourFile.waitForFileUpload()
+      YourFile.continueAfterFileUploaded()
     } else {
       AnySupportingDocuments.selectYesOrNo("No")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)

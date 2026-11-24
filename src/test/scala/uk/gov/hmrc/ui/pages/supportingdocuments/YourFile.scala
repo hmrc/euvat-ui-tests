@@ -31,7 +31,7 @@ object YourFile extends BasePage {
     By.cssSelector("#main-content > div > div > dl > div > dd.govuk-summary-list__value > strong")
   val inputAdditionalInfo: By = By.cssSelector("#fileupload-description")
 
-  def waitForFileUpload(): Unit = {
+  def continueAfterFileUploaded(): Unit = {
     fluentWait.until(ExpectedConditions.textToBePresentInElementLocated(uploadFileStatus, fileUploaded))
     continue()
   }
