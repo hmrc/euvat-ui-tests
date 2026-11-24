@@ -18,9 +18,8 @@ package uk.gov.hmrc.ui.pages
 
 import com.typesafe.scalalogging.LazyLogging
 import driver.BrowserDriver
-import org.openqa.selenium.*
 import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait, Wait, WebDriverWait}
-import org.openqa.selenium.{By, JavascriptExecutor, NoSuchElementException, StaleElementReferenceException, WebDriver, WebElement}
+import org.openqa.selenium.*
 import org.scalatest.concurrent.Eventually
 import org.scalatest.matchers.must.Matchers
 import uk.gov.hmrc.selenium.component.PageObject
@@ -43,7 +42,8 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
 
   /** Locator values */
   object Locators {
-    val btnSubmit = ".govuk-button:last-of-type"
+    // More robust than ".govuk-button:last-of-type"
+    val btnSubmit = "button.govuk-button[type='submit']"
     val rdoYes    = "#value_0"
     val rdoNo     = "#value_1"
   }
@@ -75,15 +75,49 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
     yearElement.sendKeys(yearValue)
   }
 
-  /** Generic click method */
+  /** Generic click method with stale-element retry */
   override def click(selector: By): Unit = {
-    val element = waitForVisibilityOfElement(selector)
-    element.click()
+    val wait = new WebDriverWait(driver, Duration.ofSeconds(15))
+    wait.pollingEvery(Duration.ofMillis(300))
+    wait.ignoring(classOf[StaleElementReferenceException])
+
+    var lastError: Throwable = null
+
+    for (_ <- 1 to 3) {
+      try {
+        val element = wait.until(ExpectedConditions.elementToBeClickable(selector))
+        scrollIntoView(element)
+        element.click()
+        return
+      } catch {
+        case e @ (_: StaleElementReferenceException | _: TimeoutException | _: ElementClickInterceptedException) =>
+          lastError = e
+      }
+    }
+
+    throw new RuntimeException(s"Failed to click element: $selector after retries", lastError)
   }
 
   def clickBy(by: By): Unit = {
-    w.until(ExpectedConditions.presenceOfElementLocated(by))
-    driver.findElement(by).click()
+    val wait = new WebDriverWait(driver, Duration.ofSeconds(15))
+    wait.pollingEvery(Duration.ofMillis(300))
+    wait.ignoring(classOf[StaleElementReferenceException])
+
+    var lastError: Throwable = null
+
+    for (_ <- 1 to 3) {
+      try {
+        val element = wait.until(ExpectedConditions.elementToBeClickable(by))
+        scrollIntoView(element)
+        element.click()
+        return
+      } catch {
+        case e @ (_: StaleElementReferenceException | _: TimeoutException | _: ElementClickInterceptedException) =>
+          lastError = e
+      }
+    }
+
+    throw new RuntimeException(s"Failed to click element: $by after retries", lastError)
   }
 
   /** Generic clear method */
@@ -265,6 +299,11 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
 
   private def safe(value: String): String =
     Option(value).getOrElse("")
+
+  private def scrollIntoView(element: WebElement): Unit =
+    driver
+      .asInstanceOf[JavascriptExecutor]
+      .executeScript("arguments[0].scrollIntoView({block:'center'});", element)
 
   def clickByXpath(xpath: String): Unit = clickBy(By.xpath(xpath))
 
