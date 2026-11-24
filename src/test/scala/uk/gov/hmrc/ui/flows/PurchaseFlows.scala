@@ -527,7 +527,7 @@ trait PurchaseFlows extends FlowLogging {
 //    PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("2")) //Cannot run this with the database
     PurchaseImportSummary.clickActionLink(itemText, "Remove")
     RemoveItem.verifyPageTitle(RemoveItem.pageTitle)
-    RemoveItem.selectDeleteItem("Yes")
+    RemoveItem.continueAsYes()
     //      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle) // Only works for the database
     //      MakeEuvatClaim.clickSignOut // Only works for the database
   }
