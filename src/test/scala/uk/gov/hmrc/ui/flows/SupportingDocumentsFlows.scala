@@ -39,8 +39,8 @@ trait SupportingDocumentsFlows extends FlowLogging {
       UploadFile.selectFile("filesForUpload/Test1MbPDF.pdf")
       UploadFile.continue()
       YourFile.verifyPageTitle(YourFile.pageTitle)
-      YourFile.waitForFileUpload()
       YourFile.inputAdditionalInfo("Test input additional information")
+      YourFile.waitForFileUpload()
     } else {
       AnySupportingDocuments.selectYesOrNo("No")
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
