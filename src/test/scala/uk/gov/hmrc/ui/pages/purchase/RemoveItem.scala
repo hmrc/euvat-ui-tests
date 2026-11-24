@@ -24,18 +24,14 @@ object RemoveItem extends BasePage {
 
   override def pageTitle: String = "Remove item - EU VAT - GOV.UK"
 
-  val rdoDeleteItem      = "#value_0"
-  val rdoDoNotDeleteItem = "#value_1"
-
-  def selectDeleteItem(radio: String): this.type = {
-    val selector = radio match {
-      case "Yes" => rdoDeleteItem
-      case "No"  => rdoDoNotDeleteItem
-      case _     => throw new IllegalArgumentException(s"Invalid option: $radio")
-    }
-    radioButton(selector)
+  def continueAsYes(): Unit = {
+    radioButton(Locators.rdoYes)
     continue()
-    this
+  }
+
+  def continueAsNo(): Unit = {
+    radioButton(Locators.rdoNo)
+    continue()
   }
 
 }

@@ -24,18 +24,14 @@ object AnySupportingDocuments extends BasePage {
 
   override def pageTitle: String = "Do you have any supporting documents to upload? - EU VAT - GOV.UK"
 
-  val rdoYes = "#value_0"
-  val rdoNo  = "#value_1"
-
-  def selectYesOrNo(radio: String): this.type = {
-    val selector = radio match {
-      case "Yes" => rdoYes
-      case "No"  => rdoNo
-      case _     => throw new IllegalArgumentException(s"Invalid option: $radio")
-    }
-    radioButton(selector)
+  def continueAsYes(): Unit = {
+    radioButton(Locators.rdoYes)
     continue()
-    this
+  }
+
+  def continueAsNo(): Unit = {
+    radioButton(Locators.rdoNo)
+    continue()
   }
 
 }
