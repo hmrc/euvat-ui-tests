@@ -33,15 +33,32 @@ trait SupportingDocumentsFlows extends FlowLogging {
     logStep("I add supporting documents")
     AnySupportingDocuments.verifyPageTitle(AnySupportingDocuments.pageTitle)
     if (data.hasSupportingDocuments) {
-      AnySupportingDocuments.selectYesOrNo("Yes")
+      AnySupportingDocuments.continueAsYes()
       UploadFile.verifyPageTitle(UploadFile.pageTitle)
       logStep("User selects a file to upload")
       UploadFile.selectFile("filesForUpload/Test1MbPDF.pdf")
-      UploadFile.inputAdditionalInfo("Test input additional information")
       UploadFile.continue()
+      YourFile.verifyPageTitle(YourFile.pageTitle)
+      YourFile.inputAdditionalInfo("Test input additional information")
+      YourFile.continueAfterFileUploaded()
+      logStep("I view uploaded supporting documents")
+//    This needs update after integration of RA6.2 & RA6.3 screens is in place
+      UploadFile.navigateToPage("http://localhost:18501/file-eu-vat/supporting-documents/uploaded-files")
+      UploadedFiles.verifyPageTitle(UploadedFiles.pageTitle)
+      UploadedFiles.clickUploadFileCTA()
+      UploadFile.verifyPageTitle(UploadFile.pageTitle)
+      logStep("User selects a file to upload")
+      UploadFile.selectFile("filesForUpload/Test1MbPDF.pdf")
+      UploadFile.continue()
+//    This needs update after integration of RA6.2 & RA6.3 screens is in place
+      UploadFile.navigateToPage("http://localhost:18501/file-eu-vat/supporting-documents/uploaded-files")
+      UploadedFiles.verifyPageTitle(UploadedFiles.pageTitle)
+      UploadedFiles.continue()
+      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
     } else {
-      AnySupportingDocuments.selectYesOrNo("No")
+      AnySupportingDocuments.continueAsNo()
       MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
     }
   }
+
 }
