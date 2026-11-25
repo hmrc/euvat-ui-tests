@@ -51,6 +51,8 @@ trait SupportingDocumentsFlows extends FlowLogging {
       UploadFile.selectFile("filesForUpload/Test1MbPDF.pdf")
       UploadFile.continue()
 //    This needs update after integration of RA6.2 & RA6.3 screens is in place
+      YourFile.verifyPageTitle(YourFile.pageTitle)
+      YourFile.continueAfterFileUploaded()
       UploadFile.navigateToPage("http://localhost:18501/file-eu-vat/supporting-documents/uploaded-files")
       UploadedFiles.verifyPageTitle(UploadedFiles.pageTitle)
       UploadedFiles.continue()
