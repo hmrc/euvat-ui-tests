@@ -27,7 +27,7 @@ object UploadFile extends BasePage {
   override def pageTitle: String = "Upload file - EU VAT - GOV.UK"
 
   def selectFile(uploadFilename: String): Unit = {
-    val fileUploadFieldLocator = driver.findElement(By.id("file-upload-1-input"))
+    val fileUploadFieldLocator = driver.findElement(By.id("file-input"))
     val inputFilePath          = Paths.get("src/test/resources/" + uploadFilename).toAbsolutePath.toString
     fileUploadFieldLocator.sendKeys(inputFilePath)
   }
