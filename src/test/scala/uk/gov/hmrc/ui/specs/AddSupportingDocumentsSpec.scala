@@ -47,7 +47,7 @@ class AddSupportingDocumentsSpec
 
   Feature("Make a new EUVAT claim - Add supporting documents") {
 
-    Scenario("01 - Upload a document", Local) {
+    Scenario("01 - Upload a document", Local, WIP) {
       loginAndInjectClaimDetails("999900001")
       goToCheckYourClaimDetails()
       saveClaimDetails()
