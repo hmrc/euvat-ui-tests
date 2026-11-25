@@ -76,18 +76,17 @@ class AddImportSpec
 
       startImportFlow()
       addFoodImportType()
-      injectImportDetailsAfterTypeGermany(sharedId) // needs updating
+      injectImportDetailsAfterTypeGermany(sharedId)
       goToCheckYourImportDetails()
       saveImport()
       summaryFlowYes()
 
       addImportFlow()
       addOtherImportFlow()
-      // Jira ticket DTR-10177 raised to fix stub to trigger the CheckImportDocumentDetails page
-//      duplicateSADFlow(sadDocumentData)
-//      addImportAmountFlow()
-//      saveImport()
-//      summaryFlowNo()
+      duplicateSADFlow(sadDocumentData)
+      addImportAmountFlow()
+      saveImport()
+      summaryFlowNo()
       clickSignOut(Driver.instance)
     }
 
