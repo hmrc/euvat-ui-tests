@@ -19,8 +19,6 @@ package uk.gov.hmrc.ui.pages.supportingdocuments
 import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.BasePage
 
-import java.nio.file.Paths
-
 object UploadedFiles extends BasePage {
 
   override def pageUrl: String = "supporting-documents/uploaded-files"
