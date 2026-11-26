@@ -32,7 +32,7 @@ object UploadedFiles extends BasePage {
     this
   }
 
-  def clickActionLink(itemText: String): this.type = {
+  def clickRemoveLink(itemText: String): this.type = {
     val xpath =
       s"""//table//tbody//th[normalize-space(.)="$itemText"]/following-sibling::td//a"""
 
