@@ -53,7 +53,7 @@ trait SupportingDocumentsFlows extends FlowLogging {
 //      YourFile.verifyPageTitle(YourFile.pageTitle)
 //      YourFile.continueAfterFileUploaded()
 //      UploadedFiles.verifyPageTitle(UploadedFiles.pageTitle)
-//      UploadedFiles.clickActionLink("invoice.pdf")
+//      UploadedFiles.clickRemoveLink("invoice.pdf")
 //      DeleteSupportingDocuments.verifyPageTitle(DeleteSupportingDocuments.pageTitle)
 //      DeleteSupportingDocuments.continueAsYes()
 //      MakeEuvatClaim.verifyPageTitle(MakeEuvatClaim.pageTitle)
