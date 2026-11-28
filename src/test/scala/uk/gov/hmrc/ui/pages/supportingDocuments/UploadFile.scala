@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.supportingdocuments
+package uk.gov.hmrc.ui.pages.supportingDocuments
 
 import org.openqa.selenium.By
 import uk.gov.hmrc.ui.pages.BasePage
+import java.nio.file.Paths
 
-object UploadedFiles extends BasePage {
+object UploadFile extends BasePage {
 
-  override def pageUrl: String = "supporting-documents/uploaded-files"
+  override def pageUrl: String = "supporting-documents/upload-file"
 
-  override def pageTitle: String = "Your uploaded files - EU VAT - GOV.UK"
+  override def pageTitle: String = "Upload file - EU VAT - GOV.UK"
 
-  val uploadAFileCTA: By = By.cssSelector(".govuk-button--secondary")
-
-  def clickUploadFileCTA(): this.type = {
-    clickBy(uploadAFileCTA)
-    this
+  def selectFile(uploadFilename: String): Unit = {
+    val fileUploadFieldLocator = driver.findElement(By.id("file-input"))
+    val inputFilePath          = Paths.get("src/test/resources/" + uploadFilename).toAbsolutePath.toString
+    fileUploadFieldLocator.sendKeys(inputFilePath)
   }
 
 }

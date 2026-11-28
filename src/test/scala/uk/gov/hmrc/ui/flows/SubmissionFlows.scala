@@ -14,22 +14,19 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.supportingdocuments
+package uk.gov.hmrc.ui.flows
 
-import org.openqa.selenium.By
-import uk.gov.hmrc.ui.pages.BasePage
-import java.nio.file.Paths
+import uk.gov.hmrc.ui.pages.submitClaim.*
+import uk.gov.hmrc.ui.pages.claim.MakeEuvatClaim
+import uk.gov.hmrc.ui.utils.*
 
-object UploadFile extends BasePage {
+trait SubmissionFlows extends FlowLogging {
 
-  override def pageUrl: String = "supporting-documents/upload-file"
-
-  override def pageTitle: String = "Upload file - EU VAT - GOV.UK"
-
-  def selectFile(uploadFilename: String): Unit = {
-    val fileUploadFieldLocator = driver.findElement(By.id("file-input"))
-    val inputFilePath          = Paths.get("src/test/resources/" + uploadFilename).toAbsolutePath.toString
-    fileUploadFieldLocator.sendKeys(inputFilePath)
+  def startSubmissionFlow(): Unit = {
+    logStep("I start a submission")
+    MakeEuvatClaim.clickLinkByText("Submit claim")
+    Declaration.verifyPageTitle(Declaration.pageTitle)
+    Declaration.continue()
   }
 
 }

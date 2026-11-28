@@ -14,14 +14,24 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.supportingdocuments
+package uk.gov.hmrc.ui.pages.supportingDocuments
 
 import uk.gov.hmrc.ui.pages.BasePage
 
-object BeforeYouStartSupportingDocuments extends BasePage {
+object AnySupportingDocuments extends BasePage {
 
-  override def pageUrl: String = "supporting-documents/before-you-start"
+  override def pageUrl: String = "supporting-documents/any-documents"
 
-  override def pageTitle: String = "Before you start - EU VAT - GOV.UK"
+  override def pageTitle: String = "Do you have any supporting documents to upload? - EU VAT - GOV.UK"
+
+  def continueAsYes(): Unit = {
+    radioButton(Locators.rdoYes)
+    continue()
+  }
+
+  def continueAsNo(): Unit = {
+    radioButton(Locators.rdoNo)
+    continue()
+  }
 
 }

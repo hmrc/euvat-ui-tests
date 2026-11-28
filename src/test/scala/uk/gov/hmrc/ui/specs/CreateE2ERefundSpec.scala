@@ -40,7 +40,8 @@ class CreateE2ERefundSpec
     with PurchaseFlows
     with ImportFlows
     with BankFlows
-    with SupportingDocumentsFlows {
+    with SupportingDocumentsFlows
+    with SubmissionFlows {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -65,6 +66,7 @@ class CreateE2ERefundSpec
       addPurchaseAmountFlow()
 
       changePurchaseJourney()
+      savePurchase()
       summaryFlowYes()
 
       addImportFlow()
@@ -85,10 +87,12 @@ class CreateE2ERefundSpec
 
       startSupportingDocumentsFlow()
       addSupportingDocuments(supportingDocumentsYes)
+
+//      startSubmissionFlow() // To be enabled after Supporting Documents is complete
       clickSignOut(Driver.instance)
     }
 
-    Scenario("02 - Submit an end to end refund request for Germany", Jenkins, Local) {
+    Scenario("02 - Submit an end to end refund request for Germany", Jenkins, Local, WIP) {
       loginAndOpenClaim("999900001")
       addClaimDetails(germanyClaim)
       saveClaimDetails()
@@ -117,6 +121,8 @@ class CreateE2ERefundSpec
 
       startSupportingDocumentsFlow()
       addSupportingDocuments(supportingDocumentsNo)
+
+      startSubmissionFlow()
       clickSignOut(Driver.instance)
     }
   }

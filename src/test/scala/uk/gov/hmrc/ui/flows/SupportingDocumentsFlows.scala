@@ -17,7 +17,7 @@
 package uk.gov.hmrc.ui.flows
 
 import uk.gov.hmrc.ui.pages.claim.MakeEuvatClaim
-import uk.gov.hmrc.ui.pages.supportingdocuments.*
+import uk.gov.hmrc.ui.pages.supportingDocuments.*
 import uk.gov.hmrc.ui.utils.FlowLogging
 
 trait SupportingDocumentsFlows extends FlowLogging {

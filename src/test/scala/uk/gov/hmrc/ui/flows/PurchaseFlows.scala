@@ -348,8 +348,6 @@ trait PurchaseFlows extends FlowLogging {
     CheckVATClaim.verifyPageTitle(CheckVATClaim.pageTitle)
     CheckVATClaim.continue()
     CheckYourPurchaseDetails.verifyPageTitle(CheckYourPurchaseDetails.pageTitle)
-    CheckYourPurchaseDetails.saveAndContinue()
-    //      PurchaseImportSummary.verifyPageTitle(PurchaseImportSummary.pageTitle("1")) // Only works for the database
   }
 
   def summaryFlowYes(): Unit = {

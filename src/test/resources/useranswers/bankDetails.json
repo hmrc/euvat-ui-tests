@@ -1,0 +1,9 @@
+{
+  "accountHolder" : "applicant",
+  "bankDetails" : {
+    "NameOnTheAccount" : "ACCOUNTNAME123456789",
+    "BIC" : "FAKEGB21XXX",
+    "accountNumber" : "GB00TEST00000000000000",
+    "CurrencyOfAccount" : "XOF"
+  }
+}

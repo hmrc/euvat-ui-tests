@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.supportingdocuments
+package uk.gov.hmrc.ui.pages.supportingDocuments
 
 import org.openqa.selenium.By
 import org.openqa.selenium.support.ui.ExpectedConditions

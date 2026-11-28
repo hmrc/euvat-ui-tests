@@ -14,24 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.supportingdocuments
+package uk.gov.hmrc.ui.pages.submitClaim
 
 import uk.gov.hmrc.ui.pages.BasePage
 
-object AnySupportingDocuments extends BasePage {
+object Declaration extends BasePage {
 
-  override def pageUrl: String = "supporting-documents/any-documents"
+  override def pageUrl: String = "submit-claim/declaration"
 
-  override def pageTitle: String = "Do you have any supporting documents to upload? - EU VAT - GOV.UK"
-
-  def continueAsYes(): Unit = {
-    radioButton(Locators.rdoYes)
-    continue()
-  }
-
-  def continueAsNo(): Unit = {
-    radioButton(Locators.rdoNo)
-    continue()
-  }
+  override def pageTitle: String = "Make declaration and submit your claim - EU VAT - GOV.UK"
 
 }

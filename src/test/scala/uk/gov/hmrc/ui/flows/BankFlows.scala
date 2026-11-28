@@ -45,6 +45,18 @@ trait BankFlows extends FlowLogging {
     CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
   }
 
+  def goToCheckYourBankDetails(): Unit = {
+    logStep("I navigate to the Bank details CYA page")
+    MakeEuvatClaim.navigateToPage("http://localhost:18501/file-eu-vat/bank-details/check-your-answers")
+    CheckYourBankDetails.verifyPageTitle(CheckYourBankDetails.pageTitle)
+  }
+
+  def injectBankDetails(sharedId: String): String = {
+    logStep("I inject Bank details")
+    CacheHelper.updateUserAnswers("bankDetails.json", sharedId)
+    sharedId
+  }
+
   def changeBankDetailsAfterSave(data: BankDetailsData): Unit = {
     logStep("I change bank details")
     MakeEuvatClaim.clickLinkByText("Bank details")
